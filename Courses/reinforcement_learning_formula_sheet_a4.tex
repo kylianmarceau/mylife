@@ -1,0 +1,234 @@
+\documentclass[a4paper]{article}
+\usepackage[margin=4.2mm]{geometry}
+\usepackage{amsmath,amssymb,multicol}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.4pt}
+\setlength{\columnsep}{3mm}
+\setlength{\columnseprule}{0pt}
+\pagestyle{empty}
+
+\newcommand{\sect}[1]{\vspace{2pt}\noindent\textbf{\large #1}\par\hrule\vspace{2pt}}
+\newcommand{\tightitem}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}\setlength{\parsep}{0pt}}
+
+\begin{document}
+
+{\fontsize{26}{28}\selectfont\bfseries Reinforcement Learning}
+
+\vspace{2mm}\hrule\vspace{3mm}
+
+\begin{multicols*}{3}
+\fontsize{9.7}{11}\selectfont
+
+\sect{1. MDP Basics}
+\begin{itemize}\tightitem
+\item MDP: $(\mathcal S,\mathcal A,P,R,\gamma)$
+\item Transition: $P(s'\mid s,a)$
+\item Reward: $r(s,a,s')=\mathbb E[R_{t+1}\mid s,a,s']$
+\item Markov: next state depends only on current $s,a$.
+\end{itemize}
+\[
+G_t=R_{t+1}+\gamma R_{t+2}+\cdots
+=\sum_{k=0}^{\infty}\gamma^kR_{t+k+1}
+\]
+
+\sect{2. Value and Action Values}
+\textbf{Stochastic policy $\pi$:}
+\[
+V^\pi(s)=\mathbb E_\pi[G_t\mid S_t=s],\quad
+Q^\pi(s,a)=\mathbb E_\pi[G_t\mid S_t=s,A_t=a]
+\]
+\[
+V^\pi(s)=\sum_a\pi(a\mid s)Q^\pi(s,a)
+\]
+\textbf{Deterministic policy $\mu$:}
+\[
+V^\mu(s)=\mathbb E_\mu[G_t\mid S_t=s],\quad
+Q^\mu(s,a)=\mathbb E_\mu[G_t\mid S_t=s,A_t=a]
+\]
+\[
+V^\mu(s)=Q^\mu(s,\mu(s)),\qquad
+A^\pi(s,a)=Q^\pi(s,a)-V^\pi(s)
+\]
+
+\sect{3. Bellman Expectation: Stochastic}
+\textbf{Stochastic state-value equation:}
+\[
+\begin{aligned}
+V^\pi(s)
+&=\sum_a\pi(a\mid s)\sum_{s'}P(s'\mid s,a)\\
+&\quad [r(s,a,s')+\gamma V^\pi(s')]
+\end{aligned}
+\]
+\textbf{Stochastic action-value equation:}
+\[
+\begin{aligned}
+Q^\pi(s,a)
+&=\sum_{s'}P(s'\mid s,a)\Bigl[r(s,a,s')\\
+&\quad+\gamma\sum_{a'}\pi(a'\mid s')Q^\pi(s',a')\Bigr]
+\end{aligned}
+\]
+
+\sect{4. Bellman Expectation: Deterministic}
+\textbf{Deterministic state-value equation:}
+\[
+\begin{aligned}
+V^\mu(s)
+&=\sum_{s'}P(s'\mid s,\mu(s))\\
+&\quad [r(s,\mu(s),s')+\gamma V^\mu(s')]
+\end{aligned}
+\]
+\textbf{Deterministic action-value equation:}
+\[
+\begin{aligned}
+Q^\mu(s,a)
+&=\sum_{s'}P(s'\mid s,a)\Bigl[r(s,a,s')\\
+&\quad+\gamma Q^\mu(s',\mu(s'))\Bigr]
+\end{aligned}
+\]
+
+\sect{5. Optimality and DP}
+\[
+\begin{aligned}
+V^*(s)
+&=\max_a\sum_{s'}P(s'\mid s,a)
+[r(s,a,s')+\gamma V^*(s')]
+\end{aligned}
+\]
+\[
+\begin{aligned}
+Q^*(s,a)
+&=\sum_{s'}P(s'\mid s,a)\Bigl[r(s,a,s')\\
+&\quad+\gamma\max_{a'}Q^*(s',a')\Bigr]
+\end{aligned}
+\]
+\[
+\pi^*(s)=\arg\max_a Q^*(s,a)
+\]
+Prediction estimates $V^\pi,Q^\pi$; control improves policy; DP needs known $P,R$.
+
+\sect{6. Monte Carlo and TD}
+\[
+\text{MC: }V(s)\leftarrow V(s)+\alpha[G_t-V(s)]
+\]
+\[
+\delta_t=R_{t+1}+\gamma V(S_{t+1})-V(S_t)
+\]
+\[
+\text{TD(0): }V(S_t)\leftarrow V(S_t)+\alpha\delta_t
+\]
+\[
+G_t^{(n)}=\sum_{k=0}^{n-1}\gamma^kR_{t+k+1}+\gamma^nV(S_{t+n})
+\]
+
+\sect{7. Control Updates}
+\textbf{SARSA, on-policy:}
+\[
+y=R_{t+1}+\gamma Q(S_{t+1},A_{t+1})
+\]
+\textbf{Q-learning, off-policy:}
+\[
+y=R_{t+1}+\gamma\max_{a'}Q(S_{t+1},a')
+\]
+\textbf{Expected SARSA:}
+\[
+y=R_{t+1}+\gamma\sum_{a'}\pi(a'\mid S_{t+1})Q(S_{t+1},a')
+\]
+\[
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha[y-Q(S_t,A_t)]
+\]
+
+\sect{8. Exploration and Traces}
+\[
+\varepsilon\text{-greedy: }
+\begin{cases}
+\text{random action} & \text{prob. }\varepsilon\\
+\arg\max_a Q(s,a) & \text{otherwise}
+\end{cases}
+\]
+\[
+\pi(a\mid s)=\frac{\exp(Q(s,a)/\tau)}{\sum_b\exp(Q(s,b)/\tau)}
+\]
+\[
+e_t(s)=\gamma\lambda e_{t-1}(s)+\mathbf 1\{S_t=s\},\quad
+V(s)\leftarrow V(s)+\alpha\delta_t e_t(s)
+\]
+
+\sect{9. Function Approximation}
+\[
+V_w(s)\approx V(s),\qquad Q_w(s,a)\approx Q(s,a)
+\]
+\[
+w\leftarrow w+\alpha[y-\hat v_w(s)]\nabla_w\hat v_w(s)
+\]
+\textbf{DQN:}
+\[
+y=r+\gamma\max_{a'}Q_{\theta^-}(s',a'),\qquad
+L(\theta)=\bigl(y-Q_\theta(s,a)\bigr)^2
+\]
+Replay buffer reduces correlation; target network stabilizes targets.
+
+\sect{10. Policy Gradient}
+\textbf{Stochastic policy gradient:}
+\[
+\nabla_\theta J(\theta)
+=\mathbb E[\nabla_\theta\log\pi_\theta(a\mid s)G_t]
+\]
+\textbf{Actor-critic / baseline:}
+\[
+\nabla_\theta J(\theta)
+=\mathbb E[\nabla_\theta\log\pi_\theta(a\mid s)A^\pi(s,a)]
+\]
+\textbf{Deterministic policy gradient:}
+\[
+\nabla_\theta J(\theta)
+=\mathbb E\left[
+\nabla_\theta\mu_\theta(s)
+\nabla_a Q^\mu(s,a)\vert_{a=\mu_\theta(s)}
+\right]
+\]
+
+\sect{11. PPO Core}
+\[
+r_t(\theta)=
+\frac{\pi_\theta(a_t\mid s_t)}
+{\pi_{\text{old}}(a_t\mid s_t)}
+\]
+\[
+L^{\text{CLIP}}(\theta)
+=\mathbb E_t\!\left[
+\min(r_tA_t,r_t^{\text{clip}}A_t)\right]
+\]
+\[
+r_t^{\text{clip}}=\operatorname{clip}(r_t,1-\epsilon,1+\epsilon)
+\]
+Usually add value loss and entropy bonus.
+
+\sect{12. MCTS}
+\textbf{Rollout return:}
+\[
+G_t=\sum_{k=0}^{d-1}\gamma^kR_{t+k+1}
+\]
+\textbf{UCB score:}
+\[
+\operatorname{UCB}(s,a)=
+Q(s,a)+c_{\text{ucb}}\sqrt{\frac{\ln N(s)}{1+N(s,a)}}
+\]
+\textbf{UCT selection:}
+\[
+a^*=\operatorname*{arg\,max}_{a}\,\operatorname{UCB}(s,a)
+\]
+\textbf{Mean backup:}
+\[
+N(s,a)\leftarrow N(s,a)+1
+\]
+\[
+Q(s,a)\leftarrow Q(s,a)+\frac{G-Q(s,a)}{N(s,a)}
+\]
+\textbf{Visit-count policy:}
+\[
+\pi(a\mid s)=\frac{N(s,a)^{1/\tau}}{\sum_bN(s,b)^{1/\tau}}
+\]
+PUCT adds $c_{\text{puct}}P(a\mid s)\sqrt{N(s)}/(1+N(s,a))$.
+
+\end{multicols*}
+\end{document}

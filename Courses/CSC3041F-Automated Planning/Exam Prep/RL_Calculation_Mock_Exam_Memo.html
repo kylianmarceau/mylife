@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>RL_Calculation_Mock_Exam_Memo</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1
+id="reinforcement-learning-calculation-mock-exam-marking-memo">Reinforcement
+Learning Calculation Mock Exam: Marking Memo</h1>
+<p>This memo follows <code>RL_Calculation_Mock_Exam.md</code>.</p>
+<hr />
+<h2 id="question-1-discounted-returns-12">Question 1: Discounted Returns
+[12]</h2>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mn>0</mn></msub><mo>=</mo><mn>3</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mn>0.5</mn><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mn>0.5</mn><mn>3</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>8</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mo>−</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">G_0=3+0.5(-2)+0.5^2(4)+0.5^3(8)=3-1+1+1=4</annotation></semantics></math>.
+[3]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mn>1</mn></msub><mo>=</mo><mi>−</mi><mn>2</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mn>0.5</mn><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>8</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mn>2</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>2</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">G_1=-2+0.5(4)+0.5^2(8)=-2+2+2=2</annotation></semantics></math>.
+[2]</li>
+<li>Infinite constant reward:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mn>2</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>0.8</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">G=2/(1-0.8)=10</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.9</mn><mo>+</mo><msup><mn>0.9</mn><mn>2</mn></msup><mo>=</mo><mn>2.71</mn></mrow><annotation encoding="application/x-tex">G_0=1+0.9+0.9^2=2.71</annotation></semantics></math>.
+[2]</li>
+<li>Option B return is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn><msup><mi>γ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">8\gamma^2</annotation></semantics></math>.
+Need
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn><msup><mi>γ</mi><mn>2</mn></msup><mo>&gt;</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">8\gamma^2&gt;5</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mo>&gt;</mo><msqrt><mrow><mn>5</mn><mi>/</mi><mn>8</mn></mrow></msqrt><mo>≈</mo><mn>0.791</mn></mrow><annotation encoding="application/x-tex">\gamma&gt;\sqrt{5/8}\approx0.791</annotation></semantics></math>.
+[3]</li>
+</ol>
+<h2
+id="question-2-bellman-expectation-and-optimality-in-a-small-mdp-14">Question
+2: Bellman Expectation And Optimality In A Small MDP [14]</h2>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>Q</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.7</mn><mo stretchy="false" form="prefix">[</mo><mn>1</mn><mo>+</mo><mn>0.9</mn><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>+</mo><mn>0.3</mn><mo stretchy="false" form="prefix">[</mo><mn>5</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>2.2</mn><mo>+</mo><mn>0.63</mn><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Q^\pi(s,a)=0.7[1+0.9V^\pi(s)]+0.3[5]=2.2+0.63V^\pi(s)</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>Q</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">Q^\pi(s,b)=3</annotation></semantics></math>.
+[1]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.6</mn><msup><mi>Q</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>0.4</mn><msup><mi>Q</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V^\pi(s)=0.6Q^\pi(s,a)+0.4Q^\pi(s,b)</annotation></semantics></math><br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>0.6</mn><mo stretchy="false" form="prefix">(</mo><mn>2.2</mn><mo>+</mo><mn>0.63</mn><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1.2</mn><mo>=</mo><mn>2.52</mn><mo>+</mo><mn>0.378</mn><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">=0.6(2.2+0.63V^\pi(s))+1.2=2.52+0.378V^\pi(s)</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.622</mn><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2.52</mn></mrow><annotation encoding="application/x-tex">0.622V^\pi(s)=2.52</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>4.05</mn></mrow><annotation encoding="application/x-tex">V^\pi(s)\approx4.05</annotation></semantics></math>.
+[4]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>Q</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2.2</mn><mo>+</mo><mn>0.63</mn><mo stretchy="false" form="prefix">(</mo><mn>4.05</mn><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>4.75</mn></mrow><annotation encoding="application/x-tex">Q^\pi(s,a)=2.2+0.63(4.05)\approx4.75</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>Q</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>b</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">Q^\pi(s,b)=3</annotation></semantics></math>.
+[2]</li>
+<li>For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">\mu(s)=a</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mi>μ</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2.2</mn><mo>+</mo><mn>0.63</mn><msup><mi>V</mi><mi>μ</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V^\mu(s)=2.2+0.63V^\mu(s)</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.37</mn><msup><mi>V</mi><mi>μ</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2.2</mn></mrow><annotation encoding="application/x-tex">0.37V^\mu(s)=2.2</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mi>μ</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>5.95</mn></mrow><annotation encoding="application/x-tex">V^\mu(s)\approx5.95</annotation></semantics></math>.
+[3]</li>
+<li>Since the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+fixed point is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>5.95</mn><mo>&gt;</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\approx5.95&gt;3</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>5.95</mn></mrow><annotation encoding="application/x-tex">V^*(s)\approx5.95</annotation></semantics></math>
+and the optimal action is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.
+[2]</li>
+</ol>
+<h2
+id="question-3-policy-weighted-values-advantages-and-action-probabilities-12">Question
+3: Policy-Weighted Values, Advantages, And Action Probabilities
+[12]</h2>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.2</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>0.3</mn><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.4</mn><mo>+</mo><mn>2.5</mn><mo>−</mo><mn>0.3</mn><mo>=</mo><mn>2.6</mn></mrow><annotation encoding="application/x-tex">V^\pi(s)=0.2(2)+0.5(5)+0.3(-1)=0.4+2.5-0.3=2.6</annotation></semantics></math>.
+[3]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mo>−</mo><mn>2.6</mn><mo>=</mo><mi>−</mi><mn>0.6</mn></mrow><annotation encoding="application/x-tex">A(a_1)=2-2.6=-0.6</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5</mn><mo>−</mo><mn>2.6</mn><mo>=</mo><mn>2.4</mn></mrow><annotation encoding="application/x-tex">A(a_2)=5-2.6=2.4</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>3</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mn>1</mn><mo>−</mo><mn>2.6</mn><mo>=</mo><mi>−</mi><mn>3.6</mn></mrow><annotation encoding="application/x-tex">A(a_3)=-1-2.6=-3.6</annotation></semantics></math>.
+[3]</li>
+<li>Greedy action
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mn>2</mn></msub><annotation encoding="application/x-tex">a_2</annotation></semantics></math>:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>ε</mi><mo>+</mo><mi>ε</mi><mi>/</mi><mn>3</mn><mo>=</mo><mn>0.7</mn><mo>+</mo><mn>0.1</mn><mo>=</mo><mn>0.8</mn></mrow><annotation encoding="application/x-tex">1-\varepsilon+\varepsilon/3=0.7+0.1=0.8</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>=</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">a_1=0.1</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>3</mn></msub><mo>=</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">a_3=0.1</annotation></semantics></math>.
+[3]</li>
+<li>Sum
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>7.389</mn><mo>+</mo><mn>148.413</mn><mo>+</mo><mn>0.368</mn><mo>=</mo><mn>156.170</mn></mrow><annotation encoding="application/x-tex">=7.389+148.413+0.368=156.170</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>0.047</mn></mrow><annotation encoding="application/x-tex">P(a_1)\approx0.047</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>0.950</mn></mrow><annotation encoding="application/x-tex">P(a_2)\approx0.950</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>3</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>0.002</mn></mrow><annotation encoding="application/x-tex">P(a_3)\approx0.002</annotation></semantics></math>.
+[3]</li>
+</ol>
+<hr />
+<h2 id="question-4-value-iteration-14">Question 4: Value Iteration
+[14]</h2>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>1</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>+</mo><mn>0.8</mn><msub><mi>V</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mn>5</mn><mo>+</mo><mn>0.8</mn><msub><mi>V</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">V_1(A)=\max(2+0.8V_0(B),5+0.8V_0(T))=\max(2,5)=5</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>1</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0.5</mn><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>+</mo><mn>0.8</mn><msub><mi>V</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">[</mo><mn>4</mn><mo stretchy="false" form="postfix">]</mo><mo>,</mo><mn>1</mn><mo>+</mo><mn>0.8</mn><msub><mi>V</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">V_1(B)=\max(0.5[0+0.8V_0(A)]+0.5[4],1+0.8V_0(A))=\max(2,1)=2</annotation></semantics></math>.
+[3]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>+</mo><mn>0.8</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>3.6</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">V_2(A)=\max(2+0.8(2),5)=\max(3.6,5)=5</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0.5</mn><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>+</mo><mn>0.8</mn><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">[</mo><mn>4</mn><mo stretchy="false" form="postfix">]</mo><mo>,</mo><mn>1</mn><mo>+</mo><mn>0.8</mn><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">V_2(B)=\max(0.5[0+0.8(5)]+0.5[4],1+0.8(5))=\max(4,5)=5</annotation></semantics></math>.
+[3]</li>
+<li>At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>,
+greedy action is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>.
+[1]</li>
+<li>At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>,
+greedy action is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>.
+[1]</li>
+<li>Residual
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mn>5</mn><mo>−</mo><mn>5</mn><mo stretchy="false" form="prefix">|</mo><mo>,</mo><mo stretchy="false" form="prefix">|</mo><mn>5</mn><mo>−</mo><mn>2</mn><mo stretchy="false" form="prefix">|</mo><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">=\max(|5-5|,|5-2|)=3</annotation></semantics></math>.
+[2]</li>
+</ol>
+<h2 id="question-5-policy-evaluation-and-policy-improvement-12">Question
+5: Policy Evaluation And Policy Improvement [12]</h2>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.8</mn><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V^\pi(A)=2+0.8V^\pi(B)</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.5</mn><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>+</mo><mn>0.8</mn><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">[</mo><mn>4</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.4</mn><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">V^\pi(B)=0.5[0+0.8V^\pi(A)]+0.5[4] =0.4V^\pi(A)+2</annotation></semantics></math>.
+[3]</li>
+<li>Substitute:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.8</mn><mo stretchy="false" form="prefix">(</mo><mn>0.4</mn><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3.6</mn><mo>+</mo><mn>0.32</mn><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V(A)=2+0.8(0.4V(A)+2)=3.6+0.32V(A)</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.68</mn><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3.6</mn></mrow><annotation encoding="application/x-tex">0.68V(A)=3.6</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>5.29</mn></mrow><annotation encoding="application/x-tex">V^\pi(A)\approx5.29</annotation></semantics></math>.
+[3]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.4</mn><mo stretchy="false" form="prefix">(</mo><mn>5.29</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>2</mn><mo>≈</mo><mn>4.12</mn></mrow><annotation encoding="application/x-tex">V^\pi(B)=0.4(5.29)+2\approx4.12</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.8</mn><mo stretchy="false" form="prefix">(</mo><mn>4.12</mn><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>5.29</mn></mrow><annotation encoding="application/x-tex">q(A,x)=2+0.8(4.12)\approx5.29</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">q(A,y)=5</annotation></semantics></math>.
+Improved action at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>4.12</mn></mrow><annotation encoding="application/x-tex">q(B,x)\approx4.12</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.8</mn><mo stretchy="false" form="prefix">(</mo><mn>5.29</mn><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>5.24</mn></mrow><annotation encoding="application/x-tex">q(B,y)=1+0.8(5.29)\approx5.24</annotation></semantics></math>.
+Improved action at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>.
+[2]</li>
+</ol>
+<hr />
+<h2 id="question-6-monte-carlo-prediction-and-control-12">Question 6:
+Monte Carlo Prediction And Control [12]</h2>
+<ol type="1">
+<li>First visit to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mn>0.9</mn><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>+</mo><mn>1.8</mn><mo>−</mo><mn>0.81</mn><mo>=</mo><mn>1.99</mn></mrow><annotation encoding="application/x-tex">G=1+0.9(2)+0.9^2(-1)=1+1.8-0.81=1.99</annotation></semantics></math>.
+[2]</li>
+<li>Visit to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1.1</mn></mrow><annotation encoding="application/x-tex">G=2+0.9(-1)=1.1</annotation></semantics></math>.
+[2]</li>
+<li>Second visit to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">G=-1</annotation></semantics></math>.
+[1]</li>
+<li>First-visit estimate for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V(A)</annotation></semantics></math>
+from this episode is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1.99</mn><annotation encoding="application/x-tex">1.99</annotation></semantics></math>.
+[1]</li>
+<li>Every-visit estimate for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V(A)</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1.99</mn><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn><mo>=</mo><mn>0.495</mn></mrow><annotation encoding="application/x-tex">(1.99+(-1))/2=0.495</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>←</mo><mn>2</mn><mo>+</mo><mn>0.25</mn><mo stretchy="false" form="prefix">(</mo><mn>1.99</mn><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1.9975</mn></mrow><annotation encoding="application/x-tex">V(A)\leftarrow2+0.25(1.99-2)=1.9975</annotation></semantics></math>.
+[2]</li>
+<li>Greedy actions are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>.
+Random part gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.2</mn><mi>/</mi><mn>3</mn><mo>≈</mo><mn>0.0667</mn></mrow><annotation encoding="application/x-tex">0.2/3\approx0.0667</annotation></semantics></math>
+each. Greedy part
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.8</mn><annotation encoding="application/x-tex">0.8</annotation></semantics></math>
+is split equally, so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>L</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.0667</mn></mrow><annotation encoding="application/x-tex">P(L)=0.0667</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.4667</mn></mrow><annotation encoding="application/x-tex">P(R)=0.4667</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>U</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.4667</mn></mrow><annotation encoding="application/x-tex">P(U)=0.4667</annotation></semantics></math>.
+[2]</li>
+</ol>
+<h2 id="question-7-td-n-step-td-and-eligibility-traces-14">Question 7:
+TD, N-Step TD, And Eligibility Traces [14]</h2>
+<ol type="1">
+<li>Target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5.6</mn></mrow><annotation encoding="application/x-tex">=2+0.9(4)=5.6</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>=</mo><mn>5.6</mn><mo>−</mo><mn>6</mn><mo>=</mo><mi>−</mi><mn>0.4</mn></mrow><annotation encoding="application/x-tex">\delta=5.6-6=-0.4</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>←</mo><mn>6</mn><mo>+</mo><mn>0.2</mn><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>0.4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5.92</mn></mrow><annotation encoding="application/x-tex">V(s)\leftarrow6+0.2(-0.4)=5.92</annotation></semantics></math>.
+[4]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>G</mi><mi>t</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mn>0.5</mn><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mn>0.5</mn><mn>3</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>10</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>0.75</mn><mo>+</mo><mn>1.25</mn><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">G_t^{(3)}=1+0.5(2)+0.5^2(3)+0.5^3(10)=1+1+0.75+1.25=4</annotation></semantics></math>.
+[3]</li>
+<li>Terminal target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">=5</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>=</mo><mn>5</mn><mo>−</mo><mn>3</mn><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\delta=5-3=2</annotation></semantics></math>.
+Updated
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">V(s)=3+0.5(2)=4</annotation></semantics></math>.
+[3]</li>
+<li>New traces:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mn>0.8</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1.0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.72</mn></mrow><annotation encoding="application/x-tex">e(A)=0.9(0.8)(1.0)=0.72</annotation></semantics></math>;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mn>0.8</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>0.5</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn><mo>=</mo><mn>1.36</mn></mrow><annotation encoding="application/x-tex">e(B)=0.9(0.8)(0.5)+1=1.36</annotation></semantics></math>.<br />
+Value increments:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.1</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>0.72</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.144</mn></mrow><annotation encoding="application/x-tex">\Delta V(A)=0.1(2)(0.72)=0.144</annotation></semantics></math>;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.1</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1.36</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.272</mn></mrow><annotation encoding="application/x-tex">\Delta V(B)=0.1(2)(1.36)=0.272</annotation></semantics></math>.
+[4]</li>
+</ol>
+<hr />
+<h2
+id="question-8-sarsa-q-learning-expected-sarsa-epsilon-greedy-and-softmax-16">Question
+8: SARSA, Q-Learning, Expected SARSA, Epsilon-Greedy, And Softmax
+[16]</h2>
+<ol type="1">
+<li>SARSA target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.8</mn><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4.2</mn></mrow><annotation encoding="application/x-tex">=1+0.8(4)=4.2</annotation></semantics></math>.<br />
+Updated
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>4.2</mn><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3.1</mn></mrow><annotation encoding="application/x-tex">Q=2+0.5(4.2-2)=3.1</annotation></semantics></math>.
+[3]</li>
+<li>Q-learning target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.8</mn><mo stretchy="false" form="prefix">(</mo><mn>6</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5.8</mn></mrow><annotation encoding="application/x-tex">=1+0.8(6)=5.8</annotation></semantics></math>.<br />
+Updated
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>5.8</mn><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3.9</mn></mrow><annotation encoding="application/x-tex">Q=2+0.5(5.8-2)=3.9</annotation></semantics></math>.
+[3]</li>
+<li>Expected next value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>0.25</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>0.75</mn><mo stretchy="false" form="prefix">(</mo><mn>6</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">=0.25(2)+0.75(6)=5</annotation></semantics></math>.<br />
+Target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.8</mn><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">=1+0.8(5)=5</annotation></semantics></math>.<br />
+Updated
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3.5</mn></mrow><annotation encoding="application/x-tex">Q=2+0.5(5-2)=3.5</annotation></semantics></math>.
+[3]</li>
+<li>Greedy probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1</mn><mo>−</mo><mn>0.1</mn><mo>+</mo><mn>0.1</mn><mi>/</mi><mn>5</mn><mo>=</mo><mn>0.92</mn></mrow><annotation encoding="application/x-tex">=1-0.1+0.1/5=0.92</annotation></semantics></math>.
+Each non-greedy action has probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.1</mn><mi>/</mi><mn>5</mn><mo>=</mo><mn>0.02</mn></mrow><annotation encoding="application/x-tex">0.1/5=0.02</annotation></semantics></math>.
+[2]</li>
+<li>Sum
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>2.718</mn><mo>+</mo><mn>7.389</mn><mo>+</mo><mn>20.085</mn><mo>=</mo><mn>30.192</mn></mrow><annotation encoding="application/x-tex">=2.718+7.389+20.085=30.192</annotation></semantics></math>.<br />
+Probabilities
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mo stretchy="false" form="prefix">[</mo><mn>0.090</mn><mo>,</mo><mn>0.245</mn><mo>,</mo><mn>0.665</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\approx[0.090,0.245,0.665]</annotation></semantics></math>.
+[3]</li>
+<li>Terminal target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">=-2</annotation></semantics></math>.
+Updated
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mn>5</mn><mo>+</mo><mn>0.4</mn><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>2</mn><mo>−</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2.2</mn></mrow><annotation encoding="application/x-tex">Q=5+0.4(-2-5)=2.2</annotation></semantics></math>.
+[2]</li>
+</ol>
+<hr />
+<h2 id="question-9-function-approximation-and-dqn-14">Question 9:
+Function Approximation And DQN [14]</h2>
+<ol type="1">
+<li>Prediction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>v</mi><mo accent="true">̂</mo></mover><mo>=</mo><mn>1</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">\hat v=1(2)+(-1)(3)=-1</annotation></semantics></math>.
+Error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>−</mo><mover><mi>v</mi><mo accent="true">̂</mo></mover><mo>=</mo><mn>5</mn><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">G-\hat v=5-(-1)=6</annotation></semantics></math>.<br />
+Update
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>0.1</mn><mo stretchy="false" form="prefix">(</mo><mn>6</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1.2</mn><mo>,</mo><mn>1.8</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>2.2</mn><mo>,</mo><mn>0.8</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w=(1,-1)+0.1(6)(2,3)=(1,-1)+(1.2,1.8)=(2.2,0.8)</annotation></semantics></math>.
+[4]</li>
+<li>DQN target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.9</mn><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">[</mo><mn>4</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>6</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>2</mn><mo>+</mo><mn>5.4</mn><mo>=</mo><mn>7.4</mn></mrow><annotation encoding="application/x-tex">y=2+0.9\max[4,1,6]=2+5.4=7.4</annotation></semantics></math>.
+[2]</li>
+<li>Loss
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>7.4</mn><mo>−</mo><mn>5</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>=</mo><mn>5.76</mn></mrow><annotation encoding="application/x-tex">=(7.4-5)^2=5.76</annotation></semantics></math>.
+[2]</li>
+<li>Current prediction
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>θ</mi></msub><mo>=</mo><mn>2</mn><mi>θ</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">Q_\theta=2\theta=4</annotation></semantics></math>.
+Error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>−</mo><mi>Q</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">y-Q=3</annotation></semantics></math>.<br />
+For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>−</mo><mn>2</mn><mi>θ</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">L=(y-2\theta)^2</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>L</mi></mrow><mrow><mi>d</mi><mi>θ</mi></mrow></mfrac><mo>=</mo><mi>−</mi><mn>4</mn><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>−</mo><mn>2</mn><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mn>12</mn></mrow><annotation encoding="application/x-tex">\frac{dL}{d\theta}=-4(y-2\theta)=-12</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>←</mo><mn>2</mn><mo>−</mo><mn>0.1</mn><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>12</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3.2</mn></mrow><annotation encoding="application/x-tex">\theta\leftarrow2-0.1(-12)=3.2</annotation></semantics></math>.
+[4]</li>
+<li>Online argmax is the second action because online values are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>2</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>4</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[2,5,4]</annotation></semantics></math>.
+Target-network value for that action is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.
+Double DQN target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1.9</mn></mrow><annotation encoding="application/x-tex">=1+0.9(1)=1.9</annotation></semantics></math>.
+[2]</li>
+</ol>
+<h2 id="question-10-policy-gradient-actor-critic-and-ppo-14">Question
+10: Policy Gradient, Actor-Critic, And PPO [14]</h2>
+<ol type="1">
+<li>Update increment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>0.1</mn><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>0.5</mn><mo>,</mo><mi>−</mi><mn>0.2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>0.2</mn><mo>,</mo><mi>−</mi><mn>0.08</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">=0.1(4)(0.5,-0.2)=(0.2,-0.08)</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>θ</mi><mo>′</mo></msup><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1.2</mn><mo>,</mo><mn>0.92</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta&#39;=(1.2,0.92)</annotation></semantics></math>.
+[3]</li>
+<li>Advantage with baseline
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mi>G</mi><mo>−</mo><mi>b</mi><mo>=</mo><mn>4</mn><mo>−</mo><mn>1.5</mn><mo>=</mo><mn>2.5</mn></mrow><annotation encoding="application/x-tex">=G-b=4-1.5=2.5</annotation></semantics></math>.<br />
+Increment
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>0.1</mn><mo stretchy="false" form="prefix">(</mo><mn>2.5</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>0.5</mn><mo>,</mo><mi>−</mi><mn>0.2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>0.125</mn><mo>,</mo><mi>−</mi><mn>0.05</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">=0.1(2.5)(0.5,-0.2)=(0.125,-0.05)</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>θ</mi><mo>′</mo></msup><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1.125</mn><mo>,</mo><mn>0.95</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\theta&#39;=(1.125,0.95)</annotation></semantics></math>.
+[3]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mn>3</mn><mo>=</mo><mn>1.6</mn></mrow><annotation encoding="application/x-tex">\delta=1+0.9(4)-3=1.6</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>t</mi></msub><mo>=</mo><mn>0.3</mn><mi>/</mi><mn>0.2</mn><mo>=</mo><mn>1.5</mn></mrow><annotation encoding="application/x-tex">r_t=0.3/0.2=1.5</annotation></semantics></math>.
+Clipped ratio
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1.2</mn></mrow><annotation encoding="application/x-tex">=1.2</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>t</mi></msub><mi>A</mi><mo>=</mo><mn>3.0</mn></mrow><annotation encoding="application/x-tex">r_tA=3.0</annotation></semantics></math>,
+clipped term
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>2.4</mn></mrow><annotation encoding="application/x-tex">=2.4</annotation></semantics></math>,
+contribution
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>2.4</mn></mrow><annotation encoding="application/x-tex">=2.4</annotation></semantics></math>.
+[3]</li>
+<li>Clipped ratio for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>t</mi></msub><mo>=</mo><mn>0.6</mn></mrow><annotation encoding="application/x-tex">r_t=0.6</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.8</mn><annotation encoding="application/x-tex">0.8</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>t</mi></msub><mi>A</mi><mo>=</mo><mn>0.6</mn><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mn>1.2</mn></mrow><annotation encoding="application/x-tex">r_tA=0.6(-2)=-1.2</annotation></semantics></math>,
+clipped term
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>0.8</mn><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mn>1.6</mn></mrow><annotation encoding="application/x-tex">=0.8(-2)=-1.6</annotation></semantics></math>.<br />
+Minimum is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1.6</mn></mrow><annotation encoding="application/x-tex">-1.6</annotation></semantics></math>.
+[3]</li>
+</ol>
+<hr />
+<h2 id="question-11-mcts-calculations-12">Question 11: MCTS Calculations
+[12]</h2>
+<ol type="1">
+<li>A:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.50</mn><mo>+</mo><mn>1.4</mn><msqrt><mrow><mn>4.605</mn><mi>/</mi><mn>11</mn></mrow></msqrt><mo>≈</mo><mn>0.50</mn><mo>+</mo><mn>1.4</mn><mo stretchy="false" form="prefix">(</mo><mn>0.647</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1.406</mn></mrow><annotation encoding="application/x-tex">0.50+1.4\sqrt{4.605/11}\approx0.50+1.4(0.647)=1.406</annotation></semantics></math>.<br />
+B:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.70</mn><mo>+</mo><mn>1.4</mn><msqrt><mrow><mn>4.605</mn><mi>/</mi><mn>41</mn></mrow></msqrt><mo>≈</mo><mn>0.70</mn><mo>+</mo><mn>1.4</mn><mo stretchy="false" form="prefix">(</mo><mn>0.335</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1.169</mn></mrow><annotation encoding="application/x-tex">0.70+1.4\sqrt{4.605/41}\approx0.70+1.4(0.335)=1.169</annotation></semantics></math>.<br />
+C:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.40</mn><mo>+</mo><mn>1.4</mn><msqrt><mrow><mn>4.605</mn><mi>/</mi><mn>2</mn></mrow></msqrt><mo>≈</mo><mn>0.40</mn><mo>+</mo><mn>1.4</mn><mo stretchy="false" form="prefix">(</mo><mn>1.517</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2.524</mn></mrow><annotation encoding="application/x-tex">0.40+1.4\sqrt{4.605/2}\approx0.40+1.4(1.517)=2.524</annotation></semantics></math>.
+[6]</li>
+<li>Select C. [1]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>←</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">N\leftarrow5</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>←</mo><mn>0.25</mn><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>0.25</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>5</mn><mo>=</mo><mn>0.40</mn></mrow><annotation encoding="application/x-tex">Q\leftarrow0.25+(1-0.25)/5=0.40</annotation></semantics></math>.
+[2]</li>
+<li>Counts sum to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>40</mn><annotation encoding="application/x-tex">40</annotation></semantics></math>,
+so policy is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>30</mn><mi>/</mi><mn>40</mn><mo>,</mo><mn>10</mn><mi>/</mi><mn>40</mn><mo>,</mo><mn>0</mn><mi>/</mi><mn>40</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mo stretchy="false" form="prefix">[</mo><mn>0.75</mn><mo>,</mo><mn>0.25</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[30/40,10/40,0/40]=[0.75,0.25,0]</annotation></semantics></math>.
+[2]</li>
+<li>Return
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mn>0.5</mn><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1.5</mn></mrow><annotation encoding="application/x-tex">=1+0.5(0)+0.5^2(2)=1.5</annotation></semantics></math>.
+[1]</li>
+</ol>
+<h2 id="question-12-rl-for-control-calculations-4">Question 12: RL For
+Control Calculations [4]</h2>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.99</mn><mo>+</mo><msup><mn>0.99</mn><mn>2</mn></msup><mo>=</mo><mn>2.9701</mn></mrow><annotation encoding="application/x-tex">G_0=1+0.99+0.99^2=2.9701</annotation></semantics></math>.
+[2]</li>
+<li>Clip
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>120</mn><annotation encoding="application/x-tex">120</annotation></semantics></math>
+Nm to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>80</mn><annotation encoding="application/x-tex">80</annotation></semantics></math>
+Nm. Normalized output
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.6</mn><annotation encoding="application/x-tex">0.6</annotation></semantics></math>
+scaled by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>80</mn><annotation encoding="application/x-tex">80</annotation></semantics></math>
+Nm gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>48</mn><annotation encoding="application/x-tex">48</annotation></semantics></math>
+Nm. [2]</li>
+</ol>
+</body>
+</html>

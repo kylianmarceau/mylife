@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Marker"
+  short_description: "Mark handwritten mock-exam scripts against a memo."
+  default_prompt: "Mark my handwritten mock exam answers against the memo."

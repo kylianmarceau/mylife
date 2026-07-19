@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>RL_Mock_Exam_Memo</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1 id="reinforcement-learning-mock-exam-marking-memo">Reinforcement
+Learning Mock Exam: Marking Memo</h1>
+<p>This memo follows <code>RL_Mock_Exam.md</code>. Award equivalent
+marks for correct reasoning even if notation differs.</p>
+<hr />
+<h2 id="question-1-core-rl-concepts-12">Question 1: Core RL Concepts
+[12]</h2>
+<ol type="1">
+<li>Supervised learning learns from labelled input-output pairs;
+imitation learning copies expert demonstrations; RL learns by
+interacting with an environment and optimizing cumulative reward.
+[3]</li>
+<li>Agent chooses actions; environment responds; action is the chosen
+decision; reward is scalar feedback; policy maps states/observations to
+actions or action probabilities; return is cumulative discounted future
+reward. [6]</li>
+<li>Credit assignment is deciding which earlier actions caused later
+reward or failure, especially with delayed rewards. [2]</li>
+<li>A per-step penalty encourages shorter paths and discourages
+wandering. [1]</li>
+</ol>
+<h2 id="question-2-mdp-modelling-and-observability-10">Question 2: MDP
+Modelling And Observability [10]</h2>
+<ol type="1">
+<li>Suitable tuple:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
+includes position and enough history/flags;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mtext mathvariant="normal">Up, Down, Left, Right</mtext><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">A=\{\text{Up, Down, Left, Right}\}</annotation></semantics></math>;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+describes movement, walls, and dangerous tile dynamics;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
+gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mn>10</mn><mo>,</mo><mi>−</mi><mn>1</mn><mo>,</mo><mi>−</mi><mn>0.1</mn></mrow><annotation encoding="application/x-tex">+10,-1,-0.1</annotation></semantics></math>
+and danger penalties if applicable;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>
+discounts future rewards. [5]</li>
+<li>Position alone is not Markov because future danger depends on
+whether tiles have been visited before, which is hidden from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x,y)</annotation></semantics></math>
+alone. [2]</li>
+<li>Add visited/danger status for relevant tiles, and any other
+variables needed to predict next transitions and rewards. [1]</li>
+<li>Fully observable: observation equals the complete state. POMDP:
+robot only observes partial information, e.g. local cells or position
+without hidden visited/danger status. [2]</li>
+</ol>
+<h2 id="question-3-discounted-return-and-horizon-8">Question 3:
+Discounted Return And Horizon [8]</h2>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mn>0</mn></msub><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mn>0.5</mn><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mn>0.5</mn><mn>3</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>10</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mo>−</mo><mn>0.5</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>1.25</mn><mo>=</mo><mn>3.75</mn></mrow><annotation encoding="application/x-tex">G_0=2+0.5(-1)+0.5^2(4)+0.5^3(10)=2-0.5+1+1.25=3.75</annotation></semantics></math>.
+[3]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>t</mi></msub><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mi>∞</mi></msubsup><msup><mi>γ</mi><mi>k</mi></msup><msub><mi>R</mi><mrow><mi>t</mi><mo>+</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">G_t=\sum_{k=0}^{\infty}\gamma^kR_{t+k+1}</annotation></semantics></math>,
+or finite-horizon equivalent with upper limit
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\gamma\to0</annotation></semantics></math>
+emphasizes immediate reward;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gamma\to1</annotation></semantics></math>
+values long-term reward more strongly. [2]</li>
+<li>Finite-horizon tasks end after a fixed or bounded number of steps;
+continuing tasks may not naturally terminate. [1]</li>
+</ol>
+<hr />
+<h2 id="question-4-value-and-action-value-functions-12">Question 4:
+Value And Action-Value Functions [12]</h2>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi mathvariant="double-struck">𝔼</mi><mi>π</mi></msub><mo stretchy="false" form="prefix">[</mo><msub><mi>G</mi><mi>t</mi></msub><mo>∣</mo><msub><mi>S</mi><mi>t</mi></msub><mo>=</mo><mi>s</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">V^\pi(s)=\mathbb E_\pi[G_t\mid S_t=s]</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>Q</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi mathvariant="double-struck">𝔼</mi><mi>π</mi></msub><mo stretchy="false" form="prefix">[</mo><msub><mi>G</mi><mi>t</mi></msub><mo>∣</mo><msub><mi>S</mi><mi>t</mi></msub><mo>=</mo><mi>s</mi><mo>,</mo><msub><mi>A</mi><mi>t</mi></msub><mo>=</mo><mi>a</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">Q^\pi(s,a)=\mathbb E_\pi[G_t\mid S_t=s,A_t=a]</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mi>a</mi></msub><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>∣</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><msup><mi>Q</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V^\pi(s)=\sum_a\pi(a\mid s)Q^\pi(s,a)</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mi>μ</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>Q</mi><mi>μ</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>μ</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V^\mu(s)=Q^\mu(s,\mu(s))</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><mi>a</mi></msub><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>∣</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><msub><mo>∑</mo><msup><mi>s</mi><mo>′</mo></msup></msub><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>s</mi><mo>′</mo></msup><mo>∣</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">[</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo>,</mo><msup><mi>s</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>γ</mi><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><msup><mi>s</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">V^\pi(s)=\sum_a\pi(a\mid s)\sum_{s&#39;}P(s&#39;\mid s,a)[r(s,a,s&#39;)+\gamma V^\pi(s&#39;)]</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>Q</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∑</mo><msup><mi>s</mi><mo>′</mo></msup></msub><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>s</mi><mo>′</mo></msup><mo>∣</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">[</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo>,</mo><msup><mi>s</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>γ</mi><msub><mo>∑</mo><msup><mi>a</mi><mo>′</mo></msup></msub><mi>π</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>a</mi><mo>′</mo></msup><mo>∣</mo><msup><mi>s</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo><msup><mi>Q</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><msup><mi>s</mi><mo>′</mo></msup><mo>,</mo><msup><mi>a</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">Q^\pi(s,a)=\sum_{s&#39;}P(s&#39;\mid s,a)[r(s,a,s&#39;)+\gamma\sum_{a&#39;}\pi(a&#39;\mid s&#39;)Q^\pi(s&#39;,a&#39;)]</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>A</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>Q</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msup><mi>V</mi><mi>π</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A^\pi(s,a)=Q^\pi(s,a)-V^\pi(s)</annotation></semantics></math>;
+it measures whether action
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+is better or worse than the policy’s average action at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>.
+[2]</li>
+</ol>
+<h2 id="question-5-optimal-values-and-optimal-policies-10">Question 5:
+Optimal Values And Optimal Policies [10]</h2>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">V^*(s)=6</annotation></semantics></math>.
+[1]</li>
+<li><code>Right</code> and <code>Down</code> are optimal. [2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">max</mi><annotation encoding="application/x-tex">\max</annotation></semantics></math>
+returns the best value;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">arg</mi><mo>&#8289;</mo></mrow><mi mathvariant="normal">max</mi></mrow><annotation encoding="application/x-tex">\arg\max</annotation></semantics></math>
+returns the action or actions attaining that value. [2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>V</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mi>a</mi></msub><msub><mo>∑</mo><msup><mi>s</mi><mo>′</mo></msup></msub><mi>P</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>s</mi><mo>′</mo></msup><mo>∣</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">[</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo>,</mo><msup><mi>s</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>γ</mi><msup><mi>V</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">(</mo><msup><mi>s</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">V^*(s)=\max_a\sum_{s&#39;}P(s&#39;\mid s,a)[r(s,a,s&#39;)+\gamma V^*(s&#39;)]</annotation></semantics></math>.
+Equivalent
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>s</mi><mo>′</mo></msup><mo>,</mo><mi>r</mi><mo>∣</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">p(s&#39;,r\mid s,a)</annotation></semantics></math>
+form is acceptable. [3]</li>
+<li>From
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>Q</mi><mo>*</mo></msup><annotation encoding="application/x-tex">Q^*</annotation></semantics></math>,
+actions are directly ranked by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>Q</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Q^*(s,a)</annotation></semantics></math>.
+From
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>V</mi><mo>*</mo></msup><annotation encoding="application/x-tex">V^*</annotation></semantics></math>,
+one must use the transition/reward model to compute one-step lookahead
+action values. [2]</li>
+</ol>
+<hr />
+<h2 id="question-6-value-iteration-12">Question 6: Value Iteration
+[12]</h2>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>:</mo><mn>2</mn><mo>+</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5.6</mn></mrow><annotation encoding="application/x-tex">a_1: 2+0.9(4)=5.6</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>2</mn></msub><mo>:</mo><mn>0.5</mn><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>+</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">[</mo><mn>6</mn><mo>+</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>3.6</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>6.9</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5.25</mn></mrow><annotation encoding="application/x-tex">a_2: 0.5[0+0.9(4)]+0.5[6+0.9(1)]=0.5(3.6)+0.5(6.9)=5.25</annotation></semantics></math>.<br />
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>3</mn></msub><mo>:</mo><mn>5</mn><mo>+</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">a_3: 5+0.9(0)=5</annotation></semantics></math>.
+[6]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mtext mathvariant="normal">new</mtext></msub><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>5.6</mn><mo>,</mo><mn>5.25</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5.6</mn></mrow><annotation encoding="application/x-tex">V_{\text{new}}(s)=\max(5.6,5.25,5)=5.6</annotation></semantics></math>.
+[2]</li>
+<li>Choose
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mn>1</mn></msub><annotation encoding="application/x-tex">a_1</annotation></semantics></math>.
+[1]</li>
+<li>Model-based, because it needs transition probabilities and rewards.
+[1]</li>
+<li>Dense stochastic per-sweep complexity:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>S</mi><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mo stretchy="false" form="prefix">|</mo><mi>A</mi><mo stretchy="false" form="prefix">|</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O(|S|^2|A|)</annotation></semantics></math>.
+[1]</li>
+<li>The Bellman optimality operator is a contraction under the sup norm
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\gamma&lt;1</annotation></semantics></math>.
+[1]</li>
+</ol>
+<h2 id="question-7-policy-iteration-and-gpi-8">Question 7: Policy
+Iteration And GPI [8]</h2>
+<ol type="1">
+<li>Policy evaluation and policy improvement. [2]</li>
+<li>Bellman expectation equation, because the policy is fixed during
+evaluation rather than optimized at each state. [2]</li>
+<li>Switch from <code>Left</code> to <code>Right</code>, since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mo>&gt;</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">5&gt;4</annotation></semantics></math>.
+[2]</li>
+<li>Stop when the policy is stable: no state changes action after
+improvement. [1]</li>
+<li>Generalized policy iteration is the repeated interaction of partial
+policy evaluation and policy improvement. [1]</li>
+</ol>
+<hr />
+<h2 id="question-8-monte-carlo-methods-10">Question 8: Monte Carlo
+Methods [10]</h2>
+<ol type="1">
+<li>First-visit estimate:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo>+</mo><mn>8</mn><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>3</mn><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">(5+8+(-1))/3=4</annotation></semantics></math>.
+[2]</li>
+<li>Every-visit estimate:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>8</mn><mo>−</mo><mn>1</mn><mo>+</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>5</mn><mo>=</mo><mn>18</mn><mi>/</mi><mn>5</mn><mo>=</mo><mn>3.6</mn></mrow><annotation encoding="application/x-tex">(5+2+8-1+4)/5=18/5=3.6</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>←</mo><mn>3</mn><mo>+</mo><mn>0.2</mn><mo stretchy="false" form="prefix">(</mo><mn>9</mn><mo>−</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4.2</mn></mrow><annotation encoding="application/x-tex">V(S)\leftarrow3+0.2(9-3)=4.2</annotation></semantics></math>.
+[2]</li>
+<li>MC needs the full return, which is known only after the episode
+ends. [1]</li>
+<li>Control must compare actions in a state;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V(s)</annotation></semantics></math>
+alone does not tell which action caused high return without a model.
+[2]</li>
+<li>High variance and/or requires episodic termination. [1]</li>
+</ol>
+<h2 id="question-9-temporal-difference-learning-10">Question 9: Temporal
+Difference Learning [10]</h2>
+<ol type="1">
+<li>TD target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mi>R</mi><mo>+</mo><mi>γ</mi><mi>V</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>s</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>12</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">=R+\gamma V(s&#39;)=2+0.5(12)=8</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>=</mo><mn>8</mn><mo>−</mo><mn>10</mn><mo>=</mo><mi>−</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\delta=8-10=-2</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mo>←</mo><mn>10</mn><mo>+</mo><mn>0.1</mn><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>9.8</mn></mrow><annotation encoding="application/x-tex">V(s)\leftarrow10+0.1(-2)=9.8</annotation></semantics></math>.
+[2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>G</mi><mi>t</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mn>0.5</mn><mn>2</mn></msup><mo stretchy="false" form="prefix">(</mo><mn>10</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>2.5</mn><mo>=</mo><mn>4.5</mn></mrow><annotation encoding="application/x-tex">G_t^{(2)}=1+0.5(2)+0.5^2(10)=1+1+2.5=4.5</annotation></semantics></math>.
+[2]</li>
+<li>MC does not bootstrap, is less biased but often higher variance; TD
+bootstraps from current estimates, is biased but often lower variance
+and can update online. [2]</li>
+</ol>
+<h2
+id="question-10-sarsa-q-learning-expected-sarsa-and-exploration-12">Question
+10: SARSA, Q-Learning, Expected SARSA, And Exploration [12]</h2>
+<ol type="1">
+<li>SARSA target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3.7</mn></mrow><annotation encoding="application/x-tex">=1+0.9(3)=3.7</annotation></semantics></math>.<br />
+Update
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>4</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>3.7</mn><mo>−</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3.85</mn></mrow><annotation encoding="application/x-tex">=4+0.5(3.7-4)=3.85</annotation></semantics></math>.
+[3]</li>
+<li>Q-learning target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5.5</mn></mrow><annotation encoding="application/x-tex">=1+0.9(5)=5.5</annotation></semantics></math>.<br />
+Update
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>4</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>5.5</mn><mo>−</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4.75</mn></mrow><annotation encoding="application/x-tex">=4+0.5(5.5-4)=4.75</annotation></semantics></math>.
+[3]</li>
+<li>Expected next value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>0.7</mn><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>0.3</mn><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3.6</mn></mrow><annotation encoding="application/x-tex">=0.7(3)+0.3(5)=3.6</annotation></semantics></math>.<br />
+Target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.9</mn><mo stretchy="false" form="prefix">(</mo><mn>3.6</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4.24</mn></mrow><annotation encoding="application/x-tex">=1+0.9(3.6)=4.24</annotation></semantics></math>.<br />
+Update
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>4</mn><mo>+</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>4.24</mn><mo>−</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4.12</mn></mrow><annotation encoding="application/x-tex">=4+0.5(4.24-4)=4.12</annotation></semantics></math>.
+[3]</li>
+<li>On-policy learns about the behavior policy being followed;
+off-policy learns about a target policy that can differ from behavior,
+often greedy. [2]</li>
+<li>Greedy action probability
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1</mn><mo>−</mo><mi>ε</mi><mo>+</mo><mi>ε</mi><mi>/</mi><mn>4</mn><mo>=</mo><mn>0.8</mn><mo>+</mo><mn>0.05</mn><mo>=</mo><mn>0.85</mn></mrow><annotation encoding="application/x-tex">=1-\varepsilon+\varepsilon/4=0.8+0.05=0.85</annotation></semantics></math>.
+[1]</li>
+</ol>
+<hr />
+<h2 id="question-11-function-approximation-and-dqn-12">Question 11:
+Function Approximation And DQN [12]</h2>
+<ol type="1">
+<li>Tables become impossible when states/actions are huge, continuous,
+or unseen at training time; they do not generalize. [2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>
+is the parameter vector of the approximator, e.g. neural-network
+weights. [1]</li>
+<li>DQN target
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>1</mn><mo>+</mo><mn>0.9</mn><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">[</mo><mn>2</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>3</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>1</mn><mo>+</mo><mn>4.5</mn><mo>=</mo><mn>5.5</mn></mrow><annotation encoding="application/x-tex">y=1+0.9\max[2,5,3]=1+4.5=5.5</annotation></semantics></math>.
+[2]</li>
+<li>Loss
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>5.5</mn><mo>−</mo><mn>4.0</mn><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>=</mo><mn>2.25</mn></mrow><annotation encoding="application/x-tex">=(5.5-4.0)^2=2.25</annotation></semantics></math>.
+[2]</li>
+<li>Naive DQN is unstable because targets depend on changing network
+parameters and sequential samples are correlated. [2]</li>
+<li>Replay buffers randomize/decorrelate training data and improve
+sample reuse; target networks hold the target calculation fixed for a
+while, reducing moving-target instability. [3]</li>
+</ol>
+<h2 id="question-12-modern-rl-families-and-extensions-12">Question 12:
+Modern RL Families And Extensions [12]</h2>
+<ol type="1">
+<li>DQN requires maximizing over discrete action values, which is
+awkward or impossible over continuous actions. Suitable algorithms:
+DDPG, TD3, SAC. Any two. [3]</li>
+<li>True model-based RL learns or uses a transition/reward model for
+planning; model-free RL learns values or policies directly from
+experience without explicitly modelling dynamics. [2]</li>
+<li>Policy gradients directly optimize a parameterized policy;
+value-based methods learn value/action-value functions and derive a
+policy from them. [2]</li>
+<li>Actor: policy that chooses actions. Critic: value function
+estimating how good states/actions are and providing learning signal.
+[2]</li>
+<li>Advantage measures action quality relative to a baseline value,
+reducing variance and focusing updates on better-than-expected actions.
+[1]</li>
+<li>Offline RL can extrapolate to out-of-distribution actions with
+unreliable value estimates; without interaction, bad policy choices may
+not be corrected safely. [2]</li>
+</ol>
+<hr />
+<h2 id="question-13-monte-carlo-tree-search-12">Question 13: Monte Carlo
+Tree Search [12]</h2>
+<ol type="1">
+<li>Selection: traverse tree using a selection rule such as UCB.
+Expansion: add a new child node. Simulation/playout: roll out to
+estimate outcome. Back-propagation: update visit counts and values along
+the path. [4]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">UCB</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>c</mi><mrow><mi mathvariant="normal">u</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">b</mi></mrow></msub><msqrt><mrow><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow></msqrt></mrow><annotation encoding="application/x-tex">\operatorname{UCB}(s,a)=Q(s,a)+c_{\mathrm{ucb}}\sqrt{\ln N(s)/(1+N(s,a))}</annotation></semantics></math>.
+Equivalent forms without
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">+1</annotation></semantics></math>
+are acceptable if explained. [2]</li>
+<li>Using
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mn>100</mn><mo>≈</mo><mn>4.605</mn></mrow><annotation encoding="application/x-tex">\ln100\approx4.605</annotation></semantics></math>:<br />
+A:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.65</mn><mo>+</mo><mn>1.4</mn><msqrt><mrow><mn>4.605</mn><mi>/</mi><mn>21</mn></mrow></msqrt><mo>≈</mo><mn>0.65</mn><mo>+</mo><mn>1.4</mn><mo stretchy="false" form="prefix">(</mo><mn>0.468</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1.31</mn></mrow><annotation encoding="application/x-tex">0.65+1.4\sqrt{4.605/21}\approx0.65+1.4(0.468)=1.31</annotation></semantics></math>.<br />
+B:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.55</mn><mo>+</mo><mn>1.4</mn><msqrt><mrow><mn>4.605</mn><mi>/</mi><mn>3</mn></mrow></msqrt><mo>≈</mo><mn>0.55</mn><mo>+</mo><mn>1.4</mn><mo stretchy="false" form="prefix">(</mo><mn>1.239</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2.28</mn></mrow><annotation encoding="application/x-tex">0.55+1.4\sqrt{4.605/3}\approx0.55+1.4(1.239)=2.28</annotation></semantics></math>.<br />
+Select B. [4]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c=0</annotation></semantics></math>
+removes exploration bonus and selection becomes greedy with respect to
+current value. [1]</li>
+<li>MCTS samples promising parts of huge game trees, works under time
+budgets, and does not require exhaustive search or handcrafted
+evaluation to the same extent. [1]</li>
+</ol>
+<h2 id="question-14-rl-for-control-safety-and-applications-10">Question
+14: RL For Control, Safety, And Applications [10]</h2>
+<ol type="1">
+<li>Cartpole state can include cart position, cart velocity, pole angle,
+and pole angular velocity. Actions can be left/right force or continuous
+force. Reward can be
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">+1</annotation></semantics></math>
+per balanced time step or penalties for falling/large angle. [3]</li>
+<li>PID is natural first choice because the heater is roughly linear,
+low-dimensional, and set-point based. [2]</li>
+<li>RL can handle nonlinear dynamics, continuous actions, delayed
+rewards, and complex objectives where hand-designed PID is insufficient.
+[2]</li>
+<li>Safety layer should clip/override the action to the safe limit,
+e.g. apply at most
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>80</mn><annotation encoding="application/x-tex">80</annotation></semantics></math>
+Nm. [1]</li>
+<li>Example: RL chooses a target speed or steering angle; PID tracks
+that target at actuator level. [1]</li>
+<li>Valid example: robotics, traffic signal control, energy management,
+drone control, mining/autonomous vehicles, grid/load control. Safety
+concern: unsafe exploration, hardware damage, constraint violation,
+sim-to-real mismatch, or human risk. [1]</li>
+</ol>
+</body>
+</html>

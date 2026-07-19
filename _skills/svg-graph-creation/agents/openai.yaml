@@ -1,0 +1,4 @@
+interface:
+  display_name: "SVG Graph Creation"
+  short_description: "Dark-theme SVG graphs from source visuals."
+  default_prompt: "Use $svg-graph-creation to recreate this source graph as a dark-theme SVG."

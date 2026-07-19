@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Search_Mock_Exam_Memo</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1 id="search-mock-exam-marking-memo">Search Mock Exam: Marking
+Memo</h1>
+<p>This memo follows <code>Search_Mock_Exam.md</code>. Award equivalent
+marks for correct reasoning and equivalent notation.</p>
+<hr />
+<h2 id="question-1-problem-solving-agents-and-state-spaces-12">Question
+1: Problem-Solving Agents And State Spaces [12]</h2>
+<ol type="1">
+<li>AI search is systematic exploration of states, paths, actions, or
+assignments to find a goal or answer. [2]</li>
+<li>Goal formulation, problem formulation, search, execution. [4]</li>
+<li>Problem space is the general state space/actions/transition model;
+problem instance adds concrete initial state, goal test/state, and
+usually costs. [2]</li>
+<li>Example state:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">robot location</mtext><mo>,</mo><mi>A</mi><mtext mathvariant="normal">-status</mtext><mo>,</mo><mi>B</mi><mtext mathvariant="normal">-status</mtext><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\text{robot location}, A\text{-status}, B\text{-status})</annotation></semantics></math>.
+There are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+robot locations and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mn>2</mn></msup><annotation encoding="application/x-tex">2^2</annotation></semantics></math>
+dirt configurations, so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>⋅</mo><mn>4</mn><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">2\cdot4=8</annotation></semantics></math>
+states. [2]</li>
+<li>Dirt status affects future actions, goal testing, and
+transition/reward consequences; without it the state is incomplete and
+cannot predict the problem dynamics. [2]</li>
+</ol>
+<h2
+id="question-2-tree-search-graph-search-costs-and-goal-states-10">Question
+2: Tree Search, Graph Search, Costs, And Goal States [10]</h2>
+<ol type="1">
+<li>Tree search explores paths and may duplicate the same state; graph
+search tracks reached states to avoid repeated work/cycles. [2]</li>
+<li>The open list/frontier is the set of generated but not yet expanded
+nodes. [1]</li>
+<li>A reached set stores states already seen; it prevents redundant
+expansion and cycles. [2]</li>
+<li>The goal is that both rooms are clean; the robot location no longer
+matters. [2]</li>
+<li>Queen plan cost
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>3</mn><mo>+</mo><mn>9</mn><mo>=</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">=3+9=12</annotation></semantics></math>.
+Bishop plan cost
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>5</mn><mo>+</mo><mn>3</mn><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">=5+3=8</annotation></semantics></math>.
+The bishop-loss plan is cheaper. [3]</li>
+</ol>
+<hr />
+<h2 id="question-3-bfs-and-uniform-cost-search-14">Question 3: BFS And
+Uniform-Cost Search [14]</h2>
+<ol type="1">
+<li>BFS can return a depth-2 path such as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>→</mo><mi>A</mi><mo>→</mo><mi>G</mi></mrow><annotation encoding="application/x-tex">S\to A\to G</annotation></semantics></math>
+under alphabetical expansion. BFS is appropriate for optimality only
+when all step costs are equal because it minimizes depth/action count,
+not path cost. [3]</li>
+<li>UCS pop order with cost updates and alphabetical tie-breaking:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S(0)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B(1)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A(2)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">C(2)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">G(4)</annotation></semantics></math>.
+[4]</li>
+<li>UCS returns
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>→</mo><mi>B</mi><mo>→</mo><mi>C</mi><mo>→</mo><mi>G</mi></mrow><annotation encoding="application/x-tex">S\to B\to C\to G</annotation></semantics></math>
+with cost
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>2</mn><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">1+1+2=4</annotation></semantics></math>.
+[2]</li>
+<li>UCS always expands the lowest path-cost frontier node first; with
+non-negative costs, the first time a goal is popped its path cost is
+optimal. [2]</li>
+<li>BFS uses FIFO/depth ordering; UCS uses a priority queue ordered by
+cumulative path cost
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g(n)</annotation></semantics></math>.
+[2]</li>
+<li>Greedy best-first uses heuristic information
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h(n)</annotation></semantics></math>,
+so it is informed. [1]</li>
+</ol>
+<h2
+id="question-4-dfs-depth-limited-search-and-iterative-deepening-12">Question
+4: DFS, Depth-Limited Search, And Iterative Deepening [12]</h2>
+<ol type="1">
+<li>DFS uses a LIFO stack: the most recently generated node is expanded
+next. [2]</li>
+<li>Advantage: low memory, often
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O(bm)</annotation></semantics></math>
+path storage. Disadvantage: can get stuck deep, is not complete in
+infinite spaces, and is not generally optimal. Any one each. [2]</li>
+<li>A cutoff reports that the depth limit was reached before proving
+failure or finding a solution below that branch. [2]</li>
+<li>BFS through depth 4:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mn>3</mn><mo>+</mo><mn>9</mn><mo>+</mo><mn>27</mn><mo>+</mo><mn>81</mn><mo>=</mo><mn>121</mn></mrow><annotation encoding="application/x-tex">1+3+9+27+81=121</annotation></semantics></math>.
+[2]</li>
+<li>IDS count:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>4</mn><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>3</mn><mo stretchy="false" form="prefix">(</mo><mn>9</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>2</mn><mo stretchy="false" form="prefix">(</mo><mn>27</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn><mo stretchy="false" form="prefix">(</mo><mn>81</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5</mn><mo>+</mo><mn>12</mn><mo>+</mo><mn>27</mn><mo>+</mo><mn>54</mn><mo>+</mo><mn>81</mn><mo>=</mo><mn>179</mn></mrow><annotation encoding="application/x-tex">5(1)+4(3)+3(9)+2(27)+1(81)=5+12+27+54+81=179</annotation></semantics></math>.
+[2]</li>
+<li>The deepest level dominates the geometric sum, so repeated shallow
+work is lower-order. [1]</li>
+<li>No. DFS can return a deeper or higher-cost solution before a cheaper
+one. [1]</li>
+</ol>
+<hr />
+<h2 id="question-5-heuristics-admissibility-and-consistency-14">Question
+5: Heuristics, Admissibility, And Consistency [14]</h2>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h(n)</annotation></semantics></math>
+estimates the remaining cost from node
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+to a goal. [2]</li>
+<li>Admissible means
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><msup><mi>h</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0\le h(n)\le h^*(n)</annotation></semantics></math>
+for all nodes, so it never overestimates true remaining cost. [2]</li>
+<li>Consistent means
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>c</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>,</mo><msup><mi>n</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>n</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h(n)\le c(n,n&#39;)+h(n&#39;)</annotation></semantics></math>
+for every edge
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>→</mo><msup><mi>n</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">n\to n&#39;</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">goal</mtext><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h(\text{goal})=0</annotation></semantics></math>.
+[2]</li>
+<li>Each tile must move at least its Manhattan distance in a
+sliding-tile puzzle, ignoring blocking, so the estimate is a lower
+bound. [2]</li>
+<li>Misplaced tiles counts incorrect tiles; Manhattan sums grid
+distances. Manhattan is usually more informative because it measures how
+far tiles are, not just whether they are wrong. [2]</li>
+<li>Relaxing constraints makes the problem easier; the optimal cost of
+the easier problem is a lower bound on the original problem. [2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>h</mi><mn>1</mn></msub><mo>,</mo><msub><mi>h</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\max(h_1,h_2)</annotation></semantics></math>
+is admissible.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mn>1</mn></msub><mo>+</mo><msub><mi>h</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">h_1+h_2</annotation></semantics></math>
+is not always admissible because it may double-count cost unless the
+heuristics are additive over disjoint parts. [2]</li>
+</ol>
+<h2 id="question-6-a-search-calculations-14">Question 6: A* Search
+Calculations [14]</h2>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">f(N_1)=10</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">f(N_2)=9</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mn>3</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">f(N_3)=9</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>N</mi><mn>4</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">f(N_4)=11</annotation></semantics></math>.
+[4]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>2</mn></msub><annotation encoding="application/x-tex">N_2</annotation></semantics></math>
+is expanded because it ties on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">f=9</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mn>3</mn></msub><annotation encoding="application/x-tex">N_3</annotation></semantics></math>
+but has lower
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+value. [2]</li>
+<li>Greedy best-first uses lowest
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h(n)</annotation></semantics></math>
+only; A* uses
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(n)=g(n)+h(n)</annotation></semantics></math>.
+[2]</li>
+<li>Not admissible because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5</mn><mo>&gt;</mo><msup><mi>h</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>C</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">h(C)=5&gt;h^*(C)=4</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+are acceptable, but one overestimate is enough to break admissibility.
+[3]</li>
+<li>Consistency requires
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>2</mn><mo>+</mo><mi>h</mi><mo stretchy="false" form="prefix">(</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">h(X)\le2+h(Y)=3</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>≤</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">4\le3</annotation></semantics></math>
+is false, it is inconsistent. [2]</li>
+<li>A* returns an optimal solution when conditions are satisfied.
+[1]</li>
+</ol>
+<h2 id="question-7-a-memory-beam-search-and-delta-beam-10">Question 7:
+A* Memory, Beam Search, And Delta Beam [10]</h2>
+<ol type="1">
+<li>A* stores the frontier and usually a closed list/reached states;
+these can grow exponentially with depth. [2]</li>
+<li>A closed list stores expanded states to avoid re-expansion and
+loops; it is important for graph search and duplicate handling. [2]</li>
+<li>Beam width
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=2</annotation></semantics></math>
+keeps A and B. [1]</li>
+<li>Best score is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2.0</mn><annotation encoding="application/x-tex">2.0</annotation></semantics></math>;
+keep candidates with score
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≤</mo><mn>2.8</mn></mrow><annotation encoding="application/x-tex">\le2.8</annotation></semantics></math>,
+so A, B, and C. [2]</li>
+<li>Usually completeness and/or optimality. [1]</li>
+<li>Beam search is practical when memory/time are tight, the space is
+huge, and a good approximate solution is acceptable. [2]</li>
+</ol>
+<hr />
+<h2 id="question-8-minimax-search-14">Question 8: Minimax Search
+[14]</h2>
+<ol type="1">
+<li>Initial state, player-to-move function, actions, transition/result
+model, terminal test, and utility function. Any four core components.
+[4]</li>
+<li>Opponent is assumed rational and adversarial, choosing outcomes
+worst for MAX. [2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>4</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>7</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">L=\min(4,1,7)=1</annotation></semantics></math>;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">R=\min(3,5)=3</annotation></semantics></math>;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>9</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">M=\min(2,9)=2</annotation></semantics></math>.
+[3]</li>
+<li>MAX chooses
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>
+and the minimax value is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>.
+[2]</li>
+<li>Game trees have huge branching factors and depths; full minimax
+expansion is infeasible. [2]</li>
+<li>The terminal state’s utility value. [1]</li>
+</ol>
+<h2 id="question-9-alpha-beta-pruning-14">Question 9: Alpha-Beta Pruning
+[14]</h2>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+is the best value MAX can guarantee so far along the path;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
+is the best value MIN can guarantee so far. [2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">A=\min(3,5)=3</annotation></semantics></math>.
+Root
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+becomes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>.
+[2]</li>
+<li>At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>,
+first leaf gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\beta=2</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>≤</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">\beta\le\alpha</annotation></semantics></math>
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">2\le3</annotation></semantics></math>),
+prune leaves
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>8</mn><annotation encoding="application/x-tex">8</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>9</mn><annotation encoding="application/x-tex">9</annotation></semantics></math>.
+[3]</li>
+<li>At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>,
+first leaf gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">\beta=4</annotation></semantics></math>,
+no cutoff. Second leaf gives
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\beta=1</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">1\le3</annotation></semantics></math>,
+prune leaf
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>6</mn><annotation encoding="application/x-tex">6</annotation></semantics></math>.
+[3]</li>
+<li>MAX chooses
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+with value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>3</mn><annotation encoding="application/x-tex">3</annotation></semantics></math>.
+[2]</li>
+<li>No. It prunes branches that cannot affect the minimax decision.
+[1]</li>
+<li>Good ordering finds strong bounds earlier, causing more cutoffs.
+[1]</li>
+</ol>
+<h2 id="question-10-evaluation-functions-and-cutoff-search-12">Question
+10: Evaluation Functions And Cutoff Search [12]</h2>
+<ol type="1">
+<li>Full game trees are too deep/large, so cutoff search needs
+approximate values for non-terminal states. [2]</li>
+<li>Win
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">=1</annotation></semantics></math>,
+draw
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">=0.5</annotation></semantics></math>,
+loss
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">=0</annotation></semantics></math>.
+[2]</li>
+<li>White material
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>9</mn><mo>+</mo><mn>5</mn><mo>+</mo><mn>0</mn><mo>+</mo><mn>6</mn><mo>+</mo><mn>5</mn><mo>=</mo><mn>25</mn></mrow><annotation encoding="application/x-tex">=9+5+0+6+5=25</annotation></semantics></math>.
+Black material
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>0</mn><mo>+</mo><mn>10</mn><mo>+</mo><mn>3</mn><mo>+</mo><mn>3</mn><mo>+</mo><mn>6</mn><mo>=</mo><mn>22</mn></mrow><annotation encoding="application/x-tex">=0+10+3+3+6=22</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mn>25</mn><mo>−</mo><mn>22</mn><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">E=25-22=3</annotation></semantics></math>.
+[3]</li>
+<li>Expected value
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>0.5</mn><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>0.3</mn><mo stretchy="false" form="prefix">(</mo><mn>0.5</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>0.2</mn><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.65</mn></mrow><annotation encoding="application/x-tex">=0.5(1)+0.3(0.5)+0.2(0)=0.65</annotation></semantics></math>.
+[2]</li>
+<li>Horizon effect: cutoff hides important events just beyond the search
+depth, causing misleading evaluations. [2]</li>
+<li>Material-only evaluation ignores tactics, king safety, forced
+captures, positional compensation, threats, or checkmate patterns.
+[1]</li>
+</ol>
+<hr />
+<h2 id="question-11-multiplayer-minimax-10">Question 11: Multiplayer
+Minimax [10]</h2>
+<ol type="1">
+<li>Each player can have a different payoff, so a scalar utility for MAX
+is not enough. [2]</li>
+<li>At a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+node, choose the child maximizing the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+component of the utility vector. [2]</li>
+<li>Player
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+chooses
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Y=(2,5,0)</annotation></semantics></math>
+because the second component is highest. [2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(2,3,2)</annotation></semantics></math>
+sums to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>7</mn><annotation encoding="application/x-tex">7</annotation></semantics></math>,
+so it satisfies
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>=</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">K=7</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(2,3,1)</annotation></semantics></math>
+sums to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>6</mn><annotation encoding="application/x-tex">6</annotation></semantics></math>,
+so it does not. [2]</li>
+<li>Alliances can shift, may not reflect rational incentives, and can
+make the model brittle or wrong. [2]</li>
+</ol>
+<h2 id="question-12-monte-carlo-tree-search-14">Question 12: Monte Carlo
+Tree Search [14]</h2>
+<ol type="1">
+<li>Selection: descend using a selection score. Expansion: add a new
+child. Simulation/playout: sample a rollout outcome. Backpropagation:
+update visits and values along the path. [4]</li>
+<li>Pure Monte Carlo samples immediate moves without maintaining a deep
+growing tree; MCTS selectively grows and reuses a search tree. [2]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">UCB</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>Q</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>c</mi><mrow><mi mathvariant="normal">u</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">b</mi></mrow></msub><msqrt><mrow><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>s</mi><mo>,</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow></msqrt></mrow><annotation encoding="application/x-tex">\operatorname{UCB}(s,a)=Q(s,a)+c_{\mathrm{ucb}}\sqrt{\ln N(s)/(1+N(s,a))}</annotation></semantics></math>.
+Equivalent course-note variants are acceptable. [2]</li>
+<li>A:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.60</mn><mo>+</mo><mn>1.4</mn><msqrt><mrow><mn>3.912</mn><mi>/</mi><mn>11</mn></mrow></msqrt><mo>≈</mo><mn>0.60</mn><mo>+</mo><mn>1.4</mn><mo stretchy="false" form="prefix">(</mo><mn>0.596</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1.43</mn></mrow><annotation encoding="application/x-tex">0.60+1.4\sqrt{3.912/11}\approx0.60+1.4(0.596)=1.43</annotation></semantics></math>.<br />
+B:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.50</mn><mo>+</mo><mn>1.4</mn><msqrt><mrow><mn>3.912</mn><mi>/</mi><mn>2</mn></mrow></msqrt><mo>≈</mo><mn>0.50</mn><mo>+</mo><mn>1.4</mn><mo stretchy="false" form="prefix">(</mo><mn>1.399</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2.46</mn></mrow><annotation encoding="application/x-tex">0.50+1.4\sqrt{3.912/2}\approx0.50+1.4(1.399)=2.46</annotation></semantics></math>.<br />
+Select B. [3]</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>←</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">N\leftarrow11</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>←</mo><mn>0.60</mn><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>0.60</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>11</mn><mo>≈</mo><mn>0.636</mn></mrow><annotation encoding="application/x-tex">Q\leftarrow0.60+(1-0.60)/11\approx0.636</annotation></semantics></math>.
+[2]</li>
+<li>The exploration bonus vanishes and selection becomes greedy on
+current value estimates. [1]</li>
+</ol>
+</body>
+</html>
