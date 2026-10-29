@@ -1,8 +1,22 @@
+---
+tags:
+  - automated-planning
+---
+
 # Control Systems Introduction
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Control/CSC3041F_Control_Lecture1.pdf`, Krupa Prag, slides 1-10  
 **Generated**: 2026-06-01
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Why Control Matters|Why Control Matters]]
+  - [[#Control Systems|Control Systems]]
+  - [[#Open-Loop And Closed-Loop Control|Open-Loop And Closed-Loop Control]]
 
 ---
 
@@ -226,139 +240,3 @@ flowchart TD
 ```
 
 Caption: Open-loop systems act without checking the result; closed-loop systems use feedback to correct behaviour.
-
-## Worked Examples
-
-### Example 1: Open-Loop Toaster
-
-**Problem**: A toaster runs for $120$ seconds whenever the dial is set to medium. It does not measure bread colour or toaster temperature. Is this open-loop or closed-loop control?
-
-**Step 1**: Identify the input.
-
-$$
-\text{input}=\text{timer setting}
-$$
-
-**Step 2**: Identify whether output is measured.
-
-The toaster does not measure the toast colour.
-
-**Step 3**: Decide whether feedback exists.
-
-No feedback signal changes the heating time.
-
-**Answer**: This is open-loop control because the toaster applies a fixed action and does not check the output.
-
-### Example 2: Closed-Loop Room Temperature Control
-
-**Problem**: A thermostat is set to $20^\circ\mathrm{C}$, but the measured room temperature is $18^\circ\mathrm{C}$. What is the error?
-
-**Step 1**: Define the reference.
-
-$$
-r(t)=20
-$$
-
-**Step 2**: Define the measured output.
-
-$$
-y(t)=18
-$$
-
-**Step 3**: Compute the error.
-
-$$
-e(t)=r(t)-y(t)=20-18=2
-$$
-
-**Answer**: The error is $2^\circ\mathrm{C}$, so the controller should heat the room.
-
-### Example 3: Identifying Control-System Components
-
-**Problem**: In a simple cruise-control system, identify the plant, sensor, controller, input, and output.
-
-**Step 1**: The desired speed is the reference input.
-
-$$
-r(t)=\text{desired speed}
-$$
-
-**Step 2**: The car's motion is the plant.
-
-The engine, drivetrain, and vehicle dynamics are the process being controlled.
-
-**Step 3**: The speedometer or speed sensor measures output.
-
-$$
-y(t)=\text{measured speed}
-$$
-
-**Step 4**: The cruise-control algorithm is the controller.
-
-It decides throttle or braking commands.
-
-**Answer**: The cruise controller uses measured speed feedback to reduce the difference between desired and actual speed.
-
----
-
-## Common Mistakes / Gotchas
-
-- Confusing automation with control. Automation performs tasks; control regulates a system toward a desired output.
-- Treating every automated system as closed loop. A system can be automated but still open loop.
-- Forgetting that feedback requires measurement of the output or state.
-- Calling a controller the plant. The controller decides actions; the plant is the process being acted on.
-- Forgetting that error is defined relative to a reference or set-point.
-- Assuming open-loop systems are always bad. They can be simple and useful when the environment is predictable.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Automation | Reduced direct human intervention |
-| Control system | Regulates a system to achieve desired output |
-| Plant | Physical process being controlled |
-| Controller | Decision mechanism choosing control action |
-| Sensor | Measures output or state |
-| Feedback | Output information returned to the controller |
-| Set-point | Desired target value |
-| Error | Difference between desired and measured output |
-| Open loop | No feedback |
-| Closed loop | Uses feedback |
-
-**Key Formulas**:
-
-$$
-e(t)=r(t)-y(t)
-$$
-
-$$
-e(t)\to 0
-$$
-
-**Key Takeaways**:
-
-- Control is about regulating behaviour toward a desired output.
-- Open-loop systems act without checking the result.
-- Closed-loop systems use feedback to reduce error.
-- The basic closed-loop components are reference input, error detector, controller, plant, sensor, and feedback path.
-
----
-
-## Practice Questions
-
-**Q1**: What is a control system?  
-> Answer: A control system manages, commands, or regulates a device or process to achieve a desired output.
-
-**Q2**: What is the difference between open-loop and closed-loop control?  
-> Answer: Open-loop control has no feedback and performs a fixed action. Closed-loop control measures the output, compares it to the desired state, and adjusts the action.
-
-**Q3**: In the equation $e(t)=r(t)-y(t)$, what do $r(t)$ and $y(t)$ mean?  
-> Answer: $r(t)$ is the desired reference value and $y(t)$ is the measured output.
-
-**Q4**: Why is a toaster usually an open-loop system?  
-> Answer: It heats for a preset time and usually does not measure the toast colour or correct the heating action while operating.
-
-**Q5**: Why is a thermostat closed loop?  
-> Answer: It measures room temperature, compares it to the set-point, and switches heating or cooling to reduce the error.

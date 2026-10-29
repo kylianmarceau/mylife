@@ -1,0 +1,313 @@
+{
+  "written": "2026-10-12T12:04:37.220Z",
+  "version": "0.5.19",
+  "debugLogging": false,
+  "roles": {
+    "tutor": {
+      "provider": "custom",
+      "model": "Qwen3.5-9B-MLX-4bit"
+    },
+    "writer": {
+      "provider": "custom",
+      "model": "Qwen3.5-9B-MLX-4bit"
+    },
+    "marker": {
+      "provider": "custom",
+      "model": "Qwen3.5-9B-MLX-4bit"
+    },
+    "illustrator": {
+      "provider": "custom",
+      "model": "Qwen3.5-9B-MLX-4bit"
+    }
+  },
+  "jobs": [
+    {
+      "service": "tests",
+      "key": "Qard/Tests/2026-10-12 make me a mock practice test|plan|",
+      "kind": "plan",
+      "age": "556s",
+      "error": "Custom AI didn't reply within 5 minutes, so Qard stopped waiting."
+    }
+  ],
+  "inFlight": [],
+  "events": [
+    {
+      "t": 1791806003472,
+      "area": "process",
+      "event": "zsh start",
+      "data": {
+        "id": "process#1",
+        "command": "/bin/zsh",
+        "args": [
+          "-ilc",
+          "printf \"__QARD__%s__QARD__\" \"$PATH\""
+        ],
+        "cwd": "/Users/kyliandabancourt",
+        "inputChars": 0
+      }
+    },
+    {
+      "t": 1791806003474,
+      "area": "process",
+      "event": "zsh spawned",
+      "data": {
+        "id": "process#1",
+        "ms": 2,
+        "pid": 41382
+      }
+    },
+    {
+      "t": 1791806003519,
+      "area": "process",
+      "event": "zsh done",
+      "data": {
+        "id": "process#1",
+        "ms": 47,
+        "command": "/bin/zsh",
+        "args": [
+          "-ilc",
+          "printf \"__QARD__%s__QARD__\" \"$PATH\""
+        ],
+        "cwd": "/Users/kyliandabancourt",
+        "inputChars": 0,
+        "code": 0,
+        "stdoutChars": 662,
+        "stderr": ""
+      }
+    },
+    {
+      "t": 1791806035158,
+      "area": "custom-ai",
+      "event": "request",
+      "data": {
+        "model": "Qwen3.5-9B-MLX-4bit",
+        "turn": 0,
+        "messages": 2,
+        "structured": "schema",
+        "tools": false
+      }
+    },
+    {
+      "t": 1791806046750,
+      "area": "custom-ai",
+      "event": "response",
+      "data": {
+        "turn": 0,
+        "status": 200,
+        "ms": 11592,
+        "finish": "stop",
+        "servedBy": "Qwen3.5-9B-MLX-4bit",
+        "tokens": {
+          "prompt_tokens": 181,
+          "completion_tokens": 8,
+          "total_tokens": 189,
+          "input_tokens": 181,
+          "output_tokens": 8,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "model_load_duration": 6.76,
+          "time_to_first_token": 3.24,
+          "total_time": 4.19,
+          "prompt_eval_duration": 3.24,
+          "generation_duration": 0.96,
+          "prompt_tokens_per_second": 55.94,
+          "generation_tokens_per_second": 8.34
+        }
+      }
+    },
+    {
+      "t": 1791806046753,
+      "area": "custom-ai",
+      "event": "request",
+      "data": {
+        "model": "Qwen3.5-9B-MLX-4bit",
+        "turn": 0,
+        "messages": 2,
+        "structured": "prompt",
+        "tools": true
+      }
+    },
+    {
+      "t": 1791806059666,
+      "area": "custom-ai",
+      "event": "response",
+      "data": {
+        "turn": 0,
+        "status": 200,
+        "ms": 12913,
+        "finish": "tool_calls",
+        "servedBy": "Qwen3.5-9B-MLX-4bit",
+        "tokens": {
+          "prompt_tokens": 664,
+          "completion_tokens": 90,
+          "total_tokens": 754,
+          "input_tokens": 664,
+          "output_tokens": 90,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "time_to_first_token": 7.06,
+          "total_time": 12.9,
+          "prompt_eval_duration": 7.06,
+          "generation_duration": 5.85,
+          "prompt_tokens_per_second": 94.09,
+          "generation_tokens_per_second": 15.39
+        }
+      }
+    },
+    {
+      "t": 1791806059669,
+      "area": "custom-ai",
+      "event": "request",
+      "data": {
+        "model": "Qwen3.5-9B-MLX-4bit",
+        "turn": 1,
+        "messages": 4,
+        "structured": "prompt",
+        "tools": true
+      }
+    },
+    {
+      "t": 1791806070597,
+      "area": "custom-ai",
+      "event": "response",
+      "data": {
+        "turn": 1,
+        "status": 200,
+        "ms": 10928,
+        "finish": "stop",
+        "servedBy": "Qwen3.5-9B-MLX-4bit",
+        "tokens": {
+          "prompt_tokens": 745,
+          "completion_tokens": 39,
+          "total_tokens": 784,
+          "input_tokens": 745,
+          "output_tokens": 39,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "time_to_first_token": 8.2,
+          "total_time": 10.92,
+          "prompt_eval_duration": 8.2,
+          "generation_duration": 2.72,
+          "prompt_tokens_per_second": 90.83,
+          "generation_tokens_per_second": 14.36
+        }
+      }
+    },
+    {
+      "t": 1791806120943,
+      "area": "job",
+      "event": "plan start",
+      "data": {
+        "id": "job#2",
+        "key": "Qard/Tests/2026-10-12 make me a mock practice test|plan|"
+      }
+    },
+    {
+      "t": 1791806120949,
+      "area": "agent",
+      "event": "run start",
+      "data": {
+        "id": "agent#3",
+        "purpose": "Test plans",
+        "role": "writer",
+        "provider": "custom",
+        "model": "Qwen3.5-9B-MLX-4bit",
+        "promptChars": 4181,
+        "vault": true
+      }
+    },
+    {
+      "t": 1791806120949,
+      "area": "custom-ai",
+      "event": "request",
+      "data": {
+        "model": "Qwen3.5-9B-MLX-4bit",
+        "turn": 0,
+        "messages": 2,
+        "structured": "prompt",
+        "tools": true
+      }
+    },
+    {
+      "t": 1791806173073,
+      "area": "custom-ai",
+      "event": "response",
+      "data": {
+        "turn": 0,
+        "status": 200,
+        "ms": 52124,
+        "finish": "tool_calls",
+        "servedBy": "Qwen3.5-9B-MLX-4bit",
+        "tokens": {
+          "prompt_tokens": 2233,
+          "completion_tokens": 525,
+          "total_tokens": 2758,
+          "input_tokens": 2233,
+          "output_tokens": 525,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "time_to_first_token": 22.16,
+          "total_time": 52.09,
+          "prompt_eval_duration": 22.16,
+          "generation_duration": 29.94,
+          "prompt_tokens_per_second": 100.79,
+          "generation_tokens_per_second": 17.54
+        }
+      }
+    },
+    {
+      "t": 1791806173076,
+      "area": "custom-ai",
+      "event": "request",
+      "data": {
+        "model": "Qwen3.5-9B-MLX-4bit",
+        "turn": 1,
+        "messages": 10,
+        "structured": "prompt",
+        "tools": true
+      }
+    },
+    {
+      "t": 1791806473079,
+      "area": "agent",
+      "event": "request timed out",
+      "data": {
+        "what": "Custom AI",
+        "ms": 300000
+      }
+    },
+    {
+      "t": 1791806473080,
+      "area": "agent",
+      "event": "run failed",
+      "data": {
+        "id": "agent#3",
+        "ms": 352131,
+        "purpose": "Test plans",
+        "role": "writer",
+        "provider": "custom",
+        "model": "Qwen3.5-9B-MLX-4bit",
+        "promptChars": 4181,
+        "vault": true,
+        "error": "Custom AI didn't reply within 5 minutes, so Qard stopped waiting.",
+        "tokensIn": 2233,
+        "tokensOut": 525
+      }
+    },
+    {
+      "t": 1791806473083,
+      "area": "job",
+      "event": "plan failed",
+      "data": {
+        "id": "job#2",
+        "ms": 352140,
+        "key": "Qard/Tests/2026-10-12 make me a mock practice test|plan|",
+        "error": "Custom AI didn't reply within 5 minutes, so Qard stopped waiting."
+      }
+    }
+  ]
+}

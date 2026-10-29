@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 240" role="img" font-family="Inter, Arial, sans-serif">
+<title>Temporal grounding predicts the interval 0:47–0:59 for the goal in the source example</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<text x="450" y="45" text-anchor="middle" font-size="20" fill="#f8fafc">When does the player score the goal?</text><rect x="75" y="100" width="750" height="50" fill="#242c36" stroke="#98a6b7"/><rect x="368.75" y="100" width="75" height="50" fill="#28394c" stroke="#d6e1ed"/><text x="406" y="130" text-anchor="middle" font-size="14" fill="#f8fafc">0:47–0:59</text><path d="M75.0 150v12" stroke="#f8fafc"/><text x="75.0" y="190" text-anchor="middle" fill="#f8fafc" font-size="18">0:00</text><path d="M262.5 150v12" stroke="#f8fafc"/><text x="262.5" y="190" text-anchor="middle" fill="#f8fafc" font-size="18">0:30</text><path d="M450.0 150v12" stroke="#f8fafc"/><text x="450.0" y="190" text-anchor="middle" fill="#f8fafc" font-size="18">1:00</text><path d="M637.5 150v12" stroke="#f8fafc"/><text x="637.5" y="190" text-anchor="middle" fill="#f8fafc" font-size="18">1:30</text><path d="M825.0 150v12" stroke="#f8fafc"/><text x="825.0" y="190" text-anchor="middle" fill="#f8fafc" font-size="18">2:00</text>
+</svg>

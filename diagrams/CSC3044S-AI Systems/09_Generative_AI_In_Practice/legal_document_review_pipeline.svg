@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 880 930" role="img" aria-labelledby="title desc">
+<title id="title">Legal-Document Review As A Search-Assistance Task</title>
+<desc id="desc">The document-analysis pipeline helps reviewers find relevant evidence. The human verifies findings and their source locations before accepting the assessment. Nodes: High-volume unstructured documents; OCR and layout extraction; Contextual clause analysis; Structured findings with clause and page references; Human legal review; Accepted document assessment.</desc>
+<defs>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#b89aff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#ffc778" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#ff939b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#adb9cb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<g data-from="D" data-to="O" data-label="" data-bidirectional="false"><path d="M440 135 L440 185" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="O" data-to="A" data-label="" data-bidirectional="false"><path d="M440 285 L440 335" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="A" data-to="R" data-label="" data-bidirectional="false"><path d="M440 435 L440 485" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="R" data-to="H" data-label="" data-bidirectional="false"><path d="M440 585 L440 635" fill="none" stroke="#5ad4b5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-teal)"/></g>
+<g data-from="H" data-to="F" data-label="" data-bidirectional="false"><path d="M440 735 L440 785" fill="none" stroke="#ffc778" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-amber)"/></g>
+<g data-node="D" aria-label="High-volume unstructured documents"><rect x="115" y="35" width="650" height="100" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="440" y="92" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">High-volume unstructured documents</text>
+</g>
+<g data-node="O" aria-label="OCR and layout extraction"><rect x="115" y="185" width="650" height="100" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="440" y="242" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">OCR and layout extraction</text>
+</g>
+<g data-node="A" aria-label="Contextual clause analysis"><rect x="115" y="335" width="650" height="100" rx="14" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="440" y="392" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Contextual clause analysis</text>
+</g>
+<g data-node="R" aria-label="Structured findings&lt;br/&gt;with clause and page references"><rect x="115" y="485" width="650" height="100" rx="14" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="440" y="529.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Structured findings</text>
+<text x="440" y="554.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">with clause and page references</text>
+</g>
+<g data-node="H" aria-label="Human legal review"><rect x="115" y="635" width="650" height="100" rx="14" fill="#3d3326" stroke="#ffc778" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="440" y="692" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Human legal review</text>
+</g>
+<g data-node="F" aria-label="Accepted document assessment"><rect x="115" y="785" width="650" height="100" rx="14" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="440" y="842" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Accepted document assessment</text>
+</g>
+</svg>

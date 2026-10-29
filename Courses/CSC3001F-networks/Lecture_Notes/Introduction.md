@@ -1,8 +1,32 @@
+---
+tags:
+  - networks
+---
+
 # Introduction To Computer Networks
 
 **Subject**: CSC3001F Networks  
 **Source**: `Chapter1_Introduction_v2026.pdf`, Dr. Josiah Chavula, pages 1-57  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#The Internet: Nuts And Bolts View|The Internet: Nuts And Bolts View]]
+  - [[#The Internet: Services View|The Internet: Services View]]
+  - [[#Protocols|Protocols]]
+  - [[#Layering And Service Models|Layering And Service Models]]
+  - [[#Internet Protocol Stack|Internet Protocol Stack]]
+  - [[#Encapsulation|Encapsulation]]
+  - [[#Network Edge, Access Networks, And Core|Network Edge, Access Networks, And Core]]
+  - [[#Internet Structure: Network Of Networks|Internet Structure: Network Of Networks]]
+  - [[#Forwarding Versus Routing|Forwarding Versus Routing]]
+  - [[#Packet Switching And Store-And-Forward|Packet Switching And Store-And-Forward]]
+  - [[#Queueing, Delay, And Loss|Queueing, Delay, And Loss]]
+  - [[#Ping And Traceroute|Ping And Traceroute]]
+  - [[#Throughput|Throughput]]
 
 ---
 
@@ -420,111 +444,3 @@ flowchart TD
 ```
 
 Caption: End-to-end throughput is limited by the slowest relevant segment of the path.
-
-## Worked Examples
-
-### Example 1: Transmission Delay
-**Problem**: A packet has length `L = 10 Kbits` and is sent over a `R = 100 Mbps` link. Find the transmission delay.  
-**Step 1**: Convert units: `10 Kbits = 10,000 bits`, `100 Mbps = 100,000,000 bits/sec`.  
-**Step 2**: Use `dtrans = L/R`.  
-**Step 3**: Calculate `10,000 / 100,000,000 = 0.0001 sec`.  
-**Answer**: `0.1 ms`.
-
-### Example 2: Nodal Delay
-**Problem**: A router has processing delay `5 us`, queueing delay `2 ms`, packet length `12,000 bits`, link rate `6 Mbps`, link length `100 km`, and propagation speed `2 x 10^8 m/s`. Find nodal delay.  
-**Step 1**: `dproc = 0.005 ms`.  
-**Step 2**: `dqueue = 2 ms`.  
-**Step 3**: `dtrans = 12,000 / 6,000,000 = 0.002 s = 2 ms`.  
-**Step 4**: `dprop = 100,000 / 200,000,000 = 0.0005 s = 0.5 ms`.  
-**Step 5**: Sum: `0.005 + 2 + 2 + 0.5 = 4.505 ms`.  
-**Answer**: The nodal delay is about `4.505 ms`.
-
-### Example 3: Traffic Intensity
-**Problem**: Packets are `L = 10,000 bits`, average arrival rate is `a = 100 packets/sec`, and link rate is `R = 2 Mbps`. Determine traffic intensity.  
-**Step 1**: Arrival bit rate is `La = 10,000 x 100 = 1,000,000 bits/sec`.  
-**Step 2**: `La/R = 1,000,000 / 2,000,000 = 0.5`.  
-**Answer**: Traffic intensity is `0.5`; average queueing delay should be moderate, not explosive.
-
-### Example 4: Bottleneck Throughput
-**Problem**: A server sends through access link `Rs = 20 Mbps`, the client access link is `Rc = 8 Mbps`, and a shared backbone link gives this connection `R/3 = 10 Mbps`. Find end-to-end throughput.  
-**Step 1**: Compare all limiting rates: `20 Mbps`, `8 Mbps`, `10 Mbps`.  
-**Step 2**: Take the minimum.  
-**Answer**: Throughput is `8 Mbps`, limited by the client access link.
-
-### Example 5: Encapsulation Path
-**Problem**: A browser sends an HTTP request. Name the packet unit at each layer.  
-**Step 1**: Application creates an HTTP **message**.  
-**Step 2**: Transport adds TCP header, creating a TCP **segment**.  
-**Step 3**: Network adds IP header, creating an IP **datagram**.  
-**Step 4**: Link adds Ethernet or WiFi header/trailer, creating a **frame**.  
-**Answer**: Message -> segment -> datagram -> frame.
-
----
-
-## Common Mistakes / Gotchas
-- Confusing **routing** with **forwarding**. Routing chooses paths; forwarding applies a local table entry.
-- Thinking the Internet is one network. It is many networks interconnected through ISPs, IXPs, transit, peering, and content networks.
-- Treating bandwidth and throughput as the same. Bandwidth is available link rate; throughput is achieved delivery rate.
-- Forgetting that queueing delay can dominate all other delays near high utilization.
-- Mixing up transmission delay and propagation delay. Transmission is pushing bits into the link; propagation is bits traveling across distance.
-- Assuming all hosts resolve a name to the same server IP. DNS may return different replicas depending on network and location.
-- Thinking packet loss only means physical bit corruption. In this section, loss is mainly due to full router buffers.
-- Forgetting that encapsulation is reversed at the destination.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|------|---------|
-| Internet | Network of interconnected networks |
-| Host / end system | Device running network applications |
-| Packet switch | Device that forwards packets or frames |
-| Protocol | Message format, order, and actions |
-| Layer | Module that offers service to layer above |
-| Encapsulation | Wrapping higher-layer data with a header |
-| Forwarding | Local input-to-output movement at a router |
-| Routing | Global path selection |
-| Store-and-forward | Router receives whole packet before forwarding |
-| Traffic intensity | `La/R` |
-| Throughput | Delivered bits per time |
-| Bottleneck link | Link limiting throughput |
-
-**Key Formulas**:
-
-```text
-dtrans = L / R
-dprop = d / s
-dnodal = dproc + dqueue + dtrans + dprop
-traffic intensity = La / R
-throughput = min(Rs, Rc)          # simple two-access-link case
-throughput = min(Rs, Rc, R/3)     # three equal flows sharing backbone R
-```
-
-**Key Takeaways**:
-- The Internet can be viewed as physical infrastructure and as a service platform for applications.
-- Protocols are formal communication rules.
-- Layering makes networking modular and discussable.
-- Encapsulation creates message, segment, datagram, and frame units.
-- Packet delay comes from processing, queueing, transmission, and propagation.
-- Queueing delay rises sharply as utilization approaches capacity.
-- Throughput is limited by bottlenecks, not by the fastest link on the path.
-
----
-
-## Practice Questions
-
-**Q1**: What is the difference between a router and a switch in this introductory model?  
-> Answer: A router is a network-layer packet switch that forwards IP datagrams between networks. A switch is a link-layer packet switch that forwards frames within a local network.
-
-**Q2**: A `4,000 bit` packet is sent over a `2 Mbps` link. What is the transmission delay?  
-> Answer: `dtrans = L/R = 4,000 / 2,000,000 = 0.002 s = 2 ms`.
-
-**Q3**: Why does directly connecting every access ISP to every other access ISP not scale?  
-> Answer: It requires `O(N^2)` direct connections. The Internet instead uses a hierarchy and mesh of access ISPs, regional ISPs, tier-1 ISPs, IXPs, peering, transit, and content provider networks.
-
-**Q4**: A path has `Rs = 12 Mbps`, `Rc = 50 Mbps`, and a shared core allocation of `8 Mbps`. What throughput should you expect?  
-> Answer: `min(12, 50, 8) = 8 Mbps`, so the shared core allocation is the bottleneck.
-
-**Q5**: List the Internet stack from top to bottom and give one example protocol or technology per layer.  
-> Answer: Application: HTTP/DNS; Transport: TCP/UDP; Network: IP/routing protocols; Link: Ethernet/WiFi; Physical: copper/fiber/radio.

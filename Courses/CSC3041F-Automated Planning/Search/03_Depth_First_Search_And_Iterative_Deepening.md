@@ -1,8 +1,25 @@
+---
+tags:
+  - automated-planning
+---
+
 # Depth-First Search And Iterative Deepening
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Lecture3.pdf`, Zola Mahlaza, slides 1-27  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Depth-First Search|Depth-First Search]]
+  - [[#DFS Properties|DFS Properties]]
+  - [[#Why DFS Uses Less Space Than BFS|Why DFS Uses Less Space Than BFS]]
+  - [[#Depth-Limited Search|Depth-Limited Search]]
+  - [[#Iterative Deepening Search|Iterative Deepening Search]]
+  - [[#Comparative Summary|Comparative Summary]]
 
 ---
 
@@ -219,97 +236,3 @@ Caption: IDS limits infinite descent, but depth limits alone do not remove repea
 | DFS | Not generally | No | $O(b^m)$ | $O(bm)$ |
 | Depth-limited DFS | No if limit too small | No | $O(b^l)$ | $O(bl)$ |
 | IDS | Yes in finite-depth solution spaces | Yes if all actions cost the same | $O(b^d)$ | $O(bd)$ |
-
-## Worked Examples
-
-### Example 1: DFS Stack Order
-
-**Problem**: From `Tokai`, successors are generated in the order `[Bergvliet, Plumstead]`. The DFS openlist is a stack.
-
-**Step 1: Push successors**  
-Stack becomes `[Bergvliet, Plumstead]`.
-
-**Step 2: Pop next node**  
-DFS pops `Plumstead`, because it was pushed last.
-
-**Step 3: Continue deeply**  
-DFS expands descendants of `Plumstead` before returning to `Bergvliet`.
-
-**Answer**: DFS follows the most recently added branch first.
-
-### Example 2: Iterative Deepening To Depth 3
-
-**Problem**: A solution exists at depth `3`.
-
-**Step 1: Limit 0**  
-Check only the root. No solution; cutoff occurs.
-
-**Step 2: Limit 1**  
-Check root and one-action states. No solution; cutoff occurs.
-
-**Step 3: Limit 2**  
-Check all paths of length up to 2. No solution; cutoff occurs.
-
-**Step 4: Limit 3**  
-Check paths of length up to 3 and find the solution.
-
-**Answer**: IDS finds the shallowest solution while using DFS-like memory.
-
----
-
-## Common Mistakes / Gotchas
-
-- Saying DFS is complete without mentioning finite state spaces and cycle handling.
-- Forgetting that DFS is not cost-optimal.
-- Thinking IDS is inefficient because it repeats work. In exponential trees, the deepest level dominates, so repeated shallow levels usually do not change the asymptotic time.
-- Choosing a depth limit too small and interpreting cutoff as proof of no solution.
-- Confusing $m$ and $d$: $m$ is maximum depth, while $d$ is solution depth.
-- Assuming depth limits remove cycles. They prevent infinite descent but do not remove repeated cyclic paths.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| DFS | Expands deepest open node first |
-| Stack | LIFO data structure used for DFS |
-| Depth-limited search | DFS with maximum depth `l` |
-| Cutoff | Limit stopped the search before proving failure |
-| IDS | Repeated depth-limited DFS with increasing limits |
-| `b` | Branching factor |
-| `m` | Maximum depth |
-| `d` | Depth of shallowest solution |
-
-**Key Formulas**:
-
-$$
-\begin{aligned}
-\text{DFS time} &= O(b^m), & \text{DFS space} &= O(bm)\\
-\text{Depth-limited time} &= O(b^l), & \text{Depth-limited space} &= O(bl)\\
-\text{IDS time} &= O(b^d), & \text{IDS space} &= O(bd)
-\end{aligned}
-$$
-
-**Key Takeaways**:
-
-- DFS saves memory but risks incompleteness and non-optimality.
-- Depth limits stop infinite descent but can hide deeper goals.
-- IDS combines BFS-like shallowest-solution behavior with DFS-like memory.
-- Child ordering matters because DFS follows stack order.
-
----
-
-## Practice Questions
-
-**Q1**: Why is DFS usually more memory efficient than BFS?  
-> Answer: DFS stores the current path plus unexpanded siblings, while BFS may store an entire frontier level with $b^d$ nodes.
-
-**Q2**: What does a cutoff mean in depth-limited search?  
-> Answer: The search hit the depth limit. It does not prove no solution exists; a solution may be deeper.
-
-**Q3**: Why does IDS have time $O(b^d)$ despite repeating nodes?  
-> Answer: In an exponentially growing tree, the deepest level has far more nodes than all shallower levels combined, so repeated shallow work is dominated by the final iteration.
-
-**Q4**: Is DFS cost-optimal?  
-> Answer: No. DFS returns the first solution found along its traversal order, which may not be the cheapest.

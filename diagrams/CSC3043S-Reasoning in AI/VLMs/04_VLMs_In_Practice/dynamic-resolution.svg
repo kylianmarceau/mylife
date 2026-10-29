@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 420" role="img" font-family="Inter, Arial, sans-serif">
+<title>Native-resolution token grids preserve aspect ratio and allocate more patches where needed</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<text x="150" y="45" text-anchor="middle" fill="#f8fafc" font-size="20">Landscape: 48</text>
+<rect x="62.0" y="193" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="84.0" y="193" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="106.0" y="193" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="128.0" y="193" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="150.0" y="193" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="172.0" y="193" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="194.0" y="193" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="216.0" y="193" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="62.0" y="215" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="84.0" y="215" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="106.0" y="215" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="128.0" y="215" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="150.0" y="215" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="172.0" y="215" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="194.0" y="215" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="216.0" y="215" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="62.0" y="237" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="84.0" y="237" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="106.0" y="237" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="128.0" y="237" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="150.0" y="237" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="172.0" y="237" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="194.0" y="237" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="216.0" y="237" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="62.0" y="259" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="84.0" y="259" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="106.0" y="259" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="128.0" y="259" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="150.0" y="259" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="172.0" y="259" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="194.0" y="259" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="216.0" y="259" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="62.0" y="281" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="84.0" y="281" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="106.0" y="281" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="128.0" y="281" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="150.0" y="281" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="172.0" y="281" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="194.0" y="281" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="216.0" y="281" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="62.0" y="303" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="84.0" y="303" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="106.0" y="303" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="128.0" y="303" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="150.0" y="303" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="172.0" y="303" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="194.0" y="303" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<rect x="216.0" y="303" width="20" height="20" fill="#1f2d3d" stroke="#83a8d1"/>
+<text x="450" y="45" text-anchor="middle" fill="#f8fafc" font-size="20">Tall receipt: 40</text>
+<rect x="406.0" y="105" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="428.0" y="105" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="450.0" y="105" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="472.0" y="105" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="406.0" y="127" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="428.0" y="127" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="450.0" y="127" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="472.0" y="127" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="406.0" y="149" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="428.0" y="149" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="450.0" y="149" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="472.0" y="149" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="406.0" y="171" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="428.0" y="171" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="450.0" y="171" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="472.0" y="171" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="406.0" y="193" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="428.0" y="193" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="450.0" y="193" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="472.0" y="193" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="406.0" y="215" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="428.0" y="215" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="450.0" y="215" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="472.0" y="215" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="406.0" y="237" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="428.0" y="237" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="450.0" y="237" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="472.0" y="237" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="406.0" y="259" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="428.0" y="259" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="450.0" y="259" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="472.0" y="259" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="406.0" y="281" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="428.0" y="281" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="450.0" y="281" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="472.0" y="281" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="406.0" y="303" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="428.0" y="303" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="450.0" y="303" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<rect x="472.0" y="303" width="20" height="20" fill="#28394c" stroke="#d6e1ed"/>
+<text x="750" y="45" text-anchor="middle" fill="#f8fafc" font-size="20">Small icon: 16</text>
+<rect x="706.0" y="237" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="728.0" y="237" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="750.0" y="237" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="772.0" y="237" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="706.0" y="259" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="728.0" y="259" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="750.0" y="259" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="772.0" y="259" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="706.0" y="281" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="728.0" y="281" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="750.0" y="281" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="772.0" y="281" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="706.0" y="303" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="728.0" y="303" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="750.0" y="303" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<rect x="772.0" y="303" width="20" height="20" fill="#223346" stroke="#a8bfd8"/>
+<text x="450" y="375" text-anchor="middle" fill="#98a6b7" font-size="18">Illustrative grid counts; real patch sizes and token budgets differ</text>
+</svg>

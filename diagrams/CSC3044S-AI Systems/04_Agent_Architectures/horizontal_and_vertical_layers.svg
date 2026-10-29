@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 920 1000" role="img" aria-labelledby="title desc">
+<title id="title">Hybrid control and layer organization</title>
+<desc id="desc">Parallel access defines horizontal layering; the vertical variant sends information upward and action control back downward. Nodes: Sensor input; Layer 1; Action output; Layer 2; Layer 3; Sensor input; Layer 1; Layer 2; Layer 3; Action output.</desc>
+<defs>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#b89aff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#ffc778" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#ff939b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#adb9cb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<rect x="20" y="25" width="875" height="400" rx="16" fill="none" stroke="#adb9cb" stroke-width="1.4" vector-effect="non-scaling-stroke"/>
+<text x="38" y="55" fill="#adb9cb" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="18" font-weight="600" text-anchor="start">Horizontal: parallel access</text>
+<rect x="20" y="475" width="875" height="500" rx="16" fill="none" stroke="#adb9cb" stroke-width="1.4" vector-effect="non-scaling-stroke"/>
+<text x="38" y="505" fill="#adb9cb" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="18" font-weight="600" text-anchor="start">Vertical: upward information, downward control</text>
+<g data-from="SH" data-to="H1" data-label="" data-bidirectional="false"><path d="M225 194.375 L360 143.75" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="H1" data-to="AH" data-label="" data-bidirectional="false"><path d="M540 142.727 L685 195.455" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="SH" data-to="H2" data-label="" data-bidirectional="false"><path d="M225 230 L360 230" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="H2" data-to="AH" data-label="" data-bidirectional="false"><path d="M540 230 L685 230" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="SH" data-to="H3" data-label="" data-bidirectional="false"><path d="M225 265.625 L360 316.25" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="H3" data-to="AH" data-label="" data-bidirectional="false"><path d="M540 317.273 L685 264.545" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="SV" data-to="V1" data-label="" data-bidirectional="false"><path d="M225 595 L355 595" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="V1" data-to="V2" data-label="" data-bidirectional="false"><path d="M468 636 L468 709" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="V2" data-to="V3" data-label="" data-bidirectional="false"><path d="M468 791 L468 864" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="V3" data-to="V2" data-label="" data-bidirectional="false"><path d="M432 864 L432 791" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="V2" data-to="V1" data-label="" data-bidirectional="false"><path d="M432 709 L432 636" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="V1" data-to="AV" data-label="" data-bidirectional="false"><path d="M545 595 L685 595" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-node="SH" aria-label="Sensor input"><rect x="35" y="189" width="190" height="82" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="130" y="237" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Sensor input</text>
+</g>
+<g data-node="H1" aria-label="Layer 1"><rect x="360" y="69" width="180" height="82" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="117" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Layer 1</text>
+</g>
+<g data-node="AH" aria-label="Action output"><rect x="685" y="189" width="190" height="82" rx="14" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="780" y="237" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Action output</text>
+</g>
+<g data-node="H2" aria-label="Layer 2"><rect x="360" y="189" width="180" height="82" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="237" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Layer 2</text>
+</g>
+<g data-node="H3" aria-label="Layer 3"><rect x="360" y="309" width="180" height="82" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="357" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Layer 3</text>
+</g>
+<g data-node="SV" aria-label="Sensor input"><rect x="35" y="554" width="190" height="82" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="130" y="602" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Sensor input</text>
+</g>
+<g data-node="V1" aria-label="Layer 1"><rect x="355" y="554" width="190" height="82" rx="14" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="602" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Layer 1</text>
+</g>
+<g data-node="V2" aria-label="Layer 2"><rect x="355" y="709" width="190" height="82" rx="14" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="757" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Layer 2</text>
+</g>
+<g data-node="V3" aria-label="Layer 3"><rect x="355" y="864" width="190" height="82" rx="14" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="912" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Layer 3</text>
+</g>
+<g data-node="AV" aria-label="Action output"><rect x="685" y="554" width="190" height="82" rx="14" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="780" y="602" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Action output</text>
+</g>
+</svg>

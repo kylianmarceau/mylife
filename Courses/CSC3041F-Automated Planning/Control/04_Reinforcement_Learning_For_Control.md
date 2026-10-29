@@ -1,8 +1,27 @@
+---
+tags:
+  - automated-planning
+---
+
 # Reinforcement Learning For Control
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Control/CSC3041F_Control_lecture4.pdf`, Krupa Prag, slides 1-18  
 **Generated**: 2026-06-01
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Plant Characteristics|Plant Characteristics]]
+  - [[#PID To Reinforcement Learning|PID To Reinforcement Learning]]
+  - [[#Cartpole As A Control Example|Cartpole As A Control Example]]
+  - [[#Automation Versus Autonomy|Automation Versus Autonomy]]
+  - [[#Integration Strategies: How RL Meets Hardware|Integration Strategies: How RL Meets Hardware]]
+  - [[#Implementation Pipeline|Implementation Pipeline]]
+  - [[#Real-World Applications In South Africa|Real-World Applications In South Africa]]
+  - [[#Safety In RL Control|Safety In RL Control]]
 
 ---
 
@@ -429,230 +448,3 @@ flowchart TD
 ```
 
 Caption: Safe RL protects hardware from dangerous exploration and unsafe deployment actions.
-
-## Worked Examples
-
-### Example 1: Choosing PID Or RL For A Plant
-
-**Problem**: A heater controls one room temperature near a fixed set-point. The plant is roughly linear near the set-point and has one input and one output. Which controller is a natural first choice?
-
-**Step 1**: Identify input/output structure.
-
-The problem is SISO.
-
-**Step 2**: Identify dynamics.
-
-The plant is roughly linear near the set-point.
-
-**Step 3**: Match to controller type.
-
-PID is strong for SISO near-linear tracking.
-
-**Answer**: PID is a natural first choice.
-
-### Example 2: Cartpole State And Action
-
-**Problem**: Write a reasonable state and action representation for cartpole.
-
-**Step 1**: Include cart motion.
-
-$$
-x_t,\quad \dot{x}_t
-$$
-
-**Step 2**: Include pole motion.
-
-$$
-\theta_t,\quad \dot{\theta}_t
-$$
-
-**Step 3**: Combine into a state.
-
-$$
-s_t=(x_t,\dot{x}_t,\theta_t,\dot{\theta}_t)
-$$
-
-**Step 4**: Define action.
-
-$$
-a_t=F_t
-$$
-
-or:
-
-$$
-a_t\in\{\text{push left},\text{push right}\}
-$$
-
-**Answer**: A typical state is $(x_t,\dot{x}_t,\theta_t,\dot{\theta}_t)$ and the action is force applied to the cart.
-
-### Example 3: RL Objective For Control
-
-**Problem**: An RL agent gets reward $r_t=1$ for every time step the cartpole remains balanced. Write the optimisation objective.
-
-**Step 1**: Use discounted return.
-
-$$
-G_t=\sum_{k=0}^{\infty}\gamma^k r_{t+k}
-$$
-
-**Step 2**: Optimise expected return under policy $\pi$.
-
-$$
-J(\pi)=\mathbb{E}_{\pi}[G_0]
-$$
-
-**Step 3**: Substitute the expanded return.
-
-$$
-J(\pi)=\mathbb{E}_{\pi}\left[\sum_{t=0}^{\infty}\gamma^t r_t\right]
-$$
-
-**Answer**: The agent learns a policy that maximises expected discounted time-balanced reward.
-
-### Example 4: Hierarchical Control In A Self-Driving Car
-
-**Problem**: A self-driving car uses RL to decide a target steering angle, but a PID controller turns the wheels to that exact angle. Identify the high-level and low-level controllers.
-
-**Step 1**: High-level decision.
-
-The RL agent chooses the target steering angle.
-
-**Step 2**: Low-level tracking.
-
-The PID controller tracks that steering angle using actuator feedback.
-
-**Answer**: RL is the high-level supervisor, and PID is the low-level reflex controller.
-
-### Example 5: Safety Layer Override
-
-**Problem**: An RL policy suggests motor torque $a_t^{\mathrm{RL}}=120$ Nm, but the safe hardware limit is $80$ Nm. What should a safety layer do?
-
-**Step 1**: State the constraint.
-
-$$
-|a_t|\le 80
-$$
-
-**Step 2**: Check proposed action.
-
-$$
-120>80
-$$
-
-**Step 3**: Override with a safe action.
-
-$$
-a_t^{\mathrm{safe}}=80
-$$
-
-**Answer**: The safety layer should block or clip the unsafe command before it reaches the motor.
-
----
-
-## Common Mistakes / Gotchas
-
-- Assuming RL is always better than PID. PID is often better for simple, linear, SISO tracking.
-- Forgetting that PID gains are fixed after tuning unless an adaptive layer is added.
-- Treating RL as automatically safe because it learns. Exploration can be dangerous on real hardware.
-- Confusing automation with autonomy. Automation follows predefined rules; autonomy adapts to uncertainty.
-- Deploying directly to hardware without simulation and robustness testing.
-- Assuming a policy trained in one simulator will work in the real world without domain randomisation.
-- Treating a neural RL controller as easy to debug. It is often much less interpretable than PID.
-- Forgetting that RL can be used to learn a model rather than directly controlling the plant.
-- Ignoring actuator limits, delays, and sensor noise during deployment.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Plant characteristics | Properties that determine controller choice |
-| Linear | Superposition applies |
-| Non-linear | Superposition does not generally apply |
-| PID | Fixed, often SISO, near-linear tracking controller |
-| RL | Adaptive, often MIMO, non-linear control approach |
-| Cartpole | Benchmark balancing control problem |
-| Automation | Predefined rules for repetitive tasks |
-| Autonomy | Adaptive behaviour in changing environments |
-| Direct RL controller | RL outputs low-level control signals |
-| Hierarchical control | RL sets high-level goals; PID handles low-level tracking |
-| System identification | Learning a model from data |
-| Domain randomisation | Vary simulation parameters to improve robustness |
-| Safe RL | RL with safety constraints or protective layers |
-| Shielding | Blocking unsafe RL actions |
-
-**Key Formulas**:
-
-PID:
-
-$$
-u(t)=K_p e(t)+K_i\int_0^t e(\tau)\,d\tau+K_d\frac{de(t)}{dt}
-$$
-
-RL policy:
-
-$$
-a_t=\pi(s_t)
-$$
-
-Stochastic RL policy:
-
-$$
-a_t\sim\pi(\cdot\mid s_t)
-$$
-
-RL objective:
-
-$$
-J(\pi)=\mathbb{E}_{\pi}\left[\sum_{t=0}^{\infty}\gamma^t r_t\right]
-$$
-
-Linear system identification model:
-
-$$
-x_{t+1}=Ax_t+Bu_t
-$$
-
-Cartpole state:
-
-$$
-s_t=(x_t,\dot{x}_t,\theta_t,\dot{\theta}_t)
-$$
-
-Safety constraint:
-
-$$
-a_t^{\mathrm{safe}}\in\mathcal{A}_{\mathrm{safe}}
-$$
-
-**Key Takeaways**:
-
-- Controller choice depends on plant complexity, model availability, uncertainty, and input/output structure.
-- PID is strong for fixed, near-linear, SISO tracking problems.
-- RL is attractive for non-linear, uncertain, MIMO, adaptive control.
-- RL can meet hardware through direct control, hierarchical supervision, or system identification.
-- Safe RL needs shields or safety layers because deep RL usually lacks classical stability guarantees.
-
----
-
-## Practice Questions
-
-**Q1**: List three plant characteristics that affect controller design.  
-> Answer: Linearity/non-linearity, whether a model is available, uncertainty, external forces, task repetitiveness, and number of inputs/outputs.
-
-**Q2**: What is the main difference between automation and autonomy?  
-> Answer: Automation follows predefined rules for repetitive tasks. Autonomy adapts behaviour to achieve goals in uncertain or changing environments.
-
-**Q3**: Why can RL be more suitable than PID for some control problems?  
-> Answer: RL can handle MIMO, non-linear, uncertain tasks and can continue learning, while PID is usually fixed and best for SISO near-linear tracking.
-
-**Q4**: What is hierarchical control?  
-> Answer: A layered design where low-level controllers such as PID handle fast tracking, while a high-level controller such as RL sends set-points or decisions.
-
-**Q5**: How can RL be used for system identification?  
-> Answer: It can learn a model, such as matrices $A$ and $B$ in $x_{t+1}=Ax_t+Bu_t$, which can then be used by a model-based controller like MPC.
-
-**Q6**: Why is safety a major issue in RL control?  
-> Answer: RL learns by exploration, and unsafe exploratory actions can break real hardware. Deep RL also usually lacks the stability proofs available in classical control.

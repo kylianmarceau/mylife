@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 780 355" role="img"><title>Subgroup lattices of the cyclic and Klein groups of order four</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.5"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.5"/></marker>
+<marker id="af8fafc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.5"/></marker>
+</defs>
+<text x="185" y="35" fill="#b89aff" font-family="Arial" font-size="24" text-anchor="middle">C₄</text>
+<text x="565" y="35" fill="#b89aff" font-family="Arial" font-size="24" text-anchor="middle">K₄</text>
+<line x1="185.0" y1="130.0" x2="185.0" y2="160.0" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="185.0" y1="235.0" x2="185.0" y2="265.0" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="185" cy="75" r="5" fill="#272f3b" stroke="#5ad4b5" stroke-width="1.8"/>
+<text x="185" y="104" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">C₄</text>
+<circle cx="185" cy="180" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="185" y="209" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">{1, a²}</text>
+<circle cx="185" cy="285" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="185" y="314" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">{1}</text>
+<line x1="522.2132350887953" y1="109.55854088981917" x2="450.5588236040744" y2="167.43325785824757" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="565.0" y1="130.0" x2="565.0" y2="160.0" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="607.7867649112047" y1="109.55854088981917" x2="679.4411763959256" y2="167.43325785824757" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="477.78676491120467" y1="214.55854088981917" x2="549.4411763959256" y2="272.4332578582476" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="565.0" y1="235.0" x2="565.0" y2="265.0" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="652.2132350887953" y1="214.55854088981917" x2="580.5588236040744" y2="272.4332578582476" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="565" cy="75" r="5" fill="#272f3b" stroke="#5ad4b5" stroke-width="1.8"/>
+<text x="565" y="104" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">K₄</text>
+<circle cx="435" cy="180" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="435" y="209" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">{1, a}</text>
+<circle cx="565" cy="180" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="565" y="209" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">{1, b}</text>
+<circle cx="695" cy="180" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="695" y="209" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">{1, c}</text>
+<circle cx="565" cy="285" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="565" y="314" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">{1}</text>
+</svg>

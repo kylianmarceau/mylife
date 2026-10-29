@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 780 480" role="img"><title>S3 Mixed Products</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.5"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.5"/></marker>
+<marker id="af8fafc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.5"/></marker>
+</defs>
+<text x="390.0" y="25" fill="#b89aff" font-family="Arial" font-size="21" text-anchor="middle">αβ</text>
+<text x="12" y="65" fill="#adb9cb" font-family="Arial" font-size="16" text-anchor="start">Input</text>
+<text x="12" y="130" fill="#adb9cb" font-family="Arial" font-size="16" text-anchor="start">After right</text>
+<text x="12" y="195" fill="#adb9cb" font-family="Arial" font-size="16" text-anchor="start">After left</text>
+<text x="160.0" y="65" fill="#f8fafc" font-family="Arial" font-size="19" text-anchor="middle">1</text>
+<text x="160.0" y="130" fill="#66b3ff" font-family="Arial" font-size="19" text-anchor="middle">1</text>
+<text x="160.0" y="195" fill="#5ad4b5" font-family="Arial" font-size="19" text-anchor="middle">1</text>
+<text x="445.0" y="65" fill="#f8fafc" font-family="Arial" font-size="19" text-anchor="middle">2</text>
+<text x="445.0" y="130" fill="#66b3ff" font-family="Arial" font-size="19" text-anchor="middle">2</text>
+<text x="445.0" y="195" fill="#5ad4b5" font-family="Arial" font-size="19" text-anchor="middle">2</text>
+<text x="730.0" y="65" fill="#f8fafc" font-family="Arial" font-size="19" text-anchor="middle">3</text>
+<text x="730.0" y="130" fill="#66b3ff" font-family="Arial" font-size="19" text-anchor="middle">3</text>
+<text x="730.0" y="195" fill="#5ad4b5" font-family="Arial" font-size="19" text-anchor="middle">3</text>
+<line x1="160.0" y1="72" x2="160.0" y2="108" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="164.0,99.0 160.0,108 156.0,99.0" fill="none" stroke="#66b3ff" stroke-width="1.8"/>
+<line x1="160.0" y1="137" x2="445.0" y2="173" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="436.5722324553361,167.90365481809667 445.0,173 435.56967274742067,175.84058583909368" fill="none" stroke="#5ad4b5" stroke-width="1.8"/>
+<line x1="445.0" y1="72" x2="730.0" y2="108" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="721.5722324553361,102.90365481809665 730.0,108 720.5696727474207,110.84058583909366" fill="none" stroke="#66b3ff" stroke-width="1.8"/>
+<line x1="730.0" y1="137" x2="160.0" y2="173" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="169.2342326026742,176.42475520872787 160.0,173 168.7299741670333,168.4406633110801" fill="none" stroke="#5ad4b5" stroke-width="1.8"/>
+<line x1="730.0" y1="72" x2="445.0" y2="108" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="454.43032725257933,110.84058583909366 445.0,108 453.4277675446639,102.90365481809665" fill="none" stroke="#66b3ff" stroke-width="1.8"/>
+<line x1="445.0" y1="137" x2="730.0" y2="173" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="721.5722324553361,167.90365481809667 730.0,173 720.5696727474207,175.84058583909368" fill="none" stroke="#5ad4b5" stroke-width="1.8"/>
+<text x="390.0" y="260" fill="#b89aff" font-family="Arial" font-size="21" text-anchor="middle">α²β</text>
+<text x="12" y="300" fill="#adb9cb" font-family="Arial" font-size="16" text-anchor="start">Input</text>
+<text x="12" y="365" fill="#adb9cb" font-family="Arial" font-size="16" text-anchor="start">After right</text>
+<text x="12" y="430" fill="#adb9cb" font-family="Arial" font-size="16" text-anchor="start">After left</text>
+<text x="160.0" y="300" fill="#f8fafc" font-family="Arial" font-size="19" text-anchor="middle">1</text>
+<text x="160.0" y="365" fill="#66b3ff" font-family="Arial" font-size="19" text-anchor="middle">1</text>
+<text x="160.0" y="430" fill="#5ad4b5" font-family="Arial" font-size="19" text-anchor="middle">1</text>
+<text x="445.0" y="300" fill="#f8fafc" font-family="Arial" font-size="19" text-anchor="middle">2</text>
+<text x="445.0" y="365" fill="#66b3ff" font-family="Arial" font-size="19" text-anchor="middle">2</text>
+<text x="445.0" y="430" fill="#5ad4b5" font-family="Arial" font-size="19" text-anchor="middle">2</text>
+<text x="730.0" y="300" fill="#f8fafc" font-family="Arial" font-size="19" text-anchor="middle">3</text>
+<text x="730.0" y="365" fill="#66b3ff" font-family="Arial" font-size="19" text-anchor="middle">3</text>
+<text x="730.0" y="430" fill="#5ad4b5" font-family="Arial" font-size="19" text-anchor="middle">3</text>
+<line x1="160.0" y1="307" x2="160.0" y2="343" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="164.0,334.0 160.0,343 156.0,334.0" fill="none" stroke="#66b3ff" stroke-width="1.8"/>
+<line x1="160.0" y1="372" x2="730.0" y2="408" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="721.2700258329667,403.4406633110801 730.0,408 720.7657673973258,411.42475520872785" fill="none" stroke="#5ad4b5" stroke-width="1.8"/>
+<line x1="445.0" y1="307" x2="730.0" y2="343" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="721.5722324553361,337.90365481809664 730.0,343 720.5696727474207,345.84058583909365" fill="none" stroke="#66b3ff" stroke-width="1.8"/>
+<line x1="730.0" y1="372" x2="445.0" y2="408" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="454.43032725257933,410.84058583909365 445.0,408 453.4277675446639,402.90365481809664" fill="none" stroke="#5ad4b5" stroke-width="1.8"/>
+<line x1="730.0" y1="307" x2="445.0" y2="343" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="454.43032725257933,345.84058583909365 445.0,343 453.4277675446639,337.90365481809664" fill="none" stroke="#66b3ff" stroke-width="1.8"/>
+<line x1="445.0" y1="372" x2="160.0" y2="408" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="169.43032725257933,410.84058583909365 160.0,408 168.42776754466394,402.90365481809664" fill="none" stroke="#5ad4b5" stroke-width="1.8"/>
+</svg>

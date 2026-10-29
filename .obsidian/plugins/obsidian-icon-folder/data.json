@@ -1,0 +1,45 @@
+{
+  "settings": {
+    "migrated": 6,
+    "iconPacksPath": ".obsidian/icons",
+    "fontSize": 16,
+    "emojiStyle": "native",
+    "iconColor": null,
+    "recentlyUsedIcons": [
+      "LiComputer",
+      "LiPi",
+      "LiAtom",
+      "📥",
+      "📚"
+    ],
+    "recentlyUsedIconsSize": 5,
+    "rules": [],
+    "extraMargin": {
+      "top": 0,
+      "right": 4,
+      "bottom": 0,
+      "left": 0
+    },
+    "iconInTabsEnabled": false,
+    "iconInTitleEnabled": false,
+    "iconInTitlePosition": "above",
+    "iconInFrontmatterEnabled": false,
+    "iconInFrontmatterFieldName": "icon",
+    "iconColorInFrontmatterFieldName": "iconColor",
+    "iconsBackgroundCheckEnabled": false,
+    "iconsInNotesEnabled": true,
+    "iconsInLinksEnabled": true,
+    "iconIdentifier": ":",
+    "lucideIconPackType": "native",
+    "debugMode": false,
+    "useInternalPlugins": false
+  },
+  "Courses/CSC3001F-networks": "🌐",
+  "Courses/CSC3002F-Operating Systems": "🖥",
+  "Courses/CSC3003S-Advanced Programming": "🧠",
+  "Courses/CSC3041F-Automated Planning": "🤖",
+  "Courses/CSC3044S-AI Systems": "⚙",
+  "Courses": "📚",
+  "Sources": "📥",
+  "Courses/MAM2013S-Introductory Algebra": "LiPi"
+}

@@ -1,8 +1,29 @@
+---
+tags:
+  - operating-systems
+---
+
 # Processes
 
 **Subject**: CSC3002F Operating Systems  
 **Source**: `CSC3002F_MK_1_ProcessConcept.pdf`, Michelle Kuttel, pages 1-67  
 **Generated**: 2026-06-03
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Programs, Processes, Threads, And The Kernel|Programs, Processes, Threads, And The Kernel]]
+  - [[#Process Trees, PIDs, Boot, And Daemons|Process Trees, PIDs, Boot, And Daemons]]
+  - [[#Process Memory Layout And Execution Context|Process Memory Layout And Execution Context]]
+  - [[#Process Control Blocks|Process Control Blocks]]
+  - [[#Process Creation With `fork()`|Process Creation With `fork()`]]
+  - [[#Program Replacement With `exec()`|Program Replacement With `exec()`]]
+  - [[#Running Processes, States, Context Switches, And Queues|Running Processes, States, Context Switches, And Queues]]
+  - [[#Mobile OS Process Management|Mobile OS Process Management]]
+  - [[#Inter-Process Communication|Inter-Process Communication]]
+  - [[#Process Termination, Orphans, And Zombies|Process Termination, Orphans, And Zombies]]
 
 ---
 
@@ -320,119 +341,3 @@ The OS keeps zombies so that:
 3. The parent does not accidentally wait for a different process with a recycled PID.
 
 A parent may terminate a child because the child exceeded resources, the assigned task is no longer needed, or the parent is exiting and the OS does not allow the child to continue.
-
-## Worked Examples
-
-### Example 1: How Many Processes After Two `fork()` Calls?
-
-**Problem**: A program executes two unconditional `fork()` calls. How many total processes exist after them?
-
-**Step 1**: Initially there is $1$ process.  
-**Step 2**: After first `fork()`, each existing process creates one child:
-
-$$
-1\times2=2
-$$
-
-**Step 3**: After second `fork()`, both existing processes fork:
-
-$$
-2\times2=4
-$$
-
-**Answer**: $4$ processes total.
-
-### Example 2: Interpret `fork()` Return Values
-
-**Problem**: `pid_t pid = fork();` returns `3472` in one execution path and `0` in another. Which is parent and which is child?
-
-**Step 1**: Parent receives the child's PID.  
-**Step 2**: Child receives $0$.  
-**Answer**: The path where `pid == 3472` is the parent. The path where `pid == 0` is the child.
-
-### Example 3: Why Zombies Exist
-
-**Problem**: A child exits before its parent calls `waitpid(pid, &status, 0)`. Why does the OS keep a zombie entry?
-
-**Step 1**: The parent may later request the child's exit status.  
-**Step 2**: If the PID were immediately reused, the parent might wait on the wrong process.  
-**Step 3**: The zombie PCB preserves termination information and prevents PID reuse until reaped.  
-**Answer**: Zombies preserve correct parent-child termination semantics.
-
-### Example 4: Draw A Process Tree From PPIDs
-
-**Problem**: Given `PID 179773 PPID 1` and `PID 179774 PPID 179773`, what is the relationship?
-
-**Step 1**: A PPID of $1$ means `179773` is a child of PID $1$.  
-**Step 2**: `179774` has parent `179773`.  
-**Answer**:
-
-```text
-1
-└── 179773
-    └── 179774
-```
-
----
-
-## Common Mistakes / Gotchas
-
-- Saying `exec()` creates a new process. It does not; it replaces the current process image.
-- Assuming parent and child run in a predictable order after `fork()`. They run concurrently in unspecified order.
-- Forgetting that a thread has its own stack/registers/program counter even though it shares the process address space.
-- Thinking a zombie is still running. It has already terminated; only its process-table entry remains.
-- Assuming all background work is equally permitted on iOS and Android. iOS is much more restrictive.
-- Treating shared memory as automatically safe. It is fast but needs synchronization.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Program | Passive instructions on disk |
-| Process | Program in execution with resources/protection |
-| Thread | Execution path within process |
-| PID | Unique process identifier |
-| PCB | Kernel process record |
-| `fork()` | Creates a child process; returns twice |
-| `exec()` | Replaces current process image |
-| Context switch | Save current PCB state, load another |
-| IPC | Communication between processes |
-| Zombie | Terminated child not yet reaped |
-| Orphan | Child whose parent terminated first |
-
-**Key Formulas**:
-
-$$
-\text{processes after }k\text{ unconditional forks}=2^k
-$$
-
-$$
-\text{process memory}=\text{text}+\text{data}+\text{heap}+\text{stack}+\text{execution context}
-$$
-
-**Key Takeaways**:
-
-- A process is dynamic: code plus execution context plus protected resources.
-- The PCB is central because it stores what the kernel needs to stop and resume execution.
-- UNIX process creation separates duplication (`fork`) from program replacement (`exec`).
-- Context switching is necessary but pure overhead.
-- IPC choices trade speed, isolation, and synchronization complexity.
-- Termination is not complete until children are reaped.
-
----
-
-## Practice Questions
-
-**Q1**: Distinguish a program, process, and thread.  
-> Answer: A program is passive code on disk. A process is a running program with its own address space/resources/execution state. A thread is a single execution path inside a process, sharing the process address space but with its own stack/registers/program counter.
-
-**Q2**: What are the three possible outcomes of `fork()`'s return value?  
-> Answer: Parent receives the child's PID, child receives $0$, and error returns $-1$.
-
-**Q3**: Why is context switching considered overhead?  
-> Answer: During a context switch, the kernel saves/restores state and chooses another process, but no user-level work is being directly completed.
-
-**Q4**: Compare shared memory and message passing.  
-> Answer: Shared memory is fast because processes communicate by reading/writing a common region, but it needs synchronization. Message passing keeps processes isolated and communicates through send/receive operations, but has more OS/channel overhead.

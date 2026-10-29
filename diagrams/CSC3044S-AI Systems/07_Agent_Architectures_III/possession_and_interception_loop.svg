@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 965 780" role="img" aria-labelledby="title desc">
+<title id="title">Combine learned behaviors and compare teams</title>
+<desc id="desc">Situation-dependent controller selection combines possession and interception skills in the reactive loop. Nodes: Observe game state; Have ball or stationary possession; Pass-shoot-dribble ANN; Execute selected action; Intercept ANN; Turn and move.</desc>
+<defs>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#b89aff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#ffc778" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#ff939b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#adb9cb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<g data-from="S" data-to="B" data-label="" data-bidirectional="false"><path d="M250 300 L335 300" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="B" data-to="P" data-label="Yes" data-bidirectional="false"><path d="M528.313 264.091 L703.026 165" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="P" data-to="A" data-label="" data-bidirectional="false"><path d="M800 165 L800 254" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="B" data-to="I" data-label="No, ball approaches" data-bidirectional="false"><path d="M525.069 337.655 L726.619 464" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="I" data-to="T" data-label="" data-bidirectional="false"><path d="M800 556 L800 639" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="A" data-to="S" data-label="" data-bidirectional="false"><path d="M927.5 300 H950 V25 H140 V254" fill="none" stroke="#5ad4b5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-teal)"/></g>
+<g data-from="T" data-to="S" data-label="" data-bidirectional="false"><path d="M690 685 H25 V300 H30" fill="none" stroke="#5ad4b5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-teal)"/></g>
+<g data-node="S" aria-label="Observe game state"><rect x="30" y="254" width="220" height="92" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="140" y="294.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Observe game</text>
+<text x="140" y="319.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">state</text>
+</g>
+<g data-node="B" aria-label="Have ball or&lt;br/&gt;stationary possession"><path d="M465 230.0 L595.0 300 L465 370.0 L335.0 300 Z" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="465" y="282" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Have ball or</text>
+<text x="465" y="307" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">stationary</text>
+<text x="465" y="332" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">possession</text>
+</g>
+<g data-node="P" aria-label="Pass-shoot-dribble ANN"><rect x="672.5" y="55" width="255" height="110" rx="14" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="800" y="104.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Pass-shoot-dribble</text>
+<text x="800" y="129.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">ANN</text>
+</g>
+<g data-node="A" aria-label="Execute selected action"><rect x="672.5" y="254" width="255" height="92" rx="14" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="800" y="294.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Execute selected</text>
+<text x="800" y="319.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">action</text>
+</g>
+<g data-node="I" aria-label="Intercept ANN"><rect x="672.5" y="464" width="255" height="92" rx="14" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="800" y="517" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Intercept ANN</text>
+</g>
+<g data-node="T" aria-label="Turn and move"><rect x="690" y="639" width="220" height="92" rx="14" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="800" y="692" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Turn and move</text>
+</g>
+<rect x="616" y="142" width="48" height="32" rx="4" fill="#171c24"/>
+<text x="640" y="164" fill="#b89aff" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="18" font-weight="500" text-anchor="middle">Yes</text>
+<rect x="581" y="398" width="118" height="54" rx="4" fill="#171c24"/>
+<text x="640" y="420" fill="#b89aff" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="18" font-weight="500" text-anchor="middle">No, ball</text>
+<text x="640" y="442" fill="#b89aff" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="18" font-weight="500" text-anchor="middle">approaches</text>
+</svg>

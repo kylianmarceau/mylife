@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 220" role="img" font-family="Inter, Arial, sans-serif">
+<title>Visual data changes each stage of the familiar language-model training pipeline</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<line x1="280.0" y1="110.0" x2="340.0" y2="110.0" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="560.0" y1="110.0" x2="620.0" y2="110.0" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<rect x="60.0" y="68.0" width="220" height="84" rx="8" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="170.0" y="104.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Multimodal pretrain</text>
+<text x="170.0" y="127.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">visual knowledge</text>
+<rect x="340.0" y="68.0" width="220" height="84" rx="8" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="450.0" y="104.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Visual SFT</text>
+<text x="450.0" y="127.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">tasks and formats</text>
+<rect x="620.0" y="68.0" width="220" height="84" rx="8" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="730.0" y="104.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Preference tuning</text>
+<text x="730.0" y="127.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">faithful responses</text>
+
+</svg>

@@ -1,0 +1,54 @@
+/* Study colours for Reading view and Live Preview.
+   Enable in Settings > Appearance > CSS snippets > study-colours.
+   Edit the colours below to customise the palette. */
+
+body.theme-dark {
+  --study-title: #f0cf85;
+  --study-section: #adca8d;
+  --study-topic: #bf94bb;
+  --study-subheading: #f0cf85;
+  --study-emphasis: #f0cf85;
+  --study-definition: #f0cf85;
+  --study-definition-border: #c96972;
+  --study-definition-background: transparent;
+}
+
+body.theme-light {
+  --study-title: #7042b0;
+  --study-section: #155eaa;
+  --study-topic: #087563;
+  --study-subheading: #925300;
+  --study-emphasis: #925300;
+  --study-definition: #155eaa;
+  --study-definition-border: #155eaa;
+  --study-definition-background: rgba(21, 94, 170, 0.05);
+}
+
+:is(.markdown-rendered, .markdown-source-view.mod-cm6) {
+  --h1-color: var(--study-title) !important;
+  --h2-color: var(--study-section) !important;
+  --h3-color: var(--study-topic) !important;
+  --h4-color: var(--study-subheading) !important;
+  --h5-color: var(--study-subheading) !important;
+  --h6-color: var(--study-topic) !important;
+  --bold-color: var(--study-emphasis) !important;
+  --blockquote-border-color: var(--study-definition-border) !important;
+  --blockquote-background-color: var(--study-definition-background) !important;
+}
+
+/* Explicit colours also override theme rules for formatted bold text. */
+.markdown-rendered strong,
+.markdown-source-view.mod-cm6 .cm-strong:not([class*="cm-header"]) {
+  color: var(--study-emphasis) !important;
+}
+
+/* Definitions in this vault use > **Term**: explanation. */
+.markdown-rendered blockquote:not(.callout) strong,
+.markdown-source-view.mod-cm6 .HyperMD-quote .cm-strong {
+  color: var(--study-definition) !important;
+}
+
+/* A bold word inside a heading should retain the heading's colour. */
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) strong {
+  color: inherit !important;
+}

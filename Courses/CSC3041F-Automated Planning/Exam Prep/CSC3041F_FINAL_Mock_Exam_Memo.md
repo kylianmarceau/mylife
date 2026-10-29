@@ -1,3 +1,8 @@
+---
+tags:
+  - automated-planning
+---
+
 # CSC3041F FINAL Mock Exam Memo
 
 **Total:** 180 marks

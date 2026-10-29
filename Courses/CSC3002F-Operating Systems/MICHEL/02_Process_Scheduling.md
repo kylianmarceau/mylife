@@ -1,8 +1,28 @@
+---
+tags:
+  - operating-systems
+---
+
 # Process Scheduling
 
 **Subject**: CSC3002F Operating Systems  
 **Source**: `CSC3002F_MK_2_ProcessScheduling_v3.pdf`, Michelle Kuttel, pages 1-52  
 **Generated**: 2026-06-03
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Scheduling Basics, Bursts, And Preemption|Scheduling Basics, Bursts, And Preemption]]
+  - [[#Context Switches And Scheduling Criteria|Context Switches And Scheduling Criteria]]
+  - [[#Evaluating Scheduling Algorithms|Evaluating Scheduling Algorithms]]
+  - [[#First-Come, First-Served (FCFS)|First-Come, First-Served (FCFS)]]
+  - [[#Shortest-Job-First (SJF) And Shortest-Remaining-Time-First|Shortest-Job-First (SJF) And Shortest-Remaining-Time-First]]
+  - [[#Round-Robin (RR)|Round-Robin (RR)]]
+  - [[#Priority, Multilevel Queue, And Multilevel Feedback Queue|Priority, Multilevel Queue, And Multilevel Feedback Queue]]
+  - [[#Linux Completely Fair Scheduler (CFS)|Linux Completely Fair Scheduler (CFS)]]
+  - [[#Multicore Scheduling, SMT, Load Balancing, And Affinity|Multicore Scheduling, SMT, Load Balancing, And Affinity]]
 
 ---
 
@@ -390,173 +410,3 @@ Load-balancing approaches:
 Linux CFS uses both and is NUMA-aware. It defines scheduling domains and NUMA nodes, balancing within domains first and migrating across NUMA nodes mainly under severe imbalance.
 
 Thread load combines priority and average CPU utilization. A high-priority I/O-bound thread can have low load; a low-priority CPU-bound thread can have similar load. Queue load is the sum of thread loads in the queue.
-
-
-## Worked Examples
-
-### Example 1: FCFS Waiting Time
-
-**Problem**: Processes arrive as $P_1,P_2,P_3$ with bursts $24,3,3$. Compute average waiting time.
-
-**Step 1**: Gantt order:
-
-```text
-0        24   27   30
-|   P1   | P2 | P3 |
-```
-
-**Step 2**: Waiting times:
-
-$$
-W_{P_1}=0,\quad W_{P_2}=24,\quad W_{P_3}=27
-$$
-
-**Step 3**:
-
-$$
-\bar{W}=\frac{0+24+27}{3}=17
-$$
-
-**Answer**: Average waiting time is $17$ time units.
-
-### Example 2: SJF Waiting Time
-
-**Problem**: Bursts are $P_1=6$, $P_2=8$, $P_3=7$, $P_4=3$. Compute SJF waiting time.
-
-**Step 1**: Sort by burst: $P_4,P_1,P_3,P_2$.  
-**Step 2**: Waiting times:
-
-$$
-W_{P_4}=0,\quad W_{P_1}=3,\quad W_{P_3}=9,\quad W_{P_2}=16
-$$
-
-**Step 3**:
-
-$$
-\bar{W}=\frac{0+3+9+16}{4}=7
-$$
-
-**Answer**: Average waiting time is $7$.
-
-### Example 3: Exponential Burst Prediction
-
-**Problem**: Let $\alpha=0.5$, previous prediction $\tau_n=6$, and actual burst $t_n=10$. Predict the next burst.
-
-**Step 1**:
-
-$$
-\tau_{n+1}=0.5(10)+(1-0.5)(6)
-$$
-
-**Step 2**:
-
-$$
-\tau_{n+1}=5+3=8
-$$
-
-**Answer**: Predicted next burst is $8$.
-
-### Example 4: RR Turnaround Time
-
-**Problem**: Source example with $q=3$: $P_1$ arrives $0$ burst $7$, $P_2$ arrives $2$ burst $4$, $P_3$ arrives $4$ burst $3$. Completion times from the source are $P_1=14$, $P_2=13$, $P_3=9$. Compute average turnaround time.
-
-**Step 1**: Turnaround time:
-
-$$
-T_i=C_i-A_i
-$$
-
-**Step 2**:
-
-$$
-T_{P_1}=14-0=14
-$$
-
-$$
-T_{P_2}=13-2=11
-$$
-
-$$
-T_{P_3}=9-4=5
-$$
-
-**Step 3**:
-
-$$
-\bar{T}=\frac{14+11+5}{3}=10
-$$
-
-**Answer**: Average turnaround time is $10$.
-
----
-
-## Common Mistakes / Gotchas
-
-- Calculating turnaround time when the question asks for waiting time.
-- Forgetting arrival times in SRTF/RR examples.
-- Treating SJF as implementable exactly; actual systems need prediction.
-- Choosing an RR quantum smaller than context-switch overhead.
-- Assuming FCFS is always fair in user experience; arrival-order fairness can still produce convoy effects.
-- Thinking Linux CFS is just RR with a different quantum. It uses virtual runtime and proportional fairness.
-- Ignoring cache affinity when moving threads between cores.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| CPU burst | CPU execution interval before block/yield |
-| FCFS | FIFO, non-preemptive |
-| SJF | Shortest next CPU burst; optimal average waiting if exact bursts known |
-| SRTF | Preemptive SJF |
-| RR | Preemptive fixed time-slice scheduling |
-| Priority | Run highest priority |
-| Aging | Increase priority over time to avoid starvation |
-| Multilevel queue | Fixed queues/classes |
-| Feedback queue | Processes move between queues |
-| CFS | Linux virtual-runtime fair scheduler |
-| NUMA | Memory access depends on processor location |
-
-**Key Formulas**:
-
-$$
-L=\lambda W
-$$
-
-$$
-\text{turnaround time}=C_i-A_i
-$$
-
-$$
-\tau_{n+1}=\alpha t_n+(1-\alpha)\tau_n
-$$
-
-$$
-\bar{W}=\frac{\sum_i W_i}{n},\quad \bar{T}=\frac{\sum_i T_i}{n}
-$$
-
-**Key Takeaways**:
-
-- Scheduling criteria conflict: better response time may cost more overhead or worse turnaround.
-- FCFS is simple but vulnerable to convoy effects.
-- SJF minimizes average waiting time in ideal deterministic settings but requires burst prediction.
-- RR supports interactivity through preemption and a time quantum.
-- Real systems combine ideas; Linux CFS uses proportional fairness and `vruntime`.
-- Multicore scheduling adds load balance, cache affinity, SMT, and NUMA complexity.
-
----
-
-## Practice Questions
-
-**Q1**: Why are I/O-bound processes often favored by interactive schedulers?  
-> Answer: They have short CPU bursts and block quickly, so giving them prompt CPU access improves responsiveness while they spend much time waiting for I/O.
-
-**Q2**: What happens to RR as the quantum becomes very large?  
-> Answer: It approaches FCFS because processes rarely get preempted before finishing their CPU burst.
-
-**Q3**: How does aging prevent starvation?  
-> Answer: It gradually increases the priority of waiting processes so a low-priority process eventually becomes high enough to run.
-
-**Q4**: In CFS, which task is selected next?  
-> Answer: The runnable task with the smallest `vruntime`, stored as the leftmost node in the red-black tree.

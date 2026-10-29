@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 340" role="img" font-family="Inter, Arial, sans-serif">
+<title>Illustrative image-prompt cosine similarity distinguishes alignment from realism</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<text x="455.0" y="35" text-anchor="middle" fill="#f8fafc" font-size="19">Raw cosine similarity</text>
+<path d="M80.0 65V275H832.0" fill="none" stroke="#f8fafc" stroke-width="1.6"/>
+<rect x="90.0" y="123.30000000000001" width="35" height="151.7" fill="#83a8d1"/><text x="108.0" y="113.30000000000001" text-anchor="middle" fill="#f8fafc" font-size="15">0.82</text><text x="108.0" y="298" text-anchor="middle" fill="#98a6b7" font-size="15">Match</text>
+<rect x="330.0" y="230.6" width="35" height="44.4" fill="#d6e1ed"/><text x="348.0" y="220.6" text-anchor="middle" fill="#f8fafc" font-size="15">0.24</text><text x="348.0" y="298" text-anchor="middle" fill="#98a6b7" font-size="15">Mismatch</text>
+<text x="25" y="175" text-anchor="middle" transform="rotate(-90 25 175)" fill="#f8fafc" font-size="18">Cosine similarity</text>
+</svg>

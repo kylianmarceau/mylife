@@ -1,8 +1,27 @@
+---
+tags:
+  - automated-planning
+---
+
 # Heuristic Search, A*, And Beam Search
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Lecture 4 - Copy.pdf`, Zola Mahlaza, slides 1-41  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Heuristics|Heuristics]]
+  - [[#Admissibility And Consistency|Admissibility And Consistency]]
+  - [[#N-Puzzle As A Heuristic Domain|N-Puzzle As A Heuristic Domain]]
+  - [[#Common N-Puzzle Heuristics|Common N-Puzzle Heuristics]]
+  - [[#Heuristic Creation Through Relaxation|Heuristic Creation Through Relaxation]]
+  - [[#Combining Heuristics|Combining Heuristics]]
+  - [[#A* Search|A* Search]]
+  - [[#Beam Search|Beam Search]]
 
 ---
 
@@ -297,117 +316,3 @@ flowchart TD
 ```
 
 Caption: Beam search controls memory by deliberately throwing away candidates.
-
-## Worked Examples
-
-### Example 1: Misplaced Tiles And Manhattan Distance
-
-**Problem**: A tile $5$ is currently at row $3$, column $1$. Its goal is row $2$, column $3$.
-
-**Step 1: Misplaced tile score**  
-Tile $5$ is not in its goal position, so it contributes $1$ to $h_1$.
-
-**Step 2: Manhattan contribution**  
-Horizontal distance is $|1-3|=2$. Vertical distance is $|3-2|=1$.
-
-**Step 3: Sum**  
-Tile $5$ contributes $2+1=3$ to Manhattan distance.
-
-**Answer**: $h_1$ contribution is $1$; $h_2$ contribution is $3$.
-
-### Example 2: A* Node Choice
-
-**Problem**: The openlist has three nodes:
-
-| Node | $g(n)$ | $h(n)$ |
-|---|---:|---:|
-| A | 4 | 5 |
-| B | 7 | 1 |
-| C | 2 | 8 |
-
-**Step 1: Compute $f$**  
-$f(A)=9$, $f(B)=8$, $f(C)=10$.
-
-**Step 2: Select lowest $f$**  
-A* expands node `B`.
-
-**Answer**: A* chooses `B` because it has the lowest estimated total solution cost.
-
-### Example 3: Beam Width
-
-**Problem**: Beam width $k=2$. Four candidates after sorting by $f$ are $[N_1,N_2,N_3,N_4]$.
-
-**Step 1: Keep top $k$**  
-Keep `N1` and `N2`.
-
-**Step 2: Discard the rest**  
-Discard `N3` and `N4`, even if one might lead to the true optimum later.
-
-**Answer**: Beam search reduces memory but loses completeness and optimality.
-
----
-
-## Common Mistakes / Gotchas
-
-- Using $h^*(n)$ as if it were available. In real problems, it is usually unknown.
-- Confusing admissibility with consistency. Consistency is an edge-by-edge condition and is stronger.
-- Thinking greedy best-first is optimal because it uses a heuristic. It ignores $g(n)$.
-- Forgetting that A* optimality depends on heuristic properties.
-- Treating beam search as A* with less memory but the same guarantees. Beam search is not complete or optimal.
-- Assuming a combined heuristic is automatically better. It must preserve the required properties, and it costs more to compute.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| $h^*(n)$ | True cheapest remaining cost |
-| $h(n)$ | Estimated remaining cost |
-| Admissible | Never overestimates `h*` |
-| Consistent | Estimate drop is bounded by edge cost |
-| Misplaced tiles | Count tiles not in goal positions |
-| Manhattan distance | Sum grid distances to goal positions |
-| A* | Uses $f(n)=g(n)+h(n)$ |
-| Beam search | Keeps only top `k` candidates |
-
-**Key Formulas**:
-
-$$
-h(n)\le h^*(n)\qquad\text{(admissibility)}
-$$
-
-$$
-h(n)\le c(n,a,n')+h(n')\qquad\text{(consistency)}
-$$
-
-$$
-f_{A^*}(n)=g(n)+h(n)
-$$
-
-$$
-\text{Beam space}\approx O(km)
-$$
-
-**Key Takeaways**:
-
-- Heuristics guide search by estimating remaining cost.
-- Relaxed problems are a systematic way to build admissible heuristics.
-- A* is optimal on finite spaces when the heuristic is admissible and consistent.
-- Beam search controls memory by giving up completeness and optimality.
-
----
-
-## Practice Questions
-
-**Q1**: Why is Manhattan distance admissible for the sliding-tile puzzle?  
-> Answer: It solves a relaxed version where tiles can move independently toward their goal positions, ignoring blocking interactions, so it cannot overestimate the true number of moves.
-
-**Q2**: What is the difference between greedy best-first search and A*?  
-> Answer: Greedy best-first uses only $h(n)$, while A* uses $g(n)+h(n)$.
-
-**Q3**: Why can beam search miss a solution?  
-> Answer: It discards nodes outside the top $k$, and the discarded nodes may contain the only path to a goal.
-
-**Q4**: What does consistency prevent?  
-> Answer: It prevents a heuristic from dropping by more than the actual cost of taking an action, keeping estimates coherent along paths.

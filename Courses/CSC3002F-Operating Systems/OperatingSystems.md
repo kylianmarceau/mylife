@@ -1,8 +1,13 @@
+---
+tags:
+  - operating-systems
+---
+
 # Operating Systems
 
 **Subject**: CSC3002F Operating Systems  
 **Generated**: 2026-06-04  
-**Scope**: Consolidated core content from the current operating systems notes. Worked examples, common mistakes, cheat sheets, and practice questions are excluded.
+**Scope**: Consolidated core content from the current operating systems notes.
 
 ## Lecturer Coverage
 

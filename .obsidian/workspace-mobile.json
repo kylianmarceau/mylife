@@ -1,0 +1,218 @@
+{
+  "main": {
+    "id": "a48e5b0486fbc8d5",
+    "type": "split",
+    "children": [
+      {
+        "id": "fc294b8e7422cb1a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2d6a7e1cc6cad011",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "0e7ba884f46d1c1c",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "49685e09f1869af8",
+        "type": "leaf",
+        "state": {
+          "type": "file-explorer",
+          "state": {
+            "sortOrder": "alphabetical",
+            "autoReveal": false,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-folder-closed",
+          "title": "Files"
+        }
+      },
+      {
+        "id": "31405ccc70adad05",
+        "type": "leaf",
+        "state": {
+          "type": "search",
+          "state": {
+            "query": "",
+            "matchingCase": false,
+            "explainSearch": false,
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical"
+          },
+          "icon": "lucide-search",
+          "title": "Search"
+        }
+      },
+      {
+        "id": "0b65811625418189",
+        "type": "leaf",
+        "state": {
+          "type": "tag",
+          "state": {
+            "sortOrder": "frequency",
+            "useHierarchy": true,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-tags",
+          "title": "Tags"
+        }
+      },
+      {
+        "id": "982e62c00135241d",
+        "type": "leaf",
+        "state": {
+          "type": "all-properties",
+          "state": {
+            "sortOrder": "frequency",
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-archive",
+          "title": "All properties"
+        }
+      },
+      {
+        "id": "3bd6874809a50a15",
+        "type": "leaf",
+        "state": {
+          "type": "bookmarks",
+          "state": {
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-bookmark",
+          "title": "Bookmarks"
+        }
+      }
+    ],
+    "currentTab": 0
+  },
+  "right": {
+    "id": "33a8382a6f935bc5",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "cb49c2dee705fd2d",
+        "type": "leaf",
+        "state": {
+          "type": "backlink",
+          "state": {
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical",
+            "showSearch": false,
+            "searchQuery": "",
+            "backlinkCollapsed": false,
+            "unlinkedCollapsed": true
+          },
+          "icon": "links-coming-in",
+          "title": "Backlinks"
+        }
+      },
+      {
+        "id": "0b44aa4cf56d69ee",
+        "type": "leaf",
+        "state": {
+          "type": "outgoing-link",
+          "state": {
+            "linksCollapsed": false,
+            "unlinkedCollapsed": true
+          },
+          "icon": "links-going-out",
+          "title": "Outgoing links"
+        }
+      },
+      {
+        "id": "24c2ee808fbfa92f",
+        "type": "leaf",
+        "state": {
+          "type": "outline",
+          "state": {
+            "followCursor": false,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-list",
+          "title": "Outline"
+        }
+      }
+    ],
+    "currentTab": 0
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "2d6a7e1cc6cad011",
+  "lastOpenFiles": [
+    "Sources/CSC3041F-Automated Planning/Lecture 4 - Copy.pdf",
+    "Sources/CSC3041F-Automated Planning/RL/Edit_2RL_3041F.pdf",
+    "Courses/CSC3001F-networks/Lecture_Notes/Network_Layer_Data_Plane.md",
+    "Courses/MAM2013S-Introductory Algebra/01_Integers.md",
+    "Sources/CSC3041F-Automated Planning/Lecture 6 - Copy.pdf",
+    "Sources/CSC3003S - Advanced Programming/TOA/3 - TOA Brute Force.pdf",
+    "Courses/MAM2013S-Introductory Algebra/Flashcards/01_Integers.md",
+    "Courses/CSC3041F-Automated Planning/Exam Prep/RL_Mock_Exam.html",
+    "Courses/CSC3001F-networks/Lecture_Notes/Application_Layer.md",
+    "Sources/CSC3043S - Reasoning in AI/Bayesian Networks/4-BayesianNetworks-Representation.pdf",
+    "Sources/CSC3041F-Automated Planning/pastTests/CSC3041F_ConcessionTest_2026.pdf",
+    "Sources/CSC3041F-Automated Planning/RL/8RL_3041F_Edit.pdf",
+    "Sources/CSC3003S - Advanced Programming/TOA/4 - TOA Decrease and Conquer.pdf",
+    "Sources/CSC3041F-Automated Planning/Lecture 8.pdf",
+    "Courses/CSC3041F-Automated Planning/Exam Prep/Flashcards.md",
+    "Sources/CSC3041F-Automated Planning/Lecture3.pdf",
+    "Courses/CSC3001F-networks/Study_Aids/Flashcards.md",
+    "Courses/CSC3043S-Reasoning in AI/LLMs/03_Transformer_Architecture.md",
+    "diagrams/CSC3003S-Advanced Programming/TOA/07_Space_Time_Tradeoffs/horspool-traces.svg",
+    "Courses/CSC3001F-networks/Lecture_Notes/Introduction.md",
+    "diagrams/CSC3043S-Reasoning in AI/LLMs/03_Transformer_Architecture/modern_transformer_block_llama_style 1.svg",
+    "Courses/CSC3003S-Advanced Programming/Flashcards/TOA/04_Decrease_And_Conquer.md",
+    "diagrams/CSC3043S-Reasoning in AI/LLMs/03_Transformer_Architecture/modern_transformer_block_llama_style.svg",
+    "Courses/MAM2013S-Introductory Algebra/Flashcards/03_Groups.md",
+    "Courses/CSC3001F-networks/Lecture_Notes/Transport_Layer.md",
+    "Courses/CSC3002F-Operating Systems/ASLAM/06_Security.md",
+    "Courses/CSC3002F-Operating Systems/OperatingSystems.md",
+    "Courses/CSC3001F-networks/Lecture_Notes/Network_Security.md",
+    "diagrams/CSC3043S-Reasoning in AI/LLMs/03_Transformer_Architecture/qkv-projection-dark.svg",
+    "Courses/CSC3043S-Reasoning in AI/Flashcards/VLMs/04_VLMs_In_Practice.md",
+    "Courses/CSC3002F-Operating Systems/Study_Aids/Flashcards.md",
+    "diagrams/CSC3044S-AI Systems/05_LLMs_In_Production/attention_backbone_and_experts.svg",
+    "diagrams/CSC3043S-Reasoning in AI/VLMs/01_Vision_Transformers/vit-encoder.svg",
+    "diagrams/CSC3043S-Reasoning in AI/VLMs/06_Generative_Foundations/reparameterization.svg",
+    "diagrams/CSC3043S-Reasoning in AI/VLMs/04_VLMs_In_Practice/chart-reading-example.svg",
+    "Courses/CSC3003S-Advanced Programming/TOA/09_Greedy_Techniques.md",
+    "diagrams/CSC3003S-Advanced Programming/TOA/05_Divide_And_Conquer/closest-strip.svg",
+    "diagrams/CSC3043S-Reasoning in AI/LLMs/04_Pretraining/data-cleaning.svg",
+    "Courses/CSC3001F-networks/Lecture_Notes/Link_Layer.md",
+    "Courses/CSC3002F-Operating Systems/MICHEL/01_Processes.md",
+    "Courses/CSC3043S-Reasoning in AI/Flashcards/LLMs/07_Preference_Alignment_And_Reasoning.md",
+    "Courses/CSC3041F-Automated Planning/Control/03_Model_Based_Model_Free_And_PID_Control.md",
+    "Courses/CSC3044S-AI Systems/Flashcards/08_BDI_Agent_Architectures.md",
+    "Courses/CSC3002F-Operating Systems/ASLAM/02_Operating_System_Services_And_Structures.md",
+    "Courses/CSC3003S-Advanced Programming/TOA/04_Decrease_And_Conquer.md",
+    "Courses/CSC3002F-Operating Systems/ASLAM/04_Demand_Paging_And_Page_Replacement.md"
+  ]
+}

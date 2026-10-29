@@ -1,3 +1,8 @@
+---
+tags:
+  - automated-planning
+---
+
 # Control Flashcards
 
 These cards use the Obsidian Spaced Repetition plugin inline flashcard format.

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 380" role="img" font-family="Inter, Arial, sans-serif">
+<title>Video attention can alternate temporal and spatial interactions instead of all-pairs attention</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<text x="185" y="35" fill="#f8fafc" font-size="18" text-anchor="middle">Joint space-time</text>
+<line x1="210" y1="160" x2="80" y2="85" stroke="#83a8d1" stroke-width="2"/>
+<circle cx="80" cy="85" r="7" fill="#98a6b7"/>
+<line x1="210" y1="160" x2="145" y2="85" stroke="#83a8d1" stroke-width="2"/>
+<circle cx="145" cy="85" r="7" fill="#98a6b7"/>
+<line x1="210" y1="160" x2="210" y2="85" stroke="#83a8d1" stroke-width="2"/>
+<circle cx="210" cy="85" r="7" fill="#98a6b7"/>
+<line x1="210" y1="160" x2="275" y2="85" stroke="#83a8d1" stroke-width="2"/>
+<circle cx="275" cy="85" r="7" fill="#98a6b7"/>
+<line x1="210" y1="160" x2="80" y2="160" stroke="#83a8d1" stroke-width="2"/>
+<circle cx="80" cy="160" r="7" fill="#98a6b7"/>
+<line x1="210" y1="160" x2="145" y2="160" stroke="#83a8d1" stroke-width="2"/>
+<circle cx="145" cy="160" r="7" fill="#98a6b7"/>
+<circle cx="210" cy="160" r="7" fill="#d6e1ed"/>
+<line x1="210" y1="160" x2="275" y2="160" stroke="#83a8d1" stroke-width="2"/>
+<circle cx="275" cy="160" r="7" fill="#98a6b7"/>
+<line x1="210" y1="160" x2="80" y2="235" stroke="#83a8d1" stroke-width="2"/>
+<circle cx="80" cy="235" r="7" fill="#98a6b7"/>
+<line x1="210" y1="160" x2="145" y2="235" stroke="#83a8d1" stroke-width="2"/>
+<circle cx="145" cy="235" r="7" fill="#98a6b7"/>
+<line x1="210" y1="160" x2="210" y2="235" stroke="#83a8d1" stroke-width="2"/>
+<circle cx="210" cy="235" r="7" fill="#98a6b7"/>
+<line x1="210" y1="160" x2="275" y2="235" stroke="#83a8d1" stroke-width="2"/>
+<circle cx="275" cy="235" r="7" fill="#98a6b7"/>
+<text x="185" y="295" fill="#98a6b7" font-size="17" text-anchor="middle">Columns: spatial positions</text>
+<text x="475" y="35" fill="#f8fafc" font-size="18" text-anchor="middle">Spatial: same frame</text>
+<circle cx="370" cy="85" r="7" fill="#98a6b7"/>
+<circle cx="435" cy="85" r="7" fill="#98a6b7"/>
+<circle cx="500" cy="85" r="7" fill="#98a6b7"/>
+<circle cx="565" cy="85" r="7" fill="#98a6b7"/>
+<line x1="500" y1="160" x2="370" y2="160" stroke="#d6e1ed" stroke-width="2"/>
+<circle cx="370" cy="160" r="7" fill="#98a6b7"/>
+<line x1="500" y1="160" x2="435" y2="160" stroke="#d6e1ed" stroke-width="2"/>
+<circle cx="435" cy="160" r="7" fill="#98a6b7"/>
+<circle cx="500" cy="160" r="7" fill="#d6e1ed"/>
+<line x1="500" y1="160" x2="565" y2="160" stroke="#d6e1ed" stroke-width="2"/>
+<circle cx="565" cy="160" r="7" fill="#98a6b7"/>
+<circle cx="370" cy="235" r="7" fill="#98a6b7"/>
+<circle cx="435" cy="235" r="7" fill="#98a6b7"/>
+<circle cx="500" cy="235" r="7" fill="#98a6b7"/>
+<circle cx="565" cy="235" r="7" fill="#98a6b7"/>
+<text x="475" y="295" fill="#98a6b7" font-size="17" text-anchor="middle">Columns: spatial positions</text>
+<text x="765" y="35" fill="#f8fafc" font-size="18" text-anchor="middle">Temporal: same location</text>
+<circle cx="660" cy="85" r="7" fill="#98a6b7"/>
+<circle cx="725" cy="85" r="7" fill="#98a6b7"/>
+<line x1="790" y1="160" x2="790" y2="85" stroke="#a8bfd8" stroke-width="2"/>
+<circle cx="790" cy="85" r="7" fill="#98a6b7"/>
+<circle cx="855" cy="85" r="7" fill="#98a6b7"/>
+<circle cx="660" cy="160" r="7" fill="#98a6b7"/>
+<circle cx="725" cy="160" r="7" fill="#98a6b7"/>
+<circle cx="790" cy="160" r="7" fill="#d6e1ed"/>
+<circle cx="855" cy="160" r="7" fill="#98a6b7"/>
+<circle cx="660" cy="235" r="7" fill="#98a6b7"/>
+<circle cx="725" cy="235" r="7" fill="#98a6b7"/>
+<line x1="790" y1="160" x2="790" y2="235" stroke="#a8bfd8" stroke-width="2"/>
+<circle cx="790" cy="235" r="7" fill="#98a6b7"/>
+<circle cx="855" cy="235" r="7" fill="#98a6b7"/>
+<text x="765" y="295" fill="#98a6b7" font-size="17" text-anchor="middle">Columns: spatial positions</text>
+<text x="450" y="340" text-anchor="middle" fill="#98a6b7" font-size="18">Rows: frames; highlighted query attends along the indicated connections</text>
+</svg>

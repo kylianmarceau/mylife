@@ -1,3 +1,8 @@
+---
+tags:
+  - automated-planning
+---
+
 # Proofs
 
 These are the three proof and derivation patterns from the reinforcement learning source notes:
@@ -11,6 +16,14 @@ Main source note sections:
 - `03_Value_Functions.md`: Bellman equation derivation
 - `04_Optimal_Value_Functions.md`: Bellman optimality derivation
 - `05_Value_Iteration.md`: convergence and contraction
+
+---
+
+## Contents
+
+- [[#1. Bellman Equation Derivation|1. Bellman Equation Derivation]]
+- [[#2. Bellman Optimality Derivation|2. Bellman Optimality Derivation]]
+- [[#3. Convergence Contraction Proof|3. Convergence Contraction Proof]]
 
 ---
 

@@ -1,8 +1,30 @@
+---
+tags:
+  - networks
+---
+
 # Network Layer: Data Plane
 
 **Subject**: CSC3001F Networks  
 **Source**: `NetworkLayer_2025-DataPlane.pptx`, Dr. Josiah Chavula, slides 1-52  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Network-Layer Service|Network-Layer Service]]
+  - [[#Data Plane And Control Plane|Data Plane And Control Plane]]
+  - [[#Destination-Based Forwarding And Longest Prefix Matching|Destination-Based Forwarding And Longest Prefix Matching]]
+  - [[#IPv4 Datagram Format|IPv4 Datagram Format]]
+  - [[#IP Addressing, Interfaces, And Subnets|IP Addressing, Interfaces, And Subnets]]
+  - [[#CIDR And Hierarchical Addressing|CIDR And Hierarchical Addressing]]
+  - [[#DHCP|DHCP]]
+  - [[#NAT|NAT]]
+  - [[#IPv6|IPv6]]
+  - [[#IPv6 Transition And Tunneling|IPv6 Transition And Tunneling]]
+  - [[#Generalized Forwarding And OpenFlow|Generalized Forwarding And OpenFlow]]
 
 ---
 
@@ -431,109 +453,3 @@ flowchart TD
 ```
 
 Caption: Match-plus-action unifies routers, switches, firewalls, and NAT behavior.
-
-## Worked Examples
-
-### Example 1: Longest Prefix Match
-**Problem**: Choose output interface for destination `11001000 00010111 00011000 10101010` using the source table.  
-**Step 1**: Check prefix `11001000 00010111 00010*** ********`: no match, because the third byte begins `00011000`, not `00010`.  
-**Step 2**: Check prefix `11001000 00010111 00011000 ********`: match.  
-**Step 3**: Check prefix `11001000 00010111 00011*** ********`: match, but shorter.  
-**Answer**: Choose the more specific second entry, interface `1`.
-
-### Example 2: DHCP Join
-**Problem**: A laptop joins a LAN and has no IP address. What messages occur?  
-**Step 1**: Client broadcasts DHCP Discover from `0.0.0.0:68` to `255.255.255.255:67`.  
-**Step 2**: Server broadcasts DHCP Offer with offered IP and lease time.  
-**Step 3**: Client broadcasts DHCP Request for the offered IP.  
-**Step 4**: Server broadcasts DHCP ACK confirming lease.  
-**Answer**: The host obtains IP address, lease, first-hop router, DNS server, and mask information.
-
-### Example 3: CIDR Allocation
-**Problem**: An ISP has `200.23.16.0/20`. How many `/23` blocks can it allocate?  
-**Step 1**: `/20` to `/23` increases prefix length by 3 bits.  
-**Step 2**: `2^3 = 8` sub-blocks.  
-**Answer**: The ISP can allocate eight `/23` blocks.
-
-### Example 4: NAT Table
-**Problem**: Host `10.0.0.1:3345` contacts server `128.119.40.186:80`. NAT public address is `138.76.29.7`, chosen port `5001`. What mapping is stored?  
-**Step 1**: Outgoing source becomes `138.76.29.7:5001`.  
-**Step 2**: Original LAN endpoint is `10.0.0.1:3345`.  
-**Answer**: NAT table stores `138.76.29.7:5001 -> 10.0.0.1:3345`.
-
-### Example 5: IPv6 Compression
-**Problem**: Compress `2001:0718:0000:0000:020d:56ff:fe77:52a3`.  
-**Step 1**: Remove leading zeros: `2001:718:0:0:20d:56ff:fe77:52a3`.  
-**Step 2**: Compress one run of zero groups with `::`.  
-**Answer**: `2001:718::20d:56ff:fe77:52a3`.
-
----
-
-## Common Mistakes / Gotchas
-- Saying an IP address belongs to a host rather than an interface.
-- Choosing the first matching prefix instead of the longest matching prefix.
-- Confusing forwarding with routing, or data plane with control plane.
-- Forgetting best-effort IP gives no delivery, timing, ordering, or bandwidth guarantee.
-- Assuming DHCP only returns an IP address. It can return router, DNS, and mask settings too.
-- Forgetting NAT rewrites transport-layer ports, not just IP addresses.
-- Treating private addresses as globally routable public addresses.
-- Using `::` more than once in an IPv6 address; it can only be used once.
-- Assuming all routers must support IPv6 before IPv6 can be used; tunneling supports mixed deployment.
-- Thinking OpenFlow is only routing. It can express switch, router, firewall, and NAT-like behavior.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|------|---------|
-| Best effort | No delivery/order/timing/bandwidth guarantees |
-| Data plane | Local forwarding |
-| Control plane | Network-wide routing/control logic |
-| Longest prefix match | Use most specific matching route |
-| Interface | Network attachment point |
-| Subnet | Interfaces reachable without router |
-| CIDR | `a.b.c.d/x` prefix notation |
-| Route aggregation | Summarize multiple contiguous prefixes as one larger advertised route |
-| DHCP | Dynamic host configuration |
-| NAT | Private-public address/port rewriting |
-| IPv6 | 128-bit successor to IPv4 |
-| Tunneling | Packet inside packet |
-| Flow table | Match-action forwarding table |
-
-**Key Formulas / Rules**:
-
-```text
-CIDR block count from /a to /b = 2^(b-a)
-Longest prefix matching: choose the matching route with greatest prefix length
-NAT outbound: (private IP, private port) -> (public IP, new port)
-IPv6 address length = 128 bits = 8 groups of 16 bits
-```
-
-**Key Takeaways**:
-- The Internet network layer is best effort.
-- Routers forward locally, while routing/control logic determines tables.
-- Addressing structure enables aggregation and scalable forwarding.
-- DHCP automates host configuration.
-- NAT stretches IPv4 address space but complicates end-to-end connectivity.
-- IPv6 expands addresses and simplifies router processing.
-- Generalized forwarding broadens routing into programmable match-action behavior.
-
----
-
-## Practice Questions
-
-**Q1**: What is the difference between data plane and control plane?  
-> Answer: The data plane forwards packets locally at routers. The control plane determines routes and forwarding-table contents across the network.
-
-**Q2**: Why does longest prefix matching use the longest match instead of any match?  
-> Answer: Multiple prefixes can match one address. The longest prefix is the most specific route and should override broader aggregates.
-
-**Q3**: Name the four DHCP messages in order.  
-> Answer: Discover, Offer, Request, ACK.
-
-**Q4**: Give two advantages and two controversies of NAT.  
-> Answer: Advantages: saves public IPv4 addresses and allows internal renumbering. Controversies: violates layer/end-to-end assumptions and causes NAT traversal problems.
-
-**Q5**: What IPv4 header fields are removed from IPv6's main header?  
-> Answer: Header checksum, fragmentation/reassembly fields, and options are removed from the main header path; options move to next-header mechanisms.

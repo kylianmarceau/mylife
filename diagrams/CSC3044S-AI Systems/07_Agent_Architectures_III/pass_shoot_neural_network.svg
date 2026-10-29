@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 940 635" role="img" aria-labelledby="title desc">
+<title id="title">Pass-or-shoot network: perception and outputs</title>
+<desc id="desc">The depicted four-input network connects through two hidden nodes to pass and shoot scores. Nodes: Angle to B; Hidden unit 1; Distance to B; Angle to goalie; Distance to goalie; Hidden unit 2; Pass; Shoot.</desc>
+<defs>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#b89aff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#ffc778" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#ff939b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#adb9cb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<g data-from="A" data-to="H1" data-label="" data-bidirectional="false"><path d="M257.5 100 H295 L412.5 225" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="B" data-to="H1" data-label="" data-bidirectional="false"><path d="M257.5 245 H295 L412.5 225" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="C" data-to="H1" data-label="" data-bidirectional="false"><path d="M257.5 390 H295 L412.5 225" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="D" data-to="H1" data-label="" data-bidirectional="false"><path d="M257.5 535 H295 L412.5 225" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="A" data-to="H2" data-label="" data-bidirectional="false"><path d="M257.5 100 H295 L412.5 440" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="B" data-to="H2" data-label="" data-bidirectional="false"><path d="M257.5 245 H295 L412.5 440" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="C" data-to="H2" data-label="" data-bidirectional="false"><path d="M257.5 390 H295 L412.5 440" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="D" data-to="H2" data-label="" data-bidirectional="false"><path d="M257.5 535 H295 L412.5 440" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="H1" data-to="P" data-label="" data-bidirectional="false"><path d="M537.5 225 L710 225" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="H1" data-to="S" data-label="" data-bidirectional="false"><path d="M527.366 259.118 L742.07 399" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="H2" data-to="P" data-label="" data-bidirectional="false"><path d="M527.366 405.882 L742.07 266" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="H2" data-to="S" data-label="" data-bidirectional="false"><path d="M537.5 440 L710 440" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-node="A" aria-label="Angle to B"><rect x="32.5" y="59" width="225" height="82" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="145" y="107" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Angle to B</text>
+</g>
+<g data-node="H1" aria-label="Hidden unit 1"><circle cx="475" cy="225" r="62.5" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="475" y="219.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Hidden</text>
+<text x="475" y="244.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">unit 1</text>
+</g>
+<g data-node="B" aria-label="Distance to B"><rect x="32.5" y="204" width="225" height="82" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="145" y="252" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Distance to B</text>
+</g>
+<g data-node="C" aria-label="Angle to goalie"><rect x="32.5" y="349" width="225" height="82" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="145" y="397" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Angle to goalie</text>
+</g>
+<g data-node="D" aria-label="Distance to goalie"><rect x="32.5" y="494" width="225" height="82" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="145" y="542" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Distance to goalie</text>
+</g>
+<g data-node="H2" aria-label="Hidden unit 2"><circle cx="475" cy="440" r="62.5" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="475" y="434.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Hidden</text>
+<text x="475" y="459.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">unit 2</text>
+</g>
+<g data-node="P" aria-label="Pass"><rect x="710" y="184" width="190" height="82" rx="14" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="805" y="232" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Pass</text>
+</g>
+<g data-node="S" aria-label="Shoot"><rect x="710" y="399" width="190" height="82" rx="14" fill="#3d3326" stroke="#ffc778" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="805" y="447" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Shoot</text>
+</g>
+</svg>

@@ -1,8 +1,27 @@
+---
+tags:
+  - automated-planning
+---
+
 # Policy Iteration
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `RL/6RL_3041F_Edit.pdf`, Asad Jeewa, slides 1-18  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Relationship To Value Iteration|Relationship To Value Iteration]]
+  - [[#Policy Evaluation|Policy Evaluation]]
+  - [[#Policy Improvement|Policy Improvement]]
+  - [[#Policy Iteration Algorithm|Policy Iteration Algorithm]]
+  - [[#Synchronous And Asynchronous Policy Iteration|Synchronous And Asynchronous Policy Iteration]]
+  - [[#Convergence And Policy Improvement|Convergence And Policy Improvement]]
+  - [[#Generalized Policy Iteration|Generalized Policy Iteration]]
+  - [[#Choosing Policy Iteration Or Value Iteration|Choosing Policy Iteration Or Value Iteration]]
 
 ---
 
@@ -183,89 +202,3 @@ flowchart LR
 ```
 
 Caption: The diagram shows that policy iteration explicitly maintains the policy.
-
-## Worked Examples
-
-### Example 1: One Policy Improvement Step
-
-**Problem**: At state `s`, current policy chooses `Left`. One-step lookahead values are:
-
-$$
-Q(s,\mathrm{Left})=2,\quad Q(s,\mathrm{Right})=5,\quad Q(s,\mathrm{Up})=1
-$$
-
-**Step 1: Find argmax**  
-`Right` has the highest value.
-
-**Step 2: Improve policy**  
-Set $\pi_{\mathrm{new}}(s)=\mathrm{Right}$.
-
-**Answer**: The policy changes at `s`, so policy iteration must continue.
-
-### Example 2: Stable Policy
-
-**Problem**: After improvement, every state keeps the same action it had before.
-
-**Step 1: Compare old and new actions**  
-No state changes.
-
-**Step 2: Set stability flag**  
-$policy\_stable=\mathrm{true}$.
-
-**Answer**: The policy is optimal for the finite MDP under the exact policy iteration assumptions.
-
----
-
-## Common Mistakes / Gotchas
-
-- Confusing Bellman expectation with Bellman optimality. Policy evaluation uses expectation under a fixed policy.
-- Forgetting that policy iteration requires a known model in its exact DP form.
-- Thinking policy evaluation must always be exact. Approximate or partial evaluation leads toward GPI.
-- Assuming policy iteration always has cheaper iterations than value iteration. Evaluation can be expensive.
-- Not distinguishing $\arg\max$ policy improvement from value computation.
-- Misspelling the policy improvement theorem as just a practical heuristic; it is the convergence reason for finite tabular policy iteration.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Policy iteration | Alternate evaluation and improvement |
-| Policy evaluation | Compute $V_{\pi}$ |
-| Policy improvement | Make policy greedy w.r.t. current values |
-| Policy stable | Improved policy equals old policy |
-| GPI | Interacting approximate evaluation and improvement |
-
-**Key Formulas**:
-
-$$
-V_{\pi}(s)=\sum_a\pi(a\mid s)\sum_{s',r}p(s',r\mid s,a)[r+\gamma V_{\pi}(s')]
-$$
-
-$$
-\pi_{\mathrm{new}}(s)=\arg\max_a\sum_{s',r}p(s',r\mid s,a)[r+\gamma V_{\pi}(s')]
-$$
-
-**Key Takeaways**:
-
-- Policy iteration searches policy space directly.
-- It repeats "evaluate then improve".
-- It is guaranteed to converge in finite tabular MDPs under exact assumptions.
-- GPI generalizes the idea to partial and approximate RL algorithms.
-
----
-
-## Practice Questions
-
-**Q1**: What are the two main steps in policy iteration?  
-> Answer: Policy evaluation and policy improvement.
-
-**Q2**: Which Bellman equation is used during policy evaluation?  
-> Answer: The Bellman expectation equation for the current fixed policy.
-
-**Q3**: What condition stops exact policy iteration?  
-> Answer: The policy is stable: policy improvement changes no state's action.
-
-**Q4**: Why is GPI important?  
-> Answer: It describes many RL methods where evaluation and improvement happen partially or approximately rather than as exact separate phases.

@@ -1,8 +1,25 @@
+---
+tags:
+  - automated-planning
+---
+
 # Alpha-Beta Search
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Lecture 8.pdf`, Zola Mahlaza, slides 1-32  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Motivation For Pruning|Motivation For Pruning]]
+  - [[#Alpha And Beta|Alpha And Beta]]
+  - [[#Alpha-Beta Search Algorithm|Alpha-Beta Search Algorithm]]
+  - [[#MAX Node Logic|MAX Node Logic]]
+  - [[#MIN Node Logic|MIN Node Logic]]
+  - [[#Ordering And Complexity|Ordering And Complexity]]
 
 ---
 
@@ -209,108 +226,3 @@ The source notes a practical chess-style ordering heuristic:
 4. Backward moves.
 
 This is not perfect, but it tends to reveal strong branches early, increasing pruning.
-
-## Worked Examples
-
-### Example 1: MIN Cutoff
-
-**Problem**: MAX already has $\alpha=5$ from a previous branch. Now search a MIN node. Its first child returns $3$.
-
-**Step 1: Update MIN value**  
-$v=\min(+\infty,3)=3$.
-
-**Step 2: Compare to alpha**  
-$v\le\alpha$ because $3\le5$.
-
-**Step 3: Prune**  
-MAX would never choose a branch that MIN can hold to $3$ when MAX already has an option worth $5$.
-
-**Answer**: Prune the remaining children of the MIN node.
-
-### Example 2: MAX Cutoff
-
-**Problem**: MIN has $\beta=4$ from an earlier option. At a MAX node, a child returns $6$.
-
-**Step 1: Update MAX value**  
-$v=\max(-\infty,6)=6$.
-
-**Step 2: Compare to beta**  
-$v\ge\beta$ because $6\ge4$.
-
-**Step 3: Prune**  
-MIN will avoid this branch because it already has an option that keeps MAX to $4$.
-
-**Answer**: Prune the remaining children of the MAX node.
-
-### Example 3: Why Move Ordering Matters
-
-**Problem**: A MAX node has child values `[9, 1, 2]`, but those values are unknown until searched.
-
-**Step 1: Good ordering**  
-Searching `9` first sets a strong alpha and may prune later branches.
-
-**Step 2: Bad ordering**  
-Searching `1` and `2` first gives weak alpha values and may force more exploration.
-
-**Answer**: Alpha-beta is still correct in either order, but good ordering prunes more.
-
----
-
-## Common Mistakes / Gotchas
-
-- Thinking alpha-beta changes the final minimax answer. It does not; it only avoids irrelevant work.
-- Updating alpha at MIN nodes or beta at MAX nodes.
-- Forgetting the cutoff tests: MAX cuts when $v\ge\beta$; MIN cuts when $v\le\alpha$.
-- Assuming alpha-beta is always $O(b^{m/2})$. That requires perfect move ordering.
-- Treating pruned nodes as unknown in a way that changes the returned minimax value. They are safely irrelevant to the decision.
-- Confusing the slide label "alpha-delta" with a separate algorithm; the standard method uses alpha and beta bounds.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Alpha | Best value MAX can guarantee so far |
-| Beta | Best value MIN can guarantee so far |
-| Pruning | Skipping branches that cannot affect the root decision |
-| MAX cutoff | Stop when $v\ge\beta$ |
-| MIN cutoff | Stop when $v\le\alpha$ |
-| Move ordering | Successor order, crucial for pruning effectiveness |
-
-**Key Formulas**:
-
-$$
-\alpha_0=-\infty,\qquad \beta_0=+\infty
-$$
-
-$$
-\alpha\leftarrow \max(\alpha,v),\qquad \beta\leftarrow \min(\beta,v)
-$$
-
-$$
-\text{Best-case time}=O\!\left(b^{m/2}\right),\qquad \text{Worst-case time}=O(b^m)
-$$
-
-**Key Takeaways**:
-
-- Alpha-beta returns the same decision as minimax.
-- It prunes branches that cannot change that decision.
-- Good move ordering is the difference between minor and major savings.
-- The algorithm remains exponential in the worst case.
-
----
-
-## Practice Questions
-
-**Q1**: What does alpha represent?  
-> Answer: The best value MAX has found so far along the current search path.
-
-**Q2**: At a MIN node, when can you prune?  
-> Answer: When the current value `v` is less than or equal to $\alpha$.
-
-**Q3**: Does alpha-beta pruning ever change the minimax value?  
-> Answer: No. It only skips branches proven unable to affect the minimax decision.
-
-**Q4**: Why does good move ordering help alpha-beta pruning?  
-> Answer: Strong early moves create tighter alpha or beta bounds, so more later branches can be cut off.

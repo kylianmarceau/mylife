@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 800 610" role="img" aria-labelledby="title desc">
+<title id="title">Two vehicle routes with new customer insertions</title>
+<desc id="desc">Blue route: depot to C1 to C2 to C3 to depot. Teal route: depot to C4 to C5 to C6 to depot. Dashed amber segments insert C8 between C2 and C3 and C7 between C5 and C6. Spatial placement is schematic, without scale or geographic meaning.</desc>
+<defs>
+<marker id="arrow-f8fafc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-66b3ff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-5ad4b5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-b89aff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#b89aff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-ffc778" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#ffc778" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-ff939b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#ff939b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<path d="M142 257 L250 159" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-66b3ff)"/>
+<path d="M296 135 L433 106" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-66b3ff)"/>
+<path d="M484 110 L647 174" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-66b3ff)"/>
+<path d="M670 210 C658 251 585 266 505 265 C362 263 239 256 154 272" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-66b3ff)"/>
+<path d="M143 302 L253 393" fill="none" stroke="#5ad4b5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-5ad4b5)"/>
+<path d="M299 420 L432 458" fill="none" stroke="#5ad4b5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-5ad4b5)"/>
+<path d="M483 456 L657 389" fill="none" stroke="#5ad4b5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-5ad4b5)"/>
+<path d="M678 353 C659 315 585 302 505 304 C362 307 239 309 154 290" fill="none" stroke="#5ad4b5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-5ad4b5)"/>
+<path d="M481 83 L542 70" fill="none" stroke="#ffc778" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" stroke-dasharray="6 6" marker-end="url(#arrow-ffc778)"/>
+<path d="M588 75 L657 162" fill="none" stroke="#ffc778" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" stroke-dasharray="6 6" marker-end="url(#arrow-ffc778)"/>
+<path d="M483 477 L550 496" fill="none" stroke="#ffc778" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" stroke-dasharray="6 6" marker-end="url(#arrow-ffc778)"/>
+<path d="M593 483 L667 401" fill="none" stroke="#ffc778" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" stroke-dasharray="6 6" marker-end="url(#arrow-ffc778)"/>
+<circle cx="118" cy="280" r="38" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="118" y="287" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" fill="#f8fafc">Depot</text>
+<circle cx="270" cy="140" r="27" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="270" y="147" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" fill="#f8fafc">C1</text>
+<circle cx="459" cy="100" r="27" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="459" y="107" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" fill="#f8fafc">C2</text>
+<circle cx="672" cy="184" r="27" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="672" y="191" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" fill="#f8fafc">C3</text>
+<circle cx="273" cy="412" r="27" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="273" y="419" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" fill="#f8fafc">C4</text>
+<circle cx="458" cy="466" r="27" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="458" y="473" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" fill="#f8fafc">C5</text>
+<circle cx="682" cy="379" r="27" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="682" y="386" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" fill="#f8fafc">C6</text>
+<circle cx="565" cy="62" r="25" fill="#3d3326" stroke="#ffc778" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="565" y="69" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" fill="#f8fafc">C8</text>
+<text x="565" y="24" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#ffc778">NEW</text>
+<circle cx="576" cy="504" r="25" fill="#3d3326" stroke="#ffc778" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="576" y="511" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" fill="#f8fafc">C7</text>
+<text x="576" y="466" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#ffc778">NEW</text>
+<text x="155" y="122" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="18" font-weight="600" fill="#66b3ff">Route 1</text>
+<text x="155" y="426" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="18" font-weight="600" fill="#5ad4b5">Route 2</text>
+<path d="M200 577 H242" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<text x="255" y="583" text-anchor="start" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="17" font-weight="500" fill="#66b3ff">Route 1</text>
+<path d="M352 577 H394" fill="none" stroke="#5ad4b5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<text x="407" y="583" text-anchor="start" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="17" font-weight="500" fill="#5ad4b5">Route 2</text>
+<path d="M502 577 H544" fill="none" stroke="#ffc778" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" stroke-dasharray="6 6"/>
+<text x="557" y="583" text-anchor="start" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="17" font-weight="500" fill="#ffc778">New segments</text>
+</svg>

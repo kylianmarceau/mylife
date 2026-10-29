@@ -1,8 +1,25 @@
+---
+tags:
+  - automated-planning
+---
+
 # Uninformed Search
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Lecture2.pdf`, Zola Mahlaza, slides 1-24  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Search Tasks And Search Trees|Search Tasks And Search Trees]]
+  - [[#Openlist, Reached States, And Redundancy|Openlist, Reached States, And Redundancy]]
+  - [[#Performance Measures|Performance Measures]]
+  - [[#Breadth-First Search|Breadth-First Search]]
+  - [[#Uniform-Cost Search|Uniform-Cost Search]]
+  - [[#Best-First Search As A Contrast|Best-First Search As A Contrast]]
 
 ---
 
@@ -236,94 +253,3 @@ Caption: UCS finds the cheapest solution when action costs differ.
 > **Greedy Best-First Search**: Best-first search that prioritizes nodes using only a heuristic estimate of closeness to the goal. *In plain language: always go toward what looks closest.*
 
 Although Lecture 2 focuses on uninformed search, it introduces best-first search as a useful contrast. Greedy best-first search uses a heuristic such as Euclidean distance to the goal. That can be efficient, but it is not uninformed because it uses extra domain information.
-
-## Worked Examples
-
-### Example 1: BFS With Equal Step Costs
-
-**Problem**: Start at $S$. Actions lead to $A$ and $B$. From $A$, the goal $G$ is reached in one more step. From $B$, another route to $G$ takes two more steps. All actions cost $1$.
-
-**Step 1: Expand depth 0**  
-Openlist becomes `[A, B]`.
-
-**Step 2: Expand depth 1**  
-Expand `A`, generating `G` at depth `2`.
-
-**Step 3: Check goal**  
-When $G$ is selected, BFS returns path $S\to A\to G$.
-
-**Answer**: BFS returns the two-action solution, which is optimal because all action costs are equal.
-
-### Example 2: UCS With Unequal Costs
-
-**Problem**: $S\to A\to G$ has costs $5+1=6$. $S\to B\to G$ has costs $1+2=3$.
-
-**Step 1: Initialize openlist**  
-$A$ has path cost $5$; $B$ has path cost $1$.
-
-**Step 2: Expand cheapest node**  
-UCS expands $B$ before $A$.
-
-**Step 3: Generate goal**  
-$G$ through $B$ has cost $3$, which is cheaper than the pending route through $A$.
-
-**Answer**: UCS returns $S\to B\to G$, while BFS might return the wrong path if it only counts actions.
-
----
-
-## Common Mistakes / Gotchas
-
-- Calling BFS cost-optimal without checking whether all action costs are equal.
-- Forgetting that graph search needs a reached/history data structure.
-- Treating cycles as ordinary duplicate states. Cycles can cause infinite loops in tree-like search.
-- Confusing the openlist with the reached list. The openlist is waiting to be expanded; reached is memory.
-- Assuming greedy best-first search is uninformed. It uses a heuristic, so it is informed.
-- Using UCS with zero-cost actions without handling the risk of endless cheap expansions.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Uninformed search | Search without heuristic estimates |
-| Openlist/frontier | Generated but unexpanded nodes |
-| Reached/closed list | States already seen or expanded |
-| Expansion | Generate successors from a node |
-| BFS | Expands shallowest nodes first |
-| UCS | Expands cheapest cumulative-cost nodes first |
-| Completeness | Guaranteed to find a solution if one exists |
-| Cost optimality | Guaranteed to find a lowest-cost solution |
-
-**Key Formulas**:
-
-$$
-f(n)=\mathrm{path\_cum\_cost}(n)
-$$
-
-$$
-\text{UCS time/space}=O\!\left(b^{1+\lfloor C/c\rfloor}\right)
-$$
-
-**Key Takeaways**:
-
-- BFS is strong when all actions have equal cost and shallow solutions are expected.
-- UCS is the correct uninformed choice when action costs differ.
-- Search algorithms mainly differ in how they order the openlist.
-- Graph search is more robust than tree-like search because it can discard redundant paths.
-
----
-
-## Practice Questions
-
-**Q1**: Why is BFS guaranteed to find the minimum-action solution?  
-> Answer: BFS expands all nodes at depth `0`, then all nodes at depth `1`, and so on. Therefore, no deeper solution is considered before all shallower possibilities have been checked.
-
-**Q2**: Why does UCS remain cost-optimal when actions have different costs?  
-> Answer: UCS expands the lowest cumulative-cost path first. The first goal popped from the priority queue cannot be more expensive than any unexpanded path.
-
-**Q3**: What extra memory does graph search require compared with tree-like search?  
-> Answer: It requires a reached/history/closed structure that records states already reached or expanded.
-
-**Q4**: Why is greedy best-first search not an uninformed algorithm?  
-> Answer: It uses a heuristic estimate, such as distance to the goal, so it uses information beyond the problem definition.

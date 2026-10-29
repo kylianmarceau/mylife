@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 920 755" role="img" aria-labelledby="title desc">
+<title id="title">Sugarcane Grower: Operational Decision-Making</title>
+<desc id="desc">The grower architecture uses a dynamic decision network for uncertain beliefs and utility-based intention selection, while retaining explicit desires and action priorities. Nodes: Weather, grower, and mill; Discretised percepts; Bayesian belief revision; Previous beliefs; Intention selection; Set of desires; Dynamic decision network; Burning or other action.</desc>
+<defs>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#b89aff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#ffc778" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#ff939b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#adb9cb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<g data-from="E" data-to="P" data-label="" data-bidirectional="false"><path d="M270 145 L312.5 145" fill="none" stroke="#adb9cb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-muted)"/></g>
+<g data-from="P" data-to="BR" data-label="" data-bidirectional="false"><path d="M537.5 145 L610 145" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-blue)"/></g>
+<g data-from="B" data-to="BR" data-label="" data-bidirectional="false"><path d="M717 359 L717 200" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="BR" data-to="I" data-label="" data-bidirectional="false"><path d="M701.569 200 L452.961 609" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="D" data-to="I" data-label="" data-bidirectional="false"><path d="M262.5 655 L302.5 655" fill="none" stroke="#ffc778" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-amber)"/></g>
+<g data-from="N" data-to="BR" data-label="" data-bidirectional="false"><path d="M490.577 350 L669.423 200" fill="none" stroke="#ffc778" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-amber)"/></g>
+<g data-from="N" data-to="I" data-label="" data-bidirectional="false"><path d="M425 460 L425 609" fill="none" stroke="#ffc778" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-amber)"/></g>
+<g data-from="I" data-to="A" data-label="" data-bidirectional="false"><path d="M373.48 609 L201 455" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-from="A" data-to="E" data-label="" data-bidirectional="false"><path d="M145 355 L145 200" fill="none" stroke="#5ad4b5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-teal)"/></g>
+<g data-from="BR" data-to="B" data-label="" data-bidirectional="false"><path d="M753 200 L753 359" fill="none" stroke="#b89aff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" marker-end="url(#arrow-violet)"/></g>
+<g data-node="E" aria-label="Weather, grower, and mill"><rect x="20" y="90" width="250" height="110" rx="14" fill="#272f3b" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="145" y="139.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Weather, grower, and</text>
+<text x="145" y="164.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">mill</text>
+</g>
+<g data-node="P" aria-label="Discretised percepts"><rect x="312.5" y="99" width="225" height="92" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="425" y="139.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Discretised</text>
+<text x="425" y="164.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">percepts</text>
+</g>
+<g data-node="BR" aria-label="Bayesian belief revision"><rect x="610" y="90" width="250" height="110" rx="14" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="735" y="139.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Bayesian belief</text>
+<text x="735" y="164.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">revision</text>
+</g>
+<g data-node="B" aria-label="Previous beliefs"><rect x="620" y="359" width="230" height="92" rx="14" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="735" y="412" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Previous beliefs</text>
+</g>
+<g data-node="I" aria-label="Intention selection"><rect x="302.5" y="609" width="245" height="92" rx="14" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="425" y="662" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Intention selection</text>
+</g>
+<g data-node="D" aria-label="Set of desires"><rect x="27.5" y="609" width="235" height="92" rx="14" fill="#3d3326" stroke="#ffc778" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="145" y="662" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Set of desires</text>
+</g>
+<g data-node="N" aria-label="Dynamic decision network"><rect x="302.5" y="350" width="245" height="110" rx="14" fill="#3d3326" stroke="#ffc778" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="425" y="399.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Dynamic decision</text>
+<text x="425" y="424.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">network</text>
+</g>
+<g data-node="A" aria-label="Burning or other action"><rect x="25" y="355" width="240" height="100" rx="14" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="145" y="399.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">Burning or other</text>
+<text x="145" y="424.5" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="500" text-anchor="middle">action</text>
+</g>
+</svg>

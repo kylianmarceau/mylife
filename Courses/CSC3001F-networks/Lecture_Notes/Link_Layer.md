@@ -1,8 +1,31 @@
+---
+tags:
+  - networks
+---
+
 # Link Layer
 
 **Subject**: CSC3001F Networks  
 **Source**: `LinkLayer_v2025 - Copy.pptx`, Dr. Josiah Chavula, slides 1-43  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Link-Layer Context|Link-Layer Context]]
+  - [[#Link-Layer Services|Link-Layer Services]]
+  - [[#Implementation In Hosts|Implementation In Hosts]]
+  - [[#Error Detection And Parity|Error Detection And Parity]]
+  - [[#Multiple Access Links And Protocols|Multiple Access Links And Protocols]]
+  - [[#MAC Addresses And ARP|MAC Addresses And ARP]]
+  - [[#Routing To Another Subnet|Routing To Another Subnet]]
+  - [[#Ethernet|Ethernet]]
+  - [[#Ethernet Switches|Ethernet Switches]]
+  - [[#Switch Self-Learning And Forwarding|Switch Self-Learning And Forwarding]]
+  - [[#Switches Versus Routers|Switches Versus Routers]]
+  - [[#A Day In The Life (John lenon and mr mcarthy, Beatles 1967) Of A Web Request lol|A Day In The Life (John lenon and mr mcarthy, Beatles 1967) Of A Web Request lol]]
 
 ---
 
@@ -368,107 +391,3 @@ A student attaches a laptop to a campus network and requests `www.google.com`.
 5. **HTTP**: browser sends HTTP request into TCP socket; server returns HTTP reply containing web page.
 
 This single web request uses application, transport, network, link, and physical layers together.
-
-## Worked Examples
-
-### Example 1: Even Parity
-**Problem**: Data bits are `101011`. Choose an even parity bit.  
-**Step 1**: Count 1s in data: four 1s.  
-**Step 2**: Four is already even.  
-**Answer**: Parity bit is `0`.
-
-### Example 2: Two-Dimensional Parity Correction
-**Problem**: A received block has row 3 parity wrong and column 5 parity wrong. What error is indicated?  
-**Step 1**: Row parity identifies the row containing the bit error.  
-**Step 2**: Column parity identifies the column containing the bit error.  
-**Answer**: Flip the bit at row 3, column 5.
-
-### Example 3: ARP Resolution
-**Problem**: Host A knows B's IP `137.196.7.14` but not B's MAC. What happens?  
-**Step 1**: A broadcasts ARP query to `FF-FF-FF-FF-FF-FF`.  
-**Step 2**: Every LAN node receives the query.  
-**Step 3**: B replies directly with its MAC `58-23-D7-FA-20-B0`.  
-**Step 4**: A records mapping in ARP table.  
-**Answer**: A can now send an Ethernet frame directly to B's MAC on the LAN.
-
-### Example 4: Sending To Another Subnet
-**Problem**: A at IP `111.111.111.111` sends to B at `222.222.222.222` through router R. Whose MAC address is in A's first frame destination?  
-**Step 1**: B is on another subnet, so A sends to first-hop router R.  
-**Step 2**: IP destination remains B.  
-**Step 3**: Link destination must be R's MAC on A's LAN.  
-**Answer**: A's frame destination MAC is R's local interface MAC, not B's MAC.
-
-### Example 5: Switch Forwarding
-**Problem**: A switch table has `A -> 1`, `A' -> 4`. A frame from A to A' arrives on interface 1. What does the switch do?  
-**Step 1**: Record/refresh source `A -> 1`.  
-**Step 2**: Look up destination `A'` and find interface 4.  
-**Step 3**: Destination is not on incoming interface.  
-**Answer**: Forward the frame only on interface 4.
-
----
-
-## Common Mistakes / Gotchas
-- Confusing a frame with a datagram. A frame carries a datagram over one link.
-- Thinking MAC addresses are end-to-end. MAC addresses are local and change hop by hop.
-- Thinking ARP resolves names. DNS resolves names; ARP resolves IP-to-MAC on a LAN.
-- Forgetting ARP broadcasts queries but replies directly.
-- Assuming switches need manual configuration. Ethernet switches are plug-and-play and self-learning.
-- Treating a switch like a router. Switches inspect MAC headers; routers inspect IP headers.
-- Forgetting two devices can transmit simultaneously through a switch only if output links do not conflict.
-- Assuming link-level reliability removes the need for end-to-end reliability. Loss can occur beyond one link.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|------|---------|
-| Node | Host or router |
-| Link | One-hop channel |
-| Frame | Link-layer packet |
-| MAC address | Local interface address |
-| ARP | IP-to-MAC resolution |
-| NIC | Link/physical implementation |
-| EDC | Error detection/correction bits |
-| Collision | Simultaneous transmissions interfere |
-| Switch table | MAC -> interface mapping |
-| Flooding | Unknown destination sent on all other interfaces |
-
-**Key Rules**:
-
-```text
-Same subnet: frame destination MAC = target host MAC
-Different subnet: frame destination MAC = first-hop router MAC
-IP source/destination remain end-to-end
-MAC source/destination change on every link
-Switch learning: record source MAC on incoming interface
-Unknown destination: flood
-Known destination on incoming interface: drop
-Known destination on other interface: forward there
-```
-
-**Key Takeaways**:
-- The link layer provides one-hop delivery.
-- MAC addresses are local; IP addresses support end-to-end routing.
-- ARP connects IP addressing to local MAC delivery.
-- Ethernet switches learn by watching source addresses and flood unknown destinations.
-- A simple web request exercises all layers: DHCP, ARP, DNS, TCP, and HTTP.
-
----
-
-## Practice Questions
-
-**Q1**: What is the link layer responsible for?  
-> Answer: Transferring a datagram from one node to a physically adjacent node over a link.
-
-**Q2**: What does ARP do?  
-> Answer: It resolves an IP address on the local LAN to the corresponding MAC address.
-
-**Q3**: If a host sends to a destination outside its subnet, what MAC address does it use as the frame destination?  
-> Answer: The MAC address of its first-hop router's local interface.
-
-**Q4**: How does a switch learn that MAC address A is reachable on interface 1?  
-> Answer: When a frame with source MAC A arrives on interface 1, the switch records `A -> interface 1`.
-
-**Q5**: Give one difference and one similarity between switches and routers.  
-> Answer: Difference: switches use MAC addresses at link layer; routers use IP addresses at network layer. Similarity: both are store-and-forward and use forwarding tables.

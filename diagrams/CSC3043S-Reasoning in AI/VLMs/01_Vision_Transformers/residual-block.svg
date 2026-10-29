@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 390" role="img" font-family="Inter, Arial, sans-serif">
+<title>A ResNet block adds its learned residual to an identity or projected shortcut</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<line x1="205.0" y1="176.6" x2="322.0" y2="140.0" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="566.0" y1="140.0" x2="692.5" y2="183.6" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<line x1="205.0" y1="200.0" x2="685.0" y2="200.0" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="740.0" y1="232.5" x2="740.0" y2="305.0" stroke="#a8bfd8" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a5ad4b5)"/>
+<rect x="55.0" y="170.0" width="150" height="60" rx="8" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="130" y="206.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Input x</text>
+<rect x="320.0" y="60.0" width="260" height="80" rx="8" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="450" y="94.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Convolution block</text>
+<text x="450" y="117.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">F(x)</text>
+<ellipse cx="740" cy="200" rx="55.0" ry="32.5" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="740" y="206.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Add</text>
+<rect x="610.0" y="305.0" width="260" height="60" rx="8" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="740" y="341.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Output x + F(x)</text>
+
+</svg>

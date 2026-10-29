@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 780 285" role="img"><title>A permutation split into disjoint cycles and one fixed point</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.5"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.5"/></marker>
+<marker id="af8fafc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.5"/></marker>
+</defs>
+<line x1="164.8492424049175" y1="75.8492424049175" x2="219.02943725152286" y2="130.02943725152286" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="215.49390334559013,120.83704909609776 219.02943725152286,130.02943725152286 209.83704909609776,126.49390334559013" fill="none" stroke="#66b3ff" stroke-width="1.8"/>
+<line x1="221.1507575950825" y1="161.8492424049175" x2="166.97056274847714" y2="216.02943725152286" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="176.16295090390224,212.49390334559013 166.97056274847714,216.02943725152286 170.50609665440987,206.83704909609776" fill="none" stroke="#66b3ff" stroke-width="1.8"/>
+<line x1="135.1507575950825" y1="218.1507575950825" x2="80.97056274847714" y2="163.97056274847714" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="84.50609665440987,173.16295090390224 80.97056274847714,163.97056274847714 90.16295090390224,167.50609665440987" fill="none" stroke="#66b3ff" stroke-width="1.8"/>
+<line x1="78.8492424049175" y1="132.1507575950825" x2="133.02943725152286" y2="77.97056274847714" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="123.83704909609776,81.50609665440987 133.02943725152286,77.97056274847714 129.49390334559013,87.16295090390224" fill="none" stroke="#66b3ff" stroke-width="1.8"/>
+<circle cx="150.0" cy="61.0" r="19" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="150.0" y="67.0" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">1</text>
+<circle cx="236.0" cy="147.0" r="19" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="236.0" y="153.0" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">3</text>
+<circle cx="150.0" cy="233.0" r="19" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="150.0" y="239.0" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">7</text>
+<circle cx="64.0" cy="147.0" r="19" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="64.0" y="153.0" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">2</text>
+<path d="M350.5 95.0 Q382 147 350.5 196.0" fill="none" stroke="#b89aff" stroke-width="1.8"  />
+<polyline points="358.7315322233277,190.592424086865 350.5,196.0 352.0021044203153,186.266363356357" fill="none" stroke="#b89aff" stroke-width="1.8"/>
+<path d="M329.5 199.0 Q298 147 329.5 98.0" fill="none" stroke="#b89aff" stroke-width="1.8"  />
+<polyline points="321.2684677766723,103.40757591313499 329.5,98.0 327.9978955796847,107.73363664364297" fill="none" stroke="#b89aff" stroke-width="1.8"/>
+<circle cx="340.0" cy="74.0" r="19" fill="#272f3b" stroke="#b89aff" stroke-width="1.8"/>
+<text x="340.0" y="80.0" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">4</text>
+<circle cx="340.0" cy="220.0" r="19" fill="#272f3b" stroke="#b89aff" stroke-width="1.8"/>
+<text x="340.0" y="226.0" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">6</text>
+<line x1="550.5" y1="82.18653347947321" x2="599.8801085141084" y2="167.71539030917347" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="598.8442101292462,157.92116167511352 599.8801085141084,167.71539030917347 591.9160068989706,161.92116167511352" fill="none" stroke="#5ad4b5" stroke-width="1.8"/>
+<line x1="590.8801085141084" y1="188.5" x2="492.11989148589157" y2="188.50000000000003" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="501.11989148589157,192.50000000000003 492.11989148589157,188.50000000000003 501.11989148589157,184.50000000000003" fill="none" stroke="#5ad4b5" stroke-width="1.8"/>
+<line x1="478.61989148589157" y1="170.31346652052682" x2="528.0" y2="84.78460969082653" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="520.0358983848622,90.57883832488648 528.0,84.78460969082653 526.9641016151378,94.57883832488648" fill="none" stroke="#5ad4b5" stroke-width="1.8"/>
+<circle cx="540.0" cy="64.0" r="19" fill="#272f3b" stroke="#5ad4b5" stroke-width="1.8"/>
+<text x="540.0" y="70.0" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">5</text>
+<circle cx="611.8801085141084" cy="188.5" r="19" fill="#272f3b" stroke="#5ad4b5" stroke-width="1.8"/>
+<text x="611.8801085141084" y="194.5" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">10</text>
+<circle cx="468.11989148589157" cy="188.50000000000003" r="19" fill="#272f3b" stroke="#5ad4b5" stroke-width="1.8"/>
+<text x="468.11989148589157" y="194.50000000000003" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">8</text>
+<circle cx="720" cy="145" r="19" fill="#272f3b" stroke="#adb9cb" stroke-width="1.8"/>
+<text x="720" y="151" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">9</text>
+<path d="M 735 135 C 778 97,778 193,735 155" fill="none" stroke="#adb9cb" stroke-width="1.8"  />
+<polyline points="739.0951705834435,163.95709651016998 735,155 744.3927529552171,157.96246382632083" fill="none" stroke="#adb9cb" stroke-width="1.8"/>
+</svg>

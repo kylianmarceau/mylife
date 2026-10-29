@@ -1,8 +1,34 @@
+---
+tags:
+  - networks
+---
+
 # Transport Layer
 
 **Subject**: CSC3001F Networks  
 **Source**: `Transport_v2025.pptx`, Dr. Josiah Chavula, slides 1-86  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Transport Services And Protocols|Transport Services And Protocols]]
+  - [[#Multiplexing And Demultiplexing|Multiplexing And Demultiplexing]]
+  - [[#Reliable Data Transfer: The Problem|Reliable Data Transfer: The Problem]]
+  - [[#RDT Protocol Evolution|RDT Protocol Evolution]]
+  - [[#Stop-And-Wait Performance|Stop-And-Wait Performance]]
+  - [[#Pipelined Protocols|Pipelined Protocols]]
+  - [[#Go-Back-N|Go-Back-N]]
+  - [[#Selective Repeat|Selective Repeat]]
+  - [[#TCP Overview|TCP Overview]]
+  - [[#TCP Segment Fields|TCP Segment Fields]]
+  - [[#RTT Estimation And Timeout|RTT Estimation And Timeout]]
+  - [[#TCP Sender And Receiver Behavior|TCP Sender And Receiver Behavior]]
+  - [[#TCP Connection Management|TCP Connection Management]]
+  - [[#TCP Flow Control|TCP Flow Control]]
+  - [[#Congestion Control|Congestion Control]]
 
 ---
 
@@ -535,123 +561,3 @@ Slow start:
 2. Increase `cwnd` for every ACK received.
 3. This roughly doubles `cwnd` every RTT.
 4. Rate starts low but grows exponentially until the first loss event or threshold.
-
-## Worked Examples
-
-### Example 1: UDP Versus TCP Demultiplexing
-**Problem**: Three clients send to server IP `B`, destination port `80`. Two clients use the same source port but different IPs. How are segments delivered?  
-**Step 1**: UDP delivery checks destination port. All datagrams to port `80` go to the same UDP socket.  
-**Step 2**: TCP delivery checks four-tuple. Different source IPs or source ports create different connection sockets.  
-**Answer**: UDP groups by destination port; TCP separates by full four-tuple.
-
-### Example 2: Stop-And-Wait Utilization
-**Problem**: Use the source values `R = 1 Gbps`, `L = 8000 bits`, `RTT = 30 ms`. Find sender utilization.  
-**Step 1**: `L/R = 8000 / 10^9 = 8 us = 0.008 ms`.  
-**Step 2**: `Usender = (L/R) / (RTT + L/R)`.  
-**Step 3**: `0.008 / 30.008 = 0.00027`.  
-**Answer**: Utilization is about `0.027%`, very poor.
-
-### Example 3: Go-Back-N Loss
-**Problem**: Window size is 4. Sender sends packets 0, 1, 2, 3. Packet 2 is lost. What happens in GBN?  
-**Step 1**: Receiver gets 0 and ACKs 0.  
-**Step 2**: Receiver gets 1 and ACKs 1.  
-**Step 3**: Packet 2 is lost. Receiver gets 3 out of order and sends duplicate ACK 1.  
-**Step 4**: Sender times out for packet 2.  
-**Step 5**: Sender retransmits packets 2, 3, and any later packets in the window.  
-**Answer**: GBN retransmits from the missing packet onward.
-
-### Example 4: Selective Repeat Loss
-**Problem**: Same window and loss as above, but using Selective Repeat.  
-**Step 1**: Receiver ACKs 0 and 1.  
-**Step 2**: Receiver gets 3 out of order, buffers it, and ACKs 3.  
-**Step 3**: Sender times out only for packet 2.  
-**Step 4**: Sender retransmits packet 2 only.  
-**Step 5**: Receiver can now deliver 2, then buffered 3.  
-**Answer**: Selective Repeat avoids retransmitting correctly received packets.
-
-### Example 5: TCP ACK Numbers
-**Problem**: Host A sends one byte with `Seq=42` to Host B. What ACK should B send?  
-**Step 1**: TCP ACK number is the next expected byte.  
-**Step 2**: One byte starting at 42 occupies byte 42.  
-**Answer**: B sends `ACK=43`.
-
-### Example 6: TCP Timeout Calculation
-**Problem**: `EstimatedRTT = 100 ms`, `DevRTT = 15 ms`. Find `TimeoutInterval`.  
-**Step 1**: Use `TimeoutInterval = EstimatedRTT + 4*DevRTT`.  
-**Step 2**: `100 + 4(15) = 160 ms`.  
-**Answer**: Timeout should be `160 ms`.
-
-### Example 7: Flow Control Limit
-**Problem**: Receiver advertises `rwnd = 20,000 bytes`. Sender has `LastByteSent = 80,000` and `LastByteAcked = 65,000`. May it send 8,000 more bytes?  
-**Step 1**: Current in-flight data is `80,000 - 65,000 = 15,000 bytes`.  
-**Step 2**: Allowed additional data is `20,000 - 15,000 = 5,000 bytes`.  
-**Answer**: It may not send 8,000 bytes; it can send at most 5,000 bytes under flow control.
-
----
-
-## Common Mistakes / Gotchas
-- Confusing host-to-host delivery with process-to-process delivery.
-- Thinking UDP creates a separate server socket for each client. UDP demux uses destination port.
-- Thinking TCP sequence numbers count segments. They count bytes.
-- Forgetting that TCP ACKs are cumulative and name the next expected byte.
-- Assuming timeout always means loss. Delayed ACKs or delayed packets can cause premature timeout.
-- Forgetting stop-and-wait can be correct but still waste most link capacity.
-- Confusing flow control with congestion control. Flow control protects receiver buffers; congestion control protects the network.
-- Thinking a two-way handshake is enough in a network with delay, loss, reordering, and retransmission.
-- Treating slow start as slow forever. It starts low but grows exponentially.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|------|---------|
-| Segment | Transport-layer packet |
-| Multiplexing | Label outgoing data for sockets |
-| Demultiplexing | Deliver incoming data to correct socket |
-| UDP demux | Destination port |
-| TCP demux | Four-tuple |
-| Stop-and-wait | One in-flight packet |
-| Pipelining | Multiple in-flight packets |
-| GBN | Cumulative ACK, retransmit from loss onward |
-| Selective Repeat | Individual ACKs, retransmit only lost packets |
-| rwnd | Receiver buffer limit |
-| cwnd | Congestion limit |
-| AIMD | Additive increase, multiplicative decrease |
-
-**Key Formulas**:
-
-```text
-Stop-and-wait utilization = (L/R) / (RTT + L/R)
-EstimatedRTT = (1 - alpha) * EstimatedRTT + alpha * SampleRTT
-DevRTT = (1 - beta) * DevRTT + beta * |SampleRTT - EstimatedRTT|
-TimeoutInterval = EstimatedRTT + 4 * DevRTT
-TCP flow control: LastByteSent - LastByteAcked <= rwnd
-TCP congestion rate approx = cwnd / RTT
-```
-
-**Key Takeaways**:
-- Transport hides network complexity and delivers data between processes.
-- Reliable transfer requires checksums, sequence numbers, ACKs, retransmission, and timers.
-- Pipelining is essential for high utilization on high-delay paths.
-- TCP combines reliability, connection management, flow control, and congestion control.
-- Congestion wastes capacity through delay, loss, retransmissions, and dropped downstream packets.
-
----
-
-## Practice Questions
-
-**Q1**: What fields identify a TCP socket?  
-> Answer: Source IP address, source port, destination IP address, and destination port.
-
-**Q2**: Why does rdt2.0 need sequence numbers once ACK/NAK messages can be corrupted?  
-> Answer: If the sender retransmits after a corrupted ACK/NAK, the receiver may see a duplicate. Sequence numbers let it detect and discard duplicates.
-
-**Q3**: What does a TCP ACK number mean?  
-> Answer: It is the sequence number of the next byte expected from the other side.
-
-**Q4**: Why can triple duplicate ACKs trigger fast retransmit?  
-> Answer: They indicate multiple later segments arrived while an earlier segment is still missing, making loss likely before timeout expires.
-
-**Q5**: State the difference between `rwnd` and `cwnd`.  
-> Answer: `rwnd` is receiver-advertised free buffer space for flow control. `cwnd` is sender-side congestion-control limit based on inferred network congestion.

@@ -1,8 +1,27 @@
+---
+tags:
+  - automated-planning
+---
+
 # State Space Search
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Lecture1.pdf`, Zola Mahlaza, slides 1-32  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#AI Search As Problem Solving|AI Search As Problem Solving]]
+  - [[#Problem-Solving Agent Framework|Problem-Solving Agent Framework]]
+  - [[#Problem Spaces|Problem Spaces]]
+  - [[#Problem Instances|Problem Instances]]
+  - [[#Search Tasks And Solutions|Search Tasks And Solutions]]
+  - [[#Tree Search And Graph Search|Tree Search And Graph Search]]
+  - [[#State-Space Size|State-Space Size]]
+  - [[#Vacuum World And Sokoban|Vacuum World And Sokoban]]
 
 ---
 
@@ -291,120 +310,3 @@ flowchart TD
 ```
 
 Caption: Sokoban shows why planning can be hard: the agent must reason about box positions, not just its own location.
-
-## Worked Examples
-
-### Example 1: Formulate Vacuum World
-
-**Problem**: A two-room vacuum world has rooms `A` and `B`. Each room can be clean or dirty, and the robot is in one room.
-
-**Step 1: Define states**  
-A state is $(robot\_location,status_A,status_B)$. Example: $(A,dirty,clean)$.
-
-**Step 2: Define actions**  
-Actions are `clean`, `left`, and `right`. In a two-room world, `left` and `right` move between `A` and `B` where legal.
-
-**Step 3: Define transition model**  
-$T((A,dirty,clean),clean)=(A,clean,clean)$.
-
-**Step 4: Define initial state**  
-Any valid state may be an initial state. Example: $(A,dirty,dirty)$.
-
-**Step 5: Define goal states**  
-All states where both rooms are clean, regardless of robot location:
-
-```text
-(A, clean, clean)
-(B, clean, clean)
-```
-
-**Answer**: A solution from $(A,dirty,dirty)$ could be $[clean,right,clean]$.
-
-### Example 2: Path Cost Changes The Best Solution
-
-**Problem**: In a chess-inspired problem, one plan saves a bishop and another saves a queen. Each move has unit length, but losing pieces has cost: bishop `3`, queen `9`.
-
-**Step 1: Compare by action count only**  
-If every move costs `1`, two plans with the same number of moves appear equivalent.
-
-**Step 2: Add domain-specific action costs**  
-A plan losing a queen has a much larger cost than a plan losing a bishop.
-
-**Step 3: Choose by path cost**  
-The optimal solution minimizes total cost, not just action count.
-
-**Answer**: Once costs reflect piece values, protecting the queen is usually preferred over protecting the bishop.
-
----
-
-## Common Mistakes / Gotchas
-
-- Confusing a **problem space** with a **problem instance**. A problem space is the whole domain; an instance has a specific initial state and goal.
-- Treating a state as only the agent location. A state must include all variables needed to predict future transitions.
-- Forgetting the cost model. Shortest in number of actions is not always cheapest.
-- Assuming tree search and graph search are the same. Tree search duplicates states; graph search tracks reached states.
-- Using open-loop execution when the environment is nondeterministic.
-- Underestimating state-space growth. Small-looking games can have enormous state spaces.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Search | Systematic exploration of possible choices to satisfy a query or goal |
-| State | One complete configuration of the problem |
-| State space | Set of all possible states |
-| Action | Operation that can change state |
-| Transition model | Rule mapping state and action to next state |
-| Problem space | State space plus actions plus transition model |
-| Problem instance | Problem space plus initial state, goal state(s), and usually costs |
-| Solution | Path from initial state to a goal state |
-| Optimal solution | Solution with lowest path cost |
-| Tree search | Path-based search that can duplicate states |
-| Graph search | State-aware search that avoids redundant paths |
-
-**Key Formulas**:
-
-$$
-s=(v_1,v_2,\ldots,v_n),\quad s\in S
-$$
-
-$$
-T:S\times A\to S
-$$
-
-$$
-\text{Problem instance}=\text{problem space}+\text{initial state}+\text{goal state(s)}+\text{action cost function}
-$$
-
-$$
-\text{Vacuum world state count}=n\cdot 2^n
-$$
-
-$$
-\text{Tic-tac-toe naive state count}=3^9=19{,}683
-$$
-
-**Key Takeaways**:
-
-- Search is needed when the action sequence is not known in advance.
-- A good formulation must include states, actions, transitions, costs, initial state, and goal test.
-- Graph representations expose cycles; tree representations expose paths.
-- Cost models determine whether the best solution means shortest or cheapest.
-
----
-
-## Practice Questions
-
-**Q1**: What is the difference between a problem space and a problem instance?  
-> Answer: A problem space is the full set of states, actions, and transitions in the domain. A problem instance adds a specific initial state, goal state(s), and usually an action cost model.
-
-**Q2**: Why can tree search duplicate states?  
-> Answer: Tree search represents paths from the root. If two different paths reach the same state, that state appears in two different tree nodes.
-
-**Q3**: In a two-cell vacuum world, why are $(A,clean,clean)$ and $(B,clean,clean)$ both goal states?  
-> Answer: The goal is that all cells are clean. The robot's final location does not matter unless the problem definition adds a location requirement.
-
-**Q4**: When is open-loop execution reasonable?  
-> Answer: When the environment is fully observable, deterministic, and known, so the planned action sequence will behave as expected.

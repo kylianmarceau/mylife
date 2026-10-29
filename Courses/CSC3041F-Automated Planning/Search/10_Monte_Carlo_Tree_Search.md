@@ -1,8 +1,26 @@
+---
+tags:
+  - automated-planning
+---
+
 # Monte Carlo Tree Search
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Lecture 10.pdf`, Zola Mahlaza, slides 1-35  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Limits Of Alpha-Beta|Limits Of Alpha-Beta]]
+  - [[#Pure Monte Carlo Search|Pure Monte Carlo Search]]
+  - [[#Playout Policies|Playout Policies]]
+  - [[#Exploration And Exploitation|Exploration And Exploitation]]
+  - [[#The Four MCTS Phases|The Four MCTS Phases]]
+  - [[#MCTS Example Structure|MCTS Example Structure]]
+  - [[#Strengths Of MCTS|Strengths Of MCTS]]
 
 ---
 
@@ -219,110 +237,3 @@ The lecture emphasizes:
 | Heuristic-free in principle | It can use simulations instead of handcrafted EVAL |
 | Variable-depth exploration | Different parts of the tree can be explored to different depths |
 | Anytime behavior | Can return an action after a time or iteration limit |
-
-## Worked Examples
-
-### Example 1: Estimate A Binary Win Rate
-
-**Problem**: A move is simulated $10$ times and wins $6$.
-
-**Step 1: Count wins**  
-Wins $=6$.
-
-**Step 2: Count simulations**  
-Simulations $=10$.
-
-**Step 3: Estimate value**  
-$6/10=0.6$.
-
-**Answer**: The move's estimated value is $0.6$ or $60\%$.
-
-### Example 2: Greedy Selection With $C=0$
-
-**Problem**: Three root children have values $4/10$, $6/10$, and $8/10$. Selection uses $C=0$.
-
-**Step 1: Convert to averages**  
-$4/10=0.4$, $6/10=0.6$, $8/10=0.8$.
-
-**Step 2: Choose highest average**  
-$0.8$ is highest.
-
-**Answer**: Greedy selection chooses the child labeled $8/10$.
-
-### Example 3: UCB Exploration Bonus
-
-**Problem**: Node A has average $0.8$ from many visits. Node B has average $0.7$ from very few visits.
-
-**Step 1: Exploitation term**  
-A looks better by average value.
-
-**Step 2: Exploration term**  
-B receives a larger exploration bonus because $N(B)$ is small.
-
-**Step 3: Compare UCB scores**  
-If B's uncertainty bonus is large enough, MCTS selects B for more testing.
-
-**Answer**: UCB can choose a lower-average but underexplored node to reduce uncertainty.
-
----
-
-## Common Mistakes / Gotchas
-
-- Confusing pure Monte Carlo search with MCTS. Pure Monte Carlo is flat; MCTS grows a tree.
-- Using only greedy selection. Greedy exploitation can miss better underexplored moves.
-- Forgetting to back-propagate to every ancestor, not just the simulated leaf.
-- Treating simulation outcomes as exact values. They are estimates with sampling noise.
-- Assuming random playouts are always good enough. Complex games may need better playout policies.
-- Forgetting that MCTS is an anytime algorithm: the returned action depends on the time or iteration budget.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| MCTS | Simulation-based tree search |
-| Playout | Simulated game to an outcome |
-| Pure Monte Carlo | Flat rollout evaluation of immediate moves |
-| Selection | Follow policy down the current tree |
-| Expansion | Add a new node |
-| Simulation | Run a playout |
-| Back-propagation | Update statistics up to the root |
-| UCB | Balances exploitation and exploration |
-
-**Key Formulas**:
-
-$$
-\widehat{V}(n)=\frac{\text{total utility}}{\text{number of simulations}}
-$$
-
-$$
-\mathrm{score}(n)=\frac{U(n)}{N(n)}+C\sqrt{\frac{\ln N(\mathrm{parent}(n))}{N(n)}}
-$$
-
-$$
-C=0\quad\text{gives greedy exploitation}
-$$
-
-**Key Takeaways**:
-
-- MCTS samples future play instead of enumerating the full tree.
-- It is especially useful when branching factor is huge and static evaluation is weak.
-- The four phases are selection, expansion, simulation, and back-propagation.
-- UCB-style selection balances promising moves with uncertain moves.
-
----
-
-## Practice Questions
-
-**Q1**: What are the four phases of MCTS?  
-> Answer: Selection, expansion, simulation, and back-propagation.
-
-**Q2**: Why is $C=0$ greedy in UCB-style selection?  
-> Answer: It removes the exploration bonus, so selection uses only the current average utility.
-
-**Q3**: How does MCTS differ from alpha-beta search?  
-> Answer: Alpha-beta reasons with exact minimax values up to a searched depth, while MCTS estimates values through simulations and grows the tree selectively.
-
-**Q4**: Why is MCTS useful for games like Go?  
-> Answer: The branching factor is huge and static evaluation is difficult, so simulation-based sampling is more practical than exhaustive minimax-style search.

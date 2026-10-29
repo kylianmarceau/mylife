@@ -1,3 +1,8 @@
+---
+tags:
+  - networks
+---
+
 # CSC3001F Networks Formula Sheet
 
 **Subject**: CSC3001F Networks  

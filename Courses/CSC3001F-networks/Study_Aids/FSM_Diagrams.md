@@ -1,3 +1,8 @@
+---
+tags:
+  - networks
+---
+
 # CSC3001F Networks FSM Diagrams
 
 **Subject**: CSC3001F Networks  

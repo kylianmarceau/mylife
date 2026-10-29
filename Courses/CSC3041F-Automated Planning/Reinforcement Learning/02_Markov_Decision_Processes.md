@@ -1,8 +1,28 @@
+---
+tags:
+  - automated-planning
+---
+
 # Markov Decision Processes
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `RL/Edit_2RL_3041F.pdf`, Asad Jeewa, slides 1-23  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Formalizing RL|Formalizing RL]]
+  - [[#The Markov Property|The Markov Property]]
+  - [[#Markov Models|Markov Models]]
+  - [[#Action And State Spaces|Action And State Spaces]]
+  - [[#Partial Observability|Partial Observability]]
+  - [[#Discount Factor Gamma|Discount Factor Gamma]]
+  - [[#Exploration Versus Exploitation|Exploration Versus Exploitation]]
+  - [[#Return And Horizon|Return And Horizon]]
+  - [[#Models In RL|Models In RL]]
 
 ---
 
@@ -286,106 +306,3 @@ Comparison:
 |---|---|---|---|---|
 | Model-based RL | $S,A,T,R$ known or learnable | Plan using model | Can reduce real interactions | Model errors affect planning |
 | Model-free RL | $S,A,R$ from experience | Learn policy/value directly | Avoids explicit dynamics model | Often sample inefficient |
-
-## Worked Examples
-
-### Example 1: Check The Markov Property
-
-**Problem**: A gridworld state is only the agent's $(x,y)$ position, but some tiles become dangerous after the agent has visited them.
-
-**Step 1: Ask whether position predicts the future**  
-The next risk depends on visit history.
-
-**Step 2: Check state completeness**  
-Position alone omits which tiles were visited.
-
-**Answer**: The Markov property fails unless the state includes enough history, such as visited-tile status.
-
-### Example 2: Discounted Return
-
-**Problem**: Rewards are $R_1=1$, $R_2=2$, $R_3=3$, and $\gamma=0.5$.
-
-**Step 1: Apply discounting**  
-$G_0=1+0.5\cdot2+0.5^2\cdot3$.
-
-**Step 2: Compute**  
-$G_0=1+1+0.75=2.75$.
-
-**Answer**: The discounted return is $2.75$.
-
-### Example 3: Model-Based Or Model-Free
-
-**Problem**: Chess rules are known exactly. A recommender system does not know each user's transition behavior.
-
-**Step 1: Chess**  
-Known rules define `T`; planning is possible. This fits model-based RL/planning.
-
-**Step 2: Recommender system**  
-User response dynamics are unknown and learned from interaction. This fits model-free or learned-model approaches.
-
-**Answer**: Chess is naturally model-based; recommendation is often model-free or model-learned.
-
----
-
-## Common Mistakes / Gotchas
-
-- Assuming the Markov property is automatically true.
-- Using observations $o_t$ as if they were full states $s_t$.
-- Setting $\gamma$ without considering task horizon.
-- Forgetting that rewards are observed after actions.
-- Confusing model-free RL with "no reward function"; model-free means no transition/reward model is used for planning.
-- Over-exploring or over-exploiting instead of balancing the two.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| MDP | $\langle S,A,T,R,\gamma\rangle$ |
-| Markov property | Future depends only on current state and action |
-| POMDP | Agent sees observations, not full state |
-| Gamma | Discount factor for future rewards |
-| Exploration | Try uncertain actions |
-| Exploitation | Use best-known action |
-| Return | Discounted future reward |
-| Model-based | Plan with known/learned dynamics |
-| Model-free | Learn directly from experience |
-
-**Key Formulas**:
-
-$$
-T(s,a,s')=P(S_{t+1}=s'\mid S_t=s,A_t=a)
-$$
-
-$$
-P(S_{t+1}\mid S_t,A_t,\mathrm{history})=P(S_{t+1}\mid S_t,A_t)
-$$
-
-$$
-G_t=\sum_{k=0}^{H}\gamma^k R_{t+k+1}
-$$
-
-**Key Takeaways**:
-
-- MDPs formalize RL as sequential decision making.
-- The Markov assumption requires a state representation that contains all relevant information.
-- Gamma controls how much future reward matters.
-- Exploration discovers information; exploitation uses current knowledge.
-- Model-based RL plans with dynamics; model-free RL learns directly from experience.
-
----
-
-## Practice Questions
-
-**Q1**: What are the five components of an MDP?  
-> Answer: State set `S`, action set `A`, transition function `T`, reward function `R`, and discount factor $\gamma$.
-
-**Q2**: What does $\gamma\to0$ mean behaviorally?  
-> Answer: The agent becomes myopic and mostly values immediate rewards.
-
-**Q3**: Why is partial observability difficult?  
-> Answer: The agent does not see the full state, so the current observation may not contain all information needed to predict the future.
-
-**Q4**: What is the difference between model-based and model-free RL?  
-> Answer: Model-based RL uses or learns transition/reward models for planning; model-free RL learns values or policies directly from experience.

@@ -1,8 +1,30 @@
+---
+tags:
+  - operating-systems
+---
+
 # Deadlock
 
 **Subject**: CSC3002F Operating Systems  
 **Source**: `CSC3002F_MK_4_Deadlock_v2.pdf`, Michelle Kuttel, pages 1-71  
 **Generated**: 2026-06-03
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Correctness Properties And Deadlock Definition|Correctness Properties And Deadlock Definition]]
+  - [[#Four Necessary Conditions|Four Necessary Conditions]]
+  - [[#Resource-Allocation Graphs|Resource-Allocation Graphs]]
+  - [[#Handling Deadlocks|Handling Deadlocks]]
+  - [[#Deadlock Prevention|Deadlock Prevention]]
+  - [[#Deadlock Avoidance And Safe States|Deadlock Avoidance And Safe States]]
+  - [[#Resource-Allocation Graph Avoidance|Resource-Allocation Graph Avoidance]]
+  - [[#Banker's Algorithm: Data Structures|Banker's Algorithm: Data Structures]]
+  - [[#Banker's Algorithm: Safety Check|Banker's Algorithm: Safety Check]]
+  - [[#Banker's Algorithm: Resource-Request Check|Banker's Algorithm: Resource-Request Check]]
+  - [[#Detection And Recovery|Detection And Recovery]]
 
 ---
 
@@ -432,227 +454,3 @@ jstack -l <pid>
 ```
 
 shows thread states and locking information, including which locks blocked threads are waiting to acquire.
-
-
-## Worked Examples
-
-### Example 1: Detect A Single-Instance Deadlock From A Cycle
-
-**Problem**: $P_1$ holds $R_1$ and requests $R_2$. $P_2$ holds $R_2$ and requests $R_1$. Each resource has one instance. Is there deadlock?
-
-**Step 1**: Assignment edges:
-
-$$
-R_1\rightarrow P_1,\quad R_2\rightarrow P_2
-$$
-
-**Step 2**: Request edges:
-
-$$
-P_1\rightarrow R_2,\quad P_2\rightarrow R_1
-$$
-
-**Step 3**: Cycle:
-
-$$
-P_1\rightarrow R_2\rightarrow P_2\rightarrow R_1\rightarrow P_1
-$$
-
-**Answer**: Yes. With one instance per resource type, a cycle in the RAG means deadlock.
-
-### Example 2: Safe Sequence From Source Banker Example
-
-**Problem**: Use the source's state with resources $A(10)$, $B(5)$, $C(7)$:
-
-| Thread | Allocation $(A,B,C)$ | Max $(A,B,C)$ |
-|---|---|---|
-| $T_0$ | $(0,1,0)$ | $(7,5,3)$ |
-| $T_1$ | $(2,0,0)$ | $(3,2,2)$ |
-| $T_2$ | $(3,0,2)$ | $(9,0,2)$ |
-| $T_3$ | $(2,1,1)$ | $(2,2,2)$ |
-| $T_4$ | $(0,0,2)$ | $(4,3,3)$ |
-
-Available is $(3,3,2)$. Show one safe sequence.
-
-**Step 1**: Compute Need:
-
-| Thread | Need $(A,B,C)$ |
-|---|---|
-| $T_0$ | $(7,4,3)$ |
-| $T_1$ | $(1,2,2)$ |
-| $T_2$ | $(6,0,0)$ |
-| $T_3$ | $(0,1,1)$ |
-| $T_4$ | $(4,3,1)$ |
-
-**Step 2**: Work starts:
-
-$$
-\text{Work}=(3,3,2)
-$$
-
-**Step 3**: $T_1$ can finish because $(1,2,2)\le(3,3,2)$.
-
-$$
-\text{Work}=(3,3,2)+(2,0,0)=(5,3,2)
-$$
-
-**Step 4**: $T_3$ can finish because $(0,1,1)\le(5,3,2)$.
-
-$$
-\text{Work}=(5,3,2)+(2,1,1)=(7,4,3)
-$$
-
-**Step 5**: $T_0$ can finish because $(7,4,3)\le(7,4,3)$.
-
-$$
-\text{Work}=(7,4,3)+(0,1,0)=(7,5,3)
-$$
-
-**Step 6**: $T_2$ can finish because $(6,0,0)\le(7,5,3)$.
-
-$$
-\text{Work}=(7,5,3)+(3,0,2)=(10,5,5)
-$$
-
-**Step 7**: $T_4$ can finish because $(4,3,1)\le(10,5,5)$.
-
-$$
-\text{Work}=(10,5,5)+(0,0,2)=(10,5,7)
-$$
-
-**Answer**: Safe sequence:
-
-$$
-\langle T_1,T_3,T_0,T_2,T_4\rangle
-$$
-
-### Example 3: Resource Request Grant From Source
-
-**Problem**: In the same source system, $T_1$ requests $(1,0,2)$. Should it be granted?
-
-**Step 1**: $T_1$ need is $(1,2,2)$. Check:
-
-$$
-(1,0,2)\le(1,2,2)
-$$
-
-true.
-
-**Step 2**: Available is $(3,3,2)$. Check:
-
-$$
-(1,0,2)\le(3,3,2)
-$$
-
-true.
-
-**Step 3**: Pretend allocation:
-
-$$
-\text{Available}'=(3,3,2)-(1,0,2)=(2,3,0)
-$$
-
-$$
-\text{Allocation}'_{T_1}=(2,0,0)+(1,0,2)=(3,0,2)
-$$
-
-$$
-\text{Need}'_{T_1}=(1,2,2)-(1,0,2)=(0,2,0)
-$$
-
-**Step 4**: The source gives a safe sequence:
-
-$$
-\langle T_1,T_3,T_4,T_0,T_2\rangle
-$$
-
-**Answer**: Grant the request because the resulting state is safe.
-
-### Example 4: Prevention By Lock Ordering
-
-**Problem**: A transfer operation needs locks for buckets $2$ and $8$. Another transfer needs buckets $8$ and $2$. How should both acquire locks to avoid deadlock?
-
-**Step 1**: Define global ordering by bucket number.  
-**Step 2**: Both operations acquire bucket $2$ first, then bucket $8$.  
-**Step 3**: If one holds bucket $2$, the other waits before holding bucket $8$.  
-**Answer**: Acquire lower-numbered lock first. This breaks circular wait.
-
----
-
-## Common Mistakes / Gotchas
-
-- Saying a cycle always means deadlock. That is true only when each resource type has one instance.
-- Confusing unsafe with deadlocked. Unsafe means deadlock is possible, not necessarily present.
-- Forgetting to compute `Need = Max - Allocation` before running Banker's Algorithm.
-- Granting a request only because resources are currently available; avoidance also requires the resulting state to be safe.
-- Trying to break mutual exclusion for resources that require exclusive use.
-- Ignoring starvation during recovery; repeatedly aborting the same victim can starve it.
-- Assuming OSes always solve deadlocks automatically; many rely on correct design by kernel/application developers.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Deadlock | Every process in a set waits for an event caused only by another in the set |
-| Mutual exclusion | Only one process can use a resource |
-| Hold and wait | Holding resources while requesting more |
-| No preemption | Resources released only voluntarily |
-| Circular wait | Wait cycle among processes/resources |
-| RAG | Graph with process/resource nodes and request/assignment edges |
-| Safe state | Some complete process finish order exists |
-| Unsafe state | No guaranteed safe sequence; deadlock possible |
-| Banker's Algorithm | Avoidance for multiple resource instances |
-| Wait-for graph | Process-only graph for detection |
-| Recovery | Abort, rollback, or restart victims |
-
-**Key Formulas**:
-
-$$
-\text{Need}[i,j]=\text{Max}[i,j]-\text{Allocation}[i,j]
-$$
-
-$$
-\text{safe if }\exists \langle P_1,\ldots,P_n\rangle\text{ such that }\text{Need}_{P_i}\le \text{Available}+\sum_{j<i}\text{Allocation}_{P_j}
-$$
-
-$$
-\text{Work}=\text{Available}
-$$
-
-$$
-\text{If }\text{Need}_i\le\text{Work},\quad \text{Work}=\text{Work}+\text{Allocation}_i
-$$
-
-$$
-\text{Request grant requires }\text{Request}_i\le\text{Need}_i,\quad \text{Request}_i\le\text{Available},\quad \text{safe after pretend allocation}
-$$
-
-**Key Takeaways**:
-
-- Deadlock is a liveness failure caused by cycles of waiting for finite resources.
-- The four necessary conditions must all hold for deadlock.
-- RAG cycles are decisive only for single-instance resources.
-- Prevention breaks a condition, usually circular wait through resource ordering.
-- Avoidance uses safe-state reasoning and requires advance maximum-demand information.
-- Detection/recovery is common in systems such as databases where rollback is feasible.
-
----
-
-## Practice Questions
-
-**Q1**: List the four necessary conditions for deadlock.  
-> Answer: Mutual exclusion, hold and wait, no preemption, and circular wait.
-
-**Q2**: A RAG has a cycle and each resource type has exactly one instance. What can you conclude?  
-> Answer: The system is deadlocked.
-
-**Q3**: A RAG has a cycle but some resource type in the cycle has multiple instances. What can you conclude?  
-> Answer: Deadlock is possible but not guaranteed; another instance may allow progress.
-
-**Q4**: Why can a request be denied even when the requested resources are currently available?  
-> Answer: Deadlock avoidance grants only if the resulting state is safe. An available resource may be withheld if granting it would leave no safe sequence.
-
-**Q5**: What is the difference between deadlock prevention and deadlock avoidance?  
-> Answer: Prevention structurally breaks at least one necessary condition so deadlock cannot occur. Avoidance dynamically checks requests and grants only if the system remains in a safe state.

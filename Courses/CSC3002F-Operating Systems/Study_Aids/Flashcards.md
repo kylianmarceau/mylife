@@ -1,8 +1,13 @@
+---
+tags:
+  - operating-systems
+---
+
 # CSC3002F Operating Systems Flashcards
 
 These cards use the Obsidian Spaced Repetition plugin inline flashcard format.
 
-Sources covered: all notes in `Courses/CSC3002F-Operating Systems/` and the source list in `Courses/CSC3002F-Operating Systems/INDEX.md`.
+Sources covered: all source-backed lecture notes in `Courses/CSC3002F-Operating Systems/ASLAM/` and `Courses/CSC3002F-Operating Systems/MICHEL/`.
 
 ---
 

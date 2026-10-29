@@ -1,5 +1,11 @@
 {
-  "cssTheme": "Obsidian Nord",
-  "textFontFamily": "JetBrains Mono NL,Arial,CMU Serif,CMU Sans Serif",
-  "baseFontSize": 18
+  "cssTheme": "Minimal",
+  "textFontFamily": "JetBrains Mono NL",
+  "baseFontSize": 18,
+  "accentColor": "#5489de",
+  "theme": "obsidian",
+  "enabledCssSnippets": [
+    "study-colours"
+  ],
+  "interfaceFontFamily": ""
 }

@@ -1,3 +1,8 @@
+---
+tags:
+  - automated-planning
+---
+
 # Search Mock Exam
 
 **Course**: CSC3041F Automated Planning  

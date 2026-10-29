@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 220" role="img" font-family="Inter, Arial, sans-serif">
+<title>In-context examples specify a task without a parameter update</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<line x1="228.0" y1="110.0" x2="252.0" y2="110.0" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="438.0" y1="110.0" x2="462.0" y2="110.0" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<line x1="648.0" y1="110.0" x2="672.0" y2="110.0" stroke="#a8bfd8" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a5ad4b5)"/>
+<rect x="42.0" y="68.0" width="186.0" height="84" rx="8" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="135.0" y="104.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Example input</text>
+<text x="135.0" y="127.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">and answer</text>
+<rect x="252.0" y="68.0" width="186.0" height="84" rx="8" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="345.0" y="104.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Further input</text>
+<text x="345.0" y="127.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">and answer</text>
+<rect x="462.0" y="68.0" width="186.0" height="84" rx="8" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="555.0" y="104.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">New input</text>
+<text x="555.0" y="127.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">unanswered</text>
+<rect x="672.0" y="68.0" width="186.0" height="84" rx="8" fill="#293a4d" stroke="#b3c5d9" stroke-width="2"/>
+<text x="765.0" y="104.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Generate</text>
+<text x="765.0" y="127.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">new answer</text>
+
+</svg>

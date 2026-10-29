@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 995" role="img" font-family="Inter, Arial, sans-serif">
+<title>Insurance Bayesian network: 27 variables and 52 directed dependencies</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<path d="M529.4 63.2L218.0 131.0L146.5 150.0" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M145.7 73.5L104.3 141.5" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M232.5 50.0L517.5 50.0" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M187.1 72.3L272.9 142.7" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M543.5 68.4L346.5 146.6" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M610.5 73.0L662.0 131.0L698.0 199.0L764.5 257.5" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M359.1 178.9L730.9 266.1" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M493.8 635.8L366.2 709.2" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M505.6 527.6L448.0 581.0L348.4 706.8" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M500.6 303.1L448.0 366.0L448.0 434.0L504.1 482.6" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M761.3 302.0L678.0 366.0L612.0 434.0L555.9 482.6" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M504.1 422.4L448.0 471.0L448.0 539.0L505.6 592.4" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M586.5 188.9L602.0 246.0L612.0 366.0L612.0 539.0L554.4 592.4" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M341.3 524.7L488.7 595.3" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M564.5 72.5L498.0 131.0L498.0 199.0L513.5 256.1" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M338.8 185.3L481.2 259.7" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M138.7 420.3L261.3 484.7" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M290.9 188.8L223.0 366.0L223.0 434.0L275.5 482.4" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M522.0 304.0L528.0 376.0" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M747.7 299.5L572.3 380.5" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M163.9 74.0L192.0 246.0L192.0 314.0L124.2 377.4" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M108.0 304.0L102.0 376.0" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M163.6 74.0L172.0 131.0L172.0 199.0L127.8 256.7" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M265.2 186.1L144.8 258.9" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M304.6 752.5L225.4 822.5" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M735.6 527.6L678.0 581.0L612.0 649.0L478.0 696.0L412.0 764.0L247.5 826.9" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M120.1 753.1L179.9 821.9" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M263.8 635.8L136.2 709.2" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M100.0 639.0L100.0 706.0" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M701.6 519.2L448.0 581.0L382.0 649.0L154.8 714.3" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M544.2 302.6L612.0 366.0L678.0 434.0L734.1 482.6" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M804.2 303.5L842.0 366.0L842.0 434.0L785.9 482.6" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M588.7 188.8L678.0 434.0L734.1 482.6" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M289.6 188.8L182.0 434.0L110.8 591.3" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M564.0 72.4L223.0 366.0L111.7 591.3" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M290.9 188.8L223.0 366.0L218.0 471.0L218.0 539.0L275.6 592.4" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M564.5 72.5L498.0 131.0L438.0 246.0L382.0 539.0L324.4 592.4" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M598.8 750.3L741.2 824.7" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M272.5 845.0L707.5 845.0" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M536.2 638.9L553.8 706.1" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M554.4 527.6L612.0 581.0L612.0 649.0L575.1 706.5" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M624.8 71.1L745.2 143.9" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M572.3 634.5L737.7 710.5" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M169.3 73.8L218.0 199.0L387.0 366.0L448.0 539.0L612.0 581.0L678.0 649.0L752.1 707.8" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M764.2 639.0L775.8 706.0" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M571.3 524.7L718.7 595.3" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M734.1 422.4L678.0 471.0L678.0 539.0L735.6 592.4" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M560.0 300.0L720.0 380.0" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M784.0 303.9L766.0 376.1" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M514.9 638.5L478.0 696.0L478.0 764.0L514.4 921.1" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M172.5 400.0L232.5 400.0" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<path d="M300.5 189.0L304.5 376.0" fill="none" stroke="#98a6b7" stroke-width="1.4" marker-end="url(#aadb9cb)"/>
+<ellipse cx="160" cy="50" rx="72.5" ry="24.0" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="160" y="56.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Age</text>
+<ellipse cx="590" cy="50" rx="72.5" ry="24.0" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="590" y="56.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">SocioEcon</text>
+<ellipse cx="90" cy="165" rx="72.5" ry="24.0" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="90" y="171.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">GoodStudent</text>
+<ellipse cx="300" cy="165" rx="72.5" ry="24.0" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="300" y="171.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">RiskAversion</text>
+<ellipse cx="780" cy="165" rx="72.5" ry="24.0" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="780" y="171.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">ExtraCar</text>
+<ellipse cx="580" cy="165" rx="72.5" ry="24.0" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="580" y="171.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Mileage</text>
+<ellipse cx="790" cy="280" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="790" y="286.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">VehicleYear</text>
+<ellipse cx="110" cy="280" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="110" y="286.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">SeniorTrain</text>
+<ellipse cx="520" cy="280" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="520" y="286.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">MakeModel</text>
+<ellipse cx="100" cy="400" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="100" y="406.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">DrivingSkill</text>
+<ellipse cx="305" cy="400" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="305" y="406.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">DrivingHist</text>
+<ellipse cx="530" cy="400" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="530" y="406.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Antilock</text>
+<ellipse cx="760" cy="400" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="760" y="406.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Airbag</text>
+<ellipse cx="300" cy="505" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="300" y="511.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">DrivQuality</text>
+<ellipse cx="530" cy="505" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="530" y="511.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Ruggedness</text>
+<ellipse cx="760" cy="505" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="760" y="511.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">CarValue</text>
+<ellipse cx="100" cy="615" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="100" y="621.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">HomeBase</text>
+<ellipse cx="300" cy="615" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="300" y="621.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">AntiTheft</text>
+<ellipse cx="530" cy="615" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="530" y="621.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Accident</text>
+<ellipse cx="760" cy="615" rx="72.5" ry="24.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="760" y="621.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Cushioning</text>
+<ellipse cx="100" cy="730" rx="72.5" ry="24.0" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="100" y="736.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Theft</text>
+<ellipse cx="330" cy="730" rx="72.5" ry="24.0" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="330" y="736.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">OwnDamage</text>
+<ellipse cx="560" cy="730" rx="72.5" ry="24.0" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="560" y="736.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">OtherCost</text>
+<ellipse cx="780" cy="730" rx="72.5" ry="24.0" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="780" y="736.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">MedicalCost</text>
+<ellipse cx="200" cy="845" rx="72.5" ry="24.0" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="200" y="851.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">OwnCost</text>
+<ellipse cx="520" cy="945" rx="72.5" ry="24.0" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="520" y="951.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">LiabilityCost</text>
+<ellipse cx="780" cy="845" rx="72.5" ry="24.0" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="780" y="851.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">PropertyCost</text>
+
+</svg>

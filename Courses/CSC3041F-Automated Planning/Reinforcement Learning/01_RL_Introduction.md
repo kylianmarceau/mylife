@@ -1,8 +1,28 @@
+---
+tags:
+  - automated-planning
+---
+
 # RL Introduction
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `RL/1RL_3041F.pdf`, Asad Jeewa, slides 1-32  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Reinforcement Learning In Machine Learning|Reinforcement Learning In Machine Learning]]
+  - [[#Imitation Learning As A Contrast|Imitation Learning As A Contrast]]
+  - [[#What RL Learns|What RL Learns]]
+  - [[#RL Loop|RL Loop]]
+  - [[#Policies|Policies]]
+  - [[#Reward Functions And Delayed Rewards|Reward Functions And Delayed Rewards]]
+  - [[#Environment And Dynamics|Environment And Dynamics]]
+  - [[#Gridworld Example|Gridworld Example]]
+  - [[#Real-World Uses And Challenges|Real-World Uses And Challenges]]
 
 ---
 
@@ -241,102 +261,3 @@ Common challenges:
 | Safety and ethics | Bad exploration can be costly |
 | Limited online interaction | The agent may not be allowed many real-world trials |
 | Unpredictable environments | Learned behavior must tolerate uncertainty |
-
-## Worked Examples
-
-### Example 1: Identify RL Components In Gridworld
-
-**Problem**: An agent starts at $(1,1)$, can move in four directions, receives $+1$ at the goal and $-0.001$ per move.
-
-**Step 1: State**  
-The state is the agent's grid position.
-
-**Step 2: Actions**  
-Actions are `Up`, `Down`, `Left`, and `Right`.
-
-**Step 3: Reward**  
-The goal reward encourages reaching the goal; the per-step penalty discourages wandering.
-
-**Step 4: Policy**  
-A policy maps each grid position to an action or action probabilities.
-
-**Answer**: This is a standard RL setup because the agent learns behavior by acting and receiving reward.
-
-### Example 2: Deterministic Versus Stochastic Policy
-
-**Problem**: At state $s$, action values are unknown. Compare two policies.
-
-**Step 1: Deterministic policy**  
-$\pi(s)=\mathrm{Right}$. The agent always moves right.
-
-**Step 2: Stochastic policy**  
-$\pi(\mathrm{Right}\mid s)=0.7$, $\pi(\mathrm{Up}\mid s)=0.2$, $\pi(\mathrm{Left}\mid s)=0.1$.
-
-**Answer**: The deterministic policy commits to one action; the stochastic policy can explore and represent uncertainty.
-
----
-
-## Common Mistakes / Gotchas
-
-- Treating RL as supervised learning with delayed labels. RL data distribution changes as the policy changes.
-- Designing rewards without thinking about incentives.
-- Ignoring delayed rewards and credit assignment.
-- Assuming sparse rewards are easy. They can make learning very slow.
-- Forgetting that the policy, not the reward function, is what the agent ultimately uses to act.
-- Comparing reward scales incorrectly. Relative reward structure drives behavior.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| RL | Learning behavior through environment interaction |
-| Agent | Learner/decision maker |
-| Environment | World the agent acts in |
-| State | Current situation representation |
-| Action | Agent decision |
-| Reward | Scalar feedback |
-| Policy | Mapping from states to actions or action probabilities |
-| Credit assignment | Linking later rewards to earlier actions |
-
-**Key Formulas**:
-
-$$
-a=\pi(s)
-$$
-
-$$
-\pi(a\mid s)=P(A_t=a\mid S_t=s)
-$$
-
-$$
-J(\pi)=\mathbb{E}\!\left[\sum_t \gamma^t r(S_t,A_t)\right]
-$$
-
-$$
-R(s,a)=c
-$$
-
-**Key Takeaways**:
-
-- RL is about learning behavior, not just predicting labels.
-- Actions affect future states and future rewards.
-- Rewards encode desired behavior and must be designed carefully.
-- Policies can be deterministic or stochastic.
-
----
-
-## Practice Questions
-
-**Q1**: Why is imitation learning limited compared with RL?  
-> Answer: It copies behavior from a dataset and is limited to that behavior distribution, while RL can discover new behavior through interaction and reward.
-
-**Q2**: What is the role of a policy?  
-> Answer: It maps states to actions or action probabilities and represents the agent's behavior.
-
-**Q3**: What is credit assignment?  
-> Answer: The problem of deciding which earlier actions were responsible for later rewards or penalties.
-
-**Q4**: Why might a per-step penalty be useful in Gridworld?  
-> Answer: It discourages long wandering paths and encourages reaching the goal efficiently.

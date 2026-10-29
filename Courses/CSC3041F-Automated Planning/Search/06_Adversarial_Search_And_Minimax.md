@@ -1,8 +1,27 @@
+---
+tags:
+  - automated-planning
+---
+
 # Adversarial Search And Minimax
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Lecture 6 - Copy.pdf`, Zola Mahlaza, slides 1-40  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#From Pathfinding To Games|From Pathfinding To Games]]
+  - [[#Game Properties Used In The Course|Game Properties Used In The Course]]
+  - [[#MAX And MIN|MAX And MIN]]
+  - [[#Formal Game Definition|Formal Game Definition]]
+  - [[#Game Trees|Game Trees]]
+  - [[#Minimax Value|Minimax Value]]
+  - [[#Minimax Algorithm|Minimax Algorithm]]
+  - [[#Limits Of Minimax|Limits Of Minimax]]
 
 ---
 
@@ -256,90 +275,3 @@ Minimax assumes the opponent is optimal. That may be too conservative in some ca
 | MAX plays risky move | MIN can force bad outcome | If MIN blunders, MAX may win |
 
 Minimax is appropriate when the opponent is treated as perfectly rational. Against weak or noisy opponents, a different model may exploit mistakes.
-
-## Worked Examples
-
-### Example 1: One-Level Minimax
-
-**Problem**: MAX can choose $A$, $B$, or $C$. Their backed-up values are $3$, $2$, and $5$.
-
-**Step 1: Identify player**  
-The root is a MAX node.
-
-**Step 2: Choose maximum**  
-$\max(3,2,5)=5$.
-
-**Answer**: MAX chooses `C`.
-
-### Example 2: Two-Level Minimax
-
-**Problem**: MAX has two actions. Action $L$ leads to a MIN node with terminal children $[4,1]$. Action $R$ leads to a MIN node with terminal children $[3,2]$.
-
-**Step 1: Back up MIN nodes**  
-$L$ value is $\min(4,1)=1$.  
-$R$ value is $\min(3,2)=2$.
-
-**Step 2: MAX chooses best backed-up value**  
-$\max(1,2)=2$.
-
-**Answer**: MAX chooses $R$, because optimal MIN play makes $R$ worth $2$.
-
----
-
-## Common Mistakes / Gotchas
-
-- Forgetting that MIN minimizes MAX's utility, not its own separate scalar in the two-player zero-sum version.
-- Applying minimax to hidden-information or stochastic games without adapting the model.
-- Assuming the first action that can win against a bad opponent is minimax-optimal.
-- Confusing terminal utility with heuristic evaluation. In pure minimax, utility is only for terminal states.
-- Ignoring the exponential time complexity $O(b^m)$.
-- Forgetting that minimax values are backed up from leaves, not assigned directly to internal states.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Adversarial search | Search with conflicting agents |
-| MAX | Player whose utility is maximized |
-| MIN | Opponent minimizing MAX's utility |
-| Game tree | Tree of possible move sequences |
-| Terminal state | End of game |
-| Utility | Payoff at terminal state |
-| Minimax value | State value assuming optimal play |
-
-**Key Formulas**:
-
-$$
-\begin{aligned}
-\text{Terminal: }\mathrm{minimax}(s)&=\mathrm{Utility}(s,\mathrm{MAX})\\
-\text{MAX node: }\mathrm{minimax}(s)&=\max_a \mathrm{minimax}(\mathrm{Result}(s,a))\\
-\text{MIN node: }\mathrm{minimax}(s)&=\min_a \mathrm{minimax}(\mathrm{Result}(s,a))\\
-\text{Time} &= O(b^m)\\
-\text{Space} &= O(bm)
-\end{aligned}
-$$
-
-**Key Takeaways**:
-
-- Minimax models the opponent as an optimal adversary.
-- Values are propagated upward from terminal utilities.
-- The algorithm is optimal for finite deterministic two-player zero-sum perfect-information games.
-- Exponential time makes pruning and evaluation functions necessary.
-
----
-
-## Practice Questions
-
-**Q1**: Why does minimax use $\min$ at opponent nodes?  
-> Answer: In a two-player zero-sum game, the opponent is modeled as choosing the action that gives MAX the worst outcome.
-
-**Q2**: What information must be available to define a game for minimax?  
-> Answer: Initial state, `ToMove`, `Actions`, `Result`, `Is-terminal`, and `Utility`.
-
-**Q3**: What is the minimax value of a terminal state?  
-> Answer: Its utility for MAX.
-
-**Q4**: Why is minimax expensive for chess?  
-> Answer: The branching factor and depth are large, so the $O(b^m)$ game tree is enormous.

@@ -6,6 +6,8 @@
   "exposeInternalModules": true,
   "focusOnNewInstance": true,
   "hideStatusBar": "focused",
+  "showTerminalTabPrefix": false,
+  "interceptKeysWhenFocused": true,
   "interceptLogging": true,
   "keymappings": [
     {
@@ -131,16 +133,20 @@
   ],
   "language": "",
   "macOSOptionKeyPassthrough": true,
+  "rightClickAction": "copyPaste",
   "newInstanceBehavior": "newHorizontalSplit",
   "noticeTimeout": 5,
   "openChangelogOnUpdate": true,
   "pinNewInstance": true,
   "preferredRenderer": "webgl",
+  "prewarmConPty": true,
+  "pythonExecutable": "",
   "profiles": {
     "darwinExternalDefault": {
       "args": [
         "\"$PWD\""
       ],
+      "environment": [],
       "executable": "/System/Applications/Utilities/Terminal.app/Contents/macOS/Terminal",
       "followTheme": true,
       "name": "",
@@ -163,6 +169,7 @@
       "args": [
         "--login"
       ],
+      "environment": [],
       "executable": "/bin/zsh",
       "followTheme": true,
       "name": "",
@@ -181,7 +188,7 @@
         "documentOverride": null
       },
       "type": "integrated",
-      "useWin32Conhost": true
+      "win32Backend": "conpty"
     },
     "developerConsole": {
       "followTheme": true,
@@ -200,6 +207,7 @@
     },
     "linuxExternalDefault": {
       "args": [],
+      "environment": [],
       "executable": "xterm",
       "followTheme": true,
       "name": "",
@@ -220,6 +228,7 @@
     },
     "linuxIntegratedDefault": {
       "args": [],
+      "environment": [],
       "executable": "/bin/sh",
       "followTheme": true,
       "name": "",
@@ -238,10 +247,11 @@
         "documentOverride": null
       },
       "type": "integrated",
-      "useWin32Conhost": true
+      "win32Backend": "conpty"
     },
     "win32ExternalDefault": {
       "args": [],
+      "environment": [],
       "executable": "C:\\Windows\\System32\\cmd.exe",
       "followTheme": true,
       "name": "",
@@ -262,13 +272,14 @@
     },
     "win32IntegratedDefault": {
       "args": [],
+      "environment": [],
       "executable": "C:\\Windows\\System32\\cmd.exe",
       "followTheme": true,
       "name": "",
       "platforms": {
         "win32": true
       },
-      "pythonExecutable": "python3",
+      "pythonExecutable": "",
       "restoreHistory": false,
       "rightClickAction": "copyPaste",
       "successExitCodes": [
@@ -280,10 +291,10 @@
         "documentOverride": null
       },
       "type": "integrated",
-      "useWin32Conhost": true
+      "win32Backend": "conpty"
     }
   },
-  "defaultProfile": null,
+  "defaultProfile": "darwinIntegratedDefault",
   "terminalOptions": {
     "documentOverride": null
   }

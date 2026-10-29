@@ -1,8 +1,27 @@
+---
+tags:
+  - automated-planning
+---
+
 # Temporal Difference Learning
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `RL/8RL_3041F_Edit.pdf`, Asad Jeewa, slides 1-22  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Why Temporal Difference Learning|Why Temporal Difference Learning]]
+  - [[#TD Properties|TD Properties]]
+  - [[#Monte Carlo Versus TD|Monte Carlo Versus TD]]
+  - [[#Learning Rate Alpha|Learning Rate Alpha]]
+  - [[#N-Step TD And Bias-Variance|N-Step TD And Bias-Variance]]
+  - [[#From Prediction To Control|From Prediction To Control]]
+  - [[#On-Policy And Off-Policy Learning|On-Policy And Off-Policy Learning]]
+  - [[#SARSA And Q-Learning|SARSA And Q-Learning]]
 
 ---
 
@@ -243,108 +262,3 @@ flowchart TD
 ```
 
 Caption: This single target difference explains the conservative/aggressive behavior difference.
-
-## Worked Examples
-
-### Example 1: TD(0) Value Update
-
-**Problem**: $V(s)=10$, reward $R=2$, $V(s')=12$, $\gamma=0.5$, $\alpha=0.1$.
-
-**Step 1: Compute target**  
-$R+\gamma V(s')=2+0.5\cdot12=8$.
-
-**Step 2: Compute TD error**  
-$\delta=8-10=-2$.
-
-**Step 3: Update**  
-$V(s)\leftarrow10+0.1(-2)=9.8$.
-
-**Answer**: New value estimate is $9.8$.
-
-### Example 2: SARSA Versus Q-Learning Target
-
-**Problem**: $R=1$, $\gamma=0.9$, next action actually chosen has $Q(s',a')=3$, and the best next action has value $5$.
-
-**Step 1: SARSA target**  
-$1+0.9\cdot3=3.7$.
-
-**Step 2: Q-learning target**  
-$1+0.9\cdot5=5.5$.
-
-**Answer**: Q-learning updates toward a more optimistic greedy target; SARSA updates toward the behavior actually taken.
-
----
-
-## Common Mistakes / Gotchas
-
-- Saying TD is Monte Carlo because both are model-free. TD bootstraps; MC does not.
-- Forgetting that TD can update before episode termination.
-- Confusing target policy and behavior policy.
-- Using the Q-learning max target in SARSA.
-- Ignoring the learning rate's effect on stability.
-- Assuming a larger `n` is always better in n-step TD. It reduces bias but increases variance.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| TD learning | Model-free bootstrapping |
-| TD target | $R+\gamma V(s')$ |
-| TD error | Target minus old estimate |
-| Alpha | Learning rate |
-| N-step TD | Uses `n` rewards before bootstrapping |
-| On-policy | Learn about behavior policy |
-| Off-policy | Learn target policy from different behavior |
-| SARSA | On-policy TD control |
-| Q-learning | Off-policy TD control |
-
-**Key Formulas**:
-
-$$
-\delta_t=R_{t+1}+\gamma V(S_{t+1})-V(S_t)
-$$
-
-$$
-V(S_t)\leftarrow V(S_t)+\alpha\delta_t
-$$
-
-$$
-G_t^{(n)}=R_{t+1}+\gamma R_{t+2}+\cdots+\gamma^{n-1}R_{t+n}+\gamma^nV(S_{t+n})
-$$
-
-SARSA:
-
-$$
-Q(S,A)\leftarrow Q(S,A)+\alpha\left[R+\gamma Q(S',A')-Q(S,A)\right]
-$$
-
-Q-learning:
-
-$$
-Q(S,A)\leftarrow Q(S,A)+\alpha\left[R+\gamma\max_a Q(S',a)-Q(S,A)\right]
-$$
-
-**Key Takeaways**:
-
-- TD combines model-free learning with bootstrapping.
-- It updates online, making it useful for long or continuing tasks.
-- SARSA learns from actual behavior; Q-learning learns a greedy target.
-- Bias and variance are controlled partly by how far ahead the update looks.
-
----
-
-## Practice Questions
-
-**Q1**: What is the TD error?  
-> Answer: The difference between the target $R+\gamma V(s')$ and the current estimate $V(s)$.
-
-**Q2**: Why is TD useful for continuing tasks?  
-> Answer: It updates after each step and does not need an episode to terminate.
-
-**Q3**: What is the key difference between SARSA and Q-learning?  
-> Answer: SARSA uses the value of the actual next action; Q-learning uses the maximum next action value.
-
-**Q4**: Is TD biased or unbiased?  
-> Answer: TD is generally biased because it updates using current estimates, but it often has lower variance than Monte Carlo.

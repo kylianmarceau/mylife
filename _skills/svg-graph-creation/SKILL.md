@@ -1,6 +1,8 @@
 ---
 name: svg-graph-creation
-description: Create or recreate polished SVG graphs and diagrams from uploaded images, source slides/PDFs, or course notes. Use when Codex needs to turn a graph, chart, resource-allocation graph, process/state diagram, OS/network diagram, or hand-drawn/source visual into a clean dark-theme SVG for this vault.
+description: Create or recreate polished SVG graphs and diagrams from uploaded images, source slides/PDFs, or course notes. Use when Codex needs to turn a graph, chart, resource-allocation graph, process/state diagram, OS/network diagram, or hand-drawn/source visual into a clean, colour-coded dark-theme SVG for this vault.
+tags:
+  - vault-support
 ---
 
 # SVG Graph Creation
@@ -14,7 +16,7 @@ Create SVG diagrams for study notes by recreating the meaning, structure, labels
 1. Inspect the source image or source notes first.
 2. Identify graph type, nodes, labels, edges, axes, data curve shape, legends, and any special notation.
 3. Default to vault-theme restyling. Keep source geometry and technical meaning, but use the vault's dark SVG style. Preserve source colors/background/typography only when explicitly requested.
-4. Recreate the diagram as hand-authored SVG, not Mermaid, when exact visual structure matters.
+4. Recreate graphs and diagrams as hand-authored SVG by default. Use another format only when the user explicitly requests it.
 5. Preserve semantic relationships over pixel-perfect copying. Keep node placement close to the source when it helps recognition.
 6. Add only labels, legends, or captions that clarify the source. Do not invent new technical content.
 7. Save SVGs near the note that uses them, or inline the SVG directly in Markdown when the surrounding notes already use inline SVG.
@@ -24,16 +26,29 @@ Create SVG diagrams for study notes by recreating the meaning, structure, labels
 
 Use this default palette for generated/recreated graphs unless the user explicitly asks to preserve the source screenshot's original theme or the surrounding note establishes a stronger local theme:
 
-| Element | Style |
-|---|---|
-| Background | Transparent for embedded SVGs; use the note/app background instead of drawing a full background rectangle |
-| Primary blue | `#4a90d9` or `#4da3ff` |
-| Text | `#f8fafc` for important labels, `#a3a3a3` for muted labels |
-| Lines/arrows | `#ffffff` for connector edges, arrows, axes, and callouts |
-| Node stroke | `#4da3ff` for process-like circles; `#8b8f96` for resource/object boxes |
-| Node fill | Transparent or `#2d3544` |
-| Instance dots | `#a3a3a3` |
-| Font | `Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif` |
+| Element or role | Accent | Suggested dark fill |
+|---|---|---|
+| Data, perception, inputs, primary route | `#66b3ff` blue | `#20344c` |
+| Reasoning, planning, models, commitments | `#b89aff` violet | `#302b46` |
+| Learned representations, outputs, successful outcomes, secondary route | `#5ad4b5` teal | `#1b3835` |
+| Feedback, control signals, new arrivals, qualifications | `#ffc778` amber | `#3d3326` |
+| Failures, warnings, risk, hardness | `#ff939b` coral | `#3f2a33` |
+| Infrastructure and neutral objects | `#adb9cb` muted | `#272f3b` |
+| Important text | `#f8fafc` | — |
+| Muted text | `#adb9cb` | — |
+| Background | Transparent; use the note/app background | — |
+| Font | `Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif` | — |
+
+## Approved Coloured SVG Style
+
+Use [Introduction I](../../Courses/CSC3044S-AI%20Systems/01_Introduction_I.md) and its SVG assets as the visual reference for new and revised diagrams. This is the vault default, not a one-note experiment.
+
+- Give colour a consistent meaning within each diagram. Match connector and arrowhead colours to their source or signal; use near-white for neutral relationships. Keep labels and arrow direction sufficient to understand the graph without colour.
+- Use the palette above as a starting point, not a requirement to use every colour. Keep important labels near-white, use accents for titles and outlines, and use subdued fills for contrast.
+- Choose geometry for the concept: parallel lanes for competing controllers, a visible boundary for an agent or subsystem, tree branches for decisions, curved feedback loops, network layers for neural connections, and spatial sketches for routes. Creative layouts must preserve every technical relationship and qualification.
+- Use balanced spacing, concise multiline labels, clean curved or orthogonal connectors, and small structural icons only when they clarify the content. Avoid a uniform chain of boxes when the concept has a more useful visual structure.
+- Save SVGs under the vault's `diagrams/[Course]/[Optional Unit]/[NoteName]/` folder, embed them with relative Markdown image links, and retain a short italic caption directly underneath. Inline SVG remains appropriate where the note already uses it.
+- When styling a note, use a coloured lecture-reference callout and a few coloured callouts for existing key distinctions, warnings, or takeaways. Keep headings and navigation intact, preserve study content, and do not add redundant explanations. Inline coloured spans in callout titles are acceptable when the active Obsidian theme suppresses native accents.
 
 Styling rules:
 
@@ -47,7 +62,7 @@ Styling rules:
 - Use `vector-effect="non-scaling-stroke"` on important strokes.
 - Use a responsive root such as `<svg width="100%" viewBox="0 0 900 520" role="img">`.
 - Include `<title>` and, when useful, `<desc>` for accessibility.
-- Match the visual language of the vault examples: transparent SVG over the dark note background, white axes/labels/chart callouts, white connector edges and arrowheads, blue conceptual curves/process outlines, and gray resource boxes/dots. Use explicit marker strokes such as `stroke="#ffffff"` for reliable Obsidian rendering; use `stroke="context-stroke"` only when the target renderer handles it reliably.
+- Use explicit marker colours matching their connector strokes for reliable Obsidian rendering. Keep the SVG transparent over the dark note background; do not depend on `context-stroke` or inherited CSS variables for essential colours.
 
 ## Common Graph Patterns
 
@@ -80,7 +95,7 @@ Use for conceptual curves such as CPU utilization versus degree of multiprogramm
 
 - Use simple circles, rounded rectangles, and arrowed connectors.
 - Keep connector crossings minimal.
-- Use blue stroke for active/process/state elements and gray for infrastructure/resources.
+- Use meaningful accents from the approved palette for active/process/state elements and muted strokes for infrastructure/resources.
 - Preserve source order and direction where possible.
 
 ## SVG Construction Rules
@@ -118,7 +133,8 @@ Before finishing, check:
 - The SVG opens or renders without XML errors.
 - Every source node, label, axis, edge, legend item, and key visual relation is represented.
 - Arrow direction is correct.
-- Text is readable on the dark background and does not overlap graph elements.
+- Render every SVG at the target note width on a dark background. Text must be readable and must not overlap graph elements; inspect every render, not just a sample.
+- Accent colours, connector strokes, and arrowheads follow the approved style; source nodes and edges are all accounted for.
 - Multi-instance resources show the correct number of dots.
 - Conceptual curves preserve the source shape and callout placement.
 - The output is useful in notes without needing the original source image.

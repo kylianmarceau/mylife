@@ -1,8 +1,31 @@
+---
+tags:
+  - networks
+---
+
 # Network Layer: Control Plane
 
 **Subject**: CSC3001F Networks  
 **Source**: `NetworkLayer_2025_control.pdf`, Dr. Josiah Chavula, pages 1-48  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Routing Protocol Goal|Routing Protocol Goal]]
+  - [[#Routing Algorithm Classification|Routing Algorithm Classification]]
+  - [[#Dijkstra's Link-State Algorithm|Dijkstra's Link-State Algorithm]]
+  - [[#Distance-Vector Routing|Distance-Vector Routing]]
+  - [[#Making Routing Scalable|Making Routing Scalable]]
+  - [[#Intra-AS Routing And OSPF|Intra-AS Routing And OSPF]]
+  - [[#BGP: Internet Inter-AS Routing|BGP: Internet Inter-AS Routing]]
+  - [[#BGP Attributes And Messages|BGP Attributes And Messages]]
+  - [[#BGP Path Advertisement|BGP Path Advertisement]]
+  - [[#Why Intra-AS And Inter-AS Routing Differ|Why Intra-AS And Inter-AS Routing Differ]]
+  - [[#Hot Potato Routing|Hot Potato Routing]]
+  - [[#BGP Policy And Route Selection|BGP Policy And Route Selection]]
 
 ---
 
@@ -438,107 +461,3 @@ BGP route selection:
 2. Shortest AS-PATH.
 3. Closest NEXT-HOP router: hot potato routing.
 4. Additional criteria.
-
-## Worked Examples
-
-### Example 1: Bellman-Ford From The Source
-**Problem**: Node `u` has neighbors `v`, `x`, and `w`. For destination `z`: `Dv(z)=5`, `Dx(z)=3`, `Dw(z)=3`. Direct costs: `cu,v=2`, `cu,x=1`, `cu,w=5`. Find `Du(z)`.  
-**Step 1**: Use `Du(z) = min{cu,v + Dv(z), cu,x + Dx(z), cu,w + Dw(z)}`.  
-**Step 2**: Calculate: via `v` is `2+5=7`; via `x` is `1+3=4`; via `w` is `5+3=8`.  
-**Step 3**: Minimum is `4` via `x`.  
-**Answer**: `Du(z)=4`, next hop `x`.
-
-### Example 2: Dijkstra Update
-**Problem**: During Dijkstra from `u`, suppose node `x` is newly added with `D(x)=1`. Link `x-y` has cost 1 and current `D(y)=5`. Update `D(y)`.  
-**Step 1**: Use relaxation: `D(y) = min(D(y), D(x)+c(x,y))`.  
-**Step 2**: `min(5, 1+1) = 2`.  
-**Answer**: New `D(y)=2`, predecessor `p(y)=x`.
-
-### Example 3: Building A Forwarding Table From A Least-Cost Tree
-**Problem**: From source `u`, least-cost tree routes to `v` directly and to `w`, `y`, `z` via `x`. What outgoing links should `u` use?  
-**Step 1**: Destination `v`: first hop is `v`, so use `(u,v)`.  
-**Step 2**: Destinations `w`, `y`, `z`: first hop is `x`, so use `(u,x)`.  
-**Answer**: Forwarding table maps `v -> (u,v)` and `w/y/z -> (u,x)`.
-
-### Example 4: Hot Potato Routing
-**Problem**: Router `2d` learns prefix `X` is reachable via gateways `2a` and `2c`. OSPF cost to `2a` is `112`; to `2c` is `201`. Which gateway does hot potato routing choose?  
-**Step 1**: Hot potato ignores external path cost and chooses lowest internal cost.  
-**Step 2**: Compare `112` vs `201`.  
-**Answer**: Choose gateway `2a`.
-
-### Example 5: BGP Route Selection
-**Problem**: A router learns two routes to a prefix. Route A has higher local preference but longer AS-PATH. Route B has shorter AS-PATH. Which wins?  
-**Step 1**: BGP route selection checks local preference before AS-PATH.  
-**Step 2**: Higher local preference is a policy decision and wins first.  
-**Answer**: Route A wins despite the longer AS-PATH.
-
----
-
-## Common Mistakes / Gotchas
-- Confusing forwarding tables with routing algorithms. Routing algorithms compute information; forwarding uses it locally.
-- Thinking link-state and distance-vector differ only by formula. They differ in information scope and update behavior.
-- Forgetting Dijkstra needs complete topology knowledge.
-- Forgetting distance-vector routers initially only know direct neighbor costs.
-- Assuming "shortest" route is always selected on the Internet. BGP policy can override path length.
-- Treating AS-PATH as the actual router-by-router path. It is an AS-level path.
-- Forgetting iBGP tells internal routers which gateway reaches a prefix, but intra-AS routing still determines how to reach that gateway.
-- Thinking hot potato routing minimizes end-to-end path cost. It minimizes cost inside the local AS.
-- Ignoring route leaks. Incorrect BGP advertisements can redirect large amounts of traffic.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|------|---------|
-| Link-state | Global topology, Dijkstra |
-| Distance-vector | Neighbor exchanges, Bellman-Ford |
-| `D(v)` | Current shortest-path estimate |
-| `p(v)` | Predecessor on shortest path |
-| AS | Autonomous system |
-| Intra-AS | Routing inside one AS |
-| Inter-AS | Routing between ASes |
-| OSPF | Link-state intra-AS routing |
-| BGP | Inter-AS path-vector routing |
-| AS-PATH | AS sequence in BGP route |
-| NEXT-HOP | Router to next AS |
-| Hot potato | Choose nearest exit gateway |
-
-**Key Formulas / Algorithms**:
-
-```text
-Dijkstra relaxation:
-D(v) = min(D(v), D(w) + c(w,v))
-
-Bellman-Ford:
-Dx(y) = min over neighbors v { cx,v + Dv(y) }
-
-BGP selection order:
-local preference -> shortest AS-PATH -> closest NEXT-HOP -> additional criteria
-```
-
-**Key Takeaways**:
-- Routing is graph path selection under cost and policy.
-- Link-state uses complete information; distance-vector uses neighbor exchange.
-- Scalability requires hierarchical routing with ASes.
-- OSPF handles routing inside an AS; BGP handles routing between ASes.
-- BGP is policy-driven, not purely shortest-path-driven.
-
----
-
-## Practice Questions
-
-**Q1**: What is the main information difference between link-state and distance-vector routing?  
-> Answer: Link-state routers know complete topology and link costs. Distance-vector routers initially know only neighbor costs and learn estimates through neighbor exchanges.
-
-**Q2**: Write the Bellman-Ford equation used in distance-vector routing.  
-> Answer: `Dx(y) = minv { cx,v + Dv(y) }`, where `v` ranges over neighbors of `x`.
-
-**Q3**: Why does the Internet use ASes?  
-> Answer: To scale routing and support administrative autonomy. Flat routing over billions of destinations would require huge tables and excessive update traffic.
-
-**Q4**: What are eBGP and iBGP used for?  
-> Answer: eBGP learns reachability from neighboring ASes. iBGP propagates that reachability inside the AS.
-
-**Q5**: Why can BGP choose a longer AS-PATH?  
-> Answer: Policy, especially local preference, is considered before AS-PATH length.

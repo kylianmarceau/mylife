@@ -1,8 +1,25 @@
+---
+tags:
+  - automated-planning
+---
+
 # Value Functions
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `RL/3RL_3041F_Edit.pdf`, Asad Jeewa, slides 1-17  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Return|Return]]
+  - [[#Policy|Policy]]
+  - [[#State-Value Functions|State-Value Functions]]
+  - [[#Bellman Equation|Bellman Equation]]
+  - [[#Action-Value Functions|Action-Value Functions]]
+  - [[#Relationship Between V And Q|Relationship Between V And Q]]
 
 ---
 
@@ -203,111 +220,3 @@ flowchart TD
 ```
 
 Caption: Gridworld shows how values propagate backward from rewarding or terminal states.
-
-## Worked Examples
-
-### Example 1: Bellman Return Split
-
-**Problem**: Show why $G_t=R_{t+1}+\gamma G_{t+1}$.
-
-**Step 1: Expand $G_t$**  
-$G_t=R_{t+1}+\gamma R_{t+2}+\gamma^2R_{t+3}+\cdots$
-
-**Step 2: Expand $G_{t+1}$**  
-$G_{t+1}=R_{t+2}+\gamma R_{t+3}+\cdots$
-
-**Step 3: Substitute**  
-$\gamma G_{t+1}=\gamma R_{t+2}+\gamma^2R_{t+3}+\cdots$
-
-**Answer**: $G_t=R_{t+1}+\gamma G_{t+1}$.
-
-### Example 2: Gridworld Q And V Calculation
-
-**Problem**: Given $\gamma=0.9$, at state $(3,3)$:
-
-$$
-\pi(\mathrm{Right}\mid(3,3))=0.8,\quad \pi(\mathrm{Down}\mid(3,3))=0.2,\quad \pi(\mathrm{Left}\mid(3,3))=0
-$$
-
-$$
-Q((3,3),\mathrm{Right})=0.999,\quad Q((3,3),\mathrm{Down})=-0.001,\quad Q((3,3),\mathrm{Left})=-0.001
-$$
-
-**Step 1: Use the V-Q relationship**  
-$V_{\pi}(s)=\sum_a\pi(a\mid s)Q_{\pi}(s,a)$.
-
-**Step 2: Substitute**  
-$V_{\pi}(3,3)=0.8(0.999)+0.2(-0.001)+0(-0.001)$.
-
-**Step 3: Compute**  
-$0.8\cdot0.999=0.7992$; $0.2(-0.001)=-0.0002$.
-
-**Answer**: $V_{\pi}(3,3)=0.799$.
-
----
-
-## Common Mistakes / Gotchas
-
-- Confusing reward with return. Reward is one feedback signal; return is a discounted sum.
-- Forgetting that rewards are indexed after actions: $R_{t+1}$ follows action at time $t$.
-- Treating $V$ and $Q$ as interchangeable. $V$ scores states; $Q$ scores state-action pairs.
-- Assuming values are probabilities. They depend on reward scale.
-- Forgetting to weight action values by policy probabilities when computing $V$.
-- Using Bellman equations without specifying the policy being evaluated.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Return $G_t$ | Discounted future reward |
-| Policy $\pi$ | Behavior rule |
-| $V_{\pi}(s)$ | Expected return from state `s` under $\pi$ |
-| $Q_{\pi}(s,a)$ | Expected return after action `a` in state `s`, then $\pi$ |
-| Bellman equation | Recursive value definition |
-
-**Key Formulas**:
-
-$$
-G_t=\sum_{k=0}^{H}\gamma^k R_{t+k+1}
-$$
-
-$$
-V_{\pi}(s)=\mathbb{E}[R(s,a)+\gamma V_{\pi}(s')]
-$$
-
-$$
-Q_{\pi}(s,a)=\mathbb{E}[R(s,a)+\gamma\mathbb{E}_{a'\sim\pi}Q_{\pi}(s',a')]
-$$
-
-$$
-V_{\pi}(s)=\sum_a \pi(a\mid s)Q_{\pi}(s,a)
-$$
-
-$$
-Q_{\pi}(s,a)=\mathbb{E}[R(s,a,s')+\gamma V_{\pi}(s')]
-$$
-
-**Key Takeaways**:
-
-- Return defines what the agent tries to maximize.
-- Value functions assign expected return to states or actions.
-- Bellman equations make value recursive.
-- `Q` is often more directly useful for action selection.
-
----
-
-## Practice Questions
-
-**Q1**: What is the difference between $V_{\pi}(s)$ and $Q_{\pi}(s,a)$?  
-> Answer: $V_{\pi}(s)$ values a state under policy $\pi$; $Q_{\pi}(s,a)$ values taking action `a` in state `s` and then following $\pi$.
-
-**Q2**: Why does $V_{\pi}(s)$ average over actions for a stochastic policy?  
-> Answer: Because the policy may choose different actions with different probabilities, and each action has its own expected return.
-
-**Q3**: What does the Bellman equation say in words?  
-> Answer: A state's value equals immediate reward plus discounted expected value of the next state.
-
-**Q4**: If all rewards are multiplied by 10, what happens to values?  
-> Answer: Values also scale by 10, assuming the same policy and dynamics.

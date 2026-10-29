@@ -1,8 +1,31 @@
+---
+tags:
+  - operating-systems
+---
+
 # Process Synchronization
 
 **Subject**: CSC3002F Operating Systems  
 **Source**: `CSC3002F_MK_3_ProcessSynchronization_v2.pdf`, Michelle Kuttel, pages 1-68  
 **Generated**: 2026-06-03
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Concurrency, Races, And Synchronization Constraints|Concurrency, Races, And Synchronization Constraints]]
+  - [[#Liveness Problems|Liveness Problems]]
+  - [[#Classic Synchronization Problems|Classic Synchronization Problems]]
+  - [[#Hardware Atomic Instructions|Hardware Atomic Instructions]]
+  - [[#Mutex Locks And Spinlocks|Mutex Locks And Spinlocks]]
+  - [[#Semaphores|Semaphores]]
+  - [[#Semaphores For Signaling, Rendezvous, Barriers, And Producer-Consumer|Semaphores For Signaling, Rendezvous, Barriers, And Producer-Consumer]]
+  - [[#Readers-Writers And Starvation|Readers-Writers And Starvation]]
+  - [[#Dining Philosophers|Dining Philosophers]]
+  - [[#Common Semaphore Errors|Common Semaphore Errors]]
+  - [[#Monitors, Condition Variables, And Java Synchronization|Monitors, Condition Variables, And Java Synchronization]]
+  - [[#Linux Synchronization|Linux Synchronization]]
 
 ---
 
@@ -448,128 +471,3 @@ Java also provides atomic variables, semaphores, reentrant locks, condition vari
 > **Reader-Writer Lock**: A lock allowing multiple readers or one writer.
 
 Linux provides semaphores, atomic integers (`atomic_t`), mutex locks, spinlocks, and reader-writer versions of locks. Since Linux is fully preemptive, synchronization is required inside the kernel as well as in user programs.
-
-## Worked Examples
-
-### Example 1: Lost Update Race
-
-**Problem**: Two threads both execute `counter = counter + 1` when `counter` is initially $0$. How can the final value be $1$?
-
-**Step 1**: Thread A reads $0$.  
-**Step 2**: Thread B reads $0$.  
-**Step 3**: Thread A computes and writes $1$.  
-**Step 4**: Thread B computes and writes $1$.  
-**Answer**: Final value is $1$, not $2$, because the read-modify-write sequence was not atomic.
-
-### Example 2: Producer-Consumer Semaphore Values
-
-**Problem**: A bounded buffer has size $5$. What should `mutex`, `full`, and `empty` be initialized to?
-
-**Step 1**: `mutex` protects buffer structure and starts available:
-
-$$
-\text{mutex}=1
-$$
-
-**Step 2**: No slots are full initially:
-
-$$
-\text{full}=0
-$$
-
-**Step 3**: All $5$ slots are empty:
-
-$$
-\text{empty}=5
-$$
-
-**Answer**: `mutex = 1`, `full = 0`, `empty = 5`.
-
-### Example 3: Readers-Writers First And Last Reader
-
-**Problem**: Why does only the first reader wait on `rw_mutex`, and only the last reader signal it?
-
-**Step 1**: First reader changes `read_count` from $0$ to $1$ and locks `rw_mutex`, blocking writers.  
-**Step 2**: Later readers increment `read_count` but do not need to lock `rw_mutex`; writer exclusion is already active.  
-**Step 3**: Each reader decrements on exit.  
-**Step 4**: The last reader changes `read_count` from $1$ to $0$ and releases `rw_mutex`.  
-**Answer**: This allows reader concurrency while writers remain excluded whenever at least one reader is active.
-
-### Example 4: Dining Philosophers Deadlock
-
-**Problem**: Why can the naive algorithm deadlock?
-
-**Step 1**: Each philosopher executes `wait(chopstick[i])` and succeeds.  
-**Step 2**: Each philosopher then tries `wait(chopstick[(i+1)%5])`.  
-**Step 3**: That second chopstick is held by the neighbor.  
-**Step 4**: Nobody releases their first chopstick because each waits for the second.  
-**Answer**: The philosophers form a circular wait, so all are deadlocked.
-
----
-
-## Common Mistakes / Gotchas
-
-- Assuming atomic variables solve every concurrency problem. They protect single-variable updates, not multi-variable invariants.
-- Using `if` instead of `while` around Java `wait()`.
-- Treating deadlock freedom as starvation freedom. They are different liveness guarantees.
-- Forgetting to release a mutex/semaphore on all code paths.
-- Acquiring resources in inconsistent orders.
-- Using a spinlock for a long critical section on a single-core system, wasting CPU.
-- Reading a semaphore's value for correctness decisions when the abstract semaphore model does not provide that operation.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Race condition | Correctness depends on timing/interleaving |
-| Data race | Unsynchronized same-location access with a write |
-| Critical section | Code accessing shared state needing protection |
-| Atomic | Indivisible operation |
-| Mutex | One-at-a-time lock |
-| Spinlock | Busy-waiting lock |
-| Semaphore | Atomic permit counter with wait/signal |
-| Binary semaphore | Semaphore with values $0$ or $1$ |
-| Counting semaphore | Semaphore for multiple permits |
-| Monitor | High-level synchronized abstraction |
-| Condition variable | Wait/signal for condition-based waiting |
-| BlockingQueue | Library data structure handling producer-consumer safely |
-
-**Key Formulas**:
-
-$$
-\text{Multiplex initial permits}=n
-$$
-
-$$
-\text{producer-consumer initial values: mutex}=1,\quad \text{full}=0,\quad \text{empty}=n
-$$
-
-$$
-\text{buffer full when }(\text{in}+1)\bmod \text{BUFFER\_SIZE}=\text{out}
-$$
-
-**Key Takeaways**:
-
-- Synchronization is about controlling interleavings and shared access.
-- Hardware atomic instructions build locks, but application programmers usually use higher-level tools.
-- Semaphores can express many patterns but are easy to misuse.
-- Monitors and condition variables make shared-state synchronization more structured.
-- Fairness matters: a solution can avoid deadlock yet still starve a thread.
-
----
-
-## Practice Questions
-
-**Q1**: Distinguish race condition and data race.  
-> Answer: A race condition is any correctness dependence on timing/interleaving. A data race is a specific unsynchronized concurrent access to the same memory location with at least one write.
-
-**Q2**: Why does producer-consumer need three semaphores in the standard solution?  
-> Answer: `mutex` protects buffer updates, `full` counts items available to consume, and `empty` counts free spaces available to produce into.
-
-**Q3**: Why should Java `wait()` be inside a `while` loop?  
-> Answer: Because of spurious wakeups and because another thread may change the condition before the awakened thread reacquires the lock.
-
-**Q4**: Give one deadlock-free dining philosophers strategy and explain why it works.  
-> Answer: Allow at most four philosophers at the table. With five chopsticks and only four philosophers competing, at least one philosopher can acquire two chopsticks and eventually release them, preventing a full circular wait.

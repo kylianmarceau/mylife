@@ -1,8 +1,27 @@
+---
+tags:
+  - operating-systems
+---
+
 # Introduction And Computer System Structure
 
 **Subject**: CSC3002F Operating Systems  
 **Source**: `Operating Systems 1 Ch1.pdf`, Aslam Safla, pages 1-66  
 **Generated**: 2026-06-03
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#What An Operating System Does|What An Operating System Does]]
+  - [[#Computer-System Organization|Computer-System Organization]]
+  - [[#I/O, Bootstrap, Storage, And DMA|I/O, Bootstrap, Storage, And DMA]]
+  - [[#Operating-System Operations|Operating-System Operations]]
+  - [[#Dual Mode, Privilege, And Timers|Dual Mode, Privilege, And Timers]]
+  - [[#OS Management Responsibilities|OS Management Responsibilities]]
+  - [[#System Architectures And Computing Environments|System Architectures And Computing Environments]]
+  - [[#Free/Open Source OSes And Kernel Data Structures|Free/Open Source OSes And Kernel Data Structures]]
 
 ---
 
@@ -288,104 +307,3 @@ Kernel implementations use standard data structures:
 | Binary search trees / balanced trees | Ordered lookup; balanced search can be $O(\log n)$ |
 | Hash maps | Fast average-case lookup by key |
 | Bitmaps | Track free/used frames, blocks, or resource slots |
-
-
-
-## Worked Examples
-
-### Example 1: Interrupt-Driven Keyboard Input
-
-**Problem**: Explain how a key press reaches a user program.
-
-**Step 1**: The keyboard controller detects a key press and stores data in its local buffer.  
-**Step 2**: The controller raises an interrupt.  
-**Step 3**: The CPU switches to the interrupt service routine through the interrupt vector and the OS saves the interrupted process state.  
-**Step 4**: The device driver reads the key data from the controller buffer.  
-**Step 5**: The OS places the input where the waiting process can receive it, then restores CPU state.  
-**Answer**: The user program sees input without polling the hardware continuously; the interrupt lets the device notify the OS when work is ready.
-
-### Example 2: Multiprogramming Improves CPU Use
-
-**Problem**: One process alternates $5$ ms CPU, $20$ ms I/O. What happens if only this process is loaded?
-
-**Step 1**: During the $5$ ms CPU burst, the CPU is busy.  
-**Step 2**: During the $20$ ms I/O wait, the CPU may be idle.  
-**Step 3**: CPU utilization for this process alone is:
-
-$$
-\frac{5}{5+20}=0.20=20\%
-$$
-
-**Step 4**: With multiprogramming, another ready process can run during the I/O wait.  
-**Answer**: Multiprogramming increases CPU utilization by switching to another job when the current job blocks.
-
-### Example 3: Timer Prevents CPU Hogging
-
-**Problem**: A user program enters an infinite loop. How does the OS regain control?
-
-**Step 1**: Before dispatching the process, the OS sets a hardware timer.  
-**Step 2**: The program runs in user mode and cannot disable or reset the timer because that is privileged.  
-**Step 3**: When the counter reaches zero, a timer interrupt transfers control to the kernel.  
-**Step 4**: The kernel can reschedule, lower priority, or terminate the program.  
-**Answer**: The timer makes preemption possible and prevents one user process from controlling the CPU forever.
-
----
-
-## Common Mistakes / Gotchas
-
-- Treating the OS as only a user interface; the UI is only one part of the full system.
-- Forgetting that traps/exceptions are software-generated interrupts, while device interrupts are hardware-generated.
-- Saying DMA eliminates interrupts entirely; it reduces interrupts to one per block instead of one per byte.
-- Confusing multiprogramming with true parallelism. Multiprogramming can occur on one CPU by switching jobs.
-- Thinking a user process can directly enter kernel mode; it must use controlled mechanisms such as system calls or traps.
-- Assuming all cloud computing is virtualization. Cloud commonly uses virtualization, but also includes management, networking, storage, and service layers.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| OS | Resource allocator and control program between applications and hardware |
-| Interrupt | Hardware/software event that transfers control to OS handling code |
-| Trap | Software-generated interrupt, often from error or system call |
-| DMA | Block transfer between device controller and memory with little CPU intervention |
-| Multiprogramming | Keep multiple jobs in memory so CPU has work during I/O waits |
-| Time sharing | Frequent CPU switching for interactive use |
-| User/kernel mode | Hardware-supported privilege split |
-| Timer | Interrupt source that lets OS regain control |
-| Virtualization | Running guest environments on a host/VMM |
-
-**Key Formulas**:
-
-$$
-\text{CPU utilization for one CPU/I/O cycle}=\frac{\text{CPU burst time}}{\text{CPU burst time}+\text{I/O wait time}}
-$$
-
-$$
-\text{Balanced tree search time}=O(\log n)
-$$
-
-**Key Takeaways**:
-
-- The OS exists to manage resources, protect the system, and provide services to programs.
-- Interrupts and system calls are the main control-transfer mechanisms into the kernel.
-- Multiprogramming and time sharing make one CPU appear productive and interactive.
-- Dual mode, privileged instructions, and timers are core hardware support for OS protection.
-- Modern OS design depends on hardware architecture: single processor, multicore, NUMA, clusters, mobile, cloud, and embedded systems differ.
-
----
-
-## Practice Questions
-
-**Q1**: What are the four main components of a computer system in the source's model?  
-> Answer: Hardware, operating system, application programs, and users.
-
-**Q2**: Why does a timer need to be controlled by privileged instructions?  
-> Answer: If user programs could disable or reset the timer, they could prevent preemption and monopolize the CPU. The OS must control the timer to regain control safely.
-
-**Q3**: Explain the difference between multiprogramming and multitasking/time sharing.  
-> Answer: Multiprogramming keeps several jobs in memory so the CPU can switch when one waits, mainly improving utilization. Time sharing switches frequently enough to support interactive users and good response time.
-
-**Q4**: A device transfers 4096 bytes. Why is DMA better than interrupting for every byte?  
-> Answer: Interrupting for every byte would cause 4096 interrupts. DMA transfers the block directly and interrupts once, reducing CPU overhead.

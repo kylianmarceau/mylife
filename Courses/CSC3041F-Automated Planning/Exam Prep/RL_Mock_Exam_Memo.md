@@ -1,3 +1,8 @@
+---
+tags:
+  - automated-planning
+---
+
 # Reinforcement Learning Mock Exam: Marking Memo
 
 This memo follows `RL_Mock_Exam.md`. Award equivalent marks for correct reasoning even if notation differs.

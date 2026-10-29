@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 355" role="img" font-family="Inter, Arial, sans-serif">
+<title>A GUI agent grounds an action, executes it, and observes the changed screenshot</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<line x1="275.0" y1="100.0" x2="345.0" y2="100.0" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="595.0" y1="100.0" x2="650.0" y2="100.0" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<line x1="700.3" y1="135.0" x2="529.7" y2="235.0" stroke="#a8bfd8" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a5ad4b5)"/>
+<rect x="35.0" y="65.0" width="240" height="70" rx="8" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="155" y="106.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Screenshot</text>
+<rect x="345.0" y="60.0" width="250" height="80" rx="8" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="470" y="94.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Decide + ground</text>
+<text x="470" y="117.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">next action</text>
+<rect x="650.0" y="65.0" width="220" height="70" rx="8" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="760" y="106.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Execute action</text>
+<rect x="345.0" y="235.0" width="250" height="70" rx="8" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="470" y="276.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">New screenshot</text>
+<path d="M345 270H155V135" stroke="#83a8d1" stroke-width="2" fill="none" marker-end="url(#a66b3ff)"/>
+</svg>

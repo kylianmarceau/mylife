@@ -1,8 +1,28 @@
+---
+tags:
+  - operating-systems
+---
+
 # Security
 
 **Subject**: CSC3002F Operating Systems  
 **Source**: `Operating Systems 1 Ch16.pdf`, Aslam Safla, pages 1-56  
 **Generated**: 2026-06-03
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#The Security Problem|The Security Problem]]
+  - [[#Attack Methods And Security Levels|Attack Methods And Security Levels]]
+  - [[#Program Threats: Malware, Trojans, Trap Doors, Code Injection|Program Threats: Malware, Trojans, Trap Doors, Code Injection]]
+  - [[#Viruses, Worms, Port Scanning, And DoS|Viruses, Worms, Port Scanning, And DoS]]
+  - [[#Cryptography: Encryption|Cryptography: Encryption]]
+  - [[#Authentication, Hashing, MACs, And Digital Signatures|Authentication, Hashing, MACs, And Digital Signatures]]
+  - [[#Key Distribution, Certificates, TLS, And User Authentication|Key Distribution, Certificates, TLS, And User Authentication]]
+  - [[#Implementing Security Defenses|Implementing Security Defenses]]
+  - [[#Security Classifications And Windows Example|Security Classifications And Windows Example]]
 
 ---
 
@@ -441,125 +461,3 @@ The U.S. Department of Defense classification model:
 | A | Formal design and verification |
 
 Windows security is account-based. Login creates an access token containing the user SID, group SIDs, and special privileges. Each process gets a copy. Objects have security descriptors with permissions, and access checks compare the process token against object security attributes. Later Windows versions add mandatory integrity controls with integrity labels.
-
-## Worked Examples
-
-### Example 1: RSA Toy Key Generation
-
-**Problem**: Reproduce the source's RSA toy setup for $p=7$ and $q=13$.
-
-**Step 1**: Compute:
-
-$$
-N=pq=7\times13=91
-$$
-
-**Step 2**: Compute:
-
-$$
-(p-1)(q-1)=6\times12=72
-$$
-
-**Step 3**: Choose $k_e=5$, relatively prime to $72$.  
-**Step 4**: Find $k_d$ such that:
-
-$$
-5k_d\bmod72=1
-$$
-
-**Step 5**: $k_d=29$ because:
-
-$$
-5\times29=145,\quad 145\bmod72=1
-$$
-
-**Answer**: Public key $(5,91)$, private key $(29,91)$.
-
-### Example 2: Why A Plain Hash Is Not Authentication
-
-**Problem**: A message is sent with $H(m)$. Why is this not enough?
-
-**Step 1**: An attacker changes $m$ to $m'$.  
-**Step 2**: If $H$ is public, the attacker computes $H(m')$.  
-**Step 3**: Receiver sees matching message and hash, but not proof of origin.  
-**Answer**: A hash detects accidental change but not malicious modification unless the hash value is authenticated, for example with a MAC or digital signature.
-
-### Example 3: TLS Session Setup
-
-**Problem**: Why does TLS use both asymmetric and symmetric cryptography?
-
-**Step 1**: The client validates the server's certificate and public key.  
-**Step 2**: Asymmetric cryptography helps establish a shared session key.  
-**Step 3**: Bulk data uses symmetric encryption because it is much faster.  
-**Answer**: Asymmetric crypto solves authentication/key-establishment; symmetric crypto handles efficient session traffic.
-
----
-
-## Common Mistakes / Gotchas
-
-- Thinking encryption automatically authenticates the sender. Confidentiality and authentication are separate goals.
-- Sending a hash with a message and assuming that proves integrity against attackers.
-- Ignoring key distribution; public-key systems still need certificates or another way to authenticate keys.
-- Treating firewalls as complete protection. Tunneling, spoofing, allowed services, and compromised insiders remain risks.
-- Assuming viruses and worms are the same. Viruses attach to host programs; worms are standalone and spread through networks.
-- Believing password encryption alone solves password exposure; phishing, keyloggers, shoulder surfing, and server compromise remain issues.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Threat | Potential security violation |
-| Attack | Attempted security breach |
-| Confidentiality | Prevent unauthorized reading |
-| Integrity | Prevent unauthorized modification |
-| Availability | Keep legitimate service/data available |
-| Trojan | Legitimate-looking program that misuses access |
-| Worm | Standalone network-spreading malware |
-| Encryption | Limit possible receivers |
-| Authentication | Limit/verify possible senders and modification |
-| MAC | Secret-key authenticator |
-| Digital signature | Private-key signature verified by public key |
-| Certificate | Trusted identity-to-public-key binding |
-
-**Key Formulas**:
-
-$$
-E:K\rightarrow(M\rightarrow C),\quad D:K\rightarrow(C\rightarrow M)
-$$
-
-$$
-N=pq,\quad k_ek_d\bmod((p-1)(q-1))=1
-$$
-
-$$
-E_{k_e,N}(m)=m^{k_e}\bmod N,\quad D_{k_d,N}(c)=c^{k_d}\bmod N
-$$
-
-$$
-S_{k_s}(m)=H(m)^{k_s}\bmod N,\quad a^{k_v}\bmod N=H(m)
-$$
-
-**Key Takeaways**:
-
-- Security is about confidentiality, integrity, availability, service theft, and denial of service.
-- Real security requires physical, application, OS, network, and human defenses.
-- Cryptography provides confidentiality, authentication, integrity evidence, key exchange, and signatures, but only if keys are managed correctly.
-- Defense in depth is the practical security strategy.
-
----
-
-## Practice Questions
-
-**Q1**: Distinguish threat and attack.  
-> Answer: A threat is a potential security violation; an attack is an actual attempt to breach security.
-
-**Q2**: Why is a man-in-the-middle attack possible against naive public-key exchange?  
-> Answer: If the receiver cannot authenticate that a public key belongs to the intended sender/server, an attacker can substitute their own key and establish separate encrypted channels with both parties.
-
-**Q3**: Why are salted password hashes better than storing encrypted or plaintext passwords?  
-> Answer: A one-way salted hash avoids needing to decrypt passwords and prevents identical passwords from producing identical stored values, making precomputed/rainbow-table attacks harder.
-
-**Q4**: Give one example each of confidentiality, integrity, and availability breaches.  
-> Answer: Confidentiality: reading another user's file. Integrity: modifying grades in a database. Availability: DDoS preventing access to a web service.

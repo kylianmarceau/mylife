@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 520" role="img" font-family="Inter, Arial, sans-serif">
+<title>Chains and forks close when the middle node is observed; colliders open when they or descendants are observed</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<line x1="125.0" y1="70.0" x2="215.0" y2="70.0" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="285.0" y1="70.0" x2="375.0" y2="70.0" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<line x1="215.0" y1="200.0" x2="125.0" y2="200.0" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<line x1="285.0" y1="200.0" x2="375.0" y2="200.0" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<line x1="125.0" y1="330.0" x2="215.0" y2="330.0" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="375.0" y1="330.0" x2="285.0" y2="330.0" stroke="#a8bfd8" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a5ad4b5)"/>
+<line x1="250.0" y1="355.0" x2="250.0" y2="435.0" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<ellipse cx="90" cy="70" rx="35.0" ry="25.0" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="90" y="76.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">A</text>
+<ellipse cx="250" cy="70" rx="35.0" ry="25.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="250" y="76.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">B</text>
+<ellipse cx="410" cy="70" rx="35.0" ry="25.0" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="410" y="76.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">C</text>
+<ellipse cx="90" cy="200" rx="35.0" ry="25.0" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="90" y="206.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">A</text>
+<ellipse cx="250" cy="200" rx="35.0" ry="25.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="250" y="206.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">B</text>
+<ellipse cx="410" cy="200" rx="35.0" ry="25.0" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="410" y="206.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">C</text>
+<ellipse cx="90" cy="330" rx="35.0" ry="25.0" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="90" y="336.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">A</text>
+<ellipse cx="250" cy="330" rx="35.0" ry="25.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="250" y="336.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">B</text>
+<ellipse cx="410" cy="330" rx="35.0" ry="25.0" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="410" y="336.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">C</text>
+<ellipse cx="250" cy="460" rx="80.0" ry="25.0" fill="#293a4d" stroke="#b3c5d9" stroke-width="2"/>
+<text x="250" y="466.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Descendant</text>
+<text x="520" y="75" fill="#f8fafc" font-size="20">Chain: blocked by observed B</text><text x="520" y="205" fill="#f8fafc" font-size="20">Fork: blocked by observed B</text><text x="520" y="335" fill="#f8fafc" font-size="20">Collider: opened by observed B</text><text x="520" y="370" fill="#98a6b7" font-size="18">or an observed descendant</text>
+</svg>

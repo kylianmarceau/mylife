@@ -1,8 +1,26 @@
+---
+tags:
+  - automated-planning
+---
+
 # Monte Carlo Methods
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `RL/7RL_3041F_Edit.pdf`, Asad Jeewa, slides 1-17  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Model-Free RL|Model-Free RL]]
+  - [[#Monte Carlo Methods|Monte Carlo Methods]]
+  - [[#Bootstrapping Contrast|Bootstrapping Contrast]]
+  - [[#Monte Carlo Properties|Monte Carlo Properties]]
+  - [[#First-Visit And Every-Visit MC|First-Visit And Every-Visit MC]]
+  - [[#MC Prediction|MC Prediction]]
+  - [[#From Prediction To Control|From Prediction To Control]]
 
 ---
 
@@ -187,103 +205,3 @@ flowchart TD
 ```
 
 Caption: Control needs action values because it must choose actions.
-
-## Worked Examples
-
-### Example 1: First-Visit Return Average
-
-**Problem**: State $S$ is first visited in three episodes with returns $4$, $6$, and $5$.
-
-**Step 1: Sum returns**  
-$4+6+5=15$.
-
-**Step 2: Divide by visits**  
-$15/3=5$.
-
-**Answer**: $V(S)=5$.
-
-### Example 2: Incremental MC Update
-
-**Problem**: Current $V(S)=4$, observed return $G=10$, learning rate $\alpha=0.25$.
-
-**Step 1: Compute error**  
-$G-V(S)=10-4=6$.
-
-**Step 2: Update**  
-$V(S)\leftarrow4+0.25\cdot6=5.5$.
-
-**Answer**: New value estimate is $5.5$.
-
-### Example 3: MC Control Policy Improvement
-
-**Problem**: For state `s`, learned action values are $Q(s,\mathrm{Left})=2$, $Q(s,\mathrm{Right})=5$.
-
-**Step 1: Choose greedy action**  
-`Right` has higher value.
-
-**Step 2: Improve policy**  
-Set the policy to choose `Right` most often, while still exploring if epsilon-greedy.
-
-**Answer**: The policy shifts toward `Right`.
-
----
-
-## Common Mistakes / Gotchas
-
-- Trying to update Monte Carlo values before an episode has finished.
-- Forgetting that classic MC needs episodic tasks.
-- Confusing Monte Carlo RL with Monte Carlo tree search.
-- Ignoring exploration in MC control.
-- Assuming every-visit samples are independent. Repeated visits in one episode are correlated.
-- Using state values $V$ when action selection requires action values $Q$.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Monte Carlo | Estimate by averaging sampled returns |
-| Episode | Complete trajectory to terminal state |
-| First-visit MC | Update from first occurrence per episode |
-| Every-visit MC | Update from every occurrence per episode |
-| MC prediction | Estimate $V_{\pi}$ |
-| MC control | Estimate `Q` and improve policy |
-| Bootstrapping | Updating from another estimate; MC does not bootstrap |
-
-**Key Formulas**:
-
-$$
-V(s)=\frac{1}{N(s)}\sum_{i=1}^{N(s)}G_i(s)
-$$
-
-$$
-V(s)\leftarrow V(s)+\alpha\left[G_t-V(s)\right]
-$$
-
-$$
-Q(s,a)=\frac{1}{N(s,a)}\sum_{i=1}^{N(s,a)}G_i(s,a)
-$$
-
-**Key Takeaways**:
-
-- Monte Carlo methods are model-free.
-- They update from complete sampled returns.
-- They are unbiased but can have high variance.
-- Control requires exploration and action values.
-
----
-
-## Practice Questions
-
-**Q1**: Why does Monte Carlo prediction wait until the episode ends?  
-> Answer: It needs the full return $G_t$, which includes rewards until termination.
-
-**Q2**: What is the difference between first-visit and every-visit MC?  
-> Answer: First-visit uses only the first occurrence of a state per episode; every-visit uses all occurrences.
-
-**Q3**: Why does MC control estimate $Q(s,a)$ instead of only $V(s)$?  
-> Answer: To improve a policy, the agent must compare actions in each state.
-
-**Q4**: What is the main disadvantage of Monte Carlo methods?  
-> Answer: They can have high variance and require complete episodes.

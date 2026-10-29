@@ -1,8 +1,33 @@
+---
+tags:
+  - networks
+---
+
 # Network Security
 
 **Subject**: CSC3001F Networks  
 **Source**: `NetworkSecurity_v2025.pptx`, Dr. Josiah Chavula, slides 1-49  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Security Goals And Threat Model|Security Goals And Threat Model]]
+  - [[#Cryptography Basics|Cryptography Basics]]
+  - [[#Block Ciphers, ECB, And CBC|Block Ciphers, ECB, And CBC]]
+  - [[#Symmetric-Key Cryptography|Symmetric-Key Cryptography]]
+  - [[#Public-Key Cryptography And Session Keys|Public-Key Cryptography And Session Keys]]
+  - [[#Authentication With Nonces|Authentication With Nonces]]
+  - [[#Digital Signatures And Message Digests|Digital Signatures And Message Digests]]
+  - [[#Certification Authorities|Certification Authorities]]
+  - [[#Secure Email|Secure Email]]
+  - [[#TLS|TLS]]
+  - [[#Firewalls|Firewalls]]
+  - [[#Stateless Packet Filtering And ACLs|Stateless Packet Filtering And ACLs]]
+  - [[#Stateful Packet Filtering|Stateful Packet Filtering]]
+  - [[#Intrusion Detection Systems|Intrusion Detection Systems]]
 
 ---
 
@@ -481,118 +506,3 @@ flowchart LR
 ```
 
 Caption: Firewalls block by policy; IDSs inspect for attacks and suspicious patterns.
-
-## Worked Examples
-
-### Example 1: Monoalphabetic Substitution
-**Problem**: Using source mapping `a->m`, `b->n`, `o->k`, encrypt `bob`.  
-**Step 1**: Map `b` to `n`.  
-**Step 2**: Map `o` to `k`.  
-**Step 3**: Map `b` to `n`.  
-**Answer**: `bob` becomes `nkn`.
-
-### Example 2: Why ECB Leaks Patterns
-**Problem**: A plaintext has repeated block `P` in positions 2 and 8. What happens in ECB?  
-**Step 1**: ECB encrypts each block independently.  
-**Step 2**: Same plaintext block with same key gives same ciphertext block.  
-**Answer**: Ciphertext blocks 2 and 8 are equal, revealing repetition.
-
-### Example 3: Nonce Authentication
-**Problem**: Bob wants to know Alice is live and not a replay. They share key `KAB`.  
-**Step 1**: Bob sends fresh nonce `R`.  
-**Step 2**: Alice returns `KAB(R)`.  
-**Step 3**: Bob decrypts/checks that returned value corresponds to `R`.  
-**Answer**: Fresh `R` prevents reuse of an old response; only Alice should know `KAB`.
-
-### Example 4: Digital Signature Verification
-**Problem**: Bob sends message `m` and signature `K-B(H(m))`. How does Alice verify?  
-**Step 1**: Alice computes `H(m)` over the received message.  
-**Step 2**: Alice applies Bob's public key to the signature to recover signed digest.  
-**Step 3**: Alice compares both digests.  
-**Answer**: If they match, the message has integrity and was signed by Bob's private key.
-
-### Example 5: TLS 1.3 0-RTT Risk
-**Problem**: Why is TLS 1.3 0-RTT vulnerable to replay?  
-**Step 1**: 0-RTT sends encrypted application data in the initial hello.  
-**Step 2**: It uses a resumption secret from an earlier connection.  
-**Step 3**: An attacker may replay the early data.  
-**Answer**: 0-RTT is safer for idempotent requests, such as some GETs, and risky for state-changing operations.
-
-### Example 6: ACL Rule Interpretation
-**Problem**: An ACL allows outbound TCP from `222.22/16` source ports `>1023` to destination port `80`, and allows inbound TCP from source port `80` to destination ports `>1023` only with ACK. What behavior does this support?  
-**Step 1**: Internal clients can initiate web connections to outside servers.  
-**Step 2**: Return traffic from outside web servers is allowed only if it looks like part of an established response.  
-**Answer**: The policy allows internal web browsing while blocking arbitrary new inbound TCP connections.
-
----
-
-## Common Mistakes / Gotchas
-- Treating confidentiality, integrity, and authentication as the same property. They solve different problems.
-- Assuming encryption alone proves who sent a message. Authentication/signatures are separate mechanisms.
-- Relying on secret algorithms. Good cryptosystems assume the algorithm is public and the key is secret.
-- Using ECB for repeated structured data. Repeated plaintext blocks leak as repeated ciphertext blocks.
-- Forgetting public-key crypto is slower than symmetric crypto, so session keys are used for bulk data.
-- Believing a public key without a certificate or trusted binding. That enables impersonation.
-- Thinking hashes encrypt data. Hashes fingerprint data; they are not reversible encryption.
-- Assuming TLS 0-RTT is safe for all requests. It can be replayed.
-- Thinking stateless firewalls understand connections. They do not track state unless made stateful.
-- Thinking IDS replaces a firewall. IDS detects suspicious activity; firewalls enforce blocking policy.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|------|---------|
-| Confidentiality | Keep content secret |
-| Authentication | Confirm identity |
-| Integrity | Detect modification |
-| Symmetric key | Same shared key |
-| Public key | Public/private key pair |
-| CBC | Chain blocks with previous ciphertext |
-| IV | Random starter for CBC |
-| Session key | Temporary symmetric key |
-| Nonce | Used-once freshness value |
-| Digital signature | Private-key signed digest/message |
-| CA | Binds identity to public key |
-| TLS | Secure transport-layer protocol |
-| Stateless firewall | Header-only, packet-by-packet |
-| Stateful firewall | Tracks connection state |
-| IDS | Detects attacks via inspection/correlation |
-
-**Key Formulas / Notation**:
-
-```text
-Ciphertext: KA(m)
-Decrypt: m = KB(KA(m))
-Public-key encryption to Bob: C = K+B(m), m = K-B(C)
-Digital signature digest: signature = K-private(H(m))
-CBC: Ci = E(K, Pi XOR C(i-1)); first block uses IV
-```
-
-**Key Takeaways**:
-- Network security combines confidentiality, authentication, integrity, access, and availability.
-- Symmetric crypto is fast but needs a shared key; public-key crypto solves key distribution and signatures.
-- Hashes and signatures provide efficient integrity and authentication.
-- Certificates solve the public-key identity binding problem.
-- TLS combines the crypto building blocks for secure transport.
-- Firewalls and IDSs provide operational security at network boundaries and monitoring points.
-
----
-
-## Practice Questions
-
-**Q1**: What is Kerckhoffs's principle?  
-> Answer: A cryptosystem should remain secure even if everything about the system except the key is public.
-
-**Q2**: Why is a session key used after public-key setup?  
-> Answer: Public-key operations are computationally expensive. A symmetric session key is much faster for bulk data encryption.
-
-**Q3**: What does a nonce prevent in authentication protocols?  
-> Answer: Replay attacks, because the response must correspond to a fresh value used only once.
-
-**Q4**: How does a CA help prevent public-key impersonation?  
-> Answer: It signs a certificate binding an entity's identity to its public key, allowing others to verify the binding with the CA public key.
-
-**Q5**: What is the main difference between a stateless and stateful packet filter?  
-> Answer: A stateless filter decides on each packet independently. A stateful filter tracks connection state and checks whether packets make sense for active connections.

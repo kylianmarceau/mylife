@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 535" role="img" font-family="Inter, Arial, sans-serif">
+<title>The discriminator compares real data with generated images; feedback trains both networks</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<line x1="170.0" y1="90.0" x2="170.0" y2="157.5" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="170.0" y1="222.5" x2="170.0" y2="292.5" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<line x1="242.8" y1="357.5" x2="360.4" y2="410.0" stroke="#a8bfd8" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a5ad4b5)"/>
+<line x1="635.0" y1="357.5" x2="530.0" y2="410.0" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<rect x="65.0" y="30.0" width="210" height="60" rx="8" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="170" y="66.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Noise z</text>
+<rect x="55.0" y="157.5" width="230" height="65" rx="8" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="170" y="196.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Generator G</text>
+<rect x="40.0" y="292.5" width="260" height="65" rx="8" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="170" y="331.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Fake image G(z)</text>
+<rect x="585.0" y="292.5" width="230" height="65" rx="8" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="700" y="331.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Real image x</text>
+<rect x="310.0" y="410.0" width="280" height="80" rx="8" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="450" y="444.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Discriminator D</text>
+<text x="450" y="467.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">real / fake score</text>
+<path d="M310 450H40V190H55" stroke="#b3c5d9" stroke-width="2" fill="none" marker-end="url(#affc778)"/><text x="145" y="495" fill="#b3c5d9" text-anchor="middle" font-size="18">Training feedback to G</text>
+</svg>

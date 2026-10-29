@@ -1,3 +1,8 @@
+---
+tags:
+  - vault-support
+---
+
 # Vault Guide
 
 This vault is organized around source-driven course notes. Use this file as the top-level orientation note when working in Obsidian or asking Codex to generate new study material.
@@ -7,11 +12,11 @@ This vault is organized around source-driven course notes. Use this file as the 
 | Folder | Purpose |
 |---|---|
 | `Sources/` | Original PDFs, slide decks, archives, and other uploaded source material. Do not edit these when generating notes. |
-| `Courses/` | Generated and maintained Markdown study notes, course indexes, study aids, flashcards, formula sheets, and mock exams. |
+| `Courses/` | Generated and maintained Markdown study notes, study aids, flashcards, formula sheets, and mock exams. |
 | `Templates/` | Reusable note templates for new generated notes. |
 | `_agents/` | Codex agent instructions for generating notes and slides. |
 | `_skills/` | Vault-specific Codex skills and note-taking standards. |
-| `diagrams/` | Standalone diagrams and image assets referenced by notes. |
+| `diagrams/` | SVG diagrams grouped by course, optional unit, and lecture; shared image assets referenced by notes. |
 | `.obsidian/` | Obsidian configuration and plugin state. |
 
 ## Source-To-Note Rule
@@ -39,28 +44,39 @@ Generated course notes should follow:
 
 1. `_skills/NOTE_TAKING_PHILOSOPHY.md`
 2. `Templates/NOTE_TEMPLATE.md`
-3. The relevant course `INDEX.md`
 
 Every source-backed note should preserve the standard section order:
 
 1. Topic header
-2. Core Content
-3. Worked Examples
-4. Common Mistakes / Gotchas
-5. Summary / Cheat Sheet
-6. Practice Questions
+2. Contents with clickable links to the note's sections and Core Content subsections
+3. Core Content
 
-## Course Index Standard
+Do not include dedicated Summary / Cheat Sheet, Practice Questions, Worked Examples, or Common Mistakes / Gotchas sections. Source examples, essential qualifications, and algorithm mechanics belong beside the relevant concept in Core Content.
 
-Every course folder should have an `INDEX.md` containing:
+All future notes must also follow the readable writing style in `_skills/NOTE_TAKING_PHILOSOPHY.md`: short paragraphs, direct explanations, numbered processes, bullets for properties, and tables for comparisons. Use the existing Networks, Operating Systems, and Automated Planning notes as models. Keep source details in the note header rather than narrating slides in the body.
 
-- Subject and source-folder metadata
-- A linked table of contents with relative links
-- Source coverage table mapping source files to generated notes
-- Study aids, formula sheets, flashcards, and mock exams where relevant
-- Suggested study order
+## Graph and Diagram Standard
 
-All Markdown links should be filesystem-relative, not vault-absolute. This keeps notes valid in Obsidian, GitHub, and plain editors.
+Whenever creating or recreating a graph or diagram, read and apply `_skills/svg-graph-creation/SKILL.md`. Hand-authored SVG is the default for both source visuals and existing note diagrams, unless the user explicitly requests another format. Store SVGs under `diagrams/[Course]/[Optional Unit]/[NoteName]/`. Embed each SVG beside its explanation with a relative image link and a short caption. Use the approved coloured style in that skill, with Introduction I as the reference: meaningful accents, subdued dark fills, and layouts suited to the concept. Verify every render for legibility and faithful technical relationships.
+
+## Course Navigation
+
+Use course folders and Obsidian search to find notes. Do not create or maintain course INDEX files unless explicitly requested by the user.
+
+Every study note must have its course tag in the YAML `tags` list at the top of the file, including study aids, mock exams, and flashcard decks:
+
+| Course | Tag |
+|---|---|
+| CSC3001F Networks | `networks` |
+| CSC3002F Operating Systems | `operating-systems` |
+| CSC3003S Advanced Programming | `advanced-programming` |
+| CSC3041F Automated Planning | `automated-planning` |
+| CSC3043S Reasoning in AI | `reasoning-in-ai` |
+| CSC3044S AI Systems, including its Qard files | `ai-systems` |
+
+Vault guides, templates, agent instructions, and skill instructions use `vault-support`. When generating a study note from a template, replace the template's `vault-support` tag with the appropriate course tag. Preserve any other existing tags and metadata. Keep Tags enabled in graph settings to display course connections.
+
+All Markdown file links should be filesystem-relative, not vault-absolute. Use Obsidian heading links such as `[[#Core Content|Core Content]]` for section navigation.
 
 ## Maintenance Checks
 

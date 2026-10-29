@@ -1,3 +1,8 @@
+---
+tags:
+  - automated-planning
+---
+
 # Search Mock Exam: Marking Memo
 
 This memo follows `Search_Mock_Exam.md`. Award equivalent marks for correct reasoning and equivalent notation.

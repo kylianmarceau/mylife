@@ -1,8 +1,30 @@
+---
+tags:
+  - automated-planning
+---
+
 # Modern Reinforcement Learning
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `RL/10RL_3041F.pdf`, Asad Jeewa, slides 1-18  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#What The RL Block Covered|What The RL Block Covered]]
+  - [[#Beyond Discrete Gridworld|Beyond Discrete Gridworld]]
+  - [[#Continuous Control|Continuous Control]]
+  - [[#True Model-Based RL|True Model-Based RL]]
+  - [[#N-Step Bootstrapping And Eligibility Traces|N-Step Bootstrapping And Eligibility Traces]]
+  - [[#DQN Extensions|DQN Extensions]]
+  - [[#Policy Gradient Methods|Policy Gradient Methods]]
+  - [[#Actor-Critic Methods|Actor-Critic Methods]]
+  - [[#Multi-Agent And Multi-Objective RL|Multi-Agent And Multi-Objective RL]]
+  - [[#Offline RL|Offline RL]]
+  - [[#Practical Tools|Practical Tools]]
 
 ---
 
@@ -302,119 +324,3 @@ Caption: Offline RL is useful when exploration in the real world is unsafe or ex
 | MARL | RLlib | PettingZoo |
 | MORL | MORL-Baselines | MO-Gymnasium |
 | Offline RL | CORL | Minari |
-
-## Worked Examples
-
-### Example 1: N-Step Return
-
-**Problem**: $n=2$, $R_{t+1}=1$, $R_{t+2}=2$, $V(S_{t+2})=10$, and $\gamma=0.5$.
-
-**Step 1: Write formula**  
-$G_t^{(2)}=R_{t+1}+\gamma R_{t+2}+\gamma^2V(S_{t+2})$.
-
-**Step 2: Substitute**  
-$G_t^{(2)}=1+0.5\cdot2+0.25\cdot10$.
-
-**Step 3: Compute**  
-$1+1+2.5=4.5$.
-
-**Answer**: The 2-step return is `4.5`.
-
-### Example 2: Choose A Modern RL Family
-
-**Problem**: A robot arm must output continuous torque values.
-
-**Step 1: Check action space**  
-Actions are continuous.
-
-**Step 2: Rule out DQN-style discrete action maximization**  
-DQN is not naturally suited to continuous actions.
-
-**Step 3: Choose candidate methods**  
-Use continuous-control methods such as DDPG, TD3, or SAC.
-
-**Answer**: SAC or TD3 would be more suitable than vanilla DQN.
-
-### Example 3: Offline RL Risk
-
-**Problem**: A healthcare policy is trained only on hospital records. The learned policy recommends a treatment rarely seen in the dataset.
-
-**Step 1: Identify distribution issue**  
-The action is out-of-distribution relative to the data.
-
-**Step 2: Identify risk**  
-The value estimate may be overoptimistic because there is little evidence for that action.
-
-**Answer**: This is an offline RL distribution-shift and unseen-action overestimation problem.
-
----
-
-## Common Mistakes / Gotchas
-
-- Trying to use vanilla DQN directly for continuous actions.
-- Treating model-based planning with known `T,R` as the same as true model-based RL that learns `T,R`.
-- Assuming larger `n` in n-step learning is always better.
-- Forgetting that MARL is non-stationary because other agents learn too.
-- Scalarizing multi-objective rewards without thinking about preferences.
-- Ignoring distribution shift in offline RL.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Continuous control | RL with real-valued actions |
-| DDPG / TD3 / SAC | Continuous-control algorithms |
-| True model-based RL | Learn dynamics and rewards, then plan |
-| Dyna | Combines real and simulated model experience |
-| N-step bootstrapping | Use `n` rewards before a bootstrap value |
-| Eligibility trace | Decaying memory of recent states/actions |
-| Policy gradient | Optimize policy directly |
-| Actor-critic | Actor policy plus critic value function |
-| MARL | Multi-agent RL |
-| MORL | Multi-objective RL |
-| Offline RL | Learn from fixed datasets only |
-
-**Key Formulas**:
-
-N-step return:
-
-$$
-G_t^{(n)}=R_{t+1}+\gamma R_{t+2}+\cdots+\gamma^{n-1}R_{t+n}+\gamma^nV(S_{t+n})
-$$
-
-N-step update:
-
-$$
-V(S_t)\leftarrow V(S_t)+\alpha\left[G_t^{(n)}-V(S_t)\right]
-$$
-
-Policy gradient policy:
-
-$$
-\pi(a\mid s;\theta)
-$$
-
-**Key Takeaways**:
-
-- Modern RL extends tabular foundations to continuous, high-dimensional, multi-agent, multi-objective, and offline settings.
-- DQN is important but not universal.
-- Actor-critic and policy-gradient methods learn policies directly.
-- Offline RL is attractive but high-risk because the agent cannot explore.
-
----
-
-## Practice Questions
-
-**Q1**: Why is DQN not naturally suited to continuous actions?  
-> Answer: It relies on computing a maximum over discrete action values, which is not straightforward when actions are real-valued.
-
-**Q2**: What does true model-based RL learn?  
-> Answer: It learns transition dynamics and rewards from data, then uses the learned model for planning.
-
-**Q3**: What are the actor and critic?  
-> Answer: The actor is the policy that chooses actions; the critic is the value estimator that evaluates states or actions.
-
-**Q4**: Why is offline RL difficult?  
-> Answer: The agent must learn from fixed data, so it faces distribution shift, unseen-action overestimation, and limited exploration.

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 780 360" role="img"><title>Congruence preserves shape and size; similarity permits scaling</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.5"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.5"/></marker>
+<marker id="af8fafc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.5"/></marker>
+</defs>
+<text x="390" y="30" fill="#b89aff" font-family="Arial" font-size="22" text-anchor="middle">Congruent: same shape and size</text>
+<polygon points="75.0,85.0 105.0,85.0 105.0,65.0 145.0,105.0 105.0,145.0 105.0,125.0 75.0,125.0" fill="#20344c" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="105" y="176" fill="#adb9cb" font-family="Arial" font-size="17" text-anchor="middle">Original</text>
+<polygon points="310.0,75.0 310.0,105.0 330.0,105.0 290.0,145.0 250.0,105.0 270.0,105.0 270.0,75.0" fill="#20344c" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="290" y="176" fill="#adb9cb" font-family="Arial" font-size="17" text-anchor="middle">Rotated / moved</text>
+<polygon points="535.0,85.0 505.0,85.0 505.0,65.0 465.0,105.0 505.0,145.0 505.0,125.0 535.0,125.0" fill="#20344c" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="505" y="176" fill="#adb9cb" font-family="Arial" font-size="17" text-anchor="middle">Reflected</text>
+<polygon points="722.3205080756887,120.98076211353316 707.3205080756887,95.0 724.6410161513776,85.0 670.0,70.35898384862246 655.3589838486224,125.0 672.6794919243113,115.0 687.6794919243113,140.98076211353316" fill="#20344c" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="690" y="176" fill="#adb9cb" font-family="Arial" font-size="17" text-anchor="middle">Reflected / rotated</text>
+<text x="390" y="225" fill="#b89aff" font-family="Arial" font-size="22" text-anchor="middle">Similar: same shape; size may change</text>
+<polygon points="163.5,284.0 180.0,284.0 180.0,273.0 202.0,295.0 180.0,317.0 180.0,306.0 163.5,306.0" fill="#20344c" stroke="#5ad4b5" stroke-width="1.8"/>
+<polygon points="404.0,271.0 440.0,271.0 440.0,247.0 488.0,295.0 440.0,343.0 440.0,319.0 404.0,319.0" fill="#20344c" stroke="#5ad4b5" stroke-width="1.8"/>
+<line x1="245" y1="295" x2="350" y2="295" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<polyline points="341.0,291.0 350,295 341.0,299.0" fill="none" stroke="#5ad4b5" stroke-width="1.8"/>
+<text x="625" y="295" fill="#5ad4b5" font-family="Arial" font-size="20" text-anchor="middle">Uniform scaling</text>
+</svg>

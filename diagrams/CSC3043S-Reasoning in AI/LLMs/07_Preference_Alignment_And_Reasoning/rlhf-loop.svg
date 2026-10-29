@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 440" role="img" font-family="Inter, Arial, sans-serif">
+<title>Preference data trains a reward model, which scores sampled policy responses during RL</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<line x1="205.0" y1="60.0" x2="270.0" y2="60.0" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="510.0" y1="60.0" x2="590.0" y2="60.0" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<line x1="710.0" y1="187.5" x2="710.0" y2="97.5" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="678.0" y1="97.5" x2="482.0" y2="327.5" stroke="#b3c5d9" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#affc778)"/>
+<line x1="245.0" y1="262.5" x2="375.0" y2="327.5" stroke="#98a6b7" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#aadb9cb)"/>
+<line x1="442.6" y1="327.5" x2="397.4" y2="97.5" stroke="#a8bfd8" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a5ad4b5)"/>
+<rect x="35.0" y="32.5" width="170" height="55" rx="8" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="120" y="66.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Prompt</text>
+<rect x="270.0" y="22.5" width="240" height="75" rx="8" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="390" y="54.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Policy LM</text>
+<text x="390" y="77.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">sample response</text>
+<rect x="590.0" y="22.5" width="240" height="75" rx="8" fill="#293a4d" stroke="#b3c5d9" stroke-width="2"/>
+<text x="710" y="66.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Reward model</text>
+<rect x="590.0" y="187.5" width="240" height="75" rx="8" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="710" y="219.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Human preference</text>
+<text x="710" y="242.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">pairs</text>
+<rect x="50.0" y="187.5" width="240" height="75" rx="8" fill="#242c36" stroke="#98a6b7" stroke-width="2"/>
+<text x="170" y="219.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Reference LM</text>
+<text x="170" y="242.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">KL penalty</text>
+<rect x="330.0" y="327.5" width="240" height="75" rx="8" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="450" y="359.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">RL update</text>
+<text x="450" y="382.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">PPO</text>
+
+</svg>

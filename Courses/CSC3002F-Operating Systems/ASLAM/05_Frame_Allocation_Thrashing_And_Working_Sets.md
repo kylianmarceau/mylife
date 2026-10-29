@@ -1,8 +1,30 @@
+---
+tags:
+  - operating-systems
+---
+
 # Frame Allocation, Thrashing, And Working Sets
 
 **Subject**: CSC3002F Operating Systems  
 **Source**: `Frame Allocation.pdf`, Aslam Safla, pages 1-66  
 **Generated**: 2026-06-03
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#The Frame Allocation Problem|The Frame Allocation Problem]]
+  - [[#Local And Global Replacement|Local And Global Replacement]]
+  - [[#Frame Allocation Methods|Frame Allocation Methods]]
+  - [[#Reclaiming Pages And Free Frame Lists|Reclaiming Pages And Free Frame Lists]]
+  - [[#What Causes Page Replacement Pressure|What Causes Page Replacement Pressure]]
+  - [[#Thrashing|Thrashing]]
+  - [[#Preventing Thrashing|Preventing Thrashing]]
+  - [[#Locality And Program Structure|Locality And Program Structure]]
+  - [[#Working Set Model|Working Set Model]]
+  - [[#Page-Fault Frequency And Working Set Updates|Page-Fault Frequency And Working Set Updates]]
+  - [[#Choosing The Working Set Window|Choosing The Working Set Window]]
 
 ---
 
@@ -447,205 +469,3 @@ So $w$ must usually be much larger than a single page-fault service time.
 | $w\rightarrow\infty$ | The working set approaches the entire program |
 
 The goal is to choose a window large enough to capture the current locality but not so large that old localities stay resident unnecessarily.
-
-## Worked Examples
-
-### Example 1: Equal Frame Allocation
-
-**Problem**: A system has $100$ frames and $5$ processes. Under equal allocation, how many frames does each process get?
-
-**Step 1**: Use:
-
-$$
-\frac{m}{n}
-$$
-
-**Step 2**: Substitute:
-
-$$
-\frac{100}{5}=20
-$$
-
-**Answer**: Each process receives $20$ frames.
-
-### Example 2: Proportional Frame Allocation
-
-**Problem**: Three processes have sizes $s_1=10$, $s_2=30$, and $s_3=60$. There are $m=100$ frames. Allocate frames proportionally.
-
-**Step 1**: Compute total process size:
-
-$$
-S=10+30+60=100
-$$
-
-**Step 2**: Use:
-
-$$
-a_i=\frac{s_i}{S}\times m
-$$
-
-**Step 3**: Calculate:
-
-$$
-a_1=\frac{10}{100}\times100=10
-$$
-
-$$
-a_2=\frac{30}{100}\times100=30
-$$
-
-$$
-a_3=\frac{60}{100}\times100=60
-$$
-
-**Answer**: The allocations are $10$, $30$, and $60$ frames.
-
-### Example 3: Program Locality And Page Faults
-
-**Problem**: A $128\times128$ array is stored one row per page. Compare row-wise and column-wise traversal when only one row page is effectively available.
-
-**Step 1**: Row-wise traversal uses all elements in row $0$, then row $1$, and so on.
-
-$$
-\text{row-wise faults}=128
-$$
-
-**Step 2**: Column-wise traversal visits one element from each row before returning to the next column.
-
-$$
-\text{column-wise faults}=128\times128=16{,}384
-$$
-
-**Answer**: Row-wise traversal has $128$ faults; column-wise traversal has $16{,}384$ faults. The difference comes from spatial locality.
-
-### Example 4: Working Set Calculation
-
-**Problem**: The recent reference string is:
-
-$$
-1,2,3,2,4,2,5,2
-$$
-
-At the end of the string, compute $WS(t,4)$ using the last $4$ references.
-
-**Step 1**: Last $4$ references:
-
-$$
-4,2,5,2
-$$
-
-**Step 2**: Distinct pages in that window:
-
-$$
-\{2,4,5\}
-$$
-
-**Step 3**: Working set size:
-
-$$
-|WS(t,4)|=3
-$$
-
-**Answer**: The working set is $\{2,4,5\}$ and its size is $3$.
-
-### Example 5: Detecting Over-Commitment
-
-**Problem**: Three processes have working set sizes $8$, $10$, and $7$. The system has $m=20$ available frames for these processes. Do the working sets fit?
-
-**Step 1**: Compute total demand:
-
-$$
-D=8+10+7=25
-$$
-
-**Step 2**: Compare with available frames:
-
-$$
-D=25>m=20
-$$
-
-**Answer**: The working sets do not fit. The OS should reduce load, for example by suspending or swapping out a process.
-
----
-
-## Common Mistakes / Gotchas
-
-- Thinking page replacement and frame allocation are the same. Replacement chooses a victim page; allocation decides how many frames each process may use.
-- Assuming global replacement is always better. It can improve utilization, but it can also make process runtime unstable.
-- Assuming local replacement prevents all problems. It contains damage but a process with too few frames can still run very slowly.
-- Treating low CPU utilization as a sign that more processes should always be admitted. During thrashing, low CPU utilization is caused by paging, and adding processes worsens the problem.
-- Forgetting that virtual memory depends on locality. Without locality, demand paging performs badly.
-- Choosing a working set window $w$ that is too small or too large. Too small misses the current locality; too large wastes memory on old localities.
-- Confusing total process size with working set size. The working set is the active recent subset, not the whole process.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Frame allocation | Dividing physical frames among processes |
-| Local replacement | Process evicts only its own pages |
-| Global replacement | Victim can come from any process |
-| Equal allocation | Same frame count for each process |
-| Proportional allocation | Frame count proportional to process size |
-| Priority allocation | Frame decisions depend on process priority |
-| Free frame list | Pool of immediately allocatable frames |
-| Thrashing | Excessive paging dominates useful work |
-| Locality | Memory references cluster in time/space |
-| Working set | Pages recently used by a process |
-| PFF | Page-fault frequency |
-| Load control | Deciding how many processes may be active |
-
-**Key Formulas**:
-
-$$
-\text{equal allocation per process}=\frac{m}{n}
-$$
-
-$$
-a_i=\frac{s_i}{S}\times m,\quad S=\sum_i s_i
-$$
-
-$$
-WS(t,w)=\{p\mid p\text{ was referenced during the last }w\text{ references or time units}\}
-$$
-
-$$
-D=\sum_i |WS_i(t,w)|
-$$
-
-$$
-D>m\Rightarrow \text{working sets do not fit}
-$$
-
-**Key Takeaways**:
-
-- Frame allocation controls how physical memory is divided among processes.
-- Local replacement gives stability; global replacement gives flexibility but can spread pressure.
-- Thrashing happens when active working sets do not fit in memory.
-- Virtual memory performs well because programs usually have locality.
-- The working set model is both a replacement guide and a load-control strategy.
-- If total working set demand exceeds available frames, the OS should reduce the active load.
-
----
-
-## Practice Questions
-
-**Q1**: What is the difference between local and global page replacement?  
-> Answer: Local replacement chooses victims only from the faulting process's frames. Global replacement can choose victims from all processes' frames.
-
-**Q2**: A system has $240$ frames and $6$ processes. Under equal allocation, how many frames does each process receive?  
-> Answer: $\frac{240}{6}=40$ frames.
-
-**Q3**: Why can global replacement cause unstable process runtime?  
-> Answer: A process's resident set can shrink because other processes steal its frames, so its page-fault rate depends on other processes' memory demands.
-
-**Q4**: What is thrashing, and why does adding more processes make it worse?  
-> Answer: Thrashing is excessive paging with little useful computation. Adding processes reduces frames per process, increasing page faults and disk I/O.
-
-**Q5**: Define $WS(t,w)$ in words.  
-> Answer: It is the set of distinct pages referenced by a process during the most recent window of size $w$.
-
-**Q6**: If $D=\sum_i |WS_i|$ is greater than $m$, what should the OS do?  
-> Answer: The active working sets do not fit, so the OS should reduce load by suspending or swapping out one or more processes.

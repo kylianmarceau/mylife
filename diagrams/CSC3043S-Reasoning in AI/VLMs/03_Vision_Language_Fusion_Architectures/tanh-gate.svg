@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 415" role="img" font-family="Inter, Arial, sans-serif">
+<title>The tanh gate starts at zero and smoothly allows positive or negative visual contributions</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<path d="M95 45V335H845" stroke="#f8fafc" stroke-width="2" fill="none"/>
+<text x="470" y="390" fill="#f8fafc" text-anchor="middle" font-size="19">Gate parameter alpha</text>
+<text x="24" y="195" fill="#f8fafc" text-anchor="middle" transform="rotate(-90 24 195)" font-size="19">tanh(alpha)</text>
+<text x="95.0" y="360" text-anchor="middle" font-size="16" fill="#98a6b7">-3</text>
+<text x="80" y="340.0" text-anchor="end" font-size="16" fill="#98a6b7">-1</text>
+<text x="282.5" y="360" text-anchor="middle" font-size="16" fill="#98a6b7">-1.5</text>
+<text x="80" y="267.5" text-anchor="end" font-size="16" fill="#98a6b7">-0.5</text>
+<text x="470.0" y="360" text-anchor="middle" font-size="16" fill="#98a6b7">0</text>
+<text x="80" y="195.0" text-anchor="end" font-size="16" fill="#98a6b7">0</text>
+<text x="657.5" y="360" text-anchor="middle" font-size="16" fill="#98a6b7">1.5</text>
+<text x="80" y="122.5" text-anchor="end" font-size="16" fill="#98a6b7">0.5</text>
+<text x="845.0" y="360" text-anchor="middle" font-size="16" fill="#98a6b7">3</text>
+<text x="80" y="50.0" text-anchor="end" font-size="16" fill="#98a6b7">1</text>
+<polyline points="95.0,334.3 101.2,334.2 107.5,334.1 113.7,334.0 120.0,333.9 126.2,333.8 132.5,333.7 138.8,333.6 145.0,333.4 151.3,333.2 157.5,333.1 163.7,332.9 170.0,332.6 176.2,332.4 182.5,332.1 188.8,331.8 195.0,331.5 201.2,331.1 207.5,330.7 213.8,330.3 220.0,329.8 226.2,329.2 232.5,328.7 238.8,328.0 245.0,327.3 251.2,326.5 257.5,325.6 263.8,324.7 270.0,323.6 276.2,322.5 282.5,321.2 288.8,319.9 295.0,318.4 301.2,316.7 307.5,314.9 313.8,313.0 320.0,310.9 326.2,308.6 332.5,306.1 338.8,303.4 345.0,300.4 351.2,297.3 357.5,293.9 363.8,290.2 370.0,286.3 376.2,282.1 382.5,277.6 388.8,272.9 395.0,267.9 401.3,262.6 407.5,257.0 413.8,251.2 420.0,245.1 426.2,238.8 432.5,232.2 438.8,225.5 445.0,218.6 451.2,211.6 457.5,204.5 463.8,197.2 470.0,190.0 476.2,182.8 482.5,175.5 488.8,168.4 495.0,161.4 501.2,154.5 507.5,147.8 513.8,141.2 520.0,134.9 526.2,128.8 532.5,123.0 538.8,117.4 545.0,112.1 551.2,107.1 557.5,102.4 563.8,97.9 570.0,93.7 576.2,89.8 582.5,86.1 588.8,82.7 595.0,79.6 601.2,76.6 607.5,73.9 613.8,71.4 620.0,69.1 626.2,67.0 632.5,65.1 638.8,63.3 645.0,61.6 651.2,60.1 657.5,58.8 663.8,57.5 670.0,56.4 676.2,55.3 682.5,54.4 688.8,53.5 695.0,52.7 701.2,52.0 707.5,51.3 713.8,50.8 720.0,50.2 726.2,49.7 732.5,49.3 738.8,48.9 745.0,48.5 751.2,48.2 757.5,47.9 763.8,47.6 770.0,47.4 776.2,47.1 782.5,46.9 788.8,46.8 795.0,46.6 801.3,46.4 807.5,46.3 813.8,46.2 820.0,46.1 826.2,46.0 832.5,45.9 838.8,45.8 845.0,45.7" fill="none" stroke="#83a8d1" stroke-width="2.5"/>
+<text x="110" y="25" fill="#83a8d1" font-size="17">Gate value</text>
+</svg>

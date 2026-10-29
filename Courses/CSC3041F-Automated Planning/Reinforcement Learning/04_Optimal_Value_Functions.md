@@ -1,8 +1,25 @@
+---
+tags:
+  - automated-planning
+---
+
 # Optimal Value Functions
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `RL/4RL_3041F_Edit.pdf`, Asad Jeewa, slides 1-13  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#From Policy Evaluation To Optimal Control|From Policy Evaluation To Optimal Control]]
+  - [[#Optimal State-Value And Action-Value Functions|Optimal State-Value And Action-Value Functions]]
+  - [[#Optimal Policies|Optimal Policies]]
+  - [[#Extracting A Policy From V* Or Q*|Extracting A Policy From V* Or Q*]]
+  - [[#Solving MDPs|Solving MDPs]]
+  - [[#Bellman Optimality Derivation|Bellman Optimality Derivation]]
 
 ---
 
@@ -193,101 +210,3 @@ V^*(s)&=\max_a\mathbb{E}[R_{t+1}+\gamma G_{t+1}\mid S_t=s,A_t=a]\\
 $$
 
 The key move is optimizing separately over the first action, then assuming optimal behavior thereafter.
-
-## Worked Examples
-
-### Example 1: Policy Evaluation Versus Optimal Control
-
-**Problem**: In state $(3,3)$, action values are:
-
-$$
-Q(s,\mathrm{Right})=0.999,\quad Q(s,\mathrm{Down})=-0.001,\quad Q(s,\mathrm{Left})=-0.001
-$$
-
-A policy chooses Right with probability `0.8`, Down with `0.2`, Left with `0`.
-
-**Step 1: Policy evaluation**  
-$V_{\pi}(3,3)=0.8(0.999)+0.2(-0.001)+0(-0.001)=0.799$.
-
-**Step 2: Optimal control**  
-$V^*(3,3)=\max\{0.999,-0.001,-0.001\}=0.999$.
-
-**Answer**: The fixed policy is worth `0.799`; the optimal value is `0.999`.
-
-### Example 2: max Versus argmax
-
-**Problem**: $Q^*(s,\mathrm{Up})=4$, $Q^*(s,\mathrm{Right})=7$, $Q^*(s,\mathrm{Down})=2$.
-
-**Step 1: max**  
-$\max_a Q^*(s,a)=7$.
-
-**Step 2: argmax**  
-$\arg\max_a Q^*(s,a)=\mathrm{Right}$.
-
-**Answer**: The best value is `7`; the optimal action is `Right`.
-
----
-
-## Common Mistakes / Gotchas
-
-- Confusing $V_{\pi}$ with $V^*$. The first is for a fixed policy; the second is best over policies.
-- Confusing $\max$ with $\arg\max$.
-- Assuming the optimal policy is unique. It may not be if actions tie.
-- Trying to extract a policy from $V^*$ without a model. One-step lookahead needs transition and reward information.
-- Forgetting expectations over next states in stochastic MDPs.
-- Treating Bellman optimality equations as easy to solve exactly in large spaces.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Policy evaluation | Compute value of fixed $\pi$ |
-| Optimal control | Find best policy |
-| $V^*(s)$ | Best achievable state value |
-| $Q^*(s,a)$ | Best achievable value after first action `a` |
-| $\pi^*$ | Optimal policy |
-| max | Best value |
-| argmax | Action giving best value |
-
-**Key Formulas**:
-
-$$
-V^*(s)=\max_{\pi}V_{\pi}(s)
-$$
-
-$$
-V^*(s)=\max_a\sum_{s',r}p(s',r\mid s,a)[r+\gamma V^*(s')]
-$$
-
-$$
-Q^*(s,a)=R(s,a)+\gamma\max_{a'}Q^*(s',a')
-$$
-
-$$
-\pi^*(s)=\arg\max_a Q^*(s,a)
-$$
-
-**Key Takeaways**:
-
-- Optimal control replaces policy averaging with action maximization.
-- $V^*$ is unique; $\pi^*$ may not be.
-- $Q^*$ directly supports action selection.
-- Bellman optimality equations define the target for solving MDPs.
-
----
-
-## Practice Questions
-
-**Q1**: What is the difference between policy evaluation and optimal control?  
-> Answer: Policy evaluation computes return for a fixed policy; optimal control finds the best policy.
-
-**Q2**: If two actions tie for the highest $Q^*$, what happens to the optimal policy?  
-> Answer: There may be multiple optimal policies, each choosing one of the tied actions.
-
-**Q3**: Why does extracting $\pi^*$ from $V^*$ require a model?  
-> Answer: You must evaluate each action's expected immediate reward plus next-state value, which requires transition and reward information.
-
-**Q4**: What does $\arg\max_a Q^*(s,a)$ return?  
-> Answer: The action with the highest optimal action value in state `s`.

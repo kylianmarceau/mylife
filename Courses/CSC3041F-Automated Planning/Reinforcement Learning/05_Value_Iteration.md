@@ -1,8 +1,26 @@
+---
+tags:
+  - automated-planning
+---
+
 # Value Iteration
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `RL/5RL_3041F_Edit.pdf`, Asad Jeewa, slides 1-18  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Solving A Known MDP|Solving A Known MDP]]
+  - [[#Bellman Optimality As An Update|Bellman Optimality As An Update]]
+  - [[#Value Iteration Algorithm|Value Iteration Algorithm]]
+  - [[#Synchronous And Asynchronous Updates|Synchronous And Asynchronous Updates]]
+  - [[#Complexity|Complexity]]
+  - [[#Challenges|Challenges]]
+  - [[#Convergence|Convergence]]
 
 ---
 
@@ -210,102 +228,3 @@ flowchart TD
 ```
 
 Caption: Contraction is why repeated Bellman updates converge.
-
-## Worked Examples
-
-### Example 1: One Bellman Update
-
-**Problem**: State $s$ has two deterministic actions. $\gamma=0.9$.
-
-| Action | Reward | Next State Value |
-|---|---:|---:|
-| A | 1 | 5 |
-| B | 3 | 2 |
-
-**Step 1: Compute backed-up value for A**  
-$1+0.9\cdot5=5.5$.
-
-**Step 2: Compute backed-up value for B**  
-$3+0.9\cdot2=4.8$.
-
-**Step 3: Take max**  
-$\max(5.5,4.8)=5.5$.
-
-**Answer**: New value is $V(s)=5.5$, and greedy action is $A$.
-
-### Example 2: Complexity Count
-
-**Problem**: An MDP has $100$ states and $4$ actions. Each action can transition to any state.
-
-**Step 1: Count state-action-next-state operations**  
-$|S|^2|A|=100^2\cdot4$.
-
-**Step 2: Compute**  
-$10{,}000\cdot4=40{,}000$.
-
-**Answer**: One full value iteration sweep has about $40{,}000$ transition computations.
-
----
-
-## Common Mistakes / Gotchas
-
-- Trying to run value iteration without a transition/reward model.
-- Confusing iteration index $k$ with environment timestep $t$.
-- Forgetting the $\max$ over actions in the Bellman optimality update.
-- Assuming one sweep gives $V^*$. Convergence usually requires repeated sweeps.
-- Ignoring the cost of summing over next states in stochastic MDPs.
-- Applying tabular value iteration directly to huge continuous spaces.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Value iteration | Repeated Bellman optimality updates |
-| DP | Reuse overlapping subproblem solutions |
-| Model-based | Requires known `T` and `R` |
-| Synchronous | Use old table to fill new table |
-| Asynchronous | Update in place |
-| Contraction | Operator shrinks value-function error |
-
-**Key Formulas**:
-
-$$
-V_{k+1}(s)=\max_a\sum_{s',r}p(s',r\mid s,a)[r+\gamma V_k(s')]
-$$
-
-$$
-\pi(s)=\arg\max_a\sum_{s',r}p(s',r\mid s,a)[r+\gamma V(s')]
-$$
-
-$$
-\text{Complexity per sweep}=O(|S|^2|A|)
-$$
-
-$$
-\|\mathcal{T}V-\mathcal{T}U\|_{\infty}\le \gamma\|V-U\|_{\infty}
-$$
-
-**Key Takeaways**:
-
-- Value iteration solves finite known MDPs by approximating $V^*$.
-- It repeatedly applies Bellman optimality updates.
-- Synchronous and asynchronous schemes differ in table update mechanics.
-- Convergence is guaranteed by the contraction property when $\gamma<1$.
-
----
-
-## Practice Questions
-
-**Q1**: What model information does value iteration require?  
-> Answer: It requires transition probabilities and rewards, plus the state/action sets and discount factor.
-
-**Q2**: Why is value iteration called dynamic programming?  
-> Answer: Each state's value is a subproblem depending on successor-state values, and updates reuse those subproblem estimates.
-
-**Q3**: What does $\theta$ usually control in value iteration pseudocode?  
-> Answer: The convergence threshold for stopping when value changes become small.
-
-**Q4**: Why does value iteration have $O(|S|^2|A|)$ complexity per sweep in stochastic MDPs?  
-> Answer: For each state and action, the update may sum over all possible next states.

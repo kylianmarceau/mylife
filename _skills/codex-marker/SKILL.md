@@ -1,6 +1,8 @@
 ---
 name: codex-marker
 description: Mark student scripts by first creating or locating a Markdown memo, extracting the submitted work, comparing the extraction against the memo, and writing a marked-script Markdown file with marks, feedback, and confidence. Use for handwritten or typed exam solutions, partial answers, calculation scripts, algorithm traces, diagrams, and question-by-question feedback in this vault.
+tags:
+  - vault-support
 ---
 
 # Codex Marker

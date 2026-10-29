@@ -1,8 +1,30 @@
+---
+tags:
+  - operating-systems
+---
+
 # Demand Paging And Page Replacement
 
 **Subject**: CSC3002F Operating Systems  
 **Source**: `Demand Pagingv2.pdf`, Aslam Safla, pages 1-90  
 **Generated**: 2026-06-03
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Demand Paging|Demand Paging]]
+  - [[#Page Hits, Page Faults, And Address Translation|Page Hits, Page Faults, And Address Translation]]
+  - [[#Handling A Page Fault|Handling A Page Fault]]
+  - [[#Causes Of Page Faults|Causes Of Page Faults]]
+  - [[#Evaluating Page Replacement Algorithms|Evaluating Page Replacement Algorithms]]
+  - [[#Random And FIFO Replacement|Random And FIFO Replacement]]
+  - [[#OPT: Optimal Replacement|OPT: Optimal Replacement]]
+  - [[#LRU, MFU, And Counting Algorithms|LRU, MFU, And Counting Algorithms]]
+  - [[#Belady's Anomaly And Stack Algorithms|Belady's Anomaly And Stack Algorithms]]
+  - [[#Clock: Approximate LRU|Clock: Approximate LRU]]
+  - [[#Dirty Pages, Second Chance, And N-Chance Clock|Dirty Pages, Second Chance, And N-Chance Clock]]
 
 ---
 
@@ -347,225 +369,3 @@ N-Chance Clock adds a counter:
 Larger $N$ gives a better approximation of LRU but can spend more time cycling to find a victim. Smaller $N$ is more efficient but replaces pages sooner.
 
 Modern operating systems, including Linux/Unix/macOS and Windows-family systems, use practical approximations of LRU such as Clock, N-Chance Clock, and aging/NFU-style variants.
-
-
-
-## Worked Examples
-
-### Example 1: Page-Fault Handling
-
-**Problem**: A process references page $P$, but the PTE has valid bit $0$. What happens?
-
-**Step 1**: The MMU detects:
-
-$$
-\text{PTE.valid}=0
-$$
-
-**Step 2**: The MMU traps to the OS page-fault handler.
-
-**Step 3**: The OS verifies that $P$ is a legal page for the process. If it is illegal, the process is terminated or signalled.
-
-**Step 4**: If $P$ is legal, the OS finds a free frame. If no free frame exists, it chooses a victim page.
-
-**Step 5**: If the victim is dirty, the OS writes it back to secondary storage.
-
-**Step 6**: The OS reads page $P$ into the selected frame and updates the PTE.
-
-**Step 7**: The OS restarts the instruction that faulted.
-
-**Answer**: A page fault is handled by kernel intervention, possible eviction, disk I/O, page-table update, and instruction restart.
-
-### Example 2: FIFO Page Fault Count
-
-**Problem**: Use FIFO with $3$ frames on:
-
-$$
-7,0,1,2,0,3,0,4,2,3,0,3,0,3,2,1,2,0,1,7,0,1
-$$
-
-How many faults occur?
-
-**Step 1**: Fill empty frames with $7$, $0$, and $1$:
-
-$$
-\text{faults}=3
-$$
-
-**Step 2**: On reference $2$, FIFO evicts the oldest page, $7$:
-
-$$
-\{7,0,1\}\rightarrow\{2,0,1\},\quad \text{faults}=4
-$$
-
-**Step 3**: Continue replacing the oldest resident page on each miss. Hits such as the next reference to $0$ do not change the FIFO order.
-
-**Step 4**: The full FIFO run gives:
-
-| Algorithm | Frames | Faults |
-|---|---:|---:|
-| FIFO | $3$ | $15$ |
-
-**Answer**: FIFO causes $15$ page faults.
-
-### Example 3: Comparing FIFO, LRU, And OPT
-
-**Problem**: For the same reference string and $3$ frames, compare FIFO, LRU, and OPT.
-
-**Step 1**: FIFO evicts by residence age:
-
-$$
-\text{FIFO faults}=15
-$$
-
-**Step 2**: LRU evicts by oldest past use:
-
-$$
-\text{LRU faults}=12
-$$
-
-**Step 3**: OPT evicts by farthest future use:
-
-$$
-\text{OPT faults}=9
-$$
-
-**Answer**:
-
-$$
-\text{OPT}=9 < \text{LRU}=12 < \text{FIFO}=15
-$$
-
-OPT is best but not implementable online; LRU is a practical goal; FIFO is simple but less informed.
-
-### Example 4: Belady's Anomaly
-
-**Problem**: Use FIFO on:
-
-$$
-3,2,1,0,3,2,4,3,2,1,0,4
-$$
-
-Compare $3$ frames and $4$ frames.
-
-**Step 1**: FIFO with $3$ frames gives:
-
-$$
-\text{faults}=9
-$$
-
-**Step 2**: FIFO with $4$ frames gives:
-
-$$
-\text{faults}=10
-$$
-
-**Answer**: This is Belady's anomaly because:
-
-$$
-4\ \text{frames} > 3\ \text{frames}
-$$
-
-but:
-
-$$
-10\ \text{faults} > 9\ \text{faults}
-$$
-
-### Example 5: Clock Replacement Decision
-
-**Problem**: The clock hand points at pages with used bits:
-
-| Page | Used Bit |
-|---|---:|
-| $A$ | $1$ |
-| $B$ | $1$ |
-| $C$ | $0$ |
-
-Which page is replaced?
-
-**Step 1**: Check $A$. Since $A.used=1$, set it to $0$ and advance.
-
-**Step 2**: Check $B$. Since $B.used=1$, set it to $0$ and advance.
-
-**Step 3**: Check $C$. Since $C.used=0$, replace $C$.
-
-**Answer**: Page $C$ is the victim.
-
----
-
-## Common Mistakes / Gotchas
-
-- Treating a TLB miss as a page fault. A TLB miss can still find a valid resident page in the page table.
-- Saying FIFO is good because it is fair. FIFO is simple, but it can evict heavily used pages.
-- Forgetting that OPT is a benchmark, not a live algorithm, because the OS does not know future references.
-- Assuming more frames always means fewer page faults. FIFO can suffer Belady's anomaly.
-- Confusing LRU with FIFO. LRU uses time since last use; FIFO uses time since loading.
-- Ignoring dirty pages. Evicting a dirty page costs more because it must be written back.
-- Thinking Clock is exact LRU. Clock is an approximation based on reference bits.
-- Setting $N$ very large in N-Chance Clock improves LRU approximation but can make victim search slower.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Demand paging | Load pages only when referenced |
-| Page fault | Trap caused by missing or invalid page translation |
-| Compulsory fault | First-use or not-yet-loaded page fault |
-| Capacity fault | Fault caused by insufficient physical memory |
-| Policy fault | Fault caused by replacement policy evicting a needed page |
-| Reference string | Sequence of page numbers used to evaluate replacement |
-| FIFO | Evict oldest loaded page |
-| OPT | Evict page used farthest in the future |
-| LRU | Evict page unused for longest time |
-| Belady's anomaly | More frames produce more faults for some algorithms |
-| Clock | Circular-list approximate LRU using used bits |
-| Dirty bit | Indicates a page must be written back before eviction |
-
-**Key Formulas**:
-
-$$
-\text{if PTE.valid}=0,\ \text{raise page fault}
-$$
-
-$$
-\text{page-fault count}=\#\{\text{references not resident at access time}\}
-$$
-
-$$
-S_N(t)\subseteq S_{N+1}(t)\quad\text{for stack algorithms}
-$$
-
-$$
-\text{worst-case Clock scan}=O(N)
-$$
-
-**Key Takeaways**:
-
-- Demand paging saves memory by loading only pages that are actually referenced.
-- Page faults are expensive because they require OS handling and often disk I/O.
-- Replacement algorithms try to choose the page least likely to be needed soon.
-- OPT is the theoretical lower bound; LRU is a practical ideal; Clock approximates LRU efficiently.
-- Dirty pages make replacement more expensive because they may require write-back.
-- Too little physical memory makes all page replacement algorithms perform badly.
-
----
-
-## Practice Questions
-
-**Q1**: What is the difference between a page hit and a page fault?  
-> Answer: A page hit occurs when the referenced page is already resident and can be translated normally. A page fault occurs when the page is missing or invalid, causing the MMU to trap to the OS.
-
-**Q2**: Why is OPT useful if it cannot be implemented online?  
-> Answer: OPT gives the minimum possible fault count for a known reference string, so it is a benchmark for evaluating practical algorithms.
-
-**Q3**: Why can FIFO suffer Belady's anomaly?  
-> Answer: FIFO does not preserve the subset property of stack algorithms. Adding a frame can change the eviction order in a way that keeps less useful pages and evicts pages that are needed soon.
-
-**Q4**: How does Clock approximate LRU?  
-> Answer: It uses a reference bit to remember whether each page was used recently. Pages with bit $1$ get another chance; pages with bit $0$ are treated as not recently used and can be replaced.
-
-**Q5**: Why are dirty bits important in page replacement?  
-> Answer: A dirty page has been modified, so it must be written back before eviction. Clean pages can be discarded more cheaply.

@@ -1,3 +1,8 @@
+---
+tags:
+  - automated-planning
+---
+
 # Reinforcement Learning Calculation Mock Exam
 
 **Course**: CSC3041F Automated Planning  

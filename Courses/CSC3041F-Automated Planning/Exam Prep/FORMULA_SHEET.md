@@ -1,3 +1,8 @@
+---
+tags:
+  - automated-planning
+---
+
 # CSC3041F Automated Planning Formula Sheet
 
 **Subject**: CSC3041F Automated Planning  

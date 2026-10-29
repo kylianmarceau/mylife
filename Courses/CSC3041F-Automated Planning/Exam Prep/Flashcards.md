@@ -1,3 +1,8 @@
+---
+tags:
+  - automated-planning
+---
+
 # CSC3041F Automated Planning Flashcards
 
 ## State Space Search

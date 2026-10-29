@@ -1,8 +1,25 @@
+---
+tags:
+  - automated-planning
+---
+
 # Multiplayer Minimax
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Lecture 7 - Copy - Copy.pdf`, Zola Mahlaza, slides 1-44  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Why Multiplayer Games Need An Extension|Why Multiplayer Games Need An Extension]]
+  - [[#Max-N Style Backup|Max-N Style Backup]]
+  - [[#Cooperation And Shifting Alliances|Cooperation And Shifting Alliances]]
+  - [[#K-Sum Games|K-Sum Games]]
+  - [[#K-Sum Backup With Cooperation|K-Sum Backup With Cooperation]]
+  - [[#Complexity And Limits|Complexity And Limits]]
 
 ---
 
@@ -193,113 +210,3 @@ $$
 $$
 
 No multiplayer extension removes the exponential depth term. The lecture ends by motivating pruning: we need to eliminate nodes, but no pruning method removes the exponent completely.
-
-## Worked Examples
-
-### Example 1: Selfish Three-Player Backup
-
-**Problem**: It is $B$'s turn. Two children have vectors:
-
-$$
-child_1=[1,0,1],\qquad child_2=[1,1,0]
-$$
-
-**Step 1: Identify controlling player**  
-The node belongs to $B$.
-
-**Step 2: Compare B components**  
-$child_1$ gives $B=0$; $child_2$ gives $B=1$.
-
-**Answer**: $B$ chooses $child_2$, so the node backs up $[1,1,0]$.
-
-### Example 2: K-Sum Check
-
-**Problem**: Let $K=2$. Check whether $[1,-1,2]$ satisfies the K-sum condition.
-
-**Step 1: Sum utilities**  
-$1+(-1)+2=2$.
-
-**Step 2: Compare to K**  
-The sum equals $K=2$.
-
-**Answer**: $[1,-1,2]$ is a valid K-sum terminal vector for $K=2$.
-
-### Example 3: Cooperation Changes Preferences
-
-**Problem**: $A$ and $C$ cooperate. $C$ is choosing between:
-
-$$
-child_1=[1,0,2],\qquad child_2=[0,1,3]
-$$
-
-If $C$ is purely selfish, compare only $C$. If $C$ values $A$ equally too, compare $A+C$.
-
-**Step 1: Selfish C**  
-$child_1$ gives $C=2$; $child_2$ gives $C=3$. $C$ chooses $child_2$.
-
-**Step 2: Cooperative score**  
-$child_1$ gives $A+C=3$; $child_2$ gives $A+C=3$.
-
-**Answer**: Cooperation can change or tie preferences. The utility model must state exactly how cooperation is encoded.
-
----
-
-## Common Mistakes / Gotchas
-
-- Using scalar minimax unchanged for multiplayer games.
-- Assuming multiplayer games are automatically zero-sum.
-- Forgetting that utility at leaves is a vector.
-- Saying "cooperation" without specifying how utilities are combined.
-- Confusing colloquial zero-sum with formal zero-sum. Formally, the utility sum is fixed, and for zero-sum it is `0`.
-- Ignoring shifting alliances when hardcoded teams are unrealistic.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Utility vector | One utility component per player |
-| Max-N backup | Player to move selects child maximizing its own component |
-| Cooperation | Utility depends partly on other agents' outcomes |
-| Shifting alliance | Cooperation weights change by state |
-| K-sum | Terminal utilities sum to constant $K$ |
-| Zero-sum | Special case where $K=0$ |
-
-**Key Formulas**:
-
-$$
-\mathrm{Utility}(s)=[V_A,V_B,V_C]
-$$
-
-$$
-V_A+V_B+V_C=K
-$$
-
-$$
-\text{Time complexity}=O(b^m)
-$$
-
-**Key Takeaways**:
-
-- Multiplayer minimax needs utility vectors.
-- The player to move controls which component is maximized.
-- Cooperation requires an explicit utility model.
-- K-sum games preserve a fixed total value.
-- Exponential complexity remains, motivating pruning.
-
----
-
-## Practice Questions
-
-**Q1**: Why is a utility vector needed in multiplayer games?  
-> Answer: Because each player can have a different payoff, and one scalar cannot represent every player's preference unless the game has a special structure such as two-player zero-sum.
-
-**Q2**: In max-n, how is a child selected at a `C` node?  
-> Answer: Choose the child whose utility vector has the highest `C` component.
-
-**Q3**: What does $V_A+V_B+V_C=K$ mean?  
-> Answer: The total utility available across all three players is fixed at `K`.
-
-**Q4**: Why can hardcoded cooperation be problematic?  
-> Answer: It cannot represent alliances that change depending on the game state.

@@ -1,8 +1,26 @@
+---
+tags:
+  - automated-planning
+---
+
 # Evaluation Functions
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Lecture 9 - Copy.pdf`, Zola Mahlaza, slides 1-39  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Why Evaluation Functions Are Needed|Why Evaluation Functions Are Needed]]
+  - [[#Replacing Terminal-Only Utility|Replacing Terminal-Only Utility]]
+  - [[#Evaluation Function Requirements|Evaluation Function Requirements]]
+  - [[#Feature-Based Evaluation|Feature-Based Evaluation]]
+  - [[#Probability-Style Evaluation|Probability-Style Evaluation]]
+  - [[#Neural Evaluation Functions|Neural Evaluation Functions]]
+  - [[#Dangers Of Cutoff Evaluation|Dangers Of Cutoff Evaluation]]
 
 ---
 
@@ -236,124 +254,3 @@ flowchart TD
 ```
 
 Caption: This shows why a shallow material score can be misleading.
-
-## Worked Examples
-
-### Example 1: Feature-Weighted Evaluation
-
-**Problem**: Define a simple chess-like EVAL using material only:
-
-$$
-\mathrm{EVAL}(s)=1\cdot\mathrm{pawns}+3\cdot\mathrm{bishops}+3\cdot\mathrm{knights}+5\cdot\mathrm{rooks}+9\cdot\mathrm{queens}
-$$
-
-MAX has one queen and two pawns. MIN has one rook, one bishop, and one pawn.
-
-**Step 1: Score MAX material**  
-$9+2\cdot1=11$.
-
-**Step 2: Score MIN material**  
-$5+3+1=9$.
-
-**Step 3: Evaluate from MAX perspective**  
-$11-9=2$.
-
-**Answer**: EVAL gives MAX a material advantage of $+2$.
-
-### Example 2: Expected-Value Evaluation
-
-**Problem**: A category of states historically leads to win $60\%$, draw $40\%$, loss $0\%$. Utilities are win $1$, draw $0.5$, loss $0$.
-
-**Step 1: Multiply probabilities by utilities**  
-$0.60\cdot1=0.60$; $0.40\cdot0.5=0.20$; $0\cdot0=0$.
-
-**Step 2: Sum**  
-$0.60+0.20+0=0.80$.
-
-**Answer**: EVAL for that category is $0.80$.
-
-### Example 3: Horizon Effect
-
-**Problem**: At cutoff depth, black appears ahead by a knight and two pawns. A material-only EVAL scores black highly. But it is white's turn and white can win black's queen.
-
-**Step 1: Apply naive EVAL**  
-Black seems ahead on current material.
-
-**Step 2: Notice pending tactic**  
-White has an immediate forcing move that changes material drastically.
-
-**Step 3: Adjust cutoff policy**  
-Do not stop at this unstable position; search one or more tactical moves deeper.
-
-**Answer**: The naive cutoff is misleading. A problem-specific cutoff rule should avoid evaluating unstable positions.
-
----
-
-## Common Mistakes / Gotchas
-
-- Using EVAL for terminal states but not matching utility.
-- Making EVAL too expensive, eliminating the benefit of cutting off search.
-- Assuming material count is always sufficient.
-- Ignoring nonlinear feature interactions, such as king safety changing piece values.
-- Forgetting the horizon effect.
-- Believing iterative deepening automatically fixes poor evaluation. It helps but does not guarantee correct shallow evaluations.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| EVAL | Heuristic value for non-terminal cutoff states |
-| IS-CUTOFF | Test that stops search before terminal state |
-| Utility | Exact terminal payoff |
-| Feature | Measurable state property |
-| Weighted evaluation | Sum of weighted feature values |
-| Horizon effect | Important event just beyond cutoff |
-
-**Key Formulas**:
-
-Depth-limited base:
-
-$$
-\text{if }\mathrm{IsTerminal}(s)\text{, return }\mathrm{Utility}(s)
-$$
-
-$$
-\text{if }\mathrm{IS\_CUTOFF}(s,d)\text{, return }\mathrm{EVAL}(s)
-$$
-
-Weighted EVAL:
-
-$$
-\mathrm{EVAL}(s)=w_1f_1(s)+w_2f_2(s)+\cdots+w_kf_k(s)
-$$
-
-Expected value:
-
-$$
-\mathbb{E}[U]=P(\mathrm{win})U(\mathrm{win})+P(\mathrm{draw})U(\mathrm{draw})+P(\mathrm{loss})U(\mathrm{loss})
-$$
-
-**Key Takeaways**:
-
-- Evaluation functions make game search practical when terminal search is impossible.
-- Good EVAL is cheap and correlated with winning.
-- Features can be handcrafted or learned.
-- Cutoff states must be chosen carefully to avoid tactical blindness.
-
----
-
-## Practice Questions
-
-**Q1**: Why is EVAL needed in deep games?  
-> Answer: Because searching all the way to terminal states is too expensive, even with alpha-beta pruning.
-
-**Q2**: What should EVAL return at a terminal state?  
-> Answer: It should match the terminal utility.
-
-**Q3**: Give one reason material-only chess evaluation can fail.  
-> Answer: It can miss tactics, king safety, or imminent material changes just beyond the cutoff depth.
-
-**Q4**: What is the horizon effect?  
-> Answer: A search error where an important consequence lies just beyond the depth cutoff, causing EVAL to score the state incorrectly.

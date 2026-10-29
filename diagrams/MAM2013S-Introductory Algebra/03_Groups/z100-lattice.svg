@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 780 570" role="img"><title>Subgroup lattice of the additive group of integers modulo one hundred</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.5"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.5"/></marker>
+<marker id="af8fafc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.5"/></marker>
+</defs>
+<line x1="346.58562804430204" y1="78.76673374332063" x2="270.78704434752655" y2="137.7211877297016" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="433.41437195569796" y1="78.76673374332063" x2="509.21295565247345" y2="137.7211877297016" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="211.58562804430204" y1="183.76673374332063" x2="135.78704434752652" y2="242.7211877297016" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="298.41437195569796" y1="183.76673374332063" x2="374.21295565247345" y2="242.7211877297016" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="481.58562804430204" y1="183.76673374332063" x2="405.78704434752655" y2="242.7211877297016" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="568.4143719556979" y1="183.76673374332063" x2="644.2129556524735" y2="242.7211877297016" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="162.63792420345092" y1="289.74201231392294" x2="239.4953002896542" y2="352.3665409767553" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="347.3620757965491" y1="289.74201231392294" x2="270.5046997103458" y2="352.3665409767553" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="432.6379242034509" y1="289.74201231392294" x2="509.4953002896542" y2="352.3665409767553" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="617.3620757965491" y1="289.74201231392294" x2="540.5046997103458" y2="352.3665409767553" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="296.8683776767691" y1="400.6656550579885" x2="374.77513539026575" y2="467.0306708880042" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="483.1316223232309" y1="400.6656550579885" x2="405.22486460973425" y2="467.0306708880042" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="390" cy="45" r="5" fill="#272f3b" stroke="#5ad4b5" stroke-width="1.8"/>
+<text x="390" y="74" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">ℤ₁₀₀</text>
+<circle cx="255" cy="150" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="255" y="179" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">2ℤ₁₀₀</text>
+<circle cx="525" cy="150" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="525" y="179" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">5ℤ₁₀₀</text>
+<circle cx="120" cy="255" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="120" y="284" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">4ℤ₁₀₀</text>
+<circle cx="390" cy="255" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="390" y="284" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">10ℤ₁₀₀</text>
+<circle cx="660" cy="255" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="660" y="284" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">25ℤ₁₀₀</text>
+<circle cx="255" cy="365" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="255" y="394" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">20ℤ₁₀₀</text>
+<circle cx="525" cy="365" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="525" y="394" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">50ℤ₁₀₀</text>
+<circle cx="390" cy="480" r="5" fill="#272f3b" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="390" y="509" fill="#f8fafc" font-family="Arial" font-size="20" text-anchor="middle">{0̅}</text>
+</svg>

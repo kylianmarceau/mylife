@@ -1,8 +1,23 @@
+---
+tags:
+  - automated-planning
+---
+
 # A* Memory Usage And Beam Search
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Lecture 5.pdf`, Zola Mahlaza, slides 1-18  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#A* Space Complexity|A* Space Complexity]]
+  - [[#Reference Counts|Reference Counts]]
+  - [[#Beam Search|Beam Search]]
+  - [[#Delta-Beam Search|Delta-Beam Search]]
 
 ---
 
@@ -184,107 +199,3 @@ Comparison:
 | Delta beam | Nodes close to best score | Variable | May exceed memory limits |
 
 Delta beam is more robust because it does not force arbitrary pruning when many nodes are similarly good, but memory use is less predictable.
-
-## Worked Examples
-
-### Example 1: Beam Search With $k=2$
-
-**Problem**: Start $(0,0)$, goal $(3,3)$, Manhattan heuristic. From $(0,0)$, legal successors are $(1,0)$ and $(0,1)$.
-
-**Step 1: Compute heuristic**  
-$h(1,0)=5$; $h(0,1)=5$.
-
-**Step 2: Keep top $k=2$**  
-Both nodes survive.
-
-**Step 3: Expand survivors**  
-New candidates might include $(2,0)$, $(1,1)$, and $(0,2)$, all with $h=4$.
-
-**Step 4: Apply beam width**  
-Only two of the three $h=4$ nodes can remain. The discarded node is not expanded later.
-
-**Answer**: Beam search reduces memory but may discard a path that later becomes best.
-
-### Example 2: Delta Beam
-
-**Problem**: Candidate scores are:
-
-| Node | $f$ |
-|---|---:|
-| A | 10 |
-| B | 11 |
-| C | 12 |
-| D | 17 |
-
-The delta threshold is `2`.
-
-**Step 1: Find best score**  
-Best is $A$ with $f=10$.
-
-**Step 2: Keep nodes within delta**  
-Keep nodes with $f\le12$.
-
-**Step 3: Result**  
-Keep `A`, `B`, and `C`; discard `D`.
-
-**Answer**: Delta beam keeps three nodes, even if traditional beam width might have kept only two.
-
----
-
-## Common Mistakes / Gotchas
-
-- Forgetting that A* memory pressure comes from both the openlist and closed list.
-- Assuming reference counts are free. They save memory only by adding bookkeeping logic.
-- Treating beam search as cost-optimal. It is not.
-- Forgetting that beam search can discard the only valid path to a goal.
-- Assuming delta-beam memory is bounded by a fixed $k$. It is variable and can exceed expectations.
-- Using a beam width that is too narrow for a problem with deceptive heuristics.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| A* memory | Openlist plus closed/reached list |
-| Reference count | Bookkeeping count for when a node can be removed |
-| Beam search | Sort by score, keep top `k` |
-| Beam width | Number of nodes retained |
-| Delta beam | Keep nodes within a score threshold of the best |
-
-**Key Formulas**:
-
-$$
-\text{A* space}=O(b^d)
-$$
-
-$$
-\text{Beam search space}=O(km)
-$$
-
-$$
-\text{Delta-beam keep rule: }f(n)\le f(n_{\mathrm{best}})+\delta
-$$
-
-**Key Takeaways**:
-
-- A* gives strong guarantees but can exhaust memory.
-- Beam search is a memory-control technique, not an optimal search guarantee.
-- Delta beam adapts the number of retained nodes to score quality.
-- Memory savings must be balanced against the risk of pruning the useful path.
-
----
-
-## Practice Questions
-
-**Q1**: Why does A* need a closed list?  
-> Answer: To prevent cycles and redundant work by remembering states that have already been reached or expanded.
-
-**Q2**: What guarantee is lost when switching from A* to beam search?  
-> Answer: Completeness and cost optimality are lost because beam search discards candidates.
-
-**Q3**: How does delta beam differ from traditional beam search?  
-> Answer: Traditional beam keeps exactly the top `k` nodes; delta beam keeps all nodes whose score is within a threshold of the best score.
-
-**Q4**: When can beam search be a practical choice despite weak guarantees?  
-> Answer: When the state space is too large for A*, memory is the main constraint, and an approximate or good-enough solution is acceptable.

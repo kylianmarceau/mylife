@@ -1,8 +1,26 @@
+---
+tags:
+  - operating-systems
+---
+
 # Protection
 
 **Subject**: CSC3002F Operating Systems  
 **Source**: `Operating Systems 1 Ch17.pdf`, Aslam Safla, pages 1-39  
 **Generated**: 2026-06-03
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Goals And Principles Of Protection|Goals And Principles Of Protection]]
+  - [[#Protection Rings And Domains|Protection Rings And Domains]]
+  - [[#UNIX And Android Domain Implementations|UNIX And Android Domain Implementations]]
+  - [[#Access Matrix Model|Access Matrix Model]]
+  - [[#Implementing The Access Matrix|Implementing The Access Matrix]]
+  - [[#Revocation, RBAC, MAC, And Capabilities|Revocation, RBAC, MAC, And Capabilities]]
+  - [[#Other Protection Improvements And Language-Based Protection|Other Protection Improvements And Language-Based Protection]]
 
 ---
 
@@ -308,111 +326,3 @@ flowchart TD
 ```
 
 Caption: This diagram shows language-based protection in action.
-
-## Worked Examples
-
-### Example 1: Access Matrix Lookup
-
-**Problem**: Domain $D_1$ has:
-
-$$
-\text{Access}(1,\text{fileA})=\{\text{read},\text{write}\}
-$$
-
-May a process in $D_1$ execute `delete` on `fileA`?
-
-**Step 1**: The allowed set is $\{\text{read},\text{write}\}$.  
-**Step 2**: Check:
-
-$$
-\text{delete}\in\{\text{read},\text{write}\}
-$$
-
-**Step 3**: The condition is false.  
-**Answer**: No. The operation must be denied.
-
-### Example 2: ACL Versus Capability
-
-**Problem**: A process wants to repeatedly read `grades.txt`. How might a combined system handle this?
-
-**Step 1**: On first open, the OS checks the file's ACL for the process domain.  
-**Step 2**: If read is allowed, the OS creates/attaches a read capability to the process.  
-**Step 3**: Later reads use the capability without searching the ACL each time.  
-**Step 4**: When the file is closed, the capability is destroyed.  
-**Answer**: ACLs are good for initial policy checks; capabilities are efficient for repeated access.
-
-### Example 3: Breaking Least Privilege
-
-**Problem**: A backup tool runs as root for its entire execution although it only needs root while opening protected files.
-
-**Step 1**: Root privileges are broader than required for compression/network upload.  
-**Step 2**: If the upload code has a bug, attacker-controlled input may gain root-level impact.  
-**Step 3**: Better design: acquire privilege only for opening protected files, then drop it.  
-**Answer**: Dynamic least privilege reduces damage from bugs after the privileged step is finished.
-
----
-
-## Common Mistakes / Gotchas
-
-- Treating protection and security as identical. Protection is access-control machinery; security is the broader defense goal.
-- Assuming root access is always enough under MAC/SIP. Mandatory controls can restrict even root.
-- Thinking ACLs and capabilities are unrelated; they are column-wise and row-wise views of the same access matrix.
-- Forgetting that capability revocation is hard if capabilities are widely distributed.
-- Assuming sandboxing is just an application feature; it often depends on OS-level MAC or system-call controls.
-- Believing code signing proves code is safe. It proves origin/integrity, not correctness or absence of malicious intent.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Protection | Enforce allowed access to objects |
-| Least privilege | Grant only necessary rights |
-| Domain | Set of access rights |
-| Access right | $\langle\text{object},\text{rights-set}\rangle$ |
-| Access matrix | Domains by objects permission table |
-| ACL | Per-object permissions list |
-| Capability | Protected reference/key to an object and rights |
-| RBAC | Permissions through roles |
-| DAC | Owner/user-controlled access policy |
-| MAC | System-enforced label policy |
-| Sandbox | Restricted execution environment |
-
-**Key Formulas**:
-
-$$
-\text{Access right}=\langle\text{object-name},\text{rights-set}\rangle
-$$
-
-$$
-\text{Domain}=\{\langle O_i,R_i\rangle\}
-$$
-
-$$
-\text{operation allowed}\iff \text{op}\in\text{Access}(i,j)
-$$
-
-**Key Takeaways**:
-
-- Protection starts from objects, operations, domains, and rights.
-- Least privilege and compartmentalization limit the blast radius of bugs and abuse.
-- Access matrices are conceptual; ACLs and capabilities are common practical implementations.
-- Modern systems combine DAC, MAC, RBAC, capabilities, sandboxing, system-call filtering, and code signing.
-- Language runtimes such as the JVM can add protection through type safety, domains, and stack inspection.
-
----
-
-## Practice Questions
-
-**Q1**: What does the principle of least privilege require?  
-> Answer: Programs, users, and systems should have only the privileges needed to perform their tasks, no more.
-
-**Q2**: In an access matrix, what do rows and columns represent?  
-> Answer: Rows represent domains; columns represent objects. Each cell contains the operations allowed for that domain on that object.
-
-**Q3**: Why are capability lists efficient for repeated access but difficult for revocation?  
-> Answer: They localize a process's permissions so checking is fast, but once capabilities are distributed the system must locate or invalidate all outstanding copies to revoke access.
-
-**Q4**: Compare DAC and MAC.  
-> Answer: DAC lets owners/admins set permissions, such as UNIX file permissions or Windows ACLs. MAC enforces system policy using labels and can restrict even privileged users such as root.

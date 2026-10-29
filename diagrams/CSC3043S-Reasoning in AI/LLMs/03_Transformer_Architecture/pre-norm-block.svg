@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 510" role="img" font-family="Inter, Arial, sans-serif">
+<title>Normalization occurs in each branch while the residual stream bypasses the sublayer</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<line x1="250.0" y1="60.0" x2="370.0" y2="60.0" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="470.0" y1="87.5" x2="470.0" y2="152.5" stroke="#b3c5d9" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#affc778)"/>
+<line x1="355.0" y1="190.0" x2="250.0" y2="190.0" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<line x1="150.0" y1="87.5" x2="150.0" y2="162.5" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="217.7" y1="217.5" x2="402.3" y2="292.5" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="470.0" y1="347.5" x2="470.0" y2="415.0" stroke="#b3c5d9" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#affc778)"/>
+<line x1="365.0" y1="445.0" x2="250.0" y2="445.0" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<line x1="150.0" y1="217.5" x2="150.0" y2="407.5" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<rect x="50.0" y="32.5" width="200" height="55" rx="8" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="150" y="66.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Input residual</text>
+<rect x="370.0" y="32.5" width="200" height="55" rx="8" fill="#293a4d" stroke="#b3c5d9" stroke-width="2"/>
+<text x="470" y="66.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">RMSNorm</text>
+<rect x="355.0" y="152.5" width="230" height="75" rx="8" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="470" y="184.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Causal attention</text>
+<text x="470" y="207.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">RoPE / GQA</text>
+<rect x="50.0" y="162.5" width="200" height="55" rx="8" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="150" y="196.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Residual add</text>
+<rect x="370.0" y="292.5" width="200" height="55" rx="8" fill="#293a4d" stroke="#b3c5d9" stroke-width="2"/>
+<text x="470" y="326.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">RMSNorm</text>
+<rect x="365.0" y="415.0" width="210" height="60" rx="8" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="470" y="451.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">SwiGLU FFN</text>
+<rect x="50.0" y="407.5" width="200" height="75" rx="8" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="150" y="439.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">Residual add</text>
+<text x="150" y="462.5" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">block output</text>
+
+</svg>

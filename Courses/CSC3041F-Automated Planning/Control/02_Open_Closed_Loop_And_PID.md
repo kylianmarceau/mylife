@@ -1,8 +1,25 @@
+---
+tags:
+  - automated-planning
+---
+
 # Open/Closed Loop Control And PID Preview
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Control/CSC3041F_Control_lecture2.pdf`, Krupa Prag, slides 1-17  
 **Generated**: 2026-06-01
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Open-Loop Control Systems|Open-Loop Control Systems]]
+  - [[#Closed-Loop Control Systems|Closed-Loop Control Systems]]
+  - [[#State-Space And Dynamics|State-Space And Dynamics]]
+  - [[#Stability, Noise, And Objectives|Stability, Noise, And Objectives]]
+  - [[#Why Use A Model?|Why Use A Model?]]
+  - [[#PID Controllers|PID Controllers]]
 
 ---
 
@@ -289,169 +306,3 @@ flowchart TD
 ```
 
 Caption: PID combines current error, accumulated error, and error trend.
-
-## Worked Examples
-
-### Example 1: Open-Loop Heater Disturbance
-
-**Problem**: A timed heater runs for $10$ minutes. A gust of cold wind cools the room while the heater is running. Can the controller compensate?
-
-**Step 1**: Identify whether feedback exists.
-
-The heater runs for a fixed time and does not measure temperature.
-
-**Step 2**: Identify the disturbance.
-
-The gust of wind changes the environment.
-
-**Step 3**: Decide whether the controller can reject the disturbance.
-
-With no temperature feedback, it cannot increase power or run longer.
-
-**Answer**: No. This is an open-loop controller, so it has no disturbance rejection.
-
-### Example 2: Closed-Loop Error Calculation
-
-**Problem**: A water tank controller wants level $r(t)=50$ cm. The measured level is $y(t)=44$ cm. Compute the error.
-
-**Step 1**: Use the tracking error formula.
-
-$$
-e(t)=r(t)-y(t)
-$$
-
-**Step 2**: Substitute values.
-
-$$
-e(t)=50-44=6
-$$
-
-**Answer**: The error is $6$ cm, so the controller should increase inflow or reduce outflow.
-
-### Example 3: PID Terms For Cruise Control
-
-**Problem**: A car's target speed is $100$ km/h and actual speed is $92$ km/h. The car has been below target for several seconds, but the speed is already increasing quickly. Explain the PID response.
-
-**Step 1**: Compute the current error.
-
-$$
-e(t)=100-92=8
-$$
-
-**Step 2**: Interpret the proportional term.
-
-The positive current error asks for more throttle.
-
-**Step 3**: Interpret the integral term.
-
-Because the car has been below target for several seconds, accumulated error also asks for more throttle.
-
-**Step 4**: Interpret the derivative term.
-
-Because the speed is increasing quickly, the derivative term can reduce throttle to prevent overshoot.
-
-**Answer**: PID balances present error, accumulated past error, and the rate at which error is changing.
-
-### Example 4: Linear State-Space Prediction
-
-**Problem**: A simple scalar system has:
-
-$$
-x_{t+1}=0.8x_t+2u_t
-$$
-
-If $x_t=5$ and $u_t=1$, predict $x_{t+1}$.
-
-**Step 1**: Substitute values.
-
-$$
-x_{t+1}=0.8(5)+2(1)
-$$
-
-**Step 2**: Compute.
-
-$$
-x_{t+1}=4+2=6
-$$
-
-**Answer**: The next state is $x_{t+1}=6$.
-
----
-
-## Common Mistakes / Gotchas
-
-- Treating open-loop simplicity as always beneficial. It is cheap and stable, but cannot correct unexpected changes.
-- Forgetting that closed-loop control needs measurement.
-- Confusing the plant with the controller.
-- Defining stability as "does not move." Stable systems may move but return to equilibrium or remain bounded.
-- Ignoring noise and disturbances when deciding whether open loop is acceptable.
-- Assuming model-free means "no design." Model-free controllers still need rules, gains, policies, or learning procedures.
-- Thinking PID is predictive in a model-based sense. Its derivative term predicts error trend, but PID does not use a full plant model.
-- Forgetting that integral action can remove steady-state error but can also contribute to overshoot if badly tuned.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Open loop | Fixed operation with no feedback |
-| Closed loop | Feedback adjusts action |
-| Calibration | Pre-setting a system's response |
-| Disturbance rejection | Ability to compensate for external effects |
-| State space | Variables describing the system condition |
-| Dynamics | Rules for state evolution |
-| Stability | Return to equilibrium or stay bounded |
-| Cost function | Mathematical penalty to minimise |
-| Model-based control | Uses explicit plant model |
-| Model-free control | Does not use explicit plant model |
-| PID | Proportional-integral-derivative controller |
-
-**Key Formulas**:
-
-$$
-e(t)=r(t)-y(t)
-$$
-
-$$
-x_{t+1}=f(x_t,u_t)
-$$
-
-$$
-x_{t+1}=Ax_t+Bu_t
-$$
-
-$$
-J=\sum_{t=0}^{T}\left(e_t^2+\lambda u_t^2\right)
-$$
-
-$$
-u(t)=K_p e(t)+K_i\int_0^t e(\tau)\,d\tau+K_d\frac{de(t)}{dt}
-$$
-
-**Key Takeaways**:
-
-- Open-loop systems are simple and cheap but cannot handle unexpected disturbances.
-- Closed-loop systems use feedback to reduce error.
-- State-space and dynamics describe what the system is and how it changes.
-- Models help prediction, efficiency, and constraint handling.
-- PID is model-free, closed-loop, and based on present, past, and future error behaviour.
-
----
-
-## Practice Questions
-
-**Q1**: Give one advantage and one disadvantage of open-loop control.  
-> Answer: Advantage: it is simple and cost-effective. Disadvantage: it cannot correct disturbances because it has no feedback.
-
-**Q2**: What is the feedback signal used for in a closed-loop system?  
-> Answer: It reports the measured output so the controller can compare actual behaviour with the desired state.
-
-**Q3**: Why does a model help in control?  
-> Answer: A model allows prediction, efficient planning, and explicit handling of constraints.
-
-**Q4**: What do the proportional, integral, and derivative terms respond to?  
-> Answer: Proportional responds to current error, integral responds to accumulated past error, and derivative responds to the rate of change of error.
-
-**Q5**: Write the standard continuous-time PID equation.  
-> Answer: $$u(t)=K_p e(t)+K_i\int_0^t e(\tau)\,d\tau+K_d\frac{de(t)}{dt}.$$

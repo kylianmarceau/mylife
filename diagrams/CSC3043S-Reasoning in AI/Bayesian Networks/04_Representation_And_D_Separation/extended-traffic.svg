@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 510" role="img" font-family="Inter, Arial, sans-serif">
+<title>A collider at traffic connects two causes when traffic or its descendant is observed</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<line x1="170.0" y1="75.0" x2="170.0" y2="145.0" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="158.0" y1="194.1" x2="112.0" y2="285.9" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<line x1="203.4" y1="186.7" x2="416.6" y2="293.3" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<line x1="640.4" y1="188.8" x2="479.6" y2="291.2" stroke="#83a8d1" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#a66b3ff)"/>
+<line x1="450.0" y1="335.0" x2="450.0" y2="425.0" stroke="#d6e1ed" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab89aff)"/>
+<ellipse cx="170" cy="50" rx="45.0" ry="25.0" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="170" y="56.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">L</text>
+<ellipse cx="170" cy="170" rx="45.0" ry="25.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="170" y="176.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">R</text>
+<ellipse cx="670" cy="170" rx="45.0" ry="25.0" fill="#1f2d3d" stroke="#83a8d1" stroke-width="2"/>
+<text x="670" y="176.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">B</text>
+<ellipse cx="100" cy="310" rx="45.0" ry="25.0" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="100" y="316.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">D</text>
+<ellipse cx="450" cy="310" rx="45.0" ry="25.0" fill="#28394c" stroke="#d6e1ed" stroke-width="2"/>
+<text x="450" y="316.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">T</text>
+<ellipse cx="450" cy="450" rx="45.0" ry="25.0" fill="#223346" stroke="#a8bfd8" stroke-width="2"/>
+<text x="450" y="456.0" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Inter, sans-serif">T′</text>
+
+</svg>

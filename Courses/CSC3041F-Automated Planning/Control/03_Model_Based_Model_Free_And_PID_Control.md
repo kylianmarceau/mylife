@@ -1,8 +1,24 @@
+---
+tags:
+  - automated-planning
+---
+
 # Model-Based, Model-Free, And PID Control
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `Control/CSC3041F_Control_lecture3.pdf`, Krupa Prag, slides 1-14  
 **Generated**: 2026-06-01
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Control-System Components|Control-System Components]]
+  - [[#Open-Loop And Closed-Loop Classification|Open-Loop And Closed-Loop Classification]]
+  - [[#Model-Based Control|Model-Based Control]]
+  - [[#Model-Free Control|Model-Free Control]]
+  - [[#PID Control|PID Control]]
 
 ---
 
@@ -354,197 +370,3 @@ flowchart TD
 ```
 
 Caption: PID combines memory, immediate response, and damping.
-
-## Worked Examples
-
-### Example 1: Choosing Open Loop Or Closed Loop
-
-**Problem**: A fan runs at a fixed speed whenever a switch is turned on. It does not measure room temperature. Is it open loop or closed loop?
-
-**Step 1**: Check whether output is measured.
-
-The fan does not measure temperature.
-
-**Step 2**: Check whether output changes the control action.
-
-The speed is fixed by the switch.
-
-**Answer**: It is open loop because there is no feedback.
-
-### Example 2: Model-Based Prediction
-
-**Problem**: A plant is modelled by:
-
-$$
-x_{t+1}=Ax_t+Bu_t
-$$
-
-with:
-
-$$
-A=0.9,\quad B=0.5,\quad x_t=10,\quad u_t=4
-$$
-
-Compute the predicted next state.
-
-**Step 1**: Substitute values.
-
-$$
-x_{t+1}=0.9(10)+0.5(4)
-$$
-
-**Step 2**: Compute.
-
-$$
-x_{t+1}=9+2=11
-$$
-
-**Answer**: The model predicts $x_{t+1}=11$.
-
-### Example 3: PID For Cruise Control
-
-**Problem**: A cruise-control system has target speed $100$ km/h and measured speed $96$ km/h. What is the error, and how should the proportional term respond?
-
-**Step 1**: Compute error.
-
-$$
-e(t)=r(t)-y(t)=100-96=4
-$$
-
-**Step 2**: Compute proportional contribution symbolically.
-
-$$
-u_P(t)=K_p e(t)=4K_p
-$$
-
-**Step 3**: Interpret the action.
-
-Since the car is below target speed, the proportional term should increase throttle.
-
-**Answer**: The error is $4$ km/h, and the proportional term asks for a throttle increase proportional to $K_p$.
-
-### Example 4: PID For Water Tank Level
-
-**Problem**: A water tank target level is $2.0$ m and measured level is $1.7$ m. The level has been below target for a long time. Which PID component helps eliminate the persistent offset?
-
-**Step 1**: Compute current error.
-
-$$
-e(t)=2.0-1.7=0.3
-$$
-
-**Step 2**: Identify the persistent condition.
-
-The error has remained positive for a long time.
-
-**Step 3**: Choose the PID component.
-
-The integral term accumulates past error:
-
-$$
-u_I(t)=K_i\int_0^t e(\tau)\,d\tau
-$$
-
-**Answer**: The integral component helps remove the steady-state offset.
-
-### Example 5: When Model-Free Control Makes Sense
-
-**Problem**: A robot has many flexible joints and uncertain contact with the environment. Writing exact differential equations is very difficult, but the task can be simulated millions of times. Which control family is plausible?
-
-**Step 1**: Check model availability.
-
-The physics are difficult to write down exactly.
-
-**Step 2**: Check training possibility.
-
-Large-scale simulation is available.
-
-**Answer**: Model-free or learned control is plausible, because the controller can be trained from interactions instead of relying on a hand-derived model.
-
----
-
-## Common Mistakes / Gotchas
-
-- Treating model-based and closed-loop as synonyms. A controller can be closed loop and model-free, such as PID.
-- Treating model-free as automatically adaptive. A fixed PID controller is model-free but not automatically adaptive once gains are fixed.
-- Forgetting that model mismatch can destabilise a model-based controller.
-- Assuming PID is good for every control problem. It works best for SISO, near-linear, set-point tracking tasks.
-- Confusing tracking with optimisation. PID tracks error; it does not optimise a rich objective unless embedded in a larger design.
-- Assuming derivative control is the same as long-horizon prediction. It only uses the local rate of change of error.
-- Forgetting that learned model-free systems may be unsafe during exploration.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Plant | System being controlled |
-| Sensor | Measures state or output |
-| Controller | Computes action |
-| Actuator | Applies action |
-| Open loop | No feedback |
-| Closed loop | Uses feedback |
-| Model-based | Uses explicit dynamics |
-| Model-free | No explicit dynamics model |
-| MPC | Model-based look-ahead optimisation |
-| PID | Model-free feedback controller |
-| SISO | Single input, single output |
-| MIMO | Multiple inputs, multiple outputs |
-| Tracking | Minimise error to target |
-
-**Key Formulas**:
-
-$$
-e(t)=r(t)-y(t)
-$$
-
-$$
-\dot{x}(t)=f(x(t),u(t))
-$$
-
-$$
-x_{t+1}=f(x_t,u_t)
-$$
-
-$$
-x_{t+1}=Ax_t+Bu_t
-$$
-
-$$
-u_t=\pi(x_t)
-$$
-
-$$
-u(t)=K_p e(t)+K_i\int_0^t e(\tau)\,d\tau+K_d\frac{de(t)}{dt}
-$$
-
-**Key Takeaways**:
-
-- A control system regulates a plant using sensors, controllers, and actuators.
-- Open loop has no feedback; closed loop uses feedback to reduce error.
-- Model-based control is efficient and interpretable when the model is accurate.
-- Model-free control is useful when explicit modelling is too hard.
-- PID is a model-free closed-loop controller designed mainly for tracking one variable.
-
----
-
-## Practice Questions
-
-**Q1**: What are the four main components of a control system listed in the lecture?  
-> Answer: Plant/process, sensor, controller, and actuator.
-
-**Q2**: What is model mismatch?  
-> Answer: Model mismatch occurs when the mathematical model does not match the real plant, which can cause poor performance or instability.
-
-**Q3**: Why is model-based control often interpretable?  
-> Answer: Because decisions can be traced through the equations and constraints used by the controller.
-
-**Q4**: Why can model-free control be risky in real systems?  
-> Answer: If it learns through exploration, it may need to fail many times, which can damage real hardware.
-
-**Q5**: Why is PID usually described as SISO tracking control?  
-> Answer: It is typically tuned to minimise error for one controlled output using one control input.
-
-**Q6**: What does the derivative term in PID do?  
-> Answer: It reacts to how quickly the error is changing, helping damp oscillation and reduce overshoot.

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 300" role="img" font-family="Inter, Arial, sans-serif">
+<title>Conditioning on B restricts the probability space to B; the overlap is A and B</title>
+<defs>
+<marker id="a66b3ff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#83a8d1" stroke-width="1.6"/></marker>
+<marker id="ab89aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#d6e1ed" stroke-width="1.6"/></marker>
+<marker id="a5ad4b5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#a8bfd8" stroke-width="1.6"/></marker>
+<marker id="affc778" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#b3c5d9" stroke-width="1.6"/></marker>
+<marker id="aff939b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#96adc6" stroke-width="1.6"/></marker>
+<marker id="aadb9cb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#98a6b7" stroke-width="1.6"/></marker>
+</defs>
+<rect x="70" y="35" width="520" height="220" rx="8" fill="none" stroke="#98a6b7" stroke-width="2"/><circle cx="275" cy="145" r="90" fill="#1f2d3d" fill-opacity="0.75" stroke="#83a8d1" stroke-width="2"/><circle cx="395" cy="145" r="90" fill="#28394c" fill-opacity="0.75" stroke="#d6e1ed" stroke-width="2"/><text x="240" y="150" fill="#f8fafc" font-size="22">A</text><text x="420" y="150" fill="#f8fafc" font-size="22">B</text><text x="330" y="150" text-anchor="middle" fill="#b3c5d9" font-size="18">A ∩ B</text><text x="710" y="130" text-anchor="middle" fill="#f8fafc" font-size="20">Keep B only</text><text x="710" y="165" text-anchor="middle" fill="#98a6b7" font-size="18">Renormalize its mass</text>
+</svg>

@@ -1,8 +1,27 @@
+---
+tags:
+  - automated-planning
+---
+
 # Function Approximation And DQN
 
 **Subject**: CSC3041F Automated Planning  
 **Source**: `RL/9RL_3041F_Edit.pdf`, Asad Jeewa, slides 1-18  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Why Tables Do Not Scale|Why Tables Do Not Scale]]
+  - [[#Parameterized Value Functions|Parameterized Value Functions]]
+  - [[#TD Error Minimization|TD Error Minimization]]
+  - [[#Gradient Descent|Gradient Descent]]
+  - [[#Deep Q-Networks|Deep Q-Networks]]
+  - [[#DQN Instability|DQN Instability]]
+  - [[#Stabilizing DQN|Stabilizing DQN]]
+  - [[#Gradient-Based Monte Carlo|Gradient-Based Monte Carlo]]
 
 ---
 
@@ -250,110 +269,3 @@ Comparison:
 |---|---|
 | Gradient MC | Full sampled return $G_t$ |
 | DQN / TD | Bootstrapped target $r+\gamma\max_{a'}Q(s',a')$ |
-
-## Worked Examples
-
-### Example 1: DQN Target
-
-**Problem**: $r=1$, $\gamma=0.9$, next-state Q-values are $[2,5,3]$.
-
-**Step 1: Take maximum next Q**  
-$\max[2,5,3]=5$.
-
-**Step 2: Compute target**  
-$y=1+0.9\cdot5=5.5$.
-
-**Answer**: The DQN target is $5.5$.
-
-### Example 2: MSE Loss
-
-**Problem**: Target $y=5.5$, current prediction $Q(s,a;\theta)=4.0$.
-
-**Step 1: Error**  
-$5.5-4.0=1.5$.
-
-**Step 2: Square**  
-$1.5^2=2.25$.
-
-**Answer**: The squared loss is $2.25$.
-
-### Example 3: Why Replay Helps
-
-**Problem**: An agent walks through similar states for 100 consecutive steps.
-
-**Step 1: Without replay**  
-Training samples are highly correlated, so updates overfit the recent trajectory.
-
-**Step 2: With replay**  
-Random samples mix old and new transitions.
-
-**Answer**: Replay breaks correlation and makes gradients more stable.
-
----
-
-## Common Mistakes / Gotchas
-
-- Thinking function approximation just compresses a table. Its key benefit is generalization.
-- Forgetting that DQN targets are non-stationary unless stabilized.
-- Training only on consecutive samples and ignoring correlation.
-- Using the same rapidly changing network for both prediction and target without understanding instability.
-- Confusing model parameters $\theta$ with policy parameters in policy-gradient methods.
-- Applying tabular convergence intuitions directly to nonlinear DQN.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| Function approximation | Use $Q(s,a;\theta)$ instead of a table |
-| Parameter $\theta$ | Learnable model weights |
-| Gradient descent | Update weights to reduce loss |
-| DQN | Neural network Q-learning |
-| Experience replay | Randomly sample stored transitions |
-| Target network | Slow network for stable targets |
-
-**Key Formulas**:
-
-$$
-Q(s,a)\to Q(s,a;\theta)
-$$
-
-$$
-\delta=r+\gamma\max_{a'}Q(s',a';\theta)-Q(s,a;\theta)
-$$
-
-$$
-\theta\leftarrow\theta-\alpha\nabla_{\theta}L(\theta)
-$$
-
-$$
-y=r+\gamma\max_{a'}Q(s',a';\theta)
-$$
-
-$$
-L(\theta)=\left(y-Q(s,a;\theta)\right)^2
-$$
-
-**Key Takeaways**:
-
-- Tabular methods do not scale to huge or continuous spaces.
-- Function approximation lets RL generalize across states.
-- DQN trains a neural Q-function with bootstrapped targets.
-- Replay buffers and target networks stabilize DQN learning.
-
----
-
-## Practice Questions
-
-**Q1**: Why do tabular methods fail in large state spaces?  
-> Answer: They require storing and visiting every state-action pair, which becomes impossible in huge or continuous spaces.
-
-**Q2**: What does $\theta$ represent?  
-> Answer: The learnable parameters of the value-function approximator.
-
-**Q3**: What are the two main DQN stabilization techniques in the lecture?  
-> Answer: Experience replay and target networks.
-
-**Q4**: Why are DQN targets non-stationary?  
-> Answer: The target depends on Q-values predicted by a network whose parameters are changing during training.

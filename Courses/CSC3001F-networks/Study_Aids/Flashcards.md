@@ -1,3 +1,8 @@
+---
+tags:
+  - networks
+---
+
 # CSC3001F Networks Flashcards
 
 ## Introduction

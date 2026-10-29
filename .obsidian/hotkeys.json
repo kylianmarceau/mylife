@@ -6,5 +6,21 @@
       ],
       "key": "'"
     }
+  ],
+  "qard:new-card": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "."
+    }
+  ],
+  "qard:open-library": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "="
+    }
   ]
 }

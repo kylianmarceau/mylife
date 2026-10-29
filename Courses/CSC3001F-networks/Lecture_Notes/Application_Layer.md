@@ -1,8 +1,34 @@
+---
+tags:
+  - networks
+---
+
 # Application Layer
 
 **Subject**: CSC3001F Networks  
 **Source**: `Chapter2_ApplicationLayer_v2026.pdf`, Dr. Josiah Chavula, pages 1-68  
 **Generated**: 2026-05-31
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Processes And Application Architectures|Processes And Application Architectures]]
+  - [[#Sockets And Addressing Processes|Sockets And Addressing Processes]]
+  - [[#Application Service Requirements|Application Service Requirements]]
+  - [[#UDP Socket Programming|UDP Socket Programming]]
+  - [[#TCP Socket Programming|TCP Socket Programming]]
+  - [[#Application-Layer Protocols|Application-Layer Protocols]]
+  - [[#Web And HTTP|Web And HTTP]]
+  - [[#Non-Persistent And Persistent HTTP|Non-Persistent And Persistent HTTP]]
+  - [[#HTTP Messages|HTTP Messages]]
+  - [[#Cookies|Cookies]]
+  - [[#Web Caches|Web Caches]]
+  - [[#Conditional GET|Conditional GET]]
+  - [[#DNS|DNS]]
+  - [[#DNS Hierarchy And Resolution|DNS Hierarchy And Resolution]]
+  - [[#DNS Caching And Records|DNS Caching And Records]]
 
 ---
 
@@ -520,109 +546,3 @@ Resource record format:
 | MX | Domain | Mail server name |
 
 DNS query and reply messages share the same format, including identification, flags, question count, answer RR count, authority RR count, and additional RR count.
-
-## Worked Examples
-
-### Example 1: UDP Uppercase Application
-**Problem**: Build a UDP client/server where the client sends lowercase text and the server returns uppercase text.  
-**Step 1**: Server creates UDP socket and binds to port `12000`.  
-**Step 2**: Client creates UDP socket and sends `(message, serverName, 12000)`.  
-**Step 3**: Server receives `(message, clientAddress)`.  
-**Step 4**: Server computes `message.upper()` and sends reply to `clientAddress`.  
-**Answer**: UDP works without connection setup; each send includes destination addressing.
-
-### Example 2: TCP Uppercase Application
-**Problem**: Build the same uppercase application over TCP.  
-**Step 1**: Server creates a welcoming socket, binds to `12000`, and listens.  
-**Step 2**: Client creates a TCP socket and connects to `(serverName, 12000)`.  
-**Step 3**: Server `accept()` returns a new connection socket.  
-**Step 4**: Client sends bytes; server reads bytes, uppercases them, and sends bytes back.  
-**Answer**: TCP gives reliable, in-order byte-stream transfer over the established connection.
-
-### Example 3: Non-Persistent HTTP With Referenced Images
-**Problem**: A page has one base HTML object and 10 JPEGs. Ignore transmission time. How many RTTs are needed with non-persistent HTTP if objects are fetched sequentially?  
-**Step 1**: Each object takes 2 RTTs: one for TCP setup, one for request/first response.  
-**Step 2**: There are `1 + 10 = 11` objects.  
-**Step 3**: `11 x 2 RTT = 22 RTT`.  
-**Answer**: About `22 RTT` if fetched sequentially and transmission time is ignored.
-
-### Example 4: Web Cache Delay Calculation
-**Problem**: Access link is `1.54 Mbps`, average data rate to browsers is `1.50 Mbps`, and cache hit rate is `0.4`. What access-link utilization remains?  
-**Step 1**: Only cache misses use the access link: `60%` of traffic.  
-**Step 2**: Access-link traffic becomes `0.6 x 1.50 Mbps = 0.90 Mbps`.  
-**Step 3**: Utilization is `0.90 / 1.54 = 0.58`.  
-**Answer**: Access-link utilization falls to about `0.58`, reducing queueing delay sharply.
-
-### Example 5: Registering A New Domain
-**Problem**: `networkutopia.com` wants to appear in DNS. What records are needed at the registrar/TLD and authoritative server?  
-**Step 1**: Register domain and provide authoritative server name and IP.  
-**Step 2**: Registrar inserts NS record: `(networkutopia.com, dns1.networkutopia.com, NS)`.  
-**Step 3**: Registrar inserts glue A record: `(dns1.networkutopia.com, 212.212.212.1, A)`.  
-**Step 4**: Authoritative server stores `A` record for `www.networkutopia.com` and `MX` record for mail.  
-**Answer**: TLD points to the authoritative DNS server; the authoritative server stores the actual service records.
-
----
-
-## Common Mistakes / Gotchas
-- Thinking an IP address identifies a process. It identifies a host/interface; the port identifies the process.
-- Forgetting UDP requires the destination IP and port on each send.
-- Treating TCP as message-oriented. TCP is a byte stream with no message boundaries.
-- Assuming HTTP statelessness means websites cannot remember users. Cookies add state above HTTP's basic request/response model.
-- Forgetting non-persistent HTTP pays TCP setup overhead for each object.
-- Confusing a web cache with an origin server. A cache acts as both server to the client and client to the origin.
-- Thinking DNS is centralized. It is distributed and hierarchical.
-- Assuming cached DNS answers are always current. They may be stale until TTL expiry.
-- Mixing up CNAME and A records. CNAME maps alias to canonical name; A maps hostname to IP address.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|------|---------|
-| Process | Running program |
-| Socket | Door between application and transport |
-| Port | Process-level identifier on a host |
-| TCP | Reliable, in-order, connection-oriented byte stream |
-| UDP | Minimal unreliable datagram service |
-| HTTP | Web application-layer protocol |
-| RTT | Round-trip time |
-| Cookie | HTTP state mechanism |
-| Web cache | Proxy that can serve stored objects |
-| Conditional GET | Request object only if modified |
-| DNS | Distributed name/address system |
-| RR | DNS resource record |
-
-**Key Formulas**:
-
-```text
-Non-persistent HTTP per object = 2 RTT + transmission time
-Access-link utilization with cache = miss_rate x original_data_rate / access_link_rate
-DNS RR = (name, value, type, ttl)
-```
-
-**Key Takeaways**:
-- Network applications run on end systems, not in the network core.
-- Sockets expose transport service to applications.
-- TCP and UDP make different tradeoffs; neither provides timing or security by itself.
-- HTTP is stateless, but cookies, caches, and conditional requests add practical web behavior.
-- DNS is a distributed, cached, hierarchical database implemented as an application-layer protocol.
-
----
-
-## Practice Questions
-
-**Q1**: Why is a port number needed in addition to an IP address?  
-> Answer: Many processes can run on one host. The IP address identifies the host/interface; the port identifies the receiving process/socket.
-
-**Q2**: Compare UDP and TCP from an application viewpoint.  
-> Answer: UDP provides unreliable datagrams without setup, flow control, congestion control, or reliability. TCP provides reliable, in-order byte stream transfer with connection setup, flow control, and congestion control.
-
-**Q3**: A non-persistent HTTP page has one HTML file and four images. Ignoring transmission time and parallelism, how many RTTs are needed?  
-> Answer: Five objects x 2 RTT each = 10 RTT.
-
-**Q4**: What DNS record type maps an alias to a canonical name?  
-> Answer: CNAME.
-
-**Q5**: Why does DNS caching improve performance but create possible inconsistency?  
-> Answer: Caching avoids repeated hierarchy queries and lowers latency, but a cached record may be stale until its TTL expires.

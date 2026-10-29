@@ -1,8 +1,29 @@
+---
+tags:
+  - operating-systems
+---
+
 # Operating System Services And Structures
 
 **Subject**: CSC3002F Operating Systems  
 **Source**: `Operating Systems 1 Ch2.pdf`, Aslam Safla, pages 1-52  
 **Generated**: 2026-06-03
+
+---
+
+## Contents
+
+- [[#Core Content|Core Content]]
+  - [[#Operating-System Services|Operating-System Services]]
+  - [[#User Interfaces|User Interfaces]]
+  - [[#System Calls, APIs, And Parameter Passing|System Calls, APIs, And Parameter Passing]]
+  - [[#Types Of System Calls|Types Of System Calls]]
+  - [[#Examples: MS-DOS And FreeBSD|Examples: MS-DOS And FreeBSD]]
+  - [[#System Programs|System Programs]]
+  - [[#OS Design, Implementation, And Policy/Mechanism|OS Design, Implementation, And Policy/Mechanism]]
+  - [[#Operating-System Structures|Operating-System Structures]]
+  - [[#Mobile OS Structures: iOS And Android|Mobile OS Structures: iOS And Android]]
+  - [[#Debugging, Performance Tuning, And Boot|Debugging, Performance Tuning, And Boot]]
 
 ---
 
@@ -215,97 +236,3 @@ Android is based on a modified Linux kernel that provides process, memory, devic
 OS debugging uses log files, core dumps, crash dumps, traces, and profiling. Performance tuning removes bottlenecks and requires tools that display system behavior, such as `top` or Windows Task Manager. DTrace is an example of live instrumentation, where probes fire when code executes and state data is sent to consumers.
 
 System boot begins at a fixed memory location when power is initialized. Firmware ROM holds initial boot code. A bootstrap loader in ROM/EEPROM or a boot block locates the kernel, loads it, and starts it. GRUB is a common bootstrap loader that can select among kernels, disks, versions, and boot options.
-
-## Worked Examples
-
-### Example 1: Copying One File To Another With System Calls
-
-**Problem**: What system-call sequence is needed to copy `in.txt` to `out.txt`?
-
-**Step 1**: Open `in.txt` for reading.  
-**Step 2**: Create/open `out.txt` for writing.  
-**Step 3**: Repeatedly call `read()` on the input file.  
-**Step 4**: For each block read, call `write()` on the output file.  
-**Step 5**: Close both files.  
-**Step 6**: If any call returns an error status, report or handle it.  
-**Answer**: File copying is mostly file-management system calls wrapped by a user program or library.
-
-### Example 2: `printf()` To `write()`
-
-**Problem**: How does a C program printing text reach the OS?
-
-**Step 1**: The program calls `printf("Hi\n")`.  
-**Step 2**: The C library formats the string and chooses the output stream.  
-**Step 3**: The library invokes a lower-level write operation.  
-**Step 4**: The system-call interface enters the kernel and dispatches to the kernel's write implementation.  
-**Answer**: `printf()` is not itself the kernel call; it is a library interface that eventually uses a system call such as `write()`.
-
-### Example 3: Policy Versus Mechanism In Scheduling
-
-**Problem**: Identify mechanism and policy for CPU time slicing.
-
-**Step 1**: The timer interrupt and context-switch code provide a way to regain the CPU and switch processes. This is mechanism.  
-**Step 2**: A rule such as round-robin, priority scheduling, or shortest job first decides which process runs next. This is policy.  
-**Answer**: Mechanism answers "how can the OS switch?"; policy answers "which process should be chosen?"
-
----
-
-## Common Mistakes / Gotchas
-
-- Confusing APIs with system calls. APIs are usually higher-level wrappers.
-- Assuming every shell command is built into the shell; many commands are separate programs.
-- Thinking system programs are kernel code. Many daemons/services run in user context.
-- Treating policy and mechanism as the same thing; separating them is a key OS design principle.
-- Calling every modern OS purely monolithic or purely microkernel. Most are hybrids.
-- Forgetting that `exec()` replaces a program image; it does not create a new process by itself.
-
----
-
-## Summary / Cheat Sheet
-
-| Term | Meaning |
-|---|---|
-| OS service | Function provided to programs/users or for efficient sharing |
-| CLI/shell | Command interpreter for direct command entry |
-| System call | Controlled programming interface to kernel services |
-| API | Higher-level interface that may hide raw system calls |
-| System program | Utility around OS services, often user-context |
-| Policy | What should happen |
-| Mechanism | How it is made to happen |
-| Microkernel | Minimal kernel with user-space services and message passing |
-| Loadable module | Kernel component loaded when needed |
-| Bootstrap loader | Code that locates and starts the kernel |
-
-**Key Formulas**:
-
-$$
-\text{Design flexibility increases when policy is separated from mechanism.}
-$$
-
-$$
-\text{Boot path}:\ \text{firmware}\rightarrow\text{bootstrap loader}\rightarrow\text{kernel}\rightarrow\text{system services}
-$$
-
-**Key Takeaways**:
-
-- OS services support both user convenience and safe resource sharing.
-- Most user programs reach the OS through APIs, libraries, and the system-call interface.
-- System programs define much of the user's practical experience of an OS.
-- OS structures are trade-offs between simplicity, performance, reliability, portability, security, and maintainability.
-- Booting moves from fixed firmware code to a full kernel and running system services.
-
----
-
-## Practice Questions
-
-**Q1**: List three services helpful to users and three services used for efficient system operation.  
-> Answer: Helpful services include UI, program execution, I/O, file manipulation, communication, and error detection. Efficient operation services include resource allocation, accounting, protection, and security.
-
-**Q2**: Why do APIs hide system-call details?  
-> Answer: APIs give programmers a stable, higher-level interface while the runtime library and OS handle system-call numbers, parameter placement, traps, and return values.
-
-**Q3**: Compare microkernel and modular-kernel designs.  
-> Answer: A microkernel moves services into user space and communicates by message passing, improving reliability/security/portability but adding communication overhead. A modular kernel keeps components in kernel space but loads them dynamically through known interfaces, improving flexibility while preserving performance.
-
-**Q4**: What is the role of GRUB in booting?  
-> Answer: GRUB is a bootstrap loader that can locate and load the selected kernel, including choosing among disks, kernel versions, and boot options.

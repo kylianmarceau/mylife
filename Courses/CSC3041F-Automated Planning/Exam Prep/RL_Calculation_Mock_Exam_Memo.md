@@ -1,3 +1,8 @@
+---
+tags:
+  - automated-planning
+---
+
 # Reinforcement Learning Calculation Mock Exam: Marking Memo
 
 This memo follows `RL_Calculation_Mock_Exam.md`.
