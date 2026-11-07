@@ -47,9 +47,9 @@ The image VLM flow is: ViT tokenizes an image → CLIP aligns it with text → a
 
 A practical design must **shrink the token stream**.
 
-![Frame interface](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/05_Video_Understanding/frame-interface.svg)
+![Video token explosion](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/05_Video_Understanding/token-explosion.svg)
 
-*Raw video → frame sampling → patch or tubelet embedding → space + time positions → LLM answer.*
+*One minute at 24 fps is 1,440 frames; at 576 tokens each that is about 830,000 tokens.*
 
 ### Which frames to sample
 
@@ -61,6 +61,10 @@ The common first step is **frame down-sampling**.
 | FPS-based | Fixed frames per second | Token count scales with duration |
 | Scene-change / keyframe | Pick frames where content changes | Adapts to content |
 | Query-aware | Pick frames relevant to the question | Needs the question up front |
+
+![Uniform frame sampling](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/05_Video_Understanding/frame-sampling.svg)
+
+*Keeping every 6th frame is cheap, but a fast event that falls between samples is lost.*
 
 ### Frame tokens versus tubelet tokens
 
@@ -76,9 +80,9 @@ The common first step is **frame down-sampling**.
 | Token count | Higher | Fewer for the same clip |
 | Used by | Most video-LLMs | ViViT, VideoMAE |
 
-![Tubelet](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/05_Video_Understanding/tubelet.svg)
+![Frame versus tubelet tokens](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/05_Video_Understanding/frame-vs-tubelet.svg)
 
-*The same spatial patch from three consecutive frames is flattened across space and time into one tubelet embedding.*
+*Frame tokens patchify each frame separately; a tubelet token spans the same patch across several frames, so it carries motion.*
 
 ### Telling the model when each token is
 
@@ -105,6 +109,10 @@ Why temporal position matters more than for images:
 $$
 \text{video token} = \text{embed}(\text{patch/tubelet content}) + \text{embed}(\text{where: } h, w;\ \text{when: } t)
 $$
+
+![M-RoPE axes](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/05_Video_Understanding/mrope-axes.svg)
+
+*M-RoPE splits each embedding into $t$, $h$, and $w$ parts: text varies only in $t$, image patches in $h$ and $w$, and video patches in all three.*
 
 The Transformer core is still completely unchanged.
 
@@ -139,7 +147,7 @@ $$
 
 ![Factorized attention](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/05_Video_Understanding/factorized-attention.svg)
 
-*Rows are frames and columns spatial positions. Joint attention connects a query to everything; spatial attention to its frame; temporal attention to its location across frames.*
+*Joint attention links a token to every frame and position; spatial attention only within its frame; temporal attention only at its location across frames.*
 
 **Trade-off**: factorization can miss correlations that are jointly spatial and temporal, but it is usually worth it (ViViT, TimeSformer).
 
@@ -152,6 +160,10 @@ Many production video-VLMs reduce the token count before the LLM sees it.
 | Spatial pooling | $S$ | Reshape ViT tokens to a grid (196 → $14 \times 14$), average $2 \times 2$ blocks → $7 \times 7$ (25% of the tokens) |
 | Temporal pooling | $T$ | Average the corresponding token across nearby frames (e.g. sets of 4 consecutive frames) |
 | Learned resampling | Whole clip | A Perceiver Resampler / Q-Former maps a clip to a fixed number of tokens regardless of length — learned queries as a bottleneck over space-time. Flamingo's resampler was designed for this: many frames in, 64 tokens out |
+
+![Spatial and temporal pooling](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/05_Video_Understanding/pooling.svg)
+
+*Averaging $2 \times 2$ patches cuts tokens per frame to 25%; averaging across 4 frames cuts the frame count; a resampler maps a clip to a fixed number of tokens.*
 
 > [!warning] <span style="color: #ff939b">Compression loses detail</span>
 > Every pool or resample step throws away temporal or spatial detail. Pool too much and you can no longer tell "picked up" from "put down". Video-VLMs differ mostly in **how they compress**, not in the Transformer core.
@@ -172,9 +184,9 @@ Many production video-VLMs reduce the token count before the LLM sees it.
 
 So long-video understanding is fundamentally a **compression and retrieval** problem.
 
-![Context wall](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/05_Video_Understanding/context-wall.svg)
+![The context wall](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/05_Video_Understanding/context-wall.svg)
 
-*At 1 fps and 256 tokens/frame: 1 s = 256, 10 s = 2,560, 1 min = 15,360, 10 min = 153,600, and 1 hour = 921,600 tokens, crossing a 128k context around 8 minutes.*
+*At 1 fps and 256 tokens per frame, token counts cross a 128k context within minutes and reach about 920k for an hour.*
 
 ### Scaling to long video
 
@@ -221,7 +233,7 @@ A model can be good at a low-temporal task and weak at a demanding one, which is
 
 ![Temporal grounding](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/05_Video_Understanding/temporal-grounding.svg)
 
-*For "When does the player score the goal?" in a 2-minute clip, the model predicts the interval 0:47–0:59.*
+*For "when does the player score the goal?", the model outputs the span 0:47–0:59 as text.*
 
 - The output is just tokens: the model emits timestamps as text, enabled by absolute-time positions.
 - It is hard because "when" cannot be answered from one frame or a global summary. The model must align language to the timeline and inspect frames at fine granularity.

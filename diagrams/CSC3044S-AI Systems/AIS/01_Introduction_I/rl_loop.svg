@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 330" role="img">
+<title>Reinforcement learning agent loop</title>
+<desc>The agent takes action a_t; the environment returns reward R_t and state s_t to the agent.</desc>
+<defs>
+<marker id="mt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.6" stroke-linecap="round"/></marker>
+<marker id="ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.6" stroke-linecap="round"/></marker>
+<marker id="mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round"/></marker>
+</defs>
+<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+<rect x="340" y="40" width="220" height="64" rx="12" fill="#272f3b" stroke="#adb9cb" stroke-width="1.8"/>
+<text x="450" y="79" text-anchor="middle" font-size="18" font-weight="600" fill="#f8fafc">Environment</text>
+<rect x="360" y="226" width="180" height="64" rx="12" fill="#302b46" stroke="#b89aff" stroke-width="1.8"/>
+<text x="450" y="265" text-anchor="middle" font-size="18" font-weight="600" fill="#f8fafc">Agent</text>
+<path d="M360 258 L230 258 L230 72 L336 72" fill="none" stroke="#5ad4b5" stroke-width="2" marker-end="url(#mt)"/>
+<text x="215" y="160" text-anchor="end" font-size="15" fill="#5ad4b5">action a_t</text>
+<path d="M560 62 L640 62 L640 248 L544 248" fill="none" stroke="#ffc778" stroke-width="2" marker-end="url(#ma)"/>
+<text x="625" y="160" text-anchor="end" font-size="15" fill="#ffc778">reward R_t</text>
+<path d="M560 84 L700 84 L700 270 L544 270" fill="none" stroke="#66b3ff" stroke-width="2" marker-end="url(#mb)"/>
+<text x="715" y="180" font-size="15" fill="#66b3ff">state s_t</text>
+</g>
+</svg>

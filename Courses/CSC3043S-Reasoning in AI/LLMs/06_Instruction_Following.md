@@ -60,9 +60,9 @@ Pretrained LMs are not aligned with human values. Prompting can still steer them
 
 > **Midtraining**: A training stage mixing instruction data with high-quality pretraining data, used by most large models.
 
-![Instruction training](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/06_Instruction_Following/instruction-training.svg)
+![Instruction fine-tuning](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/06_Instruction_Following/instruction-tuning.svg)
 
-*Pretrained parameters are trained on diverse instruction-response pairs with a response-only prediction loss, giving an instruction-tuned model.*
+*Many instruction-response tasks fine-tune one model, which is then tested on unseen tasks such as answering with a rationale.*
 
 - Training starts from the pretrained parameters.
 - It works exactly like pretraining, except for **loss masking**: only the response contributes to the loss.
@@ -72,6 +72,10 @@ For instruction $x$ and response $y$:
 $$
 \mathcal{L}_{\text{SFT}} = -\sum_{t=1}^{|y|} \log P_\theta(y_t \mid x, y_{<t})
 $$
+
+![SFT loss masking](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/06_Instruction_Following/loss-masking.svg)
+
+*Instruction tokens are masked out of the loss; only the response tokens are trained on.*
 
 **FLAN-T5 example** (Chung et al., 2022). Training tasks include "What is the boiling point of nitrogen?" → "−320.4F" and a step-by-step arithmetic question ("The cafeteria had 23 apples... used 20... bought 6 more" → "23 − 20 = 3, 3 + 6 = 9"). The model is then evaluated on **unseen tasks**, such as "Can Geoffrey Hinton have a conversation with George Washington? Give the rationale before answering."
 
@@ -112,9 +116,9 @@ Example templates:
 
 ### Scaling instruction fine-tuning
 
-![Instruction scaling](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/06_Instruction_Following/instruction-scaling.svg)
+![Scaling instruction fine-tuning](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/06_Instruction_Following/instruction-scaling.svg)
 
-*Held-out task performance rises with the number of fine-tuning tasks, and is higher for larger models (8B, 62B, 540B).*
+*Held-out accuracy rises with the number of fine-tuning tasks (0 to 1,836) and is much higher for larger models (8B, 62B, 540B).*
 
 From Chung et al. (2022):
 
@@ -134,7 +138,7 @@ Models deployed to end users need safety controls. Safety tuning must balance a 
 
 ![Safety trade-off](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/06_Instruction_Following/safety-tradeoff.svg)
 
-*For Llama 3 8B and 70B, reducing violations comes at the cost of more false refusals.*
+*For Llama 3 8B and 70B, pushing the violation rate down raises the false refusal rate.*
 
 - Collect real unsafe prompts from users (e.g. the **WildChat** dataset), covering categories like unsafe requests, privacy violations, and copyright violations.
 - Relatively few examples (about **500**) give significant safety improvements.
@@ -187,7 +191,7 @@ Give a few input-output examples, then the new input for the model to complete.
 
 ![Few-shot prompt](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/06_Instruction_Following/few-shot-prompt.svg)
 
-*Example input-answer pairs specify the task; the model generates the answer for the new input without any weight change.*
+*Example input-output pairs specify the task in the context; the model completes the answer for the new input without any weight change.*
 
 - Performance varies with **which** examples are chosen, and even with their **order**.
 - More examples generally improve performance.

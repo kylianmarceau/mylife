@@ -5,293 +5,215 @@ tags:
 
 # Greedy Techniques
 
-**Subject**: CSC3003S Advanced Programming — Theory of Algorithms (TOA)  
-**Source**: [9 - TOA Greedy Techniques.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/TOA/9%20-%20TOA%20Greedy%20Techniques.pdf), Patrick Marais, University of Cape Town, PDF pages 1–15  
-**Generated**: 2026-10-02
+**Subject**: CSC3003S Advanced Programming — Theory of Algorithms (TOA)
+**Source**: [9 - TOA Greedy Techniques.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/TOA/9%20-%20TOA%20Greedy%20Techniques.pdf), Patrick Marais, University of Cape Town, pages 1–15
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes. Examples and corrections appear beside the relevant concept.
+> The greedy principle, greedy change-making, Huffman coding, minimum spanning trees with Prim's algorithm, and the TOA course conclusion.
 
 ---
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Greedy Choices And Optimality|Greedy Choices And Optimality]]
-  - [[#Greedy Change Making|Greedy Change Making]]
-  - [[#Fixed-Length And Prefix-Free Codes|Fixed-Length And Prefix-Free Codes]]
-  - [[#Huffman Construction|Huffman Construction]]
-  - [[#Huffman Optimality, Compression And Limits|Huffman Optimality, Compression And Limits]]
+  - [[#The Greedy Technique|The Greedy Technique]]
+  - [[#Change-Making Revisited|Change-Making Revisited]]
+  - [[#Text Encoding|Text Encoding]]
+  - [[#Huffman Trees And Prefix-Free Codes|Huffman Trees And Prefix-Free Codes]]
+  - [[#Huffman Coding Algorithm|Huffman Coding Algorithm]]
+  - [[#Notes On Huffman Coding|Notes On Huffman Coding]]
   - [[#Minimum Spanning Trees|Minimum Spanning Trees]]
   - [[#Prim's Algorithm|Prim's Algorithm]]
-  - [[#Prim Source Example And Complexity|Prim Source Example And Complexity]]
-  - [[#Kruskal, Limits And Course Skills|Kruskal, Limits And Course Skills]]
+  - [[#Prim's Algorithm Complexity|Prim's Algorithm Complexity]]
+  - [[#Greedy Strengths And Weaknesses|Greedy Strengths And Weaknesses]]
+  - [[#Course Conclusion|Course Conclusion]]
 
 ---
 
 ## Core Content
 
-### Greedy Choices And Optimality
+### The Greedy Technique
 
 #### Definitions
 
-> **Greedy technique**: Build a solution by repeatedly making a feasible locally best choice and committing to it.
+> **Greedy technique**: Repeatedly make the choice that maximises the immediate return, based on local conditions, hoping the outcome is good for the global problem.
 
-> **Feasible choice**: A choice satisfying the problem's constraints.
+> **Feasible choice**: A choice that satisfies the problem's constraints.
 
-> **Locally optimal choice**: The best available option according to the current step's criterion.
+> **Locally optimal choice**: The best choice among all feasible options at that step.
 
-> **Irrevocable choice**: A choice not later withdrawn by the algorithm.
+> **Irrevocable choice**: A choice that cannot be undone later — no backing out.
 
-Local optimality does not establish global optimality. Some greedy algorithms have proofs, such as Prim, Kruskal and Huffman; other plausible rules have counterexamples.
+Greedy algorithms solve optimisation problems through a sequence of choices that are feasible, locally optimal and irrevocable. Each step greedily grabs the best alternative, hoping the sequence of locally optimal steps leads to a globally optimal solution.
 
-| Proof idea | Use |
-|---|---|
-| **Exchange argument** | Transform an optimum to include the greedy choice without worsening it |
-| **Induction** | Establish a correct choice, then reduce to a smaller problem |
-| **Matroid structure** | A formal independence/exchange structure supporting certain greedy optimisation rules |
+- Sometimes an approximation is acceptable, and local optimality is waived.
+- Not all optimisation problems can be solved this way.
+- Optimality can sometimes be proved by induction; more complex cases use abstract mathematics such as **matroids**.
 
-Greedy rules are often simple and efficient, while DP considers alternatives and stores state results. A heuristic or approximation may be acceptable when an exact optimum is not required, but its guarantees must be stated.
+Examples:
 
-The examples named in the lecture are Dijkstra's single-source shortest paths, minimum spanning trees, change making and Huffman coding. Dijkstra's settled-distance greedy argument requires nonnegative edge weights; it is not developed as a full worked algorithm in this PDF.
+- Dijkstra's single-source shortest paths
+- Minimum spanning tree construction (Prim and Kruskal)
+- Change making
+- Huffman coding
 
-### Greedy Change Making
+### Change-Making Revisited
 
-#### Definitions
+Give change for amount $n$ with the fewest coins, using denominations $d_1 > d_2 > \dots > d_m$.
 
-> **Greedy change rule**: Repeatedly take the largest denomination not exceeding the remaining amount.
+**Greedy algorithm**: at each step, choose the largest denomination that does not exceed the remaining amount. Repeat until the amount is paid.
 
-```pseudo
-GreedyChange(D, amount):
-    // denominations D are descending positive integer values
-    result = empty list
-    for each denomination d in D:
-        count = floor(amount / d)
-        append count copies of d to result
-        amount = amount - count * d
-    if amount != 0: report exact change unavailable by this method
-    return result
-```
-
-The source uses denominations $500,200,100,50,20,10,5,2,1$ in cents. For $254$ cents, the greedy result is:
+Example: R2.54 with R5, R2, R1, 50c, 20c, 10c, 5c, 2c, 1c:
 
 $$
-254=200+50+2+2.
+\text{R}2 + 50\text{c} + 2\text{c} + 2\text{c} = \text{R}2.54 \quad (4 \text{ coins})
 $$
 
-This uses four coins. Work in integer smallest units to avoid currency floating-point errors.
+Greedy is optimal for reasonable (real-world) coin sets, but not for all. With denominations $\{4, 3, 1\}$ and $n = 6$, greedy gives $4 + 1 + 1$ (3 coins), but $3 + 3$ (2 coins) is optimal. The DP algorithm in [Dynamic Programming I](08A_Dynamic_Programming.md#Change-Making%20Problem) handles the general case.
 
-For denominations $\{4,3,1\}$ and amount six, greedy returns $4+1+1$ while the optimum is $3+3$. The denominations determine whether greedy is always optimal; a unit coin ensures feasibility, not optimality. General change making can use DP.
-
-### Fixed-Length And Prefix-Free Codes
+### Text Encoding
 
 #### Definitions
 
-> **Encoding**: Assign a bit string to each symbol of an alphabet.
+> **Entropy coding**: Assigning bit patterns to an alphabet of characters so that, on typical texts, fewer bits are used overall.
 
-> **Fixed-length code**: Every symbol receives the same number of bits.
+> **Fixed-length encoding**: Every character uses the same number of bits, e.g. ASCII.
 
-> **Variable-length code**: Different symbols may receive different numbers of bits, typically giving shorter words to frequent symbols.
+> **Variable-length encoding**: The number of bits per character varies with its probability of occurrence, giving better compression, e.g. Morse's telegraph codes.
 
-> **Prefix-free code**: No symbol's complete codeword is a prefix of another symbol's codeword.
+### Huffman Trees And Prefix-Free Codes
 
-> **Entropy coding**: Use symbol occurrence frequencies or probabilities to reduce expected encoded length.
+#### Definitions
 
-| Code style | Main property | Decoding requirement |
+> **Prefix-free code**: A code in which no character's codeword is a prefix of another's, so a bit stream can be split into characters unambiguously.
+
+> **Huffman tree**: A binary tree implementing a prefix-free code. Leaves are characters, left edges encode 0 and right edges encode 1; a character's codeword is the path from the root to its leaf.
+
+With variable-length codes, you need a way to know which bits belong to which character. Prefix-free codes solve this, and the tree is walked to encode and decode.
+
+Example tree: A = `0`, B = `100`, C = `101`, D = `11`.
+
+![Prefix-free code tree](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/09_Greedy_Techniques/prefix-tree.svg)
+
+*Every character sits at a leaf, so no codeword can be the start of another.*
+
+| Operation | Input | Output |
 |---|---|---|
-| Fixed length | Same width for every symbol | Split at fixed-width boundaries |
-| Variable length, prefix-free | Symbols end at tree leaves | Follow bits to a leaf and restart at the root |
+| Encode | `ABADC` | `0 100 0 11 101` = `0100011101` |
+| Decode | `11000101` | `11 0 0 0 101` = `DAAAC` |
 
-Morse code illustrates variable symbol lengths, but needs timing/separators; it is not a binary prefix-free code without that extra signalling.
+### Huffman Coding Algorithm
 
-A binary prefix-code tree labels left edges zero and right edges one, with symbols only at leaves. A leaf cannot be an ancestor of another leaf, guaranteeing the prefix-free property.
+Build a Huffman tree from an alphabet and the characters' probabilities:
 
-![Source four-symbol prefix tree](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/09_Greedy_Techniques/prefix-tree.svg)
+1. Initialise $n$ one-node trees, each labelled with a character of the alphabet.
+2. Record each character's frequency (weight) in its tree's root.
+3. Repeat until a single tree remains:
+   1. Find the two trees with the smallest weights.
+   2. Make them the left and right subtrees of a new tree, and record the sum of their weights in the new root.
 
-*The source tree gives A code 0, B code 100, C code 101 and D code 11.*
+**Example**: C = 0.15, A = 0.4, B = 0.45.
 
-| Symbol | Code |
+| Step | Trees |
 |---|---|
-| $A$ | `0` |
-| $B$ | `100` |
-| $C$ | `101` |
-| $D$ | `11` |
+| Start | C (0.15), A (0.4), B (0.45) |
+| Merge C and A | (C, A) 0.55; B 0.45 |
+| Merge B and (C, A) | Root 1.0 with B on the left and (C, A) on the right |
 
-Encoding `ABADC` concatenates `0`, `100`, `0`, `11`, `101` into `0100011101`. Decoding `11000101` splits into `11|0|0|0|101`, giving `DAAAC`.
+| Character | Code |
+|---|---|
+| A | `11` |
+| B | `0` |
+| C | `10` |
 
-### Huffman Construction
+![Huffman construction](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/09_Greedy_Techniques/huffman-build.svg)
 
-#### Definitions
+*The two lightest trees are merged at each step; the most probable character ends up closest to the root.*
 
-> **Huffman tree**: A prefix-code tree formed by repeatedly merging the two lowest-weight trees.
-
-> **Weight**: Symbol frequency or probability; an internal node stores the sum of descendant weights.
-
-1. Create one leaf for each symbol with its frequency or probability.
-2. Place those trees in a min-priority queue by weight.
-3. Remove the two lowest-weight trees.
-4. Make them children of a new node weighted by their sum.
-5. Put the merged tree back into the queue.
-6. Continue until only one tree remains; label branches and read root-to-leaf codes.
-
-```pseudo
-Huffman(symbolWeights):
-    Q = min-priority queue containing one leaf per symbol
-    while size(Q) > 1:
-        left = ExtractMinimum(Q)
-        right = ExtractMinimum(Q)
-        parent = Node(left.weight + right.weight, left, right)
-        Insert(Q, parent)
-    return ExtractMinimum(Q)
-```
-
-Equal weights permit multiple trees; swapping left and right children also changes codewords without changing expected length. Encoding and decoding must share the same chosen tree.
-
-For $p(A)=0.40,p(B)=0.45,p(C)=0.15$:
-
-| Merge step | Trees combined | New weight |
-|---|---|---:|
-| $1$ | $C$ and $A$ | $0.55$ |
-| $2$ | $B$ and the $CA$ subtree | $1.00$ |
-
-![Huffman source merge sequence](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/09_Greedy_Techniques/huffman-build.svg)
-
-*The two least probable symbols merge first, leaving the most probable symbol with a one-bit code.*
-
-The resulting source codes are $B:$ `0`, $C:$ `10`, $A:$ `11`. Expected bits per symbol are:
-
-$$
-L=\sum_s p(s)\ell(s)=0.45(1)+0.15(2)+0.40(2)=1.55.
-$$
-
-A fixed two-bit code for three symbols uses two bits per symbol. Ignoring tree/header overhead, the expected saving is $100(2-1.55)/2=22.5\%$.
-
-With $s$ symbols and a binary heap, construction takes $O(s\log s)$ time and $O(s)$ tree storage. Each merge reduces the tree count by one, so there are $s-1$ merges.
-
-### Huffman Optimality, Compression And Limits
+### Notes On Huffman Coding
 
 #### Definitions
 
-> **Expected code length**: Probability-weighted average number of encoded bits per symbol.
+> **Compression ratio (CR)**: $\text{CR} = 100 \times \dfrac{y - x}{y}$, where $x$ is the compressed size and $y$ the uncompressed size.
 
-The two least probable symbols can be placed as deepest sibling leaves in some optimal prefix tree. Merging them reduces to a smaller instance; expanding that merged symbol adds exactly their total probability to expected length. This supports the greedy choice and induction.
-
-Huffman minimises expected length among binary prefix codes for the specified symbol probabilities; those probabilities need not be negative powers of two. The prefix-code optimality argument is developed in [MIT's Huffman lecture](https://ocw.mit.edu/courses/18-200-principles-of-discrete-applied-mathematics-spring-2024/mit18_200_s24_lec19.pdf).
-
-> [!warning] <span style="color:#ffc778">Source optimality qualification</span>
-> Negative-power-of-two probabilities concern achieving ideal entropy lengths exactly. They are not required for Huffman's optimality among symbol-by-symbol binary prefix codes. Huffman does not guarantee optimal compression among every possible encoding scheme.
-
-The source's saving percentage is:
-
-$$
-\mathrm{CR}=100\frac{y-x}{y},
-$$
-
-where $y$ is uncompressed size and $x$ compressed size. Some contexts use the term compression ratio differently, so state this convention. The lecture's twenty-to-eighty percent examples are empirical illustrations, not a universal guarantee.
-
-For an alphabet with only two symbols, both Huffman codewords normally have length one. Encoding individual zero/one symbols cannot reduce a bit string below one bit per symbol, even if one symbol is much more common. Blocks or different coding methods can exploit that imbalance.
-
-**Adaptive Huffman coding** updates frequency information during processing. Arithmetic coding can approach noninteger average bit lengths more closely, especially for skewed probabilities; actual gains depend on the model and overhead. Decoder knowledge of the model or code tree also costs space.
+- Huffman coding typically achieves a compression ratio of 20–80%.
+- It yields optimal compression provided the character probabilities are independent, known in advance, and negative powers of 2 (e.g. $\tfrac12, \tfrac14, \tfrac18, \tfrac18$).
+- It is terrible on bit strings with alphabet $\{0, 1\}$: each symbol still needs at least one bit, so no compression is possible.
+- **Adaptive Huffman** coding is more sophisticated: it builds the frequency table on the fly.
 
 ### Minimum Spanning Trees
 
 #### Definitions
 
-> **Spanning tree**: A connected acyclic subgraph containing all vertices of a connected undirected graph.
+> **Spanning tree**: For an undirected connected graph, a tree (connected, no cycles) that contains every vertex of the graph exactly once.
 
-> **Minimum spanning tree (MST)**: A spanning tree minimising the sum of its edge weights.
+> **Minimum spanning tree (MST)**: A spanning tree of minimal total edge weight in a graph with edge weights.
 
-> **Cut**: A partition of graph vertices into two nonempty sets; a crossing edge has endpoints in different sets.
+![Spanning tree illustration](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/09_Greedy_Techniques/spanning-tree.svg)
 
-A spanning tree has $\lvert V\rvert-1$ edges. An MST may not be unique when weights tie. It minimises total network edge weight, rather than distances from a source.
+*A spanning tree connects all vertices with no cycles; an MST does so with the smallest total weight.*
 
-Applications include communication networks, relationship graphs and components of approximation methods for suitable TSP variants. The source's example of a spanning tree with total weight thirty-eight illustrates the concept; the worked Prim graph below is a different instance.
+MSTs are used in network communications, social media (and other) relationship analysis, approximate TSP solutions, and more.
 
-![Source spanning-tree illustration](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/09_Greedy_Techniques/spanning-tree.svg)
+Exhaustively constructing all spanning trees is exponential, so greedy approaches are used. Both of these produce provably optimal MSTs:
 
-*Highlighted edges span the source ten-vertex graph without a cycle; their total weight is thirty-eight.*
-
-The **cut property** gives a safe greedy step: a minimum-weight crossing edge can be included in an MST consistent with the chosen tree edges. If an optimum uses another crossing edge, replacing it with the no-heavier greedy edge preserves connectivity and cannot increase the cost.
-
-| Algorithm | Greedy choice | Main structure | Typical cost |
-|---|---|---|---|
-| **Prim** | Lightest edge joining the current tree to a new vertex | Vertex keys and min-heap | $O(\lvert E\rvert\log\lvert V\rvert)$ on connected graphs |
-| **Kruskal** | Lightest edge joining different forest components | Sorted edges and disjoint sets | $O(\lvert E\rvert\log\lvert E\rvert)$ |
+| Algorithm | Builds by | Complexity |
+|---|---|---|
+| Prim | Adding vertices to one growing tree | $O(\lvert E\rvert \log \lvert V\rvert)$ |
+| Kruskal | Adding edges (a growing collection of trees) | $O(\lvert E\rvert \log \lvert E\rvert)$ |
 
 ### Prim's Algorithm
 
-#### Definitions
+Prim's algorithm greedily grows a subtree from an initial vertex $v_1$.
 
-> **Vertex key**: The lowest known edge weight connecting a non-tree vertex to any current tree vertex.
+1. Start the tree with $v_1$.
+2. Label every other vertex with its nearest tree vertex and the edge weight, e.g. $v_2(v_1, 3)$ means $v_2$ connects to tree vertex $v_1$ with weight 3. Unconnected vertices get weight $\infty$.
+3. Repeat until all vertices are in the tree:
+   1. Add the nearest non-tree vertex $v^*$ — the one with the lowest edge weight to the tree (it may connect to any tree vertex).
+   2. Remove $v^*$ from the list of unprocessed vertices.
+   3. **Update labels**: for each non-tree vertex adjacent to $v^*$, if the edge to $v^*$ is lighter than its current label, change its label to $v^*$ and the smaller weight.
 
-> **Parent**: The tree vertex providing the edge currently represented by a vertex key.
+Finding the minimum label each round is done with a **min-heap**.
 
-1. Choose any starting vertex and give it key zero; all others start at infinity.
-2. Remove the non-tree vertex with minimum key.
-3. Add its parent edge to the tree unless it is the start.
-4. For each neighbour outside the tree, replace its key and parent if the new edge is lighter.
-5. Repeat until all vertices are selected.
+**Example** graph: $ab = 3$, $bc = 1$, $bf = 4$, $cf = 4$, $cd = 6$, $af = 5$, $fd = 5$, $ae = 6$, $fe = 2$, $ed = 8$.
 
-```pseudo
-Prim(G, start):
-    for each vertex v:
-        key[v] = infinity
-        parent[v] = none
-    key[start] = 0
-    Q = min-heap of all vertices by key
-    treeEdges = empty set
-    while Q is not empty:
-        u = ExtractMinimum(Q)
-        if key[u] == infinity: report graph disconnected
-        if parent[u] != none: add edge (parent[u], u) to treeEdges
-        for each neighbour v still in Q:
-            if weight(u, v) < key[v]:
-                parent[v] = u
-                key[v] = weight(u, v)
-                DecreaseKey(Q, v, key[v])
-    return treeEdges
-```
-
-Prim's key is a single connecting-edge weight. Dijkstra uses a complete source-to-vertex path length; confusing these update meanings gives the wrong algorithm.
-
-### Prim Source Example And Complexity
-
-![Source weighted Prim graph and selected MST](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/09_Greedy_Techniques/prim-example.svg)
-
-*Starting at a, the selected edges have weights 3, 1, 4, 2 and 5, totalling fifteen.*
-
-The source edge list is $ab:3,bc:1,bf:4,cf:4,cd:6,af:5,fd:5,ae:6,fe:2,ed:8$.
-
-| Vertex just added | Remaining best attachments after update |
+| Tree vertex added | Remaining vertices (labels) |
 |---|---|
-| $a$ | $b:(a,3),\ f:(a,5),\ e:(a,6),\ c:\infty,\ d:\infty$ |
-| $b$ | $c:(b,1),\ f:(b,4),\ e:(a,6),\ d:\infty$ |
-| $c$ | $f:(b,4),\ d:(c,6),\ e:(a,6)$ |
-| $f$ | $e:(f,2),\ d:(f,5)$ |
-| $e$ | $d:(f,5)$ |
-| $d$ | None |
+| $a(-, -)$ | $\mathbf{b(a, 3)}$, $c(-, \infty)$, $d(-, \infty)$, $e(a, 6)$, $f(a, 5)$ |
+| $b(a, 3)$ | $\mathbf{c(b, 1)}$, $d(-, \infty)$, $e(a, 6)$, $f(b, 4)$ |
+| $c(b, 1)$ | $d(c, 6)$, $e(a, 6)$, $\mathbf{f(b, 4)}$ |
+| $f(b, 4)$ | $d(f, 5)$, $\mathbf{e(f, 2)}$ |
+| $e(f, 2)$ | $\mathbf{d(f, 5)}$ |
+| $d(f, 5)$ | — |
 
-The equal edge $cf$ does not replace $bf$ under strict-improvement updates. Other tie conventions can produce a different MST of equal total weight.
+![Prim example](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/09_Greedy_Techniques/prim-example.svg)
 
-Selected edges are $ab,bc,bf,fe,fd$, with total $3+1+4+2+5=15$.
+*The selected MST edges are $ab, bc, bf, fe, fd$ with total weight $3 + 1 + 4 + 2 + 5 = 15$.*
 
-| Implementation | Cost | Useful setting |
-|---|---|---|
-| Adjacency lists and binary min-heap | $O((\lvert V\rvert+\lvert E\rvert)\log\lvert V\rvert)$, usually $O(\lvert E\rvert\log\lvert V\rvert)$ for connected graphs | Sparse graphs |
-| Matrix and linear minimum scan | $\Theta(\lvert V\rvert^2)$ | Dense graphs, simpler implementation |
-| Fibonacci heap | $O(\lvert E\rvert+\lvert V\rvert\log\lvert V\rvert)$ amortised | Better theoretical bound with implementation complexity |
+### Prim's Algorithm Complexity
 
-For dense graphs, $\lvert E\rvert=\Theta(\lvert V\rvert^2)$, so the matrix version can be preferable to a binary-heap version. The choice depends on representation and data; Prim is not universally faster than Kruskal.
+- With an adjacency-list representation and a min-heap ($O(\log\lvert V\rvert)$ per closest-vertex lookup), the time is $O(\lvert E\rvert \log \lvert V\rvert)$.
+- Prim is better than Kruskal for dense graphs.
+- It can be optimised further; the best choice depends on the graph's characteristics. A **Fibonacci heap** reduces the time to $O(\lvert E\rvert + \lvert V\rvert \log \lvert V\rvert)$.
+- For dense graphs, $\lvert E\rvert = \Theta(\lvert V\rvert^2)$, and easier approaches also exist, since Fibonacci heaps are complex to implement.
 
-### Kruskal, Limits And Course Skills
+### Greedy Strengths And Weaknesses
 
-Kruskal's method is named in the source and complements Prim:
+| Strengths | Weaknesses |
+|---|---|
+| Intuitively simple and appealing | Only applicable to optimisation problems |
+| | Doesn't always produce an optimal solution |
+| | More sophisticated alternatives can work better (e.g. arithmetic coding beats Huffman) |
 
-1. Start with one component per vertex.
-2. Sort edges by nondecreasing weight.
-3. Include an edge only if its endpoints currently belong to different components.
-4. Merge those components; stop after $\lvert V\rvert-1$ included edges.
+### Course Conclusion
 
-A **disjoint-set structure** tracks component membership efficiently. Rejecting edges within one component prevents cycles; the cut property supports correctness.
+The TOA section covered algorithmic strategies for solving computational problems, including well-known solutions to common optimisation, computational geometry and graph problems.
 
-Greedy strengths are simplicity and often low cost. Its limitation is applicability: a feasible local choice can be globally wrong. The course expects you to choose an appropriate design strategy, analyse iterative and recursive costs, and apply common algorithms to sample data, including geometry and graph optimisation.
+Key skills:
+
+| Skill | What you must be able to do |
+|---|---|
+| Problem solving | Understand how to apply the different algorithmic strategies |
+| Analysis | Determine the efficiency of a simple iterative or recursive algorithm |
+| Knowledge and application | Know the common algorithms under each strategy and apply them to sample data |

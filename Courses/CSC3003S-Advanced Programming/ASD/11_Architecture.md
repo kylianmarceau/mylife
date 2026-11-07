@@ -5,293 +5,336 @@ tags:
 
 # Software Architecture And Architectural Patterns
 
-**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)  
-**Source**: [ASD11-Architecture.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD11-Architecture.pdf), Johan Bontes (slides modified from Prof. Edwin Blake), University of Cape Town, PDF pages 1–48  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)
+**Source**: [ASD11-Architecture.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD11-Architecture.pdf), Johan Bontes (slides modified from Prof. Edwin Blake), University of Cape Town, pages 1–48
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes: the architecture-centred approach, why architectural patterns help, the key patterns (layered, repository, client–server, pipe and filter, MVC), layered architectures in depth, realising non-functional requirements, and generic application architectures.
+> The architecture-centred approach, why patterns encapsulate experience, the key architectural patterns (layered, repository, client–server, pipe and filter, MVC), multi-tier layered architectures, realising non-functional requirements, and generic application architectures.
 
 ---
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Architecture-Centred Approach|Architecture-Centred Approach]]
-  - [[#From Analysis To Design|From Analysis To Design]]
-  - [[#What A Software Architecture Is|What A Software Architecture Is]]
-  - [[#Architectural Patterns: Encapsulated Experience|Architectural Patterns: Encapsulated Experience]]
+  - [[#The Architecture-Centred Approach|The Architecture-Centred Approach]]
+  - [[#What Software Architecture Is|What Software Architecture Is]]
+  - [[#Patterns Are Encapsulated Experience|Patterns Are Encapsulated Experience]]
   - [[#Layered Architecture Pattern|Layered Architecture Pattern]]
   - [[#Repository Pattern|Repository Pattern]]
   - [[#Client–Server Pattern|Client–Server Pattern]]
   - [[#Pipe And Filter Pattern|Pipe And Filter Pattern]]
   - [[#Cohesion And Coupling|Cohesion And Coupling]]
-  - [[#Model–View–Controller (MVC)|Model–View–Controller (MVC)]]
-  - [[#Layered Architectures In Depth|Layered Architectures In Depth]]
-  - [[#Model–View Separation And Layer Benefits|Model–View Separation And Layer Benefits]]
-  - [[#Layered Examples: Internet Stack And Web 2.0|Layered Examples: Internet Stack And Web 2.0]]
+  - [[#Model-View-Controller|Model-View-Controller]]
+  - [[#MVC Components In Detail|MVC Components In Detail]]
+  - [[#Multi-Tier Layered Architectures|Multi-Tier Layered Architectures]]
+  - [[#Application Coordination And Model-View Separation|Application Coordination And Model-View Separation]]
+  - [[#Benefits Of Layering And Real-World Stacks|Benefits Of Layering And Real-World Stacks]]
   - [[#Realising Non-Functional Requirements|Realising Non-Functional Requirements]]
-  - [[#Purpose Of Architecture|Purpose Of Architecture]]
-  - [[#Generic Application Architectures|Generic Application Architectures]]
+  - [[#Application Architectures|Application Architectures]]
 
 ---
 
 ## Core Content
 
-### Architecture-Centred Approach
+### The Architecture-Centred Approach
 
-- The course emphasises design. Design pervades engineering and is an important part of computer science.
+- This approach emphasises **design**, which pervades engineering activities and is an important part of computer science.
 - Misreading Agile's lean documentation leads to **inadequate architectural design information**.
+- **Architectural decisions are system-wide and strategic**: use object orientation, choose the overall architectural pattern, choose APIs.
+- **Tactical decisions are local and detailed**: use of design patterns, refactoring decisions, etc.
 
-| Architecture decisions | Tactical decisions |
-|---|---|
-| **System-wide, strategic** | **Local, detailed** |
-| Use object orientation; choose the overall architectural pattern; choose APIs | Use of design patterns, refactoring decisions, … |
+Requirements and analysis lead to design, in a loop:
 
-### From Analysis To Design
-
-Development alternates roles:
-
-1. As **investigators**, learn about the problem (analysis).
-2. As **designers**, build a working solution (design).
+1. We are investigators learning about a problem (analysis: use cases, system sequence diagrams, domain model).
+2. We change roles and become designers making a working solution (design: architecture, interaction diagrams, class diagrams).
 3. Go to 1.
 
-| Analysis artefacts | Design artefacts |
-|---|---|
-| Use cases, system sequence diagrams, domain model | Architecture, interaction diagrams, class diagrams |
-
-### What A Software Architecture Is
+### What Software Architecture Is
 
 #### Definitions
 
-> **Software architecture**: The large-scale "big ideas" of a system: its motivations, constraints, organisation, patterns, responsibilities and connections.
+> **Software architecture**: The large-scale, big ideas of a system — its motivations, constraints, organisation, patterns, responsibilities and connections.
 
-Architecture is especially concerned with **non-functional requirements**: ensuring they can be met, or suggesting trade-offs if they cannot (trends, cost, maintainability).
+Architecture is very concerned with **non-functional requirements**: ensuring they can be met, or, if not, suggesting trade-offs (e.g. trends, cost, maintainability).
 
-### Architectural Patterns: Encapsulated Experience
+### Patterns Are Encapsulated Experience
 
 #### Definitions
 
-> **Architectural pattern**: An architectural template encapsulating a proven basic approach to a recurring type of problem.
+> **Architectural pattern**: A reusable template for the overall structure of a system that encapsulates the basic approach to a class of similar problems.
 
-- Much of a programming style is how solutions are **structured**, not the small details. Reusing structure across projects gives all the benefits of reuse.
-- Architecture never starts from a blank slate. New designs build on previous similar designs, like accountancy, where every factory uses the same procedures and blueprint.
-- Well-structured OO systems contain recurring patterns of classes and objects. Knowing what worked before makes designers more productive and designs more flexible and reusable.
+- Much of your programming style is the way you **structure** solutions, not the minute details of code. Reusing structure across projects gives all the benefits of reuse.
+- Architecture never starts from an empty slate: new designs build on previous similar ones. The IT community has many past solutions, but has made little progress documenting the experience — architectural templates describe it best.
+- Like accountancy: every factory follows the same procedures, the same blueprint.
 
-The benefits of patterns:
+Aims:
 
-- they capture expertise and communicate it to non-experts
-- they give developers a **common language**
-- designs become more understandable and easier to modify
-- good designs are easier to reuse, and non-reusable alternatives easier to avoid
-- documentation improves: start system documentation with the UML design pattern
+- Enhance the reusability of object-oriented code — well-structured OO systems have recurring patterns of classes and objects.
+- Knowing what worked before makes designers more productive and designs more flexible and reusable.
+
+Benefits of architectural patterns:
+
+| Benefit |
+|---|
+| Capture expertise and communicate it to non-experts |
+| A common language among developers |
+| Better design understandability |
+| Easier reuse of good designs; avoid non-reusable alternatives |
+| Easier design modification |
+| Better documentation — start system documentation with a UML design pattern |
 
 ### Layered Architecture Pattern
 
-| | Layered architecture |
+| Field | Content |
 |---|---|
-| **Problem** | Building new facilities on top of existing systems; development spread across teams (one team per layer); multi-level security |
-| **Solution** | Organise the system into layers of related functionality. Each layer provides services to the layer above; the lowest layers are core services used throughout. |
-| **Pro** | A layer can be swapped for another with the same interface. Redundant facilities (e.g. authentication) in each layer increase dependability. |
-| **Con** | Clean separation is often hard in practice; high layers may need to call low layers directly; multiple levels can be slow. |
+| **Problem** | Building new facilities on top of existing systems; development spread across teams (one team per layer); multi-level security needed |
+| **Solution** | Organise the system into layers of related functionality. Each layer provides services to the layer above. The lowest layers are core services used throughout the system |
+| **Pros** | A layer can be swapped for another with the same interface. Redundant facilities (e.g. authentication) can be provided in each layer for dependability |
+| **Cons** | Clean separation between layers is hard in practice; high layers may need to talk directly to low ones. Multiple levels can make it slow |
 
 ![Layered architecture](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/11_Architecture/layered.svg)
 
-*UI (Swing, Web) calls the Domain (Sales, Payments, Taxes), which calls Technical Services (Persistence, Logging, RulesEngine).*
+*UI (Swing, Web) sits on the domain (Sales, Payments, Taxes), which sits on technical services (Persistence, Logging, RulesEngine).*
 
 ### Repository Pattern
 
-| | Repository |
+| Field | Content |
 |---|---|
-| **Problem** | Large volumes of information stored for a long time; data-driven systems where adding data triggers an action |
-| **Solution** | Store all data in a central repository accessible to all components. Components interact **only** through the repository. |
-| **Pro** | Components are independent; changes propagate to all components; data is managed in one place (e.g. single backups) |
-| **Con** | The repository is a **single point of failure**; routing all traffic through it may be slow; distributing it is complex |
+| **Problem** | Large volumes of information must be stored for a long time; or a data-driven system where adding data triggers an action or tool |
+| **Solution** | Store all data in a central repository accessible to all components; components interact **only** through the repository |
+| **Pros** | Components are independent. A change by one component propagates to all. All data is managed in one place (e.g. one backup) |
+| **Cons** | The repository is a **single point of failure**. Routing all traffic through it may be slow. Distributing it across machines is complex |
 
-![Repository](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/11_Architecture/repository.svg)
+![Repository pattern](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/11_Architecture/repository.svg)
 
-*Clients persist to and query the repository; they never talk to each other directly.*
+*Clients' business logic persists to and queries a shared repository rather than talking to each other.*
 
 ### Client–Server Pattern
 
-| | Client–server |
+| Field | Content |
 |---|---|
-| **Problem** | Shared data accessed from many locations; servers must be replicable; load is variable |
-| **Solution** | Organise functionality into services, each on a separate server; clients use these services |
-| **Pro** | Servers can be distributed across a network and added or upgraded with little disruption; general functionality (e.g. printing) is available to all clients, which don't implement it themselves |
-| **Con** | Each service is a single point of failure (denial-of-service, server failure); network performance may be unpredictable; management problems if servers belong to different organisations |
+| **Problem** | Shared-database data must be accessed from many locations; servers must be replicable; load is variable |
+| **Solution** | Organise functionality into services, each on a separate server. Clients use the services |
+| **Pros** | Servers can be distributed across a network and added or upgraded with minimal disruption. General functionality (e.g. printing) is available to all clients, which don't implement it |
+| **Cons** | Each service is a single point of failure (denial-of-service or server failure). Performance may be unpredictable (network). Management problems if servers belong to different organisations |
 
-![Client–server film library](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/11_Architecture/client-server.svg)
+![Client-server film library](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/11_Architecture/client-server.svg)
 
-*Clients reach catalogue, video, picture and web servers over the Internet. Each server owns its own store.*
+*Clients 1…n reach catalogue, video, picture and web servers over the Internet; each server owns its store.*
 
 ### Pipe And Filter Pattern
 
-| | Pipe and filter |
+#### Definitions
+
+> **Filter**: A discrete processing component that performs one type of data transformation.
+
+> **Pipe**: The connection through which data flows from one filter to the next.
+
+| Field | Content |
 |---|---|
-| **Problem** | Data processing (batch or transaction) where inputs pass through stages to produce outputs |
-| **Solution** | Each filter is discrete and performs one transformation; data flows through pipes from one to the next |
-| **Pro** | Easy to understand; supports reuse of transformations; matches many business workflows; adding transformations is simple; can be sequential or concurrent |
-| **Con** | The data format between stages must be standardised; each filter decodes and re-encodes, adding overhead; incompatible data structures prevent reuse |
+| **Problem** | Data processing (batch or transaction) where inputs are processed in stages to produce related outputs |
+| **Solution** | Each filter performs one transformation; data flows through pipes from component to component |
+| **Pros** | Easy to understand; supports transformation reuse; workflow style matches many business processes; adding transformations is simple; can be sequential or concurrent |
+| **Cons** | The data format between transformations must be standardised, so each filter decodes input and encodes output — extra overhead. Transformations with incompatible data structures can't be reused |
 
 ![Pipe and filter](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/11_Architecture/pipe-filter.svg)
 
-*A document source is enriched, rendered to HTML, and displayed. Each pipe carries an agreed format.*
+*Source → Filter 1 → Filter 2 → Sink, e.g. Document (XML) → Enrich (internal XML) → Generate (HTML) → Display.*
 
 ### Cohesion And Coupling
 
 #### Definitions
 
-> **Cohesion**: Communication **within** a module.
+> **Cohesion**: Communication **within** a module — how strongly its parts belong together.
 
-> **Coupling**: Communication **between** modules.
+> **Coupling**: Communication **between** modules — how strongly they depend on each other.
 
-The key aim of these patterns is to **minimise coupling and maximise cohesion**.
+The key aim of all these patterns: **minimise coupling and maximise cohesion**.
 
-### Model–View–Controller (MVC)
+### Model-View-Controller
 
-| | MVC |
+| Field | Content |
 |---|---|
-| **Problem** | Many ways to view and interact with data, or future presentation and interaction are unknown |
-| **Solution** | Separate presentation and interaction from data. The **Model** manages data and operations; the **View** manages presentation; the **Controller** handles user interaction (keys, clicks) and passes it to the View and Model. |
-| **Pro** | Decouples data from representation; the same data can be shown in different ways |
-| **Con** | Extra code and complexity for simple data models and interactions |
+| **Problem** | Multiple ways to view and interact with data; or future interaction and presentation are unknown |
+| **Solution** | Separate presentation and interaction from the data, using three interacting components |
+| **Pros** | Decouples data from its representation; the same data can be shown in different ways |
+| **Cons** | Extra code and complexity when the data model and interactions are simple |
 
-![MVC](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/11_Architecture/mvc.svg)
+| Component | Role |
+|---|---|
+| **Model** | Manages the system data and operations — the representation of the application |
+| **View** | Defines and manages presentation — how information is displayed |
+| **Controller** | Manages user interaction (key presses, mouse clicks) — maps user actions to operations on the model, passing them to the view and model |
 
-*The controller calls model mutators. The model notifies all registered views, which query it to redraw.*
+![Model-View-Controller](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/11_Architecture/mvc.svg)
 
-MVC is a special case of the **repository** architecture: the model is the central data store, and the controller explicitly dictates control flow.
+*The controller initiates changes in the model; the model notifies its subscribed views, which redraw by querying it.*
 
-| Component | Role | Java mechanism |
+MVC is a special case of the repository architecture: the model implements the central data store, and the controller explicitly dictates control flow.
+
+### MVC Components In Detail
+
+**Model**:
+
+- Carries out some task, with no concern for "look and feel".
+- Has a purely functional public interface: **query methods** (get current state) and **mutator methods** (modify state).
+- Lets views **register** and **notifies** registered views when its state changes. In Java: a class extending `java.util.Observable`, whose superclass provides register/notify.
+
+**View**:
+
+- Provides the GUI for a model and displays it by querying the model.
+- When the user manipulates the view, it informs the controller.
+- In Java: built with AWT or Swing; implements `java.util.Observer`.
+
+**Controller**:
+
+- Views link to (possibly multiple) controllers.
+- When the user interacts with a linked view, the controller calls the model's mutator methods.
+- The model then notifies **all** registered views, which update the display.
+- In Java: controllers are event listeners.
+
+Sequence for one user action:
+
+1. The user manipulates a view.
+2. The view informs its controller.
+3. The controller calls a model mutator.
+4. The model notifies all registered views.
+5. Each view queries the model and redraws.
+
+### Multi-Tier Layered Architectures
+
+Advice: separate presentation from application logic and other concerns.
+
+#### Definitions
+
+> **Layer**: A coarse-grained group of classes, subsystems or packages with cohesive responsibility for a major aspect of the system. Higher layers call the services of lower layers.
+
+> **Strict layered architecture**: Each layer uses only the layer directly below it.
+
+> **Relaxed layered architecture**: A layer may skip layers below it.
+
+Typical layers, from most application-specific to most general (lower layers are wider, i.e. more widely applicable):
+
+| Layer | Also called | Contents |
 |---|---|---|
-| **Model** | Carries out the task with no concern for look and feel; a purely functional public interface of **query** (get state) and **mutator** (modify state) methods; registers views and notifies them when state changes | Extends `java.util.Observable` (register/notify) |
-| **View** | Provides the GUI; displays by querying the model; informs the controller when the user manipulates it | AWT/Swing; implements `java.util.Observer` |
-| **Controller** | Linked to views; on user interaction calls model mutators; the model then notifies **all** registered views | Event listeners |
+| UI | Presentation, View | GUI windows, reports, speech interface; HTML, XML, XSLT, JSP, JavaScript |
+| Application | Workflow, Process, Mediation, Controller | Handles presentation requests; workflow; session state; window/page transitions; consolidating data for presentation |
+| Domain | Business, Application logic, Model | Handles application requests; domain rules; domain services (POS, inventory), possibly shared by several applications |
+| Business infrastructure | Low-level business services | Very general business services used in many domains, e.g. `CurrencyConverter` |
+| Technical services | Technical infrastructure, high-level technical services | Relatively high-level services and frameworks: persistence, security |
+| Foundation | Core/base services, low-level infrastructure | Data structures, threads, maths, file, DB and network I/O |
 
-### Layered Architectures In Depth
+![Typical layers](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/11_Architecture/layer-stack.svg)
 
-#### Definitions
+*Dependencies point downward; lower layers are more general and more reusable.*
 
-> **Layer**: A coarse-grained group of classes, subsystems or packages with cohesive responsibility for a major aspect of the system.
+In UML, logical partitioning is shown with **package diagrams**, e.g. a UI package (Summaries, Editors), a Domain package (Core, Evaluation, Policies) and a Services package (Persistence, Logging, Reporting, Security). Packages can group classes, other packages, use cases, etc.
 
-> **Strict layered architecture**: A layer uses only the layer directly below.
+### Application Coordination And Model-View Separation
 
-> **Relaxed layered architecture**: A layer may skip layers.
-
-"Higher" layers call the services of "lower" layers. Typical OO layers are UI, then application logic and domain objects, then technical services (application-independent and reusable).
-
-![Typical layer stack](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/11_Architecture/layer-stack.svg)
-
-*Upper layers are more application-specific. Lower layers are wider in applicability and are depended on by those above.*
-
-In UML the logical partitioning is shown with **package diagrams**:
-
-- UI packages: Summaries, Editors
-- Domain packages: Core, Evaluation, Policies
-- Services packages: Persistence, Logging, Reporting, Security
-
-Packages group classes, other packages and use cases.
-
-**Application coordination layer.** Consider a layer whose objects represent **use cases** and may hold session state, e.g. `RentingVideoUCHandler` and `PayingFinesUCHandler`. It sits between UI and Domain.
-
-### Model–View Separation And Layer Benefits
+**Application coordination layer**: consider a layer whose objects represent **use cases** (e.g. `RentingVideoUCHandler`, `PayingFinesUCHandler`) and may hold session state. It sits between the UI and the domain.
 
 #### Definitions
 
-> **Model–view separation principle**: Model (domain-layer) objects must not know about View (UI) objects, and domain responsibilities must not be assigned to View objects.
+> **Model-view separation principle**: Model (domain-layer) objects must not know about view (UI-layer) objects, and domain responsibilities must not be given to view objects.
 
-- This gives better separation of concerns and lower coupling.
-- An independent domain layer can be reused with another UI, e.g. application and web UIs over one domain.
-- It supports multiple views of one model.
+Benefits:
 
-More benefits of layering:
+- better separation of concerns and lower coupling;
+- the domain layer can be reused with another UI;
+- multiple views of one model become easy (e.g. desktop and web UIs for the same application).
 
-- The system is easier to understand: each layer has a specific purpose.
+### Benefits Of Layering And Real-World Stacks
+
+- The system is easier to comprehend: each layer has a specific purpose.
 - High cohesion within layers, low coupling between them.
-- Changes do not ripple through the system; they stay within a layer.
-- Low coupling makes it easy to swap a lower-layer technology, e.g. replace the database without rewriting application logic.
+- Source changes don't ripple through the system; they stay within a layer.
+- Low coupling makes it easy to swap a lower-layer service for another technology — e.g. replace the database without rewriting application logic.
 - Lower layers contain more reusable functionality.
 
-### Layered Examples: Internet Stack And Web 2.0
+**Internet stack (TCP/IP model)**:
 
-| Layer | Protocols |
+| Layer | Examples |
 |---|---|
-| Application / session / presentation | HTTP, FTP, DNS, SMTP, SSH, TLS/SSL |
+| Application (incl. presentation, session) | HTTP, FTP, DNS, SMTP, SSH, TLS/SSL |
 | Transport | TCP, UDP |
 | Network | IP (IPv4, IPv6) |
 | (Data) link | PPP, MAC, FDDI |
 | Physical | 10BASE-T, POTS, 802.11a/b/g/n |
 
-RFC 1958 (1996): over 25 years the Internet grew by factors of 1000 (backbone speed) to 1 000 000 (hosts). "The principle of constant change is perhaps the only principle of the Internet that should survive indefinitely."
+RFC 1958 (1996): over 25 years the Internet grew by factors of 1000 (backbone speed) to 1 000 000 (hosts), so "the principle of constant change is perhaps the only principle of the Internet that should survive indefinitely."
 
 **Web 2.0 reference architecture**:
 
-| Tier | Contents |
-|---|---|
-| Client application tier | The user's view of services: browsers, Flash, Acrobat, iTunes |
-| Connectivity | Standards and protocols, e.g. XML over HTTP |
-| Service tier | Packages resources as services and controls what goes in and out (SOAP, EJB, PHP, Rails, ASP) |
-| Resource tier | Back-end capabilities (data or processing) |
-| Tools (cross-cutting) | Design, development and governance tools (Dreamweaver, Xcode, IDEs) |
+| Tier | Role | Examples |
+|---|---|---|
+| Client application tier | User's view of services | Web browsers, Flash, Acrobat, iTunes |
+| Connectivity | Means of reaching services | XML over HTTP |
+| Service tier | Packages resources as services and controls what goes in and out | Application servers: SOAP, EJB, PHP, Rails, ASP |
+| Resource tier | Back-end data or processing capabilities | Databases, back-end systems |
+| Design, development and governance tools | Building the web apps | Dreamweaver, Xcode, DashCode, IDEs |
 
 ### Realising Non-Functional Requirements
 
-| Requirement | Architectural tactic |
+| Requirement | Architectural approach |
 |---|---|
-| **Performance** | Localise critical operations and minimise communication; use large rather than fine-grained components; allow concurrency |
-| **Security** | A layered architecture with critical assets in the inner layers |
-| **Safety** | Localise safety-critical features in a few subsystems |
-| **Availability** | Redundant components and fault-tolerance mechanisms; replace components without stopping the system |
-| **Maintainability** | Fine-grained, replaceable components; avoid global or shared data structures |
+| **Performance** | Localise critical operations and minimise communication; use large rather than fine-grained components; allow for concurrency |
+| **Security** | Use a layered architecture with critical assets in the inner layers |
+| **Safety** | Localise safety-critical features in a small number of subsystems |
+| **Availability** | Include redundant components and fault-tolerance mechanisms; allow components to be replaced without stopping the system |
+| **Maintainability** | Use fine-grained, replaceable components; avoid global/shared data structures |
 
-Some of these conflict: performance wants large components, maintainability fine-grained ones. Architecture is about trade-offs.
+Note the conflicts: performance wants large components, maintainability wants fine-grained ones.
 
-### Purpose Of Architecture
+Architecture also serves **beforehand**:
 
-Before construction, the architecture:
+- as a design plan for negotiating system requirements;
+- to structure discussions with clients, developers and managers;
+- as an essential complexity-management tool that hides details so designers can focus on key abstractions.
 
-- serves as a design plan for **negotiating requirements**
-- structures discussions with clients, developers and managers
-- is an essential tool for **complexity management**, hiding details so designers can focus on the key abstractions
+### Application Architectures
 
-### Generic Application Architectures
-
-This is an alternative perspective: architectures by **application type**. The two fundamental business models are **batch** and **transaction** processing.
-
-| Type | Description | Examples |
-|---|---|---|
-| **Data processing** | Data-driven; processes data in batches without user intervention | Billing, payroll |
-| **Transaction processing** | Data-centred; processes user requests and updates a database | E-commerce, reservations |
-| **Event processing** | Actions depend on interpreting events from the environment | Games, word processors, real-time systems |
-| **Language processing** | User intentions are written in a formal language that the system processes | Compilers, command interpreters |
-
-Many systems combine types.
+So far architecture was viewed through control, distribution and structure. An alternative is the **application perspective**: generic models of application types help us understand and compare applications.
 
 ![Application architectures](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/11_Architecture/application-architectures.svg)
 
-*Batch systems follow input → process → output. Compilers chain lexical, syntactic and semantic analysis into code generation, sharing a symbol table and syntax tree.*
+*Four generic application types, each with a characteristic structure.*
+
+| Type | Description | Examples |
+|---|---|---|
+| **Data processing** | Data-driven; processes data in **batches** without user intervention | Billing, payroll |
+| **Transaction processing** | Data-centred; processes user requests and updates a database | E-commerce, reservations |
+| **Event processing** | Actions depend on interpreting events from the environment | Games, word processors, real-time systems |
+| **Language processing** | User intentions are written in a formal language that the system processes and interprets | Compilers, command interpreters |
+
+Real applications may combine types.
 
 **Data processing (input–process–output)**:
 
-1. **Input** reads data from a file or database, validates it, and queues valid data.
-2. **Process** takes a transaction from the queue, computes, and creates a result record.
-3. **Output** formats the records and writes them to the database or a printer.
+1. **Input** reads data from a file or database, checks validity and queues valid data.
+2. **Process** takes a transaction from the queue, computes, and creates a new result record.
+3. **Output** reads the records, formats them and writes them to the database or a printer.
 
-**Transaction processing.** To the user, a transaction is any coherent sequence of operations that satisfies a goal, e.g. "find the times of flights from London to Paris". Users make **asynchronous** requests that a **transaction manager** processes against the database, letting many users access and modify it remotely.
+**Transaction processing**: processes user requests for information from, or updates to, a database. To a user, a transaction is any coherent sequence of operations that satisfies a goal (e.g. "find flight times from London to Paris"). Users make asynchronous requests that a **transaction manager** processes. Information can be accessed and modified remotely by many users.
 
-**Event processing: an editing system**, which is naturally object-oriented:
+**Event processing — editing systems** are naturally object-oriented:
 
-| Component | Responsibility |
+| Component | Role |
 |---|---|
 | Screen | Monitors screen memory and detects events |
 | Event | Recognises events and passes them on for processing |
 | Command | Executes a user command |
-| Editor data | Manages the editor's data structure |
+| Editor data | Manages the editor data structure |
 | Ancillary data | Manages other data, such as styles and preferences |
 | File system | Manages file I/O |
 | Display | Updates the screen display |
 
 User-interface events are detected and an in-memory data structure is modified.
 
-**Language processing: a compiler.** Lexical analysis → syntactic analysis (builds the abstract syntax tree) → semantic analysis → code generation, all using the symbol table. Compilers translate source into another language (e.g. assembler), and interpreters execute the instructions directly.
+**Language processing — compilers** translate source code into another language (e.g. assembler) and may interpret the instructions:
+
+1. **Lexical analysis** (lexical analyser) → tokens, filling the **symbol table**.
+2. **Syntactic analysis** (syntax analyser) → an **abstract syntax tree (AST)**.
+3. **Semantic analysis** (semantic analyser), using the symbol table and syntax tree.
+4. **Code generation** (code generator).

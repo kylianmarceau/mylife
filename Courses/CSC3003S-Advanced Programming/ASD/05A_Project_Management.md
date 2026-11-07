@@ -5,15 +5,12 @@ tags:
 
 # Project Management
 
-**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)  
-**Source**: [ASD05-ProjMan.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD05-ProjMan.pdf), Johan Bontes, University of Cape Town, PDF pages 1–47  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)
+**Source**: [ASD05-ProjMan.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD05-ProjMan.pdf), Johan Bontes, University of Cape Town, pages 1–47
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes: projects versus processes, managing complexity, design levels, scope and requirements, planning (SMART goals, deliverables, schedule, supporting plans), milestones, and metrics (DORA, KPIs, pitfalls).
-
-> [!note] <span style="color:#b89aff">Not examinable</span>
-> Slides with purple titles are marked not examinable: project-management tools, the requirement checklists, and the architecture topic list. They are summarised briefly below for completeness.
+> Projects versus processes, managing complexity, good design properties, the six design levels (methodology to routines), requirements and scope, planning (SMART goals, deliverables, schedules, the mythical man-month, supporting plans), milestones, and metrics (DORA, KPIs, pitfalls).
 
 ---
 
@@ -22,20 +19,22 @@ tags:
 - [[#Core Content|Core Content]]
   - [[#Project Versus Process|Project Versus Process]]
   - [[#What Project Management Is|What Project Management Is]]
-  - [[#No Silver Bullet: Essential And Accidental Complexity|No Silver Bullet: Essential And Accidental Complexity]]
-  - [[#Managing Complexity (Dijkstra)|Managing Complexity (Dijkstra)]]
+  - [[#No Silver Bullet: Managing Complexity|No Silver Bullet: Managing Complexity]]
   - [[#Good Design Properties|Good Design Properties]]
-  - [[#Design Levels|Design Levels]]
+  - [[#The Design Levels|The Design Levels]]
+  - [[#Level 0: Pick A Methodology|Level 0: Pick A Methodology]]
   - [[#Level 1: Requirements And Scope|Level 1: Requirements And Scope]]
   - [[#Stakeholders And Feasibility|Stakeholders And Feasibility]]
-  - [[#Why Prepare And Why Explicit Requirements|Why Prepare And Why Explicit Requirements]]
-  - [[#Levels 2–5: Subsystems, Classes, Routines|Levels 2–5: Subsystems, Classes, Routines]]
-  - [[#Planning: SMART Goals, Deliverables, Schedule|Planning: SMART Goals, Deliverables, Schedule]]
+  - [[#Why Explicit Requirements?|Why Explicit Requirements?]]
+  - [[#Requirements Checklist|Requirements Checklist]]
+  - [[#Architecture Checklist|Architecture Checklist]]
+  - [[#Levels 2–5: Subsystems, Classes And Routines|Levels 2–5: Subsystems, Classes And Routines]]
+  - [[#Project Planning: Goals, Deliverables And Schedule|Project Planning: Goals, Deliverables And Schedule]]
   - [[#The Mythical Man-Month|The Mythical Man-Month]]
   - [[#Supporting Plans And Management Activities|Supporting Plans And Management Activities]]
   - [[#Milestones And Deliverables|Milestones And Deliverables]]
   - [[#DORA Metrics|DORA Metrics]]
-  - [[#KPIs, Velocity And Code-Quality Metrics|KPIs, Velocity And Code-Quality Metrics]]
+  - [[#KPIs, Productivity And Code Quality Metrics|KPIs, Productivity And Code Quality Metrics]]
   - [[#Metric Pitfalls And SMART Metrics|Metric Pitfalls And SMART Metrics]]
 
 ---
@@ -44,233 +43,287 @@ tags:
 
 ### Project Versus Process
 
-| | Process | Project |
+| Aspect | Process | Project |
 |---|---|---|
 | Nature | Routine | Ad hoc |
 | Duration | Continuous | Fixed start and end |
 | Inputs, outputs, tasks | Known and documented | Uncertain |
-| Success rate | $>99\%$ | $\approx 50\%$ |
+| Success rate | > 99% | ~50% |
 | Emphasis | Small improvements | Creation from scratch |
 | Control | Fixed measurements | Outcome versus desires |
-| Measurement | Money in = money out | Meets requirements |
+| Measurement | \$ input = \$ output | Meets requirements |
 
-A factory assembly line is a process. Software development is a project. In short: process good, project bad.
+Process good, project bad: projects are inherently riskier, which is why they need management.
 
 ### What Project Management Is
 
 #### Definitions
 
-> **Project management**: Ensuring software is delivered on time, within budget, and to requirements (on quality). Software development is always constrained by budget and time.
+> **Project management**: Ensuring software is delivered on time, within budget and as per requirements (at the required quality).
 
-Systems development needs careful management because of **dependencies, people and organisation**:
+Software development is always subject to budget and time constraints. It needs careful management because of **dependencies, people and organisation**:
 
 - Software artefacts depend on each other, so production must be planned, monitored and coordinated to be efficient, effective and on time.
-- Projects often involve many developers, some specialists, needed at different times.
-- Activities must follow a sequence. You can only test components once they are built, although test scripts and harnesses can be prepared earlier.
+- Many developers are involved, some with specialised skills needed at different times.
+- Activities must follow a sequence — e.g. you can only test components once they're developed, though test scripts and harnesses can be prepared earlier.
 
-### No Silver Bullet: Essential And Accidental Complexity
+### No Silver Bullet: Managing Complexity
+
+> "There is no single technique that fixes the inherent complexity of software design and development." — Fred Brooks, *No Silver Bullet* (1987)
 
 #### Definitions
 
-> **No silver bullet** (Brooks, 1987): No single technique fixes the inherent complexity of software design and development.
+> **Essential problems**: Difficulties inherent in the problem — requirements and scope.
 
-> **Essential problems**: Difficulties inherent in the problem itself (requirements, scope).
+> **Accidental problems**: Difficulties from how we work — process, tools and people.
 
-> **Accidental problems**: Difficulties caused by how we build it (process, tools, people).
+- Complexity is the problem, and it must be managed. Computer science uniquely spans about $10^{13}$ orders of magnitude.
+- Ineffective designs come from:
+  - a complex solution to a simple problem;
+  - a simple, faulty solution to a complex problem;
+  - a complex, faulty solution to a complex problem.
 
-- **Complexity is the problem** and must be managed.
-- Computer science spans about $10^{13}$ orders of magnitude of scale, more than any other discipline.
+**Dijkstra: manage complexity.** All other goals are secondary.
 
-Ineffective designs come from:
-
-- a complex solution to a simple problem
-- a simple, faulty solution to a complex problem
-- a complex, faulty solution to a complex problem
-
-### Managing Complexity (Dijkstra)
-
-1. **Minimise the essential complexity** you must hold in your head at once:
-   - problem decomposition: break the project into simple pieces
-   - loose coupling
-   - clean interfaces with no hidden gotchas
-2. **Keep accidental complexity from proliferating**, through tools (language) and frameworks.
-
-All other goals are secondary to managing complexity.
+- **Minimise essential complexity** held in your head at any one time:
+  - decompose the problem into simple pieces,
+  - keep coupling loose,
+  - use clean interfaces with no hidden gotchas.
+- **Keep accidental complexity from proliferating**: tools (language) and frameworks.
 
 ### Good Design Properties
 
 | Property | Meaning |
 |---|---|
-| **Minimal complexity** | Easy to understand |
-| **Ease of maintenance** | Documented and understandable |
-| **Loose coupling** | Interfaces using abstraction, encapsulation and information hiding |
-| **Extensible** | Easy to extend |
-| **Reusable** | DRY: don't repeat yourself |
-| **High fan-in** | Low-level classes are reused often |
-| **Low fan-out** | A high-level class or function uses few lower-level ones |
-| **Leanness** | "Make everything as simple as possible, but not simpler" |
-| **Stratified** | A consistent view at every level of decomposition |
-| **Standardised** | Uses common, proven patterns |
+| Minimal complexity | Easy to understand |
+| Ease of maintenance | Documented and understandable |
+| Loose coupling | Interfaces using abstraction, encapsulation and information hiding |
+| Extensible | Easy to extend |
+| Reusable | **DRY** — don't repeat yourself |
+| High fan-in | Low-level classes are reused often |
+| Low fan-out | A high-level class or function uses few lower-level ones |
+| Leanness | "Make everything as simple as possible, but not simpler" |
+| Stratified | A consistent view at every level of decomposition |
+| Standardised | Uses common, proven patterns |
 
-Project-management tools (not examinable) can be mixed and matched for the capstone project.
+Project management tools (many exist) can be mixed and matched for the capstone project.
 
-### Design Levels
+### The Design Levels
 
 ![Design levels](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/05A_Project_Management/design-levels.svg)
 
-*Design proceeds from choosing a methodology, through project requirements, subsystems and classes, down to routines and source code.*
+*Design proceeds from choosing a methodology down through project, subsystems, classes and routines to source code.*
 
-**Level 0: pick a methodology** (a software development life cycle, SDLC), e.g. the Unified Process or Waterfall (Royce, 1970). Royce's waterfall runs: system requirements → software requirements → analyse → design → code → test → deploy.
+| Level | Focus |
+|---|---|
+| 0 | Methodology |
+| 1 | Project: requirements, scope, architecture |
+| 2 | Subsystems |
+| 3 | Classes / packages |
+| 4 | Routines: methods and data in classes |
+| 5 | Routine design and source code |
 
-### Level 1: Requirements And Scope
+### Level 0: Pick A Methodology
 
 #### Definitions
 
-> **Scope**: What the software will deliver, described by narratives, use cases or requirements, and bounded by constraints.
+> **SDLC (software development life cycle)**: The overall sequence of phases a methodology follows.
 
-> **Use case**: A scenario-based description of the user's interaction with the software, from the user's point of view.
+Options include the **Unified Process** and **waterfall** (Royce, 1970): system requirements → software requirements → analyse → design → code → test → deploy.
 
-Project requirements cover:
+### Level 1: Requirements And Scope
 
-- functions and features delivered to end users
-- data input and output
-- content presented to users
-- performance, constraints, external interfaces and reliability that bound the system
+**Project requirements** describe:
 
-Scope is defined by:
+- the functions and features delivered to end users;
+- the data input and output;
+- the content presented to users as they use the software;
+- the performance, constraints, external interfaces and reliability that bound the system.
 
-- **narrative descriptions** after talking with stakeholders
-- **use cases**
-- **requirements**: functionality, performance, …
-- **constraints**: external hardware, memory, existing infrastructure, time and budget
+**Scope** is defined by:
+
+| Means | Description |
+|---|---|
+| Narrative descriptions | Written after communicating with stakeholders |
+| **Use cases** | Scenario-based descriptions of the user's interaction, from the user's point of view |
+| Requirements | Functionality, performance, … |
+| Constraints | Limits: external hardware, memory, existing infrastructure, time and budget |
+
+**Why prepare?**
+
+- **Reduce risk**: more preparation, greater chance of success.
+- **Efficiency**: 80% of development time is spent finding and fixing bugs (McConnell, *Code Complete*, 2004).
 
 ### Stakeholders And Feasibility
 
 #### Definitions
 
-> **Stakeholder**: Someone impacted by the project: the sponsor, the client for the deliverables, users, the project manager and the team.
-
-> **Feasibility**: Whether we have the resources to build the software in scope.
+> **Stakeholder**: Someone impacted by the project — the sponsor, the client for the deliverables, system users, the project manager and team.
 
 Goals (scope) derive from stakeholders' needs and expectations. Find the **true needs** that create real benefits, and prioritise them.
 
 ![Stakeholder onion](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/05A_Project_Management/stakeholder-onion.svg)
 
-*Users, system admins and support staff sit closest to the product. Management, purchasing, legal and sales form the next ring. Regulators, media, the public, suppliers, clients and financial beneficiaries form the wider environment.*
+*Rings closer to the product are more directly affected: users and operators, then the business (management, sales, legal, purchasing), then the wider environment (regulators, media, suppliers, the public).*
 
-To determine feasibility, find the resources the scope requires; this is not just money. The resources are people, hardware and tools, reusable components, and time and money.
+**Feasibility**: given the scope, determine the resources required — and answer "Do we have the resources to build this?" Resources are not just money:
 
-### Why Prepare And Why Explicit Requirements
+- people,
+- hardware and tools,
+- reusable components,
+- time and money.
 
-Preparing up front:
+### Why Explicit Requirements?
 
-- **reduces risk**: more preparation means a greater chance of success
-- **improves efficiency**: 80% of development time is spent finding and fixing bugs (McConnell, *Code Complete*)
+- They let the **client**, not the programmer, drive functionality.
+- The client can review explicit requirements; they can't review code.
+- Changing requirements later is more expensive.
+- Specifying requirements is key to success; **stable requirements are the holy grail** — no cost overruns.
+- Make sure users know the cost of requirement changes.
+- Use an approach that allows for change: a change control procedure, or Agile/evolutionary delivery.
 
-Writing requirements down explicitly:
+### Requirements Checklist
 
-- lets the **client**, not the programmer, drive functionality
-- explicit requirements can be reviewed by the client; code cannot
-- changing requirements later is more expensive
-- specifying requirements is key to success; stable requirements are the holy grail (no cost overruns)
-- make sure users know the cost of changes, and use a process that allows change: a change control procedure, or Agile/evolutionary delivery
+Have you specified:
 
-The requirement checklists (not examinable):
+| Functional | Quality (non-functional) — see ISO 25010 |
+|---|---|
+| All inputs and all outputs | Response time (latency) |
+| File formats | Performance |
+| Hardware and software interfaces | Security |
+| External interfaces (including errors and protocols) | Reliability |
+| All user tasks | Resource use (memory, storage) |
+| User interface | Maintainability |
+| Data into and out of user tasks | Definition of success/failure (benchmark) |
 
-| Functional — have you specified… | Quality (non-functional, see ISO 25010) | Are requirements… |
-|---|---|---|
-| All inputs and outputs, file formats | Response time (latency), performance | **Complete**: missing info documented; acceptable if satisfied; realistic |
-| Hardware/software and external interfaces (incl. errors, protocols) | Security, reliability | **Correct**: in users' language; no conflicts; acceptable trade-offs |
-| All user tasks, the UI, data into and out of tasks | Resource use, maintainability, a success/failure benchmark | Detailed, understandable to coders, relevant, testable, adaptable |
+Are the requirements:
 
-Architecture topics (not examinable): languages and tools, subsystems, major classes, data design, business rules, UI, resources, security, performance, scalability, I/O, error processing and fault tolerance, buy-versus-build.
+| Complete | Correct |
+|---|---|
+| Missing information at the start documented? | Written in the users' language, and do users agree? |
+| If the program satisfies them, will it be accepted? | No conflicting requirements |
+| Realistic and relevant — impossible and nonsense requirements removed? | Acceptable trade-offs for competing requirements (e.g. speed vs quality) |
+| | Detailed enough, and consistently so |
+| | Understandable to coders, and do coders agree? |
+| | Relevant and testable |
+| | Adaptable — possible changes specified |
 
-### Levels 2–5: Subsystems, Classes, Routines
+### Architecture Checklist
 
-**Level 2: subsystems.**
+Architecture decisions with system-wide implications:
 
-- Plan self-contained units that can be assigned to different people.
-- Pick frameworks ("buy vs build").
+- programming languages and tools;
+- program organisation into subsystems;
+- major classes;
+- data design;
+- business rules;
+- user interface;
+- resources (database, memory, threads);
+- security, performance, scalability;
+- I/O;
+- error processing and fault tolerance;
+- buy versus build (frameworks).
+
+### Levels 2–5: Subsystems, Classes And Routines
+
+**Level 2 — subsystems**:
+
+- Plan subsystems as self-contained units that can be assigned to different people.
+- Pick frameworks (buy vs build).
 - Plan interactions based on a hierarchy.
 
 ![Subsystem interactions](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/05A_Project_Management/subsystems.svg)
 
-*Unrestricted interactions give high fan-out and complexity. Rule-based, hierarchical interactions keep fan-out low.*
+*Left: unrestricted interactions and high fan-out make a complex system. Right: rule-based, hierarchical interactions with low fan-out keep it simple.*
 
-**Level 3: division into classes.** The application-level classes are identified with their attributes, methods and associations. The source example is a billing system: `Employee` (name, title, billingRate, `GetHoursForMonth()`), `Timecard` (hours, date, projectCode), `Client` (name, billingAddress, accountBalance, `EnterPayment()`) and `Bill` (billDate, `BillForClient()`), linked by associations such as billingEmployee, clientToBill and billingRecords.
+**Level 3 — classes**: divide each subsystem into classes and packages.
 
-**Level 4: division of classes into routines.** These steps are iterative and can be done out of order:
+**Level 4 — routines**: divide classes into routines. The steps are iterative and can be done out of order:
 
 1. Design object attributes: methods and data.
 2. Decide what can be done to each object.
-3. Define interactions with other objects.
+3. Design interactions with other objects.
 4. Partition into private, protected and public parts.
 5. Define the public interface.
 
-This depends on the paradigm. OOP models real-world objects; DOD (data-oriented design) models program data flows.
+This depends on paradigm: OOP models real-world objects; data-oriented design (DOD) models the program's data flows.
 
-**Level 5: design routines and data.**
+**Level 5 — routines and data**:
 
 - Check requirements (performance, functionality).
-- Give the routine a good name, *verbObject*, so the name documents behaviour, and follow a naming convention.
-- Add documentation, especially requirements.
-- Follow language-appropriate design patterns.
+- Give it a good name in **verbObject** form, so the name documents behaviour; follow a naming convention.
+- Add necessary documentation, especially requirements.
+- Follow design patterns (language-dependent).
 - Design parameters and return values (const correctness).
-- Design invariants and checks: defend against bad input with **pre-conditions** (inputs, start state), **post-conditions** (outputs, end state) and **assertions**.
-- Implementation starts with pseudocode (in some methodologies it comes later).
+- Design invariants and checks (assertions, exceptions) to defend against bad input:
+  - **pre-conditions** (inputs, the object's start state),
+  - **post-conditions** (outputs, the object's end state),
+  - assertions.
+- Implementation (later in some methodologies) — start with pseudocode.
 
-### Planning: SMART Goals, Deliverables, Schedule
+### Project Planning: Goals, Deliverables And Schedule
 
-#### Definitions
+**Goals** should be **SMART**:
 
-> **SMART goals**: Specific, Measurable, Agreed upon, Realistic, Time-based.
-
-> **Deliverable**: An item that must be delivered to meet the goals. It is verifiable and specific, has a stakeholder who needs it, a delivery date and quality standards.
-
-Example deliverable quality standards:
-
-- the software runs
-- unit test coverage
-- zero compiler warnings at a high warning level
-- documents meet the specified format
-
-**Schedule**: the effort needed and the people and resources required. Update the schedule as deliverables change. If it is unrealistic, the options are:
-
-| Option | Drawback |
+| Letter | Goal setting |
 |---|---|
-| Delay the deadline | Late delivery |
-| Add resources | More expensive; the mythical man-month |
-| Reduce scope (fewer deliverables) | The only option that makes sense for the capstone |
+| S | Specific |
+| M | Measurable |
+| A | Agreed upon |
+| R | Realistic |
+| T | Time-based |
+
+**Deliverables** are the items that must be delivered to meet the goals.
+
+- Verifiable and specific (e.g. a report, executable code).
+- Each has a stakeholder who needs it and a delivery date.
+- Each has quality standards, e.g. the software runs; unit-test coverage; zero compiler warnings at a high warning level; documents meet a specified format.
+
+**Schedule**: the effort (time), people and other resources required. Updating the deliverables updates the schedule. If the schedule is unrealistic, either:
+
+1. delay the deadline;
+2. add resources — more expensive, and see the mythical man-month; or
+3. reduce scope (fewer deliverables) — the only option that makes sense for the capstone.
 
 ### The Mythical Man-Month
 
 #### Definitions
 
-> **Mythical man-month** (Brooks, 1975): Adding people does not reduce completion time proportionally. Productivity per person falls because of team management and communication overhead, and eventually adding people lengthens the project ("too many cooks").
+> **The mythical man-month** (Brooks, 1975): In theory adding designers reduces completion time; in reality productivity per designer falls because of team management and communication overheads, and at some point adding people lengthens the project ("too many cooks").
 
-In the source model, a 1M-transistor chip is designed where one designer produces 5000 transistors/month and each additional designer reduces everyone's rate by 100. So two designers produce 4900 each.
+Example: a 1-million-transistor design. One designer produces 5000 transistors/month, and each additional designer reduces everyone's output by 100/month (so 2 designers produce 4900 each).
 
 $$
-\text{team output}(n)=n\bigl(5000-100(n-1)\bigr),\qquad \text{months}(n)=\frac{10^6}{\text{team output}(n)}
+\text{individual output}(n) = 5000 - 100(n-1), \qquad \text{team output}(n) = n\,\big(5100 - 100n\big)
 $$
 
-![Mythical man-month](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/05A_Project_Management/mythical-man-month.svg)
+$$
+\text{months to finish} = \frac{1\,000\,000}{\text{team output}(n)}
+$$
 
-*Team output peaks at about 25 designers (about 15 months). Beyond that, more designers make the project slower: 40 designers need about 23 months.*
+| Designers $n$ | ≈5 | ≈10 | ≈15 | ≈20 | ≈25 | ≈30 | ≈35 | ≈40 |
+|---|---|---|---|---|---|---|---|---|
+| Months to finish | 43 | 24 | 19 | 16 | 15 | 16 | 18 | 23 |
+
+![The mythical man-month](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/05A_Project_Management/mythical-man-month.svg)
+
+*Team output peaks at about 25 designers and then falls, so completion time rises again; individual output falls steadily.*
 
 ### Supporting Plans And Management Activities
 
-| Plan | Contents |
+| Plan | Content |
 |---|---|
-| **Human resource plan** | Key staff and organisations (skills, roles, responsibilities); number and type of people; start dates, duration, how to get them |
-| **Communications plan** | Who needs updates and how: weekly reviews, progress reports and demos, revised schedules |
-| **Risk management plan** | Identify as many risks as possible; respond with **ARTA**: Accept, Reduce, Transfer, Avoid |
+| **Human resource plan** | Key staff and organisations: skills, roles and responsibilities; number and type of people; start dates, durations and how to get them |
+| **Communications plan** | Who must be kept updated and how: weekly review meetings, progress reports and demos, revised schedules |
+| **Risk management plan** | Identify as many risks as possible and treat each by **ARTA**: Accept, Reduce, Transfer or Avoid |
 
-| Area | Covers |
+Management activities cover the four Ps:
+
+| Area | Concerns |
 |---|---|
-| **People** | Project managers, team leaders, the software team, customers, end users |
+| **People** | Project managers, team leaders, software team, customers, end users |
 | **Product** | Scope, requirements, decomposition |
-| **Process** | Start with a skateboard and refine iteratively (SDLC, Unified Process) |
+| **Process** | Start with a skateboard and refine iteratively; SDLC, Unified Process |
 | **Project** | Resources, scheduling, risks, tracking |
 | **Price** | Budget, cost control, bookkeeping |
 
@@ -278,61 +331,84 @@ $$
 
 #### Definitions
 
-> **Activity**: A task that takes time, with a duration and due date.
+> **Activity**: A task that takes time, with a duration and a due date.
 
-> **Precursor**: An activity that others depend on.
+> **Precursor**: An activity that others depend on, so it must precede them.
 
-> **Milestone**: The completion of an activity: a recognisable end product of a task (e.g. handing the system over for testing) with a **formal, measurable output**. "Coding 80% complete" is not adequate.
+> **Milestone**: The completion of an activity, with a recognisable end product (e.g. handing over a system for testing). It needs a formal, measurable output — "coding 80% complete" is not adequate.
 
-> **Deliverable**: A project result delivered to the customer.
+> **Deliverable**: A project result that is delivered to the customer.
 
 ### DORA Metrics
 
 #### Definitions
 
-> **DORA metrics**: Four delivery-performance measures from DevOps Research and Assessment.
+> **DORA metrics**: Four delivery-performance metrics from the DevOps Research and Assessment programme.
 
-| Metric | Measures |
+| Metric | Meaning |
 |---|---|
-| **Change lead time** | Time to implement, test and deliver a feature (first commit to deployment) |
-| **Deployment frequency** | Number of deployments in a period |
-| **Change failure rate** | Failed changes as a percentage of all changes |
+| **Change lead time** | Time to implement, test and deliver code for a feature, from first commit to deployment |
+| **Deployment frequency** | Number of deployments in a given period |
+| **Change failure rate** | Percentage of changes that fail, out of all changes |
 | **Mean time to recovery (MTTR)** | Time to restore service after a production failure |
 
-**Criticisms**:
+Criticisms:
 
-- DORA cannot compare teams, because complexity, expertise and subject matter differ.
-- It does not address business risk. You must do a (hard) risk analysis, track risk indicators, and act on measurements.
+- They can't be used to compare teams: complexity, expertise and subject matter differ.
+- They don't address business risk. You must do a risk analysis (hard), track risk indicators, and reduce risk through measurement-based actions.
 
-**Culture**: support a generative culture, encourage learning, facilitate collaboration between teams, provide resources and tools that make work meaningful, and support or embody transformational leadership.
+DORA culture recommendations:
 
-### KPIs, Velocity And Code-Quality Metrics
+- support a **generative culture**;
+- encourage and support learning;
+- support collaboration among teams;
+- provide resources and tools that make work meaningful;
+- support or embody transformational leadership.
+
+### KPIs, Productivity And Code Quality Metrics
 
 #### Definitions
 
-> **Key performance indicator (KPI)**: A measurable value tracking how effectively the team meets its objectives.
+> **KPI (key performance indicator)**: A measurable value showing how effectively a team is achieving its objectives.
 
-> **Cyclomatic complexity**: A measure of how many independent logic paths code has.
-
-> **Defect density**: Defects per thousand lines of code (KLOC).
-
-> **Code churn**: How often code changes, often a sign of instability or unclear requirements.
-
-| Category | Examples |
-|---|---|
-| **KPIs** | Throughput (tasks or stories per sprint); cycle time (issue creation to resolution); bug fix rate; release frequency; customer-reported defects |
-| **Productivity / velocity** | Story points per sprint; burndown charts; pull-request metrics (time to review, merge, deploy); commit frequency (use carefully); rework percentage |
-| **Code quality** | Code coverage; cyclomatic complexity; defect density; code churn; technical debt |
+| Category | Metric | Meaning |
+|---|---|---|
+| KPIs | Throughput | Tasks or user stories completed per sprint |
+| | Cycle time | Average time from issue creation to resolution |
+| | Bug fix rate | How quickly identified defects are resolved |
+| | Release frequency | Cadence of production deployments |
+| | Customer-reported defects | Post-release issues, showing testing effectiveness |
+| Productivity and velocity | Velocity | Story points completed per sprint, showing consistency |
+| | Burndown charts | Visual progress toward sprint goals |
+| | Pull request metrics | Time to review, merge and deploy changes |
+| | Commit frequency | Commits per developer — use carefully to assess engagement |
+| | Rework percentage | Share of time spent fixing or redoing earlier work |
+| Code quality | Code coverage | Percentage of code tested by automated tests |
+| | Cyclomatic complexity | How complex the logic paths are |
+| | Defect density | Defects per thousand lines of code (KLOC) |
+| | Code churn | Frequency of code changes — often a sign of instability or unclear requirements |
+| | Technical debt | The cost of delayed refactoring or poor design choices |
 
 ### Metric Pitfalls And SMART Metrics
 
-| Pitfall | Example |
+| Pitfall | Description |
 |---|---|
-| **Non-metrics** | Lines of code, commit counts, hours worked |
-| **Over-measurement** | Poor signal-to-noise ratio; bureaucratic overhead |
-| **Stack ranking** | Fire the bottom x% and promote the top x% on some metric, then hire to fill the gap |
-| **Ignoring context** | Complex work takes longer; quantification problems |
+| Non-metrics | Lines of code, commit counts, hours worked |
+| Over-measurement | Poor signal-to-noise ratio; bureaucratic overhead |
+| Stack ranking | Fire the bottom $x\%$ on metric $y$, promote the top $x\%$, hire to fill the gap |
+| Ignoring context | Complex work takes longer; quantification problems |
 
-- **Many metrics are relative**: absolute values may be meaningless, and what matters is improvement over time. As long as we are improving, we are winning.
-- **Gaming the system** happens. A **moral hazard** is when wrong incentives create harmful outcomes.
-- Metrics should be **SMART** too, expressed as counts, percentages, sums or totals, averages, or ratios.
+- **Many metrics are relative**: absolute values may be meaningless. What matters is improvement over time — as long as we're improving, we're winning.
+- **Gaming the system** happens. A **moral hazard** arises when the wrong incentives create harmful outcomes.
+
+Metrics should also be SMART:
+
+| Letter | Question |
+|---|---|
+| Specific | What exactly is an indicator of success? |
+| Measurable | Can you physically track the KPI? |
+| Achievable | Are the KPIs realistic? |
+| Relevant | Do the KPIs reflect the business's overall goals? |
+| Time-framed | When should the KPIs be met? |
+
+SMART metrics take the form of counts, percentages, sums or totals, averages, and ratios.

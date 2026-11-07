@@ -110,9 +110,9 @@ Main components of NLP:
 
 > **Contextualized word representations**: Vectors produced by a sequence model (such as a Transformer text encoder) where a word's vector depends on its surrounding context.
 
-![Schematic 2D embedding projection](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/01_Introduction_To_Language_Models/embedding-neighborhoods.svg)
+![Word embeddings in 2D](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/01_Introduction_To_Language_Models/embedding-projection.svg)
 
-*A 2D (t-SNE) projection of word embeddings: function words cluster together, as do negative-sentiment and positive-sentiment words.*
+*A 2D (t-SNE) projection of word vectors: function words, negative-sentiment words, and positive-sentiment words each form their own cluster.*
 
 - **Multilingual** embeddings place words from several languages in one space, so translations (e.g. English "money" and German "Geld") lie near each other.
 - **Contextual** representations in LLMs give the same word different vectors in different sentences.
@@ -216,6 +216,10 @@ $$
 
 The sliding window is used both to build training data and to score n-grams.
 
+![N-gram sliding window](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/01_Introduction_To_Language_Models/ngram-window.svg)
+
+*Sliding a window across "Thou shalt not make a machine…" turns each position into a training example: two input words predict the next.*
+
 - Even in a very large corpus, **most possible n-grams never appear**. A bigram count table over a small vocabulary is mostly zeros.
 - Models must still assign non-zero probability to every n-gram.
 - Complex formulas interpolate between n-gram sizes and smooth the distribution. **Modified Kneser-Ney smoothing** was state of the art.
@@ -227,9 +231,13 @@ The sliding window is used both to build training data and to score n-grams.
 
 ### Neural language model architectures
 
-![Fixed-window and recurrent language models](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/01_Introduction_To_Language_Models/sequence-models.svg)
+![Feedforward language model](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/01_Introduction_To_Language_Models/feedforward-lm.svg)
 
-*A fixed-window feedforward LM sees only a few previous words. A recurrent LM carries a hidden state across the whole sequence.*
+*A feedforward LM concatenates embeddings of a fixed window of previous words, so like an n-gram model it only sees a short context.*
+
+![Recurrent language model](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/01_Introduction_To_Language_Models/rnn-lm.svg)
+
+*An RNN LM carries a hidden state along the whole sequence, predicting the next word (and computing a loss) at every step.*
 
 | Architecture | Context | Notes |
 |---|---|---|
@@ -239,9 +247,9 @@ The sliding window is used both to build training data and to score n-grams.
 
 ### Three topologies for LLMs
 
-![Decoder, encoder, and encoder-decoder topologies](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/01_Introduction_To_Language_Models/model-topologies.svg)
+![Three LLM topologies](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/01_Introduction_To_Language_Models/model-topologies.svg)
 
-*Decoders predict the next token from a prefix. Encoders build bidirectional representations of the full input. Encoder-decoders encode an input and decode an output through cross-attention.*
+*Decoders attend only to earlier positions; encoders attend in both directions; encoder-decoders encode the input bidirectionally and decode the output causally with cross-attention to the encoder.*
 
 #### Definitions
 
@@ -259,7 +267,15 @@ The sliding window is used both to build training data and to score n-grams.
 
 **BERT** was the first work to show that pretraining a Transformer on a large corpus beats task-specific training alone. For a downstream task, the model is trained as a classifier with parameters initialized from pretraining.
 
+![BERT masked language modelling](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/01_Introduction_To_Language_Models/bert-mlm.svg)
+
+*BERT replaces about 15% of input tokens with [MASK] and re-predicts them using context from both sides.*
+
 **T5** frames every task as text-to-text: the encoder reads the task name and input, and the decoder generates the output (e.g. "translate English to German: That is good." → "Das ist gut."). It is pretrained on denoising objectives:
+
+![T5 text-to-text](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/01_Introduction_To_Language_Models/t5-text-to-text.svg)
+
+*T5 handles translation, acceptability, similarity, and summarization with one model: the task prefix and input go in, the answer comes out as text.*
 
 | Part | Text |
 |---|---|
@@ -279,7 +295,7 @@ Decoder LMs can do text-to-text tasks by predicting the output as a **continuati
 
 ![Three stages of LLM training](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/01_Introduction_To_Language_Models/training-stages.svg)
 
-*Pretraining learns general text patterns, instruction tuning learns to respond to tasks, and preference alignment shapes behaviour towards preferred responses.*
+*Pretraining on text gives a pretrained LLM; instruction tuning gives an instruction-tuned LLM; preference alignment gives an aligned LLM.*
 
 | Stage | Data | Result |
 |---|---|---|

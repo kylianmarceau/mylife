@@ -3,14 +3,14 @@ tags:
   - advanced-programming
 ---
 
-# GoF Design Patterns I
+# Design Patterns I: GoF Patterns And Lambdas
 
-**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)  
-**Source**: [ASD15-Design Patterns.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD15-Design%20Patterns.pdf), PDF pages 1–66, and [ASD14-Design Patterns.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD14-Design%20Patterns.pdf), PDF pages 1–61. Johan Bontes, University of Cape Town; content adapted from Shvets, *Dive Into Design Patterns* (refactoring.guru)  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)
+**Source**: [ASD14-Design Patterns.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD14-Design%20Patterns.pdf) (61 pages) and [ASD15-Design Patterns.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD15-Design%20Patterns.pdf) (66 pages), Johan Bontes, University of Cape Town. ASD15 is a revised version of ASD14 (same content plus demo links and an updated chain-of-responsibility example), so both are covered in this one note. Content adapted from *Dive Into Design Patterns* (refactoring.guru).
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> ASD14 and ASD15 are the same deck. ASD15 (17 Aug) is ASD14 (13 Aug) plus five picture-only joke slides introducing lambdas, so this one note covers both sources. It includes lambdas as a pattern-killer, the three pattern classes, and the creational, structural and behavioural patterns covered.
+> What design patterns are, how lambdas made many obsolete, the three GoF pattern classes, and the creational, structural and behavioural patterns covered in the course.
 
 ---
 
@@ -18,25 +18,28 @@ tags:
 
 - [[#Core Content|Core Content]]
   - [[#What Design Patterns Are|What Design Patterns Are]]
-  - [[#Lambdas Make Many Patterns Obsolete|Lambdas Make Many Patterns Obsolete]]
-  - [[#Three Classes Of Patterns|Three Classes Of Patterns]]
-  - [[#Creational: Factory Method|Creational: Factory Method]]
-  - [[#Creational: Prototype|Creational: Prototype]]
-  - [[#Creational: Singleton|Creational: Singleton]]
-  - [[#Structural: Adapter|Structural: Adapter]]
-  - [[#Structural: Bridge|Structural: Bridge]]
-  - [[#Structural: Decorator|Structural: Decorator]]
-  - [[#Structural: Facade|Structural: Facade]]
-  - [[#Structural: Composite|Structural: Composite]]
-  - [[#Structural: Flyweight|Structural: Flyweight]]
-  - [[#Structural: Proxy|Structural: Proxy]]
-  - [[#Behavioural: Chain Of Responsibility|Behavioural: Chain Of Responsibility]]
-  - [[#Behavioural: Command|Behavioural: Command]]
-  - [[#Behavioural: Iterator And Mediator|Behavioural: Iterator And Mediator]]
-  - [[#Behavioural: Memento|Behavioural: Memento]]
-  - [[#Behavioural: Observer|Behavioural: Observer]]
-  - [[#Behavioural: State (And Strategy)|Behavioural: State (And Strategy)]]
-  - [[#Behavioural: Template Method|Behavioural: Template Method]]
+  - [[#Lambdas|Lambdas]]
+  - [[#Anatomy Of A Lambda And Captures|Anatomy Of A Lambda And Captures]]
+  - [[#The Three Pattern Classes|The Three Pattern Classes]]
+  - [[#Factory Method|Factory Method]]
+  - [[#Prototype|Prototype]]
+  - [[#Singleton|Singleton]]
+  - [[#Adapter|Adapter]]
+  - [[#Bridge|Bridge]]
+  - [[#Decorator|Decorator]]
+  - [[#Facade|Facade]]
+  - [[#Composite|Composite]]
+  - [[#Flyweight|Flyweight]]
+  - [[#Proxy|Proxy]]
+  - [[#Chain Of Responsibility|Chain Of Responsibility]]
+  - [[#Command|Command]]
+  - [[#Iterator|Iterator]]
+  - [[#Mediator|Mediator]]
+  - [[#Memento|Memento]]
+  - [[#Observer|Observer]]
+  - [[#State|State]]
+  - [[#Strategy|Strategy]]
+  - [[#Template Method|Template Method]]
 
 ---
 
@@ -46,478 +49,627 @@ tags:
 
 #### Definitions
 
-> **Design pattern**: A reusable solution to a general problem that software developers face. "Patterns … are ways to describe best practices, good designs, and capture experience in a way that it is possible for others to reuse this experience" (hillside.net).
+> **Design pattern**: A reusable solution to a general problem that software developers face. "Patterns … are ways to describe best practices, good designs, and capture experience in a way that it is possible for others to reuse this experience." — hillside.net
 
-> **GoF**: The "Gang of Four" (Gamma, Helm, Johnson, Vlissides), authors of *Design Patterns* (1994).
+> **GoF patterns**: The patterns catalogued by the "Gang of Four" (Gamma, Helm, Johnson, Vlissides) in *Design Patterns* (1994).
 
-**New language features, especially lambdas, have made many patterns obsolete.**
+New language features — especially **lambdas** — have made many patterns obsolete.
 
-### Lambdas Make Many Patterns Obsolete
+### Lambdas
 
 #### Definitions
 
-> **Lambda**: An anonymous function that can **capture** outside variables.
+> **Lambda**: An anonymous function that can **capture** variables from its surrounding scope. Because it is a value, it can be stored, passed and called later.
 
-> **Capture**: Bringing a variable from the enclosing scope into the lambda, by value or by reference.
+| Language | Lambdas since |
+|---|---|
+| Lisp | 1960 |
+| Python | 2.2 (2002); a broken version already in 1994 |
+| C++ | C++11 |
+| Java | Java SE 8 (2014) |
 
-Lambdas arrived in Lisp (1960), Python 2.2 (2002; a broken version in 1994), C++11 (2011/12) and Java SE 8 (2014).
+A Von Neumann computer treats code and data the same. OOP separates them: in a class, the methods (code) are fixed and the members (data) vary. In functional code, **data can also be a function** — and that is what lambdas bring to OOP languages.
 
-In a von Neumann computer code and data are the same thing. OOP separates them: methods are fixed code and members are variable data. In functional code, **data can also be a function**.
+### Anatomy Of A Lambda And Captures
 
 ```cpp
 int i;
-const auto X = [=]        // capture: [=] by value, [&] by reference
-  (/* optional params */)
-  mutable                 // by-value captures are const unless mutable
-{
-   i++;                   // error in Java (captures are always const)
-   int a = i + 2;         // valid in Java
+const auto X = [=/&, ...] (params) const/mutable {
+    i++;            // error in Java
+    int a = i + 2;  // valid in Java
 };
 ```
 
-- A named lambda has no dedicated type; two identical lambdas have **different** types.
-- **Java lambdas are somewhat broken**: captures are always const, so they are no more powerful than named functions.
-- In other languages, capture by reference means changes inside the lambda change the outside value, which is very powerful (e.g. sorting).
-- **Lambdas are data**: you can store them in a collection of "workers" and call each one:
+| Part | Meaning |
+|---|---|
+| `const auto X =` | A named lambda; it has no dedicated type (two identical lambdas have different types) |
+| `[=]` / `[&]` | Capture list: `[=]` captures by value, `[&]` by reference |
+| `(params)` | Optional parameters |
+| `const` / `mutable` | Whether by-value captures may be modified |
+| `{ ... }` | Body; the outside `i` has been captured |
+
+| | Java lambdas | Lambdas in other languages (e.g. C++) |
+|---|---|---|
+| Captures | Always effectively `const` ("somewhat broken") | Can capture by reference |
+| Power | No more powerful than named functions | Changes inside the lambda change the outside value — very powerful (e.g. sorting with a counting comparator) |
+
+**Lambdas are data**: you can put them in a collection of "workers" and call each one:
 
 ```cpp
-for (auto a: WorkList) { a(); }     // C++
-for (var a: WorkList)  { a(); }     // Java
+for (auto a : WorkList) { a(); }   // C++
+```
+```java
+for (var a : WorkList) { a(); }    // Java
 ```
 
-- Anything in scope when the lambda is defined can be captured. When in doubt, pass items as parameters: `a(i1)` in C++ (anything by reference), or `a(i2)` in Java with a mutable object such as `MyInteger`.
-
-**Internally, every capture becomes a member field**:
+**What can be captured?** Anything in scope when the lambda was defined. When in doubt, pass items as parameters instead:
 
 ```cpp
-int i = 0; int r = 10;
-auto lambda = [&](){ i++; r++; };
+int i1;                              // C++ can pass anything by reference
+for (auto a : WorkList) { a(i1); }
+```
+```java
+MyInteger i2;                        // an Object is passed by reference
+for (var a : WorkList) { a(i2); }
+```
+
+**Internally**, each capture becomes a member field of a hidden class:
+
+```cpp
+int i = 0;
+int r = 10;
+auto lambda = [&]() { i++; r++; };
 
 // is compiled roughly as:
 class lambda {
-  int& i; int& r;
-  lambda(int& i, int& r): i(i), r(r) {}
-  void dostuff() { i++; r++; }
+    int& i;
+    int& r;
+    lambda(int& i, int& r) : i(i), r(r) {}
+    void dostuff() { i++; r++; }
 };
 ```
 
-### Three Classes Of Patterns
+### The Three Pattern Classes
 
-![Pattern catalogue](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/catalogue.svg)
-
-*Creational patterns create objects, structural patterns assemble them, and behavioural patterns organise their communication.*
-
-| Class | Purpose | Patterns (one-line summary) |
+| Class | Purpose | Patterns covered |
 |---|---|---|
-| **Creational** | Create objects without knowing all the details | Factory method (polymorphic construction); Abstract factory (more complex construction); Builder (build in stages); Singleton ("there can be only one"); Prototype (Java `object.clone()`) |
-| **Structural** | Assemble objects into flexible, efficient structures | Adapter (match different interfaces); Bridge (prevent combinatorial explosion); Composite (split a big object into parts); Decorator (wrapper adding functionality); Facade (simplified interface); Flyweight (cache redundant data); Proxy (gatekeeper restricting access) |
-| **Behavioural** | Communication between objects | Chain of responsibility (message passing); Command (action objects); Iterator (visit every element); Mediator (reduce cross-talk); Memento (snapshot/undo); Observer (subscribe to events); State (finite state machine); Strategy (object per algorithm); Template (algorithm blueprint); Visitor (command++) |
+| **Creational** | Create objects without having to know all the details | Factory method, abstract factory, builder, singleton, prototype |
+| **Structural** | Assemble objects into larger structures that are flexible and efficient | Adapter, bridge, composite, decorator, facade, flyweight, proxy |
+| **Behavioural** | Communication between objects | Chain of responsibility, command, iterator, mediator, memento, observer, state, strategy, template method, visitor |
 
-### Creational: Factory Method
+![GoF pattern catalogue](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/catalogue.svg)
+
+*The GoF catalogue grouped into creational, structural and behavioural patterns.*
+
+Creational summary:
+
+| Pattern | In a phrase |
+|---|---|
+| Factory method | Polymorphic construction |
+| Abstract factory | More complex construction (families of objects) |
+| Builder | Build in stages |
+| Singleton | "There can be only one" |
+| Prototype | Java's `object.clone()` |
+
+### Factory Method
 
 #### Definitions
 
-> **Factory method**: Keep construction details in one place (a factory) that creates the right subclass from a description, i.e. polymorphic construction.
+> **Factory method**: Keeps object-construction details in one place, so code can create the right subclass without naming it — "polymorphic construction".
 
-- Polymorphism needs virtual methods, but **Java and C++ have no virtual constructors**. In C++ the child object is constructed in the wrong order for this.
-- Pascal (Delphi) has virtual constructors through class references: `firstClass := TChild; first := firstClass.Create();` constructs a `TChild`.
+Polymorphism needs virtual methods, but Java and C++ have **no virtual constructors**. Some languages do, e.g. Pascal (Delphi), using class references:
 
 ```pascal
-type TParentClass = class of TParent;        // class type: describes a family
-constructor TParent.Create() virtual;  begin Writeln('Parent.Create'); end;
-constructor TChild.Create()  override; begin Writeln('Child.Create');  end;
+type TParentClass = class of TParent;   // class type: describes the family
+
+constructor TParent.Create() virtual;
+begin Writeln('Parent.Create'); end;
+
+constructor TChild.Create() override;
+begin
+    // inherited Create();
+    Writeln('Child.Create');
+end;
+
 var firstClass: TParentClass; first: TParent;
 begin
-  firstClass := TChild;
-  first := firstClass.Create();              // virtual construction
+    firstClass := TChild;
+    first := firstClass.Create();   // creates a TChild polymorphically
 end.
 ```
 
-**Java problem**: recreating objects from a text file of serialised data.
+Why not in C++/Java? In C++ the order of construction would be wrong (the child would be created first); Pascal constructs the parent first (it got objects later, with the flaw fixed).
 
-- You cannot restrict constructor signatures (they aren't virtual).
-- You cannot call `Parent.MakeChild` without naming the child.
-- There is no `Object.fromString()` that returns a new object.
+**Java problem**: recreate objects from a text file of serialised object data.
 
-**Solution**: a factory.
+- You can't restrict a constructor's signature, and constructors aren't virtual.
+- You can't call a `Parent.MakeChild` method without naming the child.
+- There's no `Object.fromString()` that returns a new object.
+
+**Solution**: keep the constructor details in one place — a factory.
 
 ```java
 public Shape shapeFactory(ShapeId shapeId, String params)
-    throws UnknownShapeException {
-  switch (shapeId) {
-    case ID_oval: return new RoundRect(params, 100);
-    case ID_rect: return new RoundRect(params, 0);
-    case ID_blob: return new Blob(params);
-    // shift left: never use default!
-  }
-  throw new UnknownShapeException(shapeId, params);
+        throws UnknownShapeException {
+    switch (shapeId) {
+        case ID_oval: return new RoundRect(params, 100);
+        case ID_rect: return new RoundRect(params, 0);
+        case ID_blob: return new Blob(params);
+        // shift left: never use default!
+    }
+    throw new UnknownShapeException(shapeId, params);
+}
+
+public class Circle extends Shape {
+    public Circle(String params) { ... }
 }
 ```
 
-Leaving out `default` lets the compiler or linter warn about unhandled enum values, catching missing cases early ("shift left").
+Leaving out `default` means the compiler can warn about unhandled enum values, catching mistakes early (shift left).
 
-### Creational: Prototype
+### Prototype
 
 #### Definitions
 
 > **Prototype**: Create new objects by cloning an existing one.
 
-- **Java**: a single object hierarchy plus virtual methods give polymorphic `object.clone()`.
-- **C++**: no virtual methods are needed. Use a concept (compile-time duck typing) to restrict the method signature:
+- **Java**: a single object hierarchy plus virtual methods makes it polymorphic: `object.clone()`.
+- **C++**: no virtual methods needed — use duck typing and restrict the method signature with a concept:
 
 ```cpp
 template <typename T>
 concept Clonable = requires (const T t) {
     { t.clone() } -> same_as<T&>;
 };
-auto clone(const Clonable auto& object) { return object.clone(); }
+
+// clone factory method
+auto clone(const Clonable auto& object) {
+    return object.clone();
+}
 ```
 
-### Creational: Singleton
+### Singleton
 
 #### Definitions
 
-> **Singleton**: A class guaranteed to have exactly one instance, with global access to it.
+> **Singleton**: A class that allows only one instance, with a global access point to it.
 
 ```java
 public /*final*/ class Singleton {
-  private static bool isInitDone = false;                 // lazy init
-  private static final Singleton instance = new Singleton();
-  private Singleton() {}                                  // clients cannot create more
-  public static Singleton getInstance() {
-    if (!isInitDone) { /* do initialisation */ }
-    return instance;
-  }
+    private static boolean isInitDone = false;   // lazy init
+    private static final Singleton instance = new Singleton();
+    // private constructor: clients cannot create more
+    private Singleton() {}
+    public static Singleton getInstance() {
+        if (!isInitDone) { /* do initialisation */ }
+        return instance;
+    }
 }
 ```
 
-Is it a pattern or an antipattern?
+Pattern or antipattern?
 
 | For | Against |
 |---|---|
-| Memory use, performance, consistency | A global shared resource accessible everywhere, and global state is bad and too tempting |
-| Correct uses: **logging**, a **database connection** | Massively overused when GoF appeared |
-| | Breaks if more than one instance turns out to be needed |
-| | Hidden dependencies and tight coupling: it "allows your code to lie about its dependencies" |
-| | Others may add mutable state to a previously immutable singleton |
-| | Hard to test without including the singleton (fix: mock it) |
-| | One singleton as "CEO of the application" making all decisions is a god object |
+| Memory use, performance, consistency | When the GoF book appeared, it was used far too much |
+| A global shared resource accessible everywhere | Breaks if more than one is actually needed |
+| Used correctly for logging and database connections | Misused, it creates hidden dependencies and tight coupling |
+| | It lets code **lie about its dependencies**, and you can't trust other programmers not to add mutable state to a previously immutable singleton |
+| | Global state is bad and too tempting; the "CEO of the application" making all decisions becomes a god object |
+| | Hard to test code without including the singleton (fix by mocking it) |
 
-### Structural: Adapter
+### Adapter
 
 #### Definitions
 
-> **Adapter**: Converts one interface into another so incompatible objects can work together.
+> **Adapter**: A wrapper that lets objects with incompatible interfaces work together by converting one interface into another.
 
-![Adapter](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/adapter.svg)
-
-*An XML-based app cannot feed a JSON-only analytics library directly. An XML-to-JSON adapter sits between them.*
+Example: an app produces XML, but the database only accepts JSON.
 
 ```java
 public class Adapter implements IXML_er, IJSON_er {
-  public void writeToDB(XML xdata) {
-    JSON jdata = toJSON(xdata);
-    json_db.write(jdata);
-  }
+    public void writeToDB(XML xdata) {
+        JSON jdata = toJSON(xdata);
+        json_db.write(jdata);
+    }
 }
 ```
 
-### Structural: Bridge
+![Adapter](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/adapter.svg)
+
+*The client talks XML to the adapter, which converts to JSON for the database.*
+
+### Bridge
 
 #### Definitions
 
-> **Bridge**: "Separates abstraction from implementation". It uses composition across independent dimensions instead of inheritance, so new dimensions can be added to the model.
+> **Bridge**: "Separates abstraction from implementation" (GoF) — use **composition instead of inheritance** to avoid a combinatorial explosion of subclasses.
 
 1. Use inheritance only for IS-A relationships.
-2. These are rare.
-3. Very rare outside UI.
-4. Bridge: use composition instead of inheritance.
+2. These are rare — very rare outside UIs.
+3. Bridge uses composition instead, which lets you add new dimensions to the model.
+
+Example: `Shape` × `Color` by inheritance needs `RedCircle`, `BlueCircle`, `RedSquare`, `BlueSquare`, … Instead, `Shape` **has a** `Color`. Similarly, for a cross-platform GUI, don't build every control for every OS: create a display layer (the bridge) that abstracts each OS's display implementation.
 
 ![Bridge](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/bridge.svg)
 
-*Shapes × colours by inheritance needs $m\times n$ classes. With a Shape that contains a Color, the hierarchies vary independently with $m+n$ classes.*
+*Two independent hierarchies joined by a has-a link, so they vary separately instead of multiplying.*
 
-Example: a cross-platform GUI app. Instead of writing controls for each OS, create a display layer (the bridge) that abstracts each OS's implementation.
-
-### Structural: Decorator
+### Decorator
 
 #### Definitions
 
-> **Decorator**: Wraps an object in decorator objects that share its interface, each adding behaviour before or after delegating to the wrapped object.
+> **Decorator**: A wrapper that adds new behaviour to an object by wrapping it in an object with the same interface; wrappers can be stacked.
 
-The problem: a `Notifier` with SMS, Facebook and Slack subclasses (version 1) needs a subclass per **combination** (SMS+Slack, SMS+Facebook+Slack, …) in version 2, a class explosion.
+Inheritance is rarely the best solution. To combine traits (e.g. a notifier that sends email **and** SMS **and** Slack messages), use aggregation: wrap the base object in decorators rather than creating a subclass for every combination.
 
 ![Decorator](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/decorator.svg)
 
-*`BaseDecorator` IS-A Notifier and HAS-A Notifier (the wrappee). Concrete decorators call `super.send()` and add their own channel, so they can be stacked in any combination.*
+*Each decorator wraps another component with the same interface and adds one trait before or after delegating.*
 
-The principle: **inheritance is rarely the best solution; to combine traits, use aggregation.**
-
-### Structural: Facade
+### Facade
 
 #### Definitions
 
-> **Facade**: A simple interface around a complex model or subsystem.
+> **Facade**: A simple interface in front of a complex subsystem.
 
-A webshop is a facade. You order a product from a vendor, shipped to a location by a courier, with VAT payable to SARS, paid by credit card through your bank. None of those actors is your problem: you just fill in a few fields on a form.
+A webshop: as a client you order a product, from a vendor, to a location, by a shipping company, with VAT payable to SARS, paid online by credit card via your bank. None of those entities is your problem — you fill in a few form fields. The form is the facade.
 
 ![Facade](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/facade.svg)
 
-*The application calls one method, `convertVideo(filename, format)`. The facade orchestrates the codec, bitrate, audio and file classes behind it.*
+*The client calls one simple facade, which coordinates the many subsystems behind it.*
 
-### Structural: Composite
+### Composite
 
 #### Definitions
 
-> **Composite**: A container (list or tree) that may contain items or other containers, all behind the same interface, so you can iterate over everything recursively.
+> **Composite**: Composes objects into tree structures so that a container and its parts can be treated uniformly.
+
+- The composite class is a container — a list or a tree — that may contain other containers.
+- Operations iterate **recursively** over everything inside the container (e.g. the total price of a box of boxes of products).
 
 ![Composite](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/composite.svg)
 
-*An order box contains products and smaller boxes. Asking any node for its price recurses through its children.*
+*Leaves and containers share one interface; a container forwards each operation to its children recursively.*
 
-### Structural: Flyweight
+### Flyweight
 
 #### Definitions
 
-> **Flyweight**: Saves memory by sharing the repeated (**intrinsic**, immutable) state between many objects, keeping only the unique (**extrinsic**, mutable) state per object.
+> **Flyweight**: Shares common (intrinsic) data between many objects instead of duplicating it, to save memory.
 
-**Problem**: a game fires a million particles. Each stores coords (8 B), vector (16 B), speed (4 B), colour (4 B) and a sprite (20 KB), about 21 KB each:
-
-$$
-21\text{ KB}\times 1\,000\,000 \approx 21\text{ GB}
-$$
-
-**GoF solution**: split each particle into `MovingParticle` (coords, vector, speed: unique) and a shared `Particle` (colour, sprite: repeated). Many moving particles point to a few shared ones.
+- **Problem**: many objects contain duplicate information (e.g. every particle in a game storing its own colour and sprite), consuming too much memory.
+- **Solution**: move the shared data into a shared flyweight object that many objects reference.
 
 ![Flyweight](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/flyweight.svg)
 
-*The 20 KB sprite is stored once per particle type instead of once per particle.*
+*Many lightweight objects keep only their unique state and point to one shared object holding the repeated data.*
 
-> [!warning] <span style="color:#ffc778">The lecturer crosses this out</span>
-> Games don't use flyweight; they use **data-oriented design**. Iterating a million objects is too slow: an array of structures (AoS) means pointer chasing. Games use a structure of arrays (SoA) for linear access. See [Data-Oriented Design](05B_Data_Oriented_Design.md).
+But games don't actually use flyweight — they use **data-oriented design** (see [DOD](05B_Data_Oriented_Design.md)):
 
-### Structural: Proxy
+- Iterating 1 000 000 objects is too slow.
+- Flyweight is an **AoS** (array of structures) solution: pointer chasing.
+- Games use **SoA** (structure of arrays), giving linear access.
+
+### Proxy
 
 #### Definitions
 
-> **Proxy**: A gatekeeper with the same interface as the real object that controls access to it, e.g. a cache between a program and a slow resource.
+> **Proxy**: A stand-in that controls access to another object — a gatekeeper — often a cache between a program and a slow resource.
 
 Examples: web proxies (Nginx, Squid), database proxies, disk proxies.
 
 ```java
 interface IDisk {
-  List<String> getFileList(String path);
-  Vector<byte> readData(String file);
+    List<String> getFileList(String path);
+    Vector<byte> readData(String file);
 }
+
 class DiskProxy implements IDisk {
-  List<Vector<byte>> Cache;
-  Disk hd;
-  Vector<byte> readData(String file) {
-    if (file in Cache) { return Cache.getFile(file); }
-    else {
-      data = hd.getFile(file);
-      Cache.Add(data);
-      return data;
+    List<Vector<byte>> Cache;
+    Disk hd;
+    Vector<byte> readData(String file) {
+        if (file in Cache) { return Cache.getFile(file); }
+        else {
+            data = hd.getFile(file);
+            Cache.Add(data);
+            return data;
+        }
     }
-  }
 }
 ```
 
-### Behavioural: Chain Of Responsibility
+Structural summary:
+
+| Pattern | In a phrase |
+|---|---|
+| Adapter | Match objects with different interfaces |
+| Bridge | Prevent combinatorial explosion |
+| Composite | Split a big object into parts |
+| Decorator | Wrapper to add new functionality |
+| Facade | Simplified interface around an object |
+| Flyweight | Cache redundant data to save space |
+| Proxy | Gatekeeper restricting access to a class |
+
+### Chain Of Responsibility
 
 #### Definitions
 
-> **Chain of responsibility**: Each handler receives a request, processes it, then passes it on or drops it.
+> **Chain of responsibility**: A request passes along a chain of handlers; each one receives the request, processes it, then passes it on or drops it.
+
+Behavioural summary:
+
+| Pattern | In a phrase |
+|---|---|
+| Chain of responsibility | Message passing |
+| Command | Action objects |
+| Iterator | Visit every element |
+| Mediator | Reduce cross-talk |
+| Memento | Snapshot / undo |
+| Observer | Subscribe to events |
+| State | Finite state machine |
+| Strategy | Object per algorithm |
+| Template method | Algorithm blueprint |
+| Visitor | Command++ (see [Clean Code And Visitor](17_Clean_Code_And_Visitor.md)) |
+
+**WinAPI mouse messages** (a window `Form1` containing `Panel1` containing `Button1`):
+
+| Option | How the chain works |
+|---|---|
+| 1. Every link knows the next | Msg 1: `Button1.OnMouseOver` draws a glow and drops the message. Msg 2: `Panel1.OnMouseOver` does nothing and calls its owner's `OnMouseOver`; `Form1.OnMouseOver` flashes the caption; no owner, so drop |
+| 2. Links don't know each other | WinAPI iterates (iterator pattern) over controls top-most to bottom-most: traverse the tree doing hit tests, descending into children until no more hits (the top-most control). Then visit the hit controls in reverse order; each handler returns `true` to pass the message on or `false` to stop |
+
+ASD15 replaces this with a "clean text" demo: each handler in the chain cleans one aspect of a text (e.g. trimming, normalising) before passing it on.
 
 ![Chain of responsibility](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/chain.svg)
 
-*Instead of one blob doing authentication and authorisation, a chain of small handlers each checks one thing before the request reaches the ordering system.*
+*Each handler either handles the request and stops, or passes it to the next handler.*
 
-The source demo is a text-cleaning pipeline of handlers.
-
-### Behavioural: Command
+### Command
 
 #### Definitions
 
-> **Command**: Turns an action into an object (or lambda) separate from the UI element that triggers it.
+> **Command**: Turns an action into an object (or lambda) so it can be stored, passed and executed separately from the UI that triggers it.
 
-Making `OKButton` IS-A `Button` ("yikes") causes:
+Problem: is `OKButton` IS-A `Button`? Yikes — subclassing every button for its action causes:
 
-- confusion of property versus class
-- an explosion of classes (`SaveButton`, `OpenButton`, `PrintButton`, …)
-- business logic everywhere and duplicated code
-- tight UI–logic coupling
-
-A command object shared by the button, menu item and shortcut gives **no duplication and loose coupling**.
-
-![Command](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/command.svg)
-
-*Every UI trigger for "save" calls the same Save command, which calls the business logic.*
+| Without Command | With Command |
+|---|---|
+| Confusion of property and class | No code duplication |
+| Explosion of classes | Loose coupling between UI and logic |
+| Business logic everywhere | |
+| Duplicated code | |
+| Tight UI–logic coupling | |
 
 With lambdas, no OOP workaround is needed:
 
-```cpp
-type Command: []{} -> bool;                      // lambda returning bool
+```text
+type Command: [] {} -> bool;                  // lambda returning bool
 const emptyCommand: Command = [&]{ return false; };
-class UIControl: public InvisibleControl {
+
+class UIControl : public InvisibleControl {
 public:
-  action: Command = emptyCommand;                // do nothing by default
-  bool execute() final { return action(); }
-};
-form1.Actions.Add(ID_SaveAs, [&]{                // [&] captures context
-  if (savedialog1.execute()) {                   // user pressed OK
-    auto filename = savedialog1.filename;
-    editor1.SaveToFile(filename);
-  }
+    action: Command = emptyCommand;           // do nothing
+    bool execute() final { return action(); }
+}
+
+//                             +--- [&] = capture context
+form1.Actions.Add(ID_SaveAs, [&]{
+    if (savedialog1.execute()) {              // user pressed OK
+        auto filename = savedialog1.filename;
+        editor1.SaveToFile(filename);
+    }
 });
 ```
 
-### Behavioural: Iterator And Mediator
+![Command](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/command.svg)
+
+*UI controls hold a command; executing the control runs the command, keeping business logic out of the UI classes.*
+
+### Iterator
 
 #### Definitions
 
-> **Iterator**: Walk through every item of a collection using `first`, `next` and `current` methods.
+> **Iterator**: Walks through every item of a collection without exposing its internal structure.
 
-> **Mediator**: A central hub that connects multiple components so they don't talk to each other directly (a "fancy version of the command pattern").
+A collection provides `first`, `next` and `current` methods. A `for (a in Collection) { a.dostuff(); }` loop runs:
 
-```pseudo
-for (a in Collection) { a.dostuff() }
-// runs as:
-c.First();             // current = c[-1]
-while (c.next()) {     // current = c[0], c[1], ...
-  a = c.current(); a.dostuff();
+```text
+c.First();            // current = c[-1]
+while (c.next()) {    // current = c[0], c[1], c[2], ...
+    a = c.current();
+    a.dostuff();
 }
 ```
 
-Design custom collections with `first`, `next` and `current`. Every modern language has for-in loops, so iterator no longer needs an OOP workaround.
+Design custom collections with `first`, `next` and `current`. Every modern language has `for-in` loops, so no OOP workaround is needed.
 
-### Behavioural: Memento
+### Mediator
 
 #### Definitions
 
-> **Memento**: Saving and restoring an object's state without exposing its private details.
+> **Mediator**: A central hub that connects multiple components so they don't talk to each other directly — reducing cross-talk. A fancy version of the command pattern.
 
-**Problem**: the program must save state from one or more objects. It must not access their private details, and cloning isn't an option (unsafe because of links to other objects).
+### Memento
 
-**Solution**:
+#### Definitions
 
-- The object (originator) creates a **snapshot** of its own state.
-- A **memento** adds metadata (date, command).
-- A **caretaker** stores the snapshots.
+> **Memento**: A snapshot of an object's state, created by the object itself, so state can be restored later without exposing private details.
 
-![Memento](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/memento.svg)
+Problem: a program must save the state of one or more objects, but
 
-*The editor makes and restores its own immutable snapshots. The caretaker keeps the history without seeing inside.*
+- must not access their private details, and
+- cloning isn't an option (unsafe, because of links to other objects).
+
+Solution:
+
+| Role | Responsibility |
+|---|---|
+| **Originator** (the object) | Creates a snapshot of its own state, and restores from one |
+| **Memento** | The snapshot, plus metadata (date, command) |
+| **Caretaker** | Stores and manages snapshots |
 
 ```java
 class Editor implements IUndo {
-  String text;        // gets saved
-  Window owner;       // not saved
-  EditorSnapshot makeSnapshot();
-  void restoreSnapshot(EditorSnapshot restorePoint);
+    String text;     // gets saved
+    Window owner;    // not saved
+    EditorSnapshot makeSnapshot();                          // IUndo
+    void restoreSnapshot(EditorSnapshot restorePoint);      // IUndo
 }
+
 class EditorSnapshot implements IMemento immutable { String text; }
-interface IMementoList immutable {               // multiple objects restored together
-  property int id; property Datetime timestamp;
-  property CommandId reason; property List<IMemento> sources;
-  void restore() { for (s in sources) { s.source.restoreSnapshot(s); } }
+
+interface IMemento immutable {
+    property int id;
+    property IUndo source;
 }
-class Caretaker {
-  List<IMementoList> snapshots;
-  void add(IMementoList item);
-  void restore(int id) { getById(snapshots, id).restore(); }
+
+interface IMementoList immutable {   // if several objects must be restored
+    property int id;
+    property Datetime timestamp;
+    property CommandId reason;
+    property List<IMemento> sources;
+    void restore() { for (s in sources) { s.source.restoreSnapshot(s); } }
+}
+
+class Caretaker {                    // manages snapshots
+    List<IMementoList> snapshots;
+    void add(IMementoList item);
+    void restore(int id) {
+        restorepoint = getById(snapshots, id);
+        restorepoint.restore();
+    }
 }
 ```
 
-| Useful for | Pro | Con |
-|---|---|---|
-| Undo; transactions (commit/rollback); save to file | Saves state without knowing objects' internals; the caretaker tracks snapshots | Can use a lot of RAM; may need to track originals to destroy obsolete snapshots; needs immutable objects |
+![Memento](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/memento.svg)
 
-### Behavioural: Observer
+*The editor creates and restores its own snapshots; the caretaker only stores them.*
+
+Uses: undo (revert to a save point), transactions (commit/rollback), saving to file.
+
+| Pro | Con |
+|---|---|
+| Saves state without knowing objects' internal details | Can use a lot of RAM with many snapshots |
+| The caretaker tracks snapshots | May need to track originals (if not permanent) to destroy obsolete snapshots |
+| | Needs immutable objects |
+
+### Observer
 
 #### Definitions
 
-> **Observer**: Interested objects **subscribe** to a publisher and are notified when its state changes.
+> **Observer** (publish–subscribe): Interested objects subscribe to a publisher, which notifies all subscribers when its state changes.
 
-Example: rather than clients checking the store every day for the new iPhone, the store emails all subscribed clients when it arrives.
+Problem: you're waiting for the iPhone 35. You could check in at the store every day (polling), or the store could email everyone. Better: interested clients **subscribe** to updates.
 
 ```java
-interface IObserver  { void update(msg); }
-interface IPublisher {
-  void subscribe(IObserver client);
-  void unsubscribe(IObserver client);
+interface IObserver {
+    void update(msg);
 }
+
+interface IPublisher {
+    void subscribe(IObserver client);
+    void unsubscribe(IObserver client);
+}
+
 class Publisher implements IPublisher {
-  List<IObserver> clients;
-  private void update(msg) { for (c in clients) { c.update(msg); } }
+    List<IObserver> clients;
+    private void update(msg) {
+        for (c in clients) { c.update(msg); }
+    }
 }
 ```
 
 ![Observer](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/observer.svg)
 
-*The publisher keeps a subscriber list and calls `update(msg)` on each. MVC views are observers of the model.*
+*Subscribers register with the publisher; one state change notifies every subscriber.*
 
-### Behavioural: State (And Strategy)
+### State
 
 #### Definitions
 
-> **State**: Implements a finite state machine with an `IState` interface and one class per state. The master object switches between state objects and delegates state-specific work to the current one.
+> **State**: Implements a finite state machine with one class per state; the master object delegates behaviour to its current state object, which switches states.
 
-**Problem**: a complex `switch` on a state string controls behaviour (e.g. a document moving draft → moderation → published, depending on user role).
+- **Problem**: a complex `case` statement controls the state.
+- **Solution**: an `IState` interface; one class per state; the master object switches state and calls the state object to do the state's work.
+
+**Music player**:
 
 ```java
-interface IPlayState { property AudioPlayer player; void pressPlay(); }
+interface IPlayState {
+    property AudioPlayer player;
+    void pressPlay();   // play/pause
+}
+
 class PlayState implements IPlayState {
-  void pressPlay() { player.setState(new PauseState()); player.pauseMusic(); }
+    void pressPlay() {                  // play -> pause
+        player.setState(new PauseState());
+        player.pauseMusic();
+    }
 }
+
 class PauseState implements IPlayState {
-  void pressPlay() { player.setState(new PlayState()); player.playMusic(); }
+    void pressPlay() {                  // pause -> play
+        player.setState(new PlayState());
+        player.playMusic();
+    }
 }
+
 class MusicPlayer {
-  IPlayState state = new PauseState();
-  Button playButton(state.pressPlay);
+    IPlayState state = new PauseState();
+    Button playButton(state.pressPlay);
 }
 ```
 
-![State](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/state.svg)
+![State pattern music player](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/state.svg)
 
-*Pressing play in PauseState starts the music and switches to PlayState, and vice versa.*
+*Pressing play in PauseState switches to PlayState and vice versa; the player just forwards the button press.*
+
+States with shared code can inherit from, or contain, shared classes.
 
 | Pro | Con |
 |---|---|
 | Single responsibility: one state per class | Overkill with only a few simple states |
 | Open–closed: change state details without changing the player class | |
-| Eliminates complex state-machine code; the master is in exactly one state | |
+| Eliminates complex state-machine conditionals; the master can only be in one state | |
 
-States sharing code can inherit from or contain shared classes. **Strategy** is a more complex version of State and is **out of scope**.
-
-### Behavioural: Template Method
+### Strategy
 
 #### Definitions
 
-> **Template method**: Define the skeleton of an algorithm in a base class (class A) and let subclasses (class B) override specific steps.
+> **Strategy**: One object per interchangeable algorithm, selected at run time — a more complex version of State. Out of scope for this course.
 
-**Problem**: several versions of an algorithm repeat the same code, which violates DRY.
+### Template Method
+
+#### Definitions
+
+> **Template method**: Defines the skeleton of an algorithm in a base class, leaving the detailed steps to subclasses.
+
+- **Problem**: different versions of an algorithm repeat the same code in each version, violating DRY.
+- **Solution**: put the steps (skeleton) in class A and the details in class B.
 
 ```java
 class BrewMaster {
-  void boilWater()     { print("boil water"); }
-  void addPlants()     { /* do nothing */ }
-  void removePlants()  { /* do nothing */ }
-  void addCondiments() { /* do nothing */ }
+    void boilWater()     { print("boil water"); }
+    void addPlants()     { /* do nothing */ }
+    void removePlants()  { /* do nothing */ }
+    void addCondiments() { /* do nothing */ }
 }
+
 class BrewTea extends BrewMaster {
-  void addPlants()     { /* hang tea bag */ }
-  void removePlants()  { /* remove tea bag */ }
-  void addCondiments() { /* just sugar, no milk */ }
+    void addPlants()     { /* hang tea bag */ }
+    void removePlants()  { /* remove tea bag */ }
+    void addCondiments() { /* just sugar, no milk */ }
 }
+
 class BrewCoffee extends BrewMaster {
-  void addPlants()     { /* add coffee */ }   // no sugar, no milk (duh)
+    void addPlants() { /* add coffee */ }
+    // no sugar, no milk (duh)
 }
 ```
 
 ![Template method](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/14_15_Design_Patterns_I/template.svg)
 
-*`DataMiner.mine()` fixes the sequence of steps. Subclasses override file-format steps; analysis and reporting have default implementations.*
+*The base class fixes the order of steps; subclasses override only the steps that differ.*
 
-Pro: clients override only certain parts of a large algorithm, so changes to other parts affect them less. Template method also fixes the **call super** and **sequential coupling** antipatterns ([Antipatterns](12_Antipatterns.md)). The remaining pro/con rows on the source's Template slide repeat the State slide.
+Pro: clients can override only certain parts of a large algorithm, so they are less affected by changes to other parts. Template method is also the fix for the sequential-coupling and call-super antipatterns (see [Antipatterns](12_Antipatterns.md#Object-Oriented%20Antipatterns)).

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 300" role="img">
+<title>The AI renaissance produces agents</title>
+<desc>Symbolic AI plus neural AI plus tools from other fields (optimisation, algorithms, probabilistic inference, statistics, game theory) combine into agents.</desc>
+<defs><marker id="mw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.6" stroke-linecap="round"/></marker></defs>
+<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+<rect x="30" y="60" width="150" height="56" rx="10" fill="#302b46" stroke="#b89aff" stroke-width="1.8"/>
+<text x="105" y="94" text-anchor="middle" font-size="16" fill="#f8fafc">Symbolic AI</text>
+<text x="205" y="98" text-anchor="middle" font-size="26" fill="#adb9cb">+</text>
+<rect x="230" y="60" width="150" height="56" rx="10" fill="#20344c" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="305" y="94" text-anchor="middle" font-size="16" fill="#f8fafc">Neural AI</text>
+<text x="405" y="98" text-anchor="middle" font-size="26" fill="#adb9cb">+</text>
+<rect x="430" y="40" width="230" height="200" rx="10" fill="#3d3326" stroke="#ffc778" stroke-width="1.8"/>
+<text x="545" y="68" text-anchor="middle" font-size="15" font-weight="600" fill="#ffc778">Tools from other fields</text>
+<g font-size="14" fill="#f8fafc" text-anchor="middle">
+<text x="545" y="100">optimisation</text><text x="545" y="124">algorithms</text><text x="545" y="148">probabilistic inference</text><text x="545" y="172">statistics</text><text x="545" y="196">game theory, …</text>
+</g>
+<path d="M670 140 L740 140" stroke="#5ad4b5" stroke-width="2.2" fill="none" marker-end="url(#mw)"/>
+<rect x="750" y="105" width="120" height="70" rx="12" fill="#1b3835" stroke="#5ad4b5" stroke-width="2"/>
+<text x="810" y="147" text-anchor="middle" font-size="19" font-weight="600" fill="#f8fafc">Agents</text>
+<text x="205" y="180" text-anchor="middle" font-size="13" fill="#adb9cb">The combination, not any single method,</text>
+<text x="205" y="200" text-anchor="middle" font-size="13" fill="#adb9cb">drives modern AI systems</text>
+</g>
+</svg>

@@ -50,9 +50,9 @@ Can the same diffusion process run more economically? Yes — in a low-dimension
 
 > **Latent diffusion**: Running the whole diffusion process (forward noising and reverse denoising) inside a VAE's compressed latent space, then decoding once at the end (Rombach et al., 2022).
 
-![Latent diffusion](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/07_Text_To_Image_Generation/latent-diffusion.svg)
+![Latent diffusion](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/07_Text_To_Image_Generation/latent-cost.svg)
 
-*A $512 \times 512 \times 3$ training image is compressed once by a frozen VAE to a $64 \times 64 \times 4$ latent; diffusion noises and denoises there; the frozen VAE decoder maps back to pixels.*
+*A frozen VAE encodes $512 \times 512 \times 3$ pixels (786,432 numbers) into a $64 \times 64 \times 4$ latent (16,384), diffusion runs there, and the VAE decoder maps back.*
 
 $$
 \frac{512 \times 512 \times 3}{64 \times 64 \times 4} = \frac{786{,}432}{16{,}384} = 48\times \text{ fewer numbers}
@@ -74,9 +74,9 @@ The prompt must condition **every** one of the ~50 denoising steps, not just inf
 
 ### Text conditioning with cross-attention
 
-![Text conditioning](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/07_Text_To_Image_Generation/text-conditioning.svg)
+![Text conditioning](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/07_Text_To_Image_Generation/cross-attention-conditioning.svg)
 
-*The prompt is encoded by a frozen text encoder into token features that become keys and values; noisy-latent features become queries; cross-attention layers inside the denoiser combine them.*
+*Prompt tokens from the CLIP text encoder supply keys and values; noisy-latent patches supply queries; cross-attention appears at many layers at every step.*
 
 $$
 Q = \text{latent features} \cdot W^Q, \qquad K = \text{text tokens} \cdot W^K, \qquad V = \text{text tokens} \cdot W^V
@@ -103,6 +103,10 @@ $$
 
 The bracket is **"what the prompt changed"**; the scale amplifies it. The result is a modified noise prediction, which is then subtracted from the current latent to get a less noisy latent.
 
+![Classifier-free guidance](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/07_Text_To_Image_Generation/cfg.svg)
+
+*The guided prediction starts at the unconditional prediction and moves $w$ times along the direction the prompt pulls it.*
+
 | Scale | Effect |
 |---|---|
 | $w = 0$ | Prompt ignored (unconditional) |
@@ -120,7 +124,7 @@ Example: "An oil painting of a collie in a top hat" with the same model, prompt,
 
 ![Stable Diffusion pipeline](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/07_Text_To_Image_Generation/stable-diffusion.svg)
 
-*Prompt → text encoder → token context. Starting from random latent noise, the U-Net/transformer denoiser (with guidance) and scheduler repeatedly update the latent; the final latent is VAE-decoded to an image.*
+*The prompt is encoded by CLIP; random latent noise is denoised by a guided U-Net or DiT for $T$ steps; the VAE decoder makes the image.*
 
 1. **Encode the prompt** with the CLIP text encoder into token embeddings.
 2. **Sample** a random latent $z_T$ (e.g. $64 \times 64 \times 4$).
@@ -137,6 +141,10 @@ Example: "An oil painting of a collie in a top hat" with the same model, prompt,
 > **U-Net**: The convolutional encoder-decoder architecture used as the denoiser in the original Stable Diffusion.
 
 > **Diffusion Transformer (DiT)**: A denoiser that cuts the latent into patches like a ViT and uses a Transformer to predict the noise over those patch tokens (Peebles and Xie, 2023).
+
+![Diffusion Transformer](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/07_Text_To_Image_Generation/dit.svg)
+
+*DiT patchifies the noisy latent like a ViT and uses Transformer blocks to predict the noise.*
 
 | | U-Net denoiser | DiT denoiser |
 |---|---|---|
@@ -172,9 +180,9 @@ $$
 \text{FID} = \|\mu_r - \mu_g\|^2 + \text{Tr}\!\left(\Sigma_r + \Sigma_g - 2\big(\Sigma_r \Sigma_g\big)^{1/2}\right)
 $$
 
-![FID distributions](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/07_Text_To_Image_Generation/fid-distributions.svg)
+![FID and CLIPScore](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/07_Text_To_Image_Generation/fid-clipscore.svg)
 
-*Low FID: real and generated feature distributions nearly overlap. High FID: they are shifted apart. FID compares sets, not individual images.*
+*FID compares the feature distributions of real and generated sets; CLIPScore checks each image against its prompt (0.82 on-prompt vs 0.24 off-prompt).*
 
 | Measures | Does not measure | Limits |
 |---|---|---|
@@ -191,10 +199,6 @@ $$
 $$
 
 A high value means image and text sit close together in CLIP's shared space, so the image is on-prompt. It is the same similarity used for zero-shot classification, pointed at generation.
-
-![Prompt cosine similarity](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/07_Text_To_Image_Generation/prompt-cosine.svg)
-
-*Illustrative raw cosine similarity: a matching image-prompt pair scores about 0.82, a mismatch about 0.24. This measures alignment, not realism.*
 
 > [!warning] <span style="color: #ff939b">Use both metrics</span>
 > A model can have good FID while ignoring the prompt (realistic but wrong), or good CLIPScore while producing a garbled mess that contains the right concepts. They catch different failures. Neither replaces a human judging the image; they are cheap automatic proxies used at scale during development.

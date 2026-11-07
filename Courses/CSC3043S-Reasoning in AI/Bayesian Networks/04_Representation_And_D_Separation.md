@@ -51,6 +51,10 @@ $$
 P(X)P(Y \mid X)P(Z \mid X, Y)P(W \mid X, Y, Z) = P(X)P(Y \mid X)P(Z \mid Y)P(W \mid Z)
 $$
 
+![Chain X to W](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/04_Representation_And_D_Separation/chain-example.svg)
+
+*In the chain $X \rightarrow Y \rightarrow Z \rightarrow W$, each node depends only on its immediate predecessor.*
+
 Matching factors gives independences directly from the BN definition:
 
 - $Z \perp\!\!\!\perp X \mid Y$
@@ -70,7 +74,7 @@ D-separation considers variable triples and decides whether they are (conditiona
 
 ![Canonical triples](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/04_Representation_And_D_Separation/canonical-triples.svg)
 
-*Chain $A \rightarrow B \rightarrow C$ and fork $A \leftarrow B \rightarrow C$ are blocked when $B$ is observed. The collider $A \rightarrow B \leftarrow C$ is the opposite: observing $B$ or one of its descendants opens it.*
+*The three lecture examples: a causal chain (low pressure → rain → traffic), a common cause (project due → forums busy, lab full), and a common effect (raining, sports match → traffic).*
 
 | Case | Structure | Without evidence on $Y$ | Given $Y$ |
 |---|---|---|---|
@@ -130,6 +134,10 @@ To ask whether $X$ and $Y$ are conditionally independent given evidence $Z$, sha
 > [!warning] <span style="color: #ff939b">A blocked-by-shading rule is not enough</span>
 > A first attempt — "two nodes are independent if every path is blocked by an observed node" — works for chains and forks but fails for v-structures, where observing the middle node *opens* the path. Paths must be checked triple by triple.
 
+![Active and inactive triples](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/04_Representation_And_D_Separation/active-inactive-triples.svg)
+
+*Chains and forks are active only when the middle node is unobserved. A v-structure is the opposite: it becomes active when the middle node or any descendant is observed (shaded).*
+
 | Triple type | Active when | Inactive when |
 |---|---|---|
 | Causal chain $A \rightarrow B \rightarrow C$ (either direction) | $B$ unobserved | $B$ observed |
@@ -152,6 +160,10 @@ Running d-separation over all queries gives a complete list of conditional indep
 
 **Example 1** — $R \rightarrow T \leftarrow B$, $T \rightarrow T'$.
 
+![D-separation example 1](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/04_Representation_And_D_Separation/dsep-example-1.svg)
+
+*With a collider at $T$, $R$ and $B$ are independent until $T$ or its descendant $T'$ is observed.*
+
 | Query | Answer | Reason |
 |---|---|---|
 | $R \perp\!\!\!\perp B$ | Yes | Collider at $T$ is unobserved |
@@ -160,9 +172,9 @@ Running d-separation over all queries gives a complete list of conditional indep
 
 **Example 2** — add $L \rightarrow R$ and $R \rightarrow D$ to example 1.
 
-![Extended traffic network for d-separation](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/04_Representation_And_D_Separation/extended-traffic.svg)
+![Extended traffic network](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/04_Representation_And_D_Separation/extended-traffic.svg)
 
-*$L \rightarrow R$, $R \rightarrow D$, $R \rightarrow T \leftarrow B$, $T \rightarrow T'$. The collider at $T$ connects the two causes $R$ and $B$ whenever $T$ or $T'$ is observed.*
+*$L \rightarrow R$, $R \rightarrow D$, $R \rightarrow T \leftarrow B$, $T \rightarrow T'$. The collider at $T$ connects $R$ and $B$ when $T$ or $T'$ is observed, but observing $R$ blocks the chain from $L$.*
 
 | Query | Answer | Reason |
 |---|---|---|
@@ -176,7 +188,7 @@ Running d-separation over all queries gives a complete list of conditional indep
 
 ![Rain, traffic, drips, and sadness](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/04_Representation_And_D_Separation/rain-traffic-drips.svg)
 
-*Rain is a common cause of traffic and drips; sadness is a common effect of both. There are two paths between $T$ and $D$: through $R$ (fork) and through $S$ (collider).*
+*There are two paths between $T$ and $D$: a fork through $R$ and a collider through $S$. Each query depends on which of these is open.*
 
 | Query | Answer | Reason |
 |---|---|---|

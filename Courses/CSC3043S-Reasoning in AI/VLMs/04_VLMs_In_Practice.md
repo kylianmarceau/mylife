@@ -48,7 +48,7 @@ tags:
 
 ![Production VLM stack](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/04_VLMs_In_Practice/production-stack.svg)
 
-*A native-resolution ViT with 2D positions feeds a 2×2 patch merger and projector into an LLM decoder, which outputs text, boxes, points, or JSON.*
+*A native-resolution ViT tower, a merger that combines $2 \times 2$ patches, and an LLM decoder with M-RoPE that outputs text, boxes, or JSON.*
 
 | Component | Production version |
 |---|---|
@@ -68,7 +68,7 @@ Two VLM families share this blueprint:
 
 ![VLM training stages](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/04_VLMs_In_Practice/training-stages.svg)
 
-*The LLM pipeline (pretrain → SFT → preference tuning) with visual data at every stage.*
+*Multimodal pretraining, visual SFT, then preference tuning: the LLM pipeline with visual data at every stage.*
 
 | Stage | Data | Teaches |
 |---|---|---|
@@ -147,6 +147,10 @@ VQA is deceptively hard to evaluate:
 
 An answer with coordinates is **checkable**. Grounding is used to combat hallucination and enables action selection for GUI agents.
 
+![Grounding as text](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/04_VLMs_In_Practice/grounding-json.svg)
+
+*The model answers a grounding request with JSON whose bounding boxes are ordinary number tokens.*
+
 ### Capability 3: OCR and document understanding
 
 The range runs from "what does the sign say?" to full document parsing:
@@ -173,9 +177,9 @@ Why this was the hardest capability:
 
 > **AnyRes tiling**: The predecessor approach (LLaVA-NeXT): cut a large image into fixed-size tiles plus a thumbnail.
 
-![Dynamic resolution](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/04_VLMs_In_Practice/dynamic-resolution.svg)
+![Fixed versus native resolution](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/04_VLMs_In_Practice/fixed-vs-native.svg)
 
-*A landscape photo, a tall receipt, and a small icon get differently shaped token grids (48, 40, and 16 here), preserving aspect ratio and spending tokens where needed.*
+*Fixed resizing squashes a receipt until its text is unreadable; native resolution gives each image a token grid shaped to its aspect ratio.*
 
 Native resolution needs:
 
@@ -198,10 +202,6 @@ This differs from OCR: the marks are machine-readable, but meaning lies in **lay
 | Analyze | "Which region grew fastest 2023→2025?" = read, convert, recover numbers, subtract, compare |
 | Convert | Chart → data table / JSON; flowchart → steps; schematic → explanation |
 
-![Chart reading example](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/04_VLMs_In_Practice/chart-reading-example.svg)
-
-*Answering a question about this chart means reading the exact series values (e.g. the visible peak of 83), not guessing what such charts usually show.*
-
 - **Common failure**: "priors over pixels" — the model knows what typical charts look like and hallucinates an answer.
 - **Benchmark**: ChartQA. Its machine-generated vs human-written split exposes template overfitting.
 - For scientific data extraction from figures, verify: ask the model to output the raw table and spot-check it.
@@ -220,7 +220,7 @@ This differs from OCR: the marks are machine-readable, but meaning lies in **lay
 
 ![GUI agent loop](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/04_VLMs_In_Practice/gui-loop.svg)
 
-*Screenshot → decide and ground the next action → execute → new screenshot.*
+*Screenshot → decide and ground an action → execute → new screenshot.*
 
 - Skills: recognize widgets, read state, ground the next action ("click here" is pointing, capability 2).
 - A VLM in a control loop **is** an agent.
@@ -319,9 +319,9 @@ Three ways to choose the absent objects:
 | Popular | Frequent dataset objects |
 | Adversarial | Objects that co-occur with what is present (cookies for kitchens) |
 
-![POPE comparison](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/04_VLMs_In_Practice/pope-comparison.svg)
+![POPE](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/04_VLMs_In_Practice/pope.svg)
 
-*Schematic: accuracy drops from random to popular to adversarial negatives; balanced/preference-tuned models drop less than caption-tuned ones.*
+*Accuracy drops from random to popular to adversarial absent objects; a balanced or preference-tuned model drops less (schematic).*
 
 Findings:
 

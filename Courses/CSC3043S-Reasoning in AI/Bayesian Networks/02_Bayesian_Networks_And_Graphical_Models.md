@@ -121,7 +121,7 @@ A real example is a car-insurance cost network, with variables such as age, soci
 
 ![Car insurance Bayesian network](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/02_Bayesian_Networks_And_Graphical_Models/insurance-network.svg)
 
-*The insurance network has 27 variables and 52 directed dependencies. Each node only needs a table conditioned on its few parents, not on all 26 other variables.*
+*The car-insurance network has 27 variables and 52 arcs: observable driver and car attributes (blue) feed hidden factors (violet) that determine the costs (amber). Each node only needs a CPT over its few parents, not over all 26 other variables.*
 
 ### Graphical model notation
 
@@ -134,11 +134,15 @@ A real example is a car-insurance cost network, with variables such as age, soci
 - Arcs are directed. It helps to imagine they indicate direct causation, but in general they do not.
 - Missing arcs are what carry information: they encode independence assumptions.
 
-![Independent coins and a common-cause fork](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/02_Bayesian_Networks_And_Graphical_Models/simple-networks.svg)
+![Graphical model notation](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/02_Bayesian_Networks_And_Graphical_Models/cavity-network.svg)
 
-*Coin flips have no arcs (absolute independence). Cavity is a common parent of Toothache and Detect, so the two symptoms are independent once Cavity is known.*
+*Weather has no arcs, so it is independent of the rest. Cavity is a common parent of Toothache and Detect, so the two symptoms are independent once Cavity is known.*
 
 ### Example networks
+
+![Coin flips and two traffic models](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/02_Bayesian_Networks_And_Graphical_Models/simple-networks.svg)
+
+*Coin flips have no arcs (absolute independence). For traffic, model 1 assumes rain and traffic are independent; model 2 adds the arc $R \rightarrow T$.*
 
 **$N$ independent coin flips.** Nodes $X_1, \dots, X_n$ with no arcs, so there is no interaction: absolute independence.
 
@@ -159,7 +163,7 @@ A real example is a car-insurance cost network, with variables such as age, soci
 
 ![Alarm network](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/02_Bayesian_Networks_And_Graphical_Models/alarm-network.svg)
 
-*Burglary and earthquake can each set off the alarm; the alarm prompts John and Mary to call.*
+*Burglary and earthquake can each set off the alarm; the alarm prompts John and Mary to call. Each node stores one CPT over its parents.*
 
 ### Probabilities in Bayesian networks
 
@@ -177,6 +181,10 @@ A Bayesian network consists of:
 2. A local conditional distribution for each node given its parents, stored as a CPT.
 
 A CPT can be thought of as describing a noisy "causal" process from parents to child.
+
+![A node and its CPT](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/02_Bayesian_Networks_And_Graphical_Models/cpt-node.svg)
+
+*Node $X$ with parents $A_1, \dots, A_n$ stores one distribution $P(X \mid a_1, \dots, a_n)$ for every combination of parent values.*
 
 BNs **implicitly** encode the joint as the product of local conditionals. To get the probability of a full assignment, multiply the relevant conditional probabilities:
 
@@ -289,7 +297,11 @@ Multiplying gives the joint, e.g. $P(+r, -t) = \frac{1}{4} \cdot \frac{1}{4} = \
 | $+t$ | $1/3$ | $2/3$ |
 | $-t$ | $1/7$ | $6/7$ |
 
-Multiplying these out gives exactly the same four joint entries. Two networks with different arc directions can represent the same distribution.
+Multiplying these out gives exactly the same four joint entries.
+
+![Two topologies, same joint](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/02_Bayesian_Networks_And_Graphical_Models/same-joint-topologies.svg)
+
+*$R \rightarrow T$ and $T \rightarrow R$ use different CPTs but produce the identical joint $P(R, T)$: arc direction is not causality.* Two networks with different arc directions can represent the same distribution.
 
 ### Bayesian networks and causality
 

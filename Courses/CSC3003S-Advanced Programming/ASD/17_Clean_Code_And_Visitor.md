@@ -3,14 +3,14 @@ tags:
   - advanced-programming
 ---
 
-# Design Patterns II: Clean Code And The Visitor
+# Design Patterns II: Clean Code And The Visitor Pattern
 
-**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)  
-**Source**: [ASD17-Design Patterns II.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD17-Design%20Patterns%20II.pdf), Johan Bontes, University of Cape Town, PDF pages 1–29  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)
+**Source**: [ASD17-Design Patterns II.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD17-Design%20Patterns%20II.pdf), Johan Bontes, University of Cape Town, pages 1–29
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes: clean-coding principles, the behavioural pattern overview and iterator recap, the Visitor pattern compared with `std::variant`/`std::visit` and the acyclic visitor, and a Memento recap.
+> Clean-coding principles (DRY, one task, meaningful names, no littering, no magic constants, const correctness), then the Visitor pattern and its alternatives: procedural switch, `std::variant` + `std::visit`, and the acyclic visitor. Iterator and Memento are recapped from [Design Patterns I](14_15_Design_Patterns_I.md).
 
 ---
 
@@ -18,18 +18,20 @@ tags:
 
 - [[#Core Content|Core Content]]
   - [[#Clean Coding Principles|Clean Coding Principles]]
-  - [[#DRY And OneTask|DRY And OneTask]]
+  - [[#DRY: Don't Repeat Yourself|DRY: Don't Repeat Yourself]]
+  - [[#OneTask: Do One Thing|OneTask: Do One Thing]]
   - [[#Meaningful Names|Meaningful Names]]
-  - [[#No Littering And No Magic Constants|No Littering And No Magic Constants]]
+  - [[#No Littering|No Littering]]
+  - [[#No Magic Constants|No Magic Constants]]
   - [[#Const Correctness|Const Correctness]]
   - [[#Behavioural Patterns Recap And Examples|Behavioural Patterns Recap And Examples]]
   - [[#The Visitor Pattern|The Visitor Pattern]]
-  - [[#The Visitor's Cyclic Dependency|The Visitor's Cyclic Dependency]]
+  - [[#Visitor Pros And Cons|Visitor Pros And Cons]]
   - [[#Procedural Alternative|Procedural Alternative]]
-  - [[#Modern Alternative: std::variant + std::visit|Modern Alternative: std::variant + std::visit]]
-  - [[#Acyclic Visitor|Acyclic Visitor]]
-  - [[#Performance And Recap|Performance And Recap]]
-  - [[#Memento Recap|Memento Recap]]
+  - [[#std::variant And std::visit|std::variant And std::visit]]
+  - [[#Performance Comparison|Performance Comparison]]
+  - [[#The Acyclic Visitor|The Acyclic Visitor]]
+  - [[#Visitor Recap|Visitor Recap]]
 
 ---
 
@@ -41,62 +43,86 @@ tags:
 |---|---|
 | **DRY** | Don't repeat yourself |
 | **OneTask** | Do only one thing in a function or class |
-| **Meaningful names** | Code is written for humans first |
+| **Meaningful names** | Names that tell the reader what things are and do |
 | **No littering** | No stale comments or commented-out code |
-| **No magic constants** | Name every literal |
-| **Const correctness** | Mark what may not change |
+| **No magic constants** | Name your numbers and strings |
+| **Const correctness** | Mark what must not change |
 
-### DRY And OneTask
+### DRY: Don't Repeat Yourself
 
-#### Definitions
+If two functions both contain steps X, Y (and Z), extract each step into a function and call it:
 
-> **DRY (don't repeat yourself)**: Factor shared steps into functions instead of duplicating code.
+```text
+void doThis() {          void doThis2() {
+    X - - -                  doX();
+    Y - - -       →          doY();
+    Z - - -                  doZ();
+}                        }
 
-> **OneTask**: Each function or class does exactly one thing, which is SRP at function level.
-
-```cpp
-// repeated blocks X, Y, Z inline          // DRY version
-void doThis() { /* X… Y… Z… */ }           void doThis2() { doX(); doY(); doZ(); }
-void doThat() { /* X… Y… */ }              void doThat2() { doX(); doY(); }
-
-// one function doing many tasks with 5 params → split, each taking only what it needs
-void doThis2(a, b, c) { doX(a, b); doY(b); doZ(c); }
+void doThat() {          void doThat2() {
+    X - - -       →          doX();
+    Y - - -                  doY();
+}                        }
 ```
+
+### OneTask: Do One Thing
+
+A function doing X, Y and Z with five parameters becomes a coordinator of three single-purpose functions, each taking only what it needs:
+
+```text
+void doThis(a, b, c, d, e) {      void doThis2(a, b, c) {
+    X - - -                           doX(a, b);
+    Y - - -              →            doY(b);
+    Z - - -                           doZ(c);
+}                                 }
+```
+
+This is the single responsibility principle at function level (see [SOLID](13_SOLID.md)).
 
 ### Meaningful Names
 
 Code is written for humans first, computers second.
 
-- **Functions**: verbNoun.
-- **Variables**: two or more nouns, including the **unit of measure** (litres, secs, kg).
-- **Long scope means a long name.** `for (i …)` used only inside a loop can be short; longer scopes need descriptive names.
-- **Limit the lifetime (scope)** of variables.
-- **No Hungarian notation** (`szFilename`, `ui32_counter`). Use **strong types** instead.
-- **Consistent names**: `begin`/`end`, `isDone`, …
+| Rule | Example |
+|---|---|
+| Functions are `verbNoun` | `readFile`, `computeTax` |
+| Variables are two or more nouns | `fuelLevel`, `retryCount` |
+| Include the unit of measure | `fuelLiters`, `timeoutSecs`, `massKg` |
+| Long scope → long name; short scope → short name | `for (i …)` only within a loop; more descriptive names for longer scopes |
+| Limit the lifetime (scope) of variables | Declare close to use |
+| No Hungarian notation | Not `szFilename`, `ui32_counter` — use strong types instead |
+| Consistent names | `begin`/`end`, `isDone`, … |
 
-### No Littering And No Magic Constants
+### No Littering
 
-**No littering.** Code is always up to date; comments are not.
+- Code is always up to date; comments are not.
+- Put more of the description into the code and less into comments.
+- Remove commented-out code — use the version control system (git) instead.
+- Use comments to explain **why**; let the code explain **how/what**.
 
-- Put more description into code and less into comments.
-- Remove commented-out code; the version control system (git) keeps history.
-- Comments explain **why**; the code explains **how and what**.
+### No Magic Constants
 
-**No magic constants.** A magic constant is a naked number or string in code:
+#### Definitions
 
-```cpp
-a += 100;                        // why 100, not 101? what is 100?
-if ('zorg' == name) { ... }      // hidden backdoor?
+> **Magic constant**: A naked number or string in code with no explanation.
 
-const int LevelOffset = 100;     // levels are 100 units apart
-const auto superuser = 'zorg';   // definitely a backdoor
+```c
+a += 100;                 // why 100, not 101? what is 100?
+if ('zorg' == name) {...} // hidden back door?
 ```
 
-Naming constants:
+Name constants instead:
 
-- makes the intention clear
-- defines each constant in one place (DRY), so it is easy to update
-- lets you document it
+```c
+const int LevelOffset = 100;    // levels are 100 units apart
+const auto superuser = 'zorg';  // definitely a back door
+```
+
+Benefits:
+
+- the intention is clear;
+- each constant is defined in one place (DRY), so it's easy to update;
+- you can document named constants.
 
 ### Const Correctness
 
@@ -106,126 +132,145 @@ Naming constants:
 | C++, Rust | `const` |
 | Python | Not supported |
 
-- Const correctness allows **pure functions** (no side effects).
-- `const`/`final` variables are easy to reason about, keep their initial value, simplify debugging, and let the compiler fold extra variables away.
+Benefits:
+
+- Enables **pure functions** with no side effects.
+- `const`/`final` variables keep their initial value, so they're easy to reason about and simplify debugging.
+- Compiler optimisation can fold away extra variables.
 
 ### Behavioural Patterns Recap And Examples
 
-The behavioural patterns are Chain of responsibility, Command, Iterator, Mediator, Memento, Observer, State, Strategy, Template and Visitor; see [Design Patterns I](14_15_Design_Patterns_I.md). Iterator is recapped there: modern for-in loops replace the OOP workaround.
+The behavioural patterns (chain of responsibility, command, iterator, mediator, memento, observer, state, strategy, template method, visitor) and the Iterator and Memento details are as in [Design Patterns I](14_15_Design_Patterns_I.md#Iterator).
 
-The deck links to runnable Compiler Explorer (godbolt) examples for Builder, Adapter, Decorator, Iterator, Visitor, State, Chain of responsibility, Strategy and Observer.
+Code examples for builder, adapter, decorator, iterator, visitor, state, chain of responsibility, strategy and observer are provided as Compiler Explorer (godbolt.org) links in the slides.
 
 ### The Visitor Pattern
 
 #### Definitions
 
-> **Visitor (GoF)**: Adds operations to a type hierarchy by putting each operation in its own visitor class. Each type implements `accept(visitor)`, which calls back `visitor.visit(this)` (double dispatch).
+> **Visitor**: Adds new operations to a type hierarchy without changing the types. Each operation is a visitor class with one `visit` method per type; each type has an `accept(visitor)` method that calls back `visitor.visit(this)` ("double dispatch").
 
-In OOP it is **easy to add types** (just add a class) but **hard to add operations**. Operations are a second dimension, and a class hierarchy is one-dimensional.
+In OOP it's easy to add **types** (just add a class) but hard to add **operations**: operations are a second dimension, while a class hierarchy is one-dimensional. Visitor turns operations into their own hierarchy.
 
 ![GoF visitor](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/17_Clean_Code_And_Visitor/gof-visitor.svg)
 
-*Operations (Rotate, Draw) form a ShapeVisitor hierarchy and types (Circle, Square) form a Shape hierarchy. Each refers to the other.*
+*Shapes accept a ShapeVisitor; Rotate and Draw implement a visit method per shape. The visitor names every shape and every shape names the visitor — a cycle.*
+
+1. `Shape` declares `accept(ShapeVisitor v)`.
+2. `Circle::accept(v)` calls `v.visit(this)`, selecting `visit(Circle)`.
+3. Each operation (`Rotate`, `Draw`) is a `ShapeVisitor` with `visit(Circle)` and `visit(Square)`.
+4. A new operation is a new visitor class; a new shape means editing every visitor.
+
+### Visitor Pros And Cons
 
 | Pros | Cons |
 |---|---|
-| Operations are easy to add (**OCP**): new operations without modifying existing code | Hard to add new types (shapes): every visitor must change |
-| Hides the implementation details of operations (**SRP**: the changing aspect is extracted) | Operations are limited to the types' public interface |
-| | Requires a base class (tending to a god object) |
+| Operations can be added easily (OCP) | Hard to add new types (shapes) |
+| Hides operations' implementation details (SRP) | Operations are limited to the types' public interfaces |
+| | Requires a base class (risk of a god object) |
 | | Needs heap allocation and memory management |
 | | Requires virtual functions (extra indirection) |
-| | **Has a cyclic dependency!** |
-
-### The Visitor's Cyclic Dependency
-
-- `Shape` declares `accept(ShapeVisitor&)`, so it depends on `ShapeVisitor`.
-- `ShapeVisitor` declares `visit(const Circle&)` and `visit(const Square&)`, so it depends on every concrete shape.
-- Concrete shapes depend on `Shape`.
-
-So the high-level, stable side (shapes) and the low-level, volatile side (operations like `Draw`) depend on each other across the architectural boundary. Only part of the dependency is inverted, and adding a shape forces changes throughout.
+| | **Has a cyclic dependency** — `ShapeVisitor` depends on every shape, and every shape depends on `ShapeVisitor` |
 
 ### Procedural Alternative
 
-A procedural solution switches on a type tag:
+A procedural solution — an enum type tag plus a `switch` in each operation:
 
-- it needs heap-allocated objects
-- it relies on a switch statement
-- it is impossible to maintain
+- needs heap-allocated objects;
+- relies on `switch` statements;
+- is impossible to maintain (every new type means editing every switch).
 
-### Modern Alternative: std::variant + std::visit
+### std::variant And std::visit
 
-#### Definitions
-
-> **`std::variant`**: A C++ type-safe union holding exactly one of a fixed set of types.
-
-> **`std::visit`**: Calls the overload of a callable that matches the variant's current type: static (compile-time) polymorphism.
+A modern C++ solution:
 
 ```cpp
-struct Circle { /* … */ };
-struct Square { /* … */ };
+class Circle { /* ... */ };
+class Square { /* ... */ };
 using Shape = std::variant<Circle, Square>;
 
 struct Draw {
-  void operator()(const Circle& c) const { /* … */ }
-  void operator()(const Square& s) const { /* … */ }
+    void operator()(const Circle&) const { /* ... */ }
+    void operator()(const Square&) const { /* ... */ }
 };
 
-std::visit(Draw{}, shape);
+std::vector<Shape> shapes = { Circle{1.0}, Square{2.0} };
+for (const auto& s : shapes) std::visit(Draw{}, s);
 ```
-
-![std::variant + std::visit](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/17_Clean_Code_And_Visitor/variant-visit.svg)
-
-*Shapes know nothing about operations. The variant alias and the operations depend downward only, an automatic inversion of dependencies with no cycle.*
-
-| Pros | Cons |
-|---|---|
-| Operations easy to add (**OCP**) | Mixing big and small types carries large overhead (fix with the **proxy** pattern) |
-| Hides operation details (**SRP**) | `std::variant` is bad at hiding implementation details (information hiding) |
-| Types easy to add | |
-| Operations can use all type details | |
-| No manual heap allocation (automatic destruction) | |
-| No virtual functions; static polymorphism, easier to optimise | |
-| No cyclic dependency | |
-| Faster than the OOP visitor | |
-
-### Acyclic Visitor
 
 #### Definitions
 
-> **Acyclic visitor**: Breaks the cycle with an empty `AbstractVisitor` base plus a templated `Visitor<T>` interface per type. Each shape's `accept` does a `dynamic_cast` to the right `Visitor<T>`.
+> **`std::variant`**: A type-safe sum type (tagged union) holding exactly one of several alternative types, stored by value.
 
-```cpp
-class AbstractVisitor { public: virtual ~AbstractVisitor() = default; };
+> **`std::visit`**: Calls the overload of a function object matching the type currently held by a variant.
 
-template <typename T>
-class Visitor { public: virtual void visit(const T&) const = 0; };
+![std::variant and std::visit](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/17_Clean_Code_And_Visitor/variant-visit.svg)
 
-class Circle : public Shape {
-  void accept(const AbstractVisitor& v) const override {
-    if (auto cv = dynamic_cast<const Visitor<Circle>*>(&v)) cv->visit(*this);
-  }
-};
+*Shapes and operations are independent; the variant ties them together, so dependencies point one way across the architectural boundary.*
 
-class Draw : public AbstractVisitor, public Visitor<Circle>, public Visitor<Square> {
-  void visit(const Circle&) const override;
-  void visit(const Square&) const override;
-};
-```
+No cycles; easy to add operations **and** types; satisfies OCP and SRP.
 
-`Shape` now depends only on the empty `AbstractVisitor`. Operations opt in to the types they handle, so types are also easy to add. **Drawback: very slow**, because of the `dynamic_cast`.
+| Pros | Cons |
+|---|---|
+| Operations can be added easily (OCP) | Mixing big and small types carries large overhead (the variant is as big as its largest alternative) — fix with the Proxy pattern |
+| Hides operations' implementation details (SRP) | `std::variant` is bad at hiding implementation details (information hiding) |
+| Easy to add types | |
+| Operations can use all type details | |
+| No manual heap allocation (automatic destruction) | |
+| No virtual functions; no cyclic dependency | |
+| Faster than the OOP visitor; static polymorphism is faster and easier to optimise | |
 
-### Performance And Recap
+### Performance Comparison
 
 ![Visitor performance](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/17_Clean_Code_And_Visitor/visitor-performance.svg)
 
-*The classic visitor is slowest. `std::variant` is close to the enum solution, and `mpark::variant` is fastest, especially with Clang. Values are approximate, read from the source chart.*
+*Approximate run times under GCC 11.2 and Clang 12.0.1: the enum and OO solutions and classic visitor are slowest; `std::variant` and `mpark::variant` are fastest.*
 
-| Approach | When to use |
-|---|---|
-| **Visitor** | Good for adding operations; bad for adding types |
-| **std::variant + std::visit** | **Preferred in most scenarios** |
-| **Acyclic visitor** | Also good for adding types, but slow. Use it when overhead is not an issue. In Java you have no choice. |
+### The Acyclic Visitor
 
-### Memento Recap
+#### Definitions
 
-The deck repeats the Memento pattern: the originator creates its own immutable snapshot, the memento adds metadata, and the caretaker stores snapshots for undo, transactions and save-to-file. Its cost is RAM use and the need for immutable objects. The full treatment is in [Design Patterns I](14_15_Design_Patterns_I.md).
+> **Acyclic visitor**: A visitor variant that breaks the dependency cycle by splitting the visitor interface into an empty base `AbstractVisitor` and one small `Visitor<T>` interface per type.
+
+```cpp
+class AbstractVisitor {                 // high level
+public:
+    virtual ~AbstractVisitor() = default;
+};
+
+template <typename T>
+class Visitor {                         // high level
+public:
+    virtual ~Visitor() = default;
+    virtual void visit(const T&) const = 0;
+};
+
+class Shape {                           // high level
+public:
+    virtual ~Shape() = default;
+    virtual void accept(const AbstractVisitor&) = 0;
+};
+
+// ---------------- architectural boundary ----------------
+
+class Circle : public Shape { public: Circle(double rad); /* ... */ };
+class Square : public Shape { public: Square(double side); /* ... */ };
+
+class Draw : public AbstractVisitor,
+             public Visitor<Circle>,
+             public Visitor<Square> {
+public:
+    void visit(const Circle& circle) const override;
+    void visit(const Square& square) const override;
+};
+```
+
+Each shape's `accept` checks (via `dynamic_cast`) whether the visitor implements `Visitor<ItsOwnType>`. All dependencies point from low-level classes up to high-level abstractions, so there is no cycle. **Drawback: it is slow — very slow** (run-time type checks on every visit).
+
+### Visitor Recap
+
+| Approach | Good for | Notes |
+|---|---|---|
+| Classic visitor | Adding operations | Bad for adding types; cyclic |
+| `std::variant` + `std::visit` | Adding operations and types | **Preferred in most scenarios** |
+| Acyclic visitor | Also adding types | Slow — use if overhead isn't an issue. In Java you have no choice |

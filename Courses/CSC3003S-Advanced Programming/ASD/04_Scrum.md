@@ -5,12 +5,12 @@ tags:
 
 # Scrum
 
-**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)  
-**Source**: [ASD04 Scrum.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD04%20Scrum.pdf), Johan Bontes, University of Cape Town, PDF pages 1–45  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)
+**Source**: [ASD04 Scrum.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD04%20Scrum.pdf), Johan Bontes, University of Cape Town, pages 1–45
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes: Scrum vocabulary, roles, artefacts and events, the sprint flow and meetings, backlogs and burndown charts, and what goes wrong.
+> Scrum as a concrete Agile implementation: early learning, roles, artefacts and events, the sprint flow and meetings, backlogs and burndown charts, and common ways Scrum goes wrong.
 
 ---
 
@@ -19,7 +19,7 @@ tags:
 - [[#Core Content|Core Content]]
   - [[#What Scrum Is|What Scrum Is]]
   - [[#Late Versus Early Learning|Late Versus Early Learning]]
-  - [[#Scrum Lingo|Scrum Lingo]]
+  - [[#Scrum Vocabulary|Scrum Vocabulary]]
   - [[#Scrum Roles|Scrum Roles]]
   - [[#Pigs And Chickens|Pigs And Chickens]]
   - [[#Scrum Artefacts And Commitments|Scrum Artefacts And Commitments]]
@@ -27,10 +27,11 @@ tags:
   - [[#Scrum Rules|Scrum Rules]]
   - [[#Scrum Flow And Sprints|Scrum Flow And Sprints]]
   - [[#Sprint Planning Meeting|Sprint Planning Meeting]]
-  - [[#Daily Scrum|Daily Scrum]]
+  - [[#Daily Scrum Meeting|Daily Scrum Meeting]]
   - [[#During The Sprint|During The Sprint]]
   - [[#Sprint Review And Retrospective|Sprint Review And Retrospective]]
-  - [[#Product Backlog, Sprint Backlog And Burndown|Product Backlog, Sprint Backlog And Burndown]]
+  - [[#Product Backlog And Sprint Backlog|Product Backlog And Sprint Backlog]]
+  - [[#Burndown Charts|Burndown Charts]]
   - [[#What Can Go Wrong|What Can Go Wrong]]
 
 ---
@@ -41,206 +42,202 @@ tags:
 
 #### Definitions
 
-> **Scrum**: A concrete implementation of Agile. Agile is the philosophy, Scrum the concrete process. About 63% of Agile projects use Scrum (State of Agile survey, "just another online survey").
+> **Scrum**: A concrete implementation of Agile. Agile is a philosophy; Scrum is a specific way of doing it.
 
-> [!warning] <span style="color:#ffc778">Not a silver bullet</span>
-> Scrum does not compensate for lack of training or experience, its team has defined roles, and it is not a cure for every development ill.
+- According to the State of Agile survey (just another online survey), 63% of Agile projects use Scrum.
+- **Warning**: Scrum is not a silver bullet or a panacea for all development ills. It does not compensate for lack of training or experience, and the team has defined roles that must be filled properly.
 
 ### Late Versus Early Learning
 
-![Knowledge curves](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/04_Scrum/knowledge-curves.svg)
-
-*Waterfall delivers almost no knowledge or risk reduction until big-bang integration. Scrum's early, continuous integration builds knowledge from the start.*
-
 | | Waterfall | Scrum |
 |---|---|---|
-| Strategy | **Late learning**; delays true understanding of the system | **Learn early** in the project |
-| Knowledge arrives | At the "moment of truth": final integration | Continuously, through early integration |
-| Development sequence | Big-bang | Indifferent with respect to knowledge |
-| Up-front design | Assumes it reduces risk | Reduces risk only if the problem is well understood |
+| Strategy | **Late learning**: delays true understanding of the system | **Early learning**: it pays to learn early |
+| Integration | Big-bang integration at the end | Early, continuous integration |
+| Knowledge growth | Almost no knowledge (risk reduction) until the "moment of truth" — final integration | Knowledge and risk reduction grow steadily |
+| Up-front design | Required | Only reduces risk if the problem is well understood |
 
-### Scrum Lingo
+![Late versus early learning](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/04_Scrum/knowledge-curves.svg)
+
+*In waterfall, knowledge stays flat until final integration; in Scrum it rises with each integrated increment.*
+
+### Scrum Vocabulary
 
 | Term | Meaning |
 |---|---|
-| **Goal** | The end objective |
-| **Sprint** | A fixed time box of $\le 1$ month |
-| **Planning** | Items to do plus schedule |
-| **Product** | The software to be built; must be an independent artefact |
-| **Backlog** | Work items ordered by priority |
-| **Team** | $\le 10$ people, no sub-teams, no hierarchy |
+| Goal | The end objective |
+| **Sprint** | A fixed time-box of at most one month |
+| Planning | Items to do plus the schedule |
+| Product | The software to be built; must be an independent artefact |
+| **Backlog** | Work items, ordered by priority |
+| Team | At most 10 people, no sub-teams, no hierarchy |
 | **Scrum Master (SM)** | Coach and mentor of the team; liaison to management |
-| **Daily Scrum** | 15-minute progress meeting |
-| **Increment** | Outcome of a sprint: a concrete stepping stone toward the Product Goal |
-| **Definition of done** | Agreed quality; the work is finished |
-| **Undone work** | Not finished, or quality not OK |
+| **Daily scrum** | A 15-minute meeting to discuss progress |
+| **Increment** | The outcome of a sprint: a concrete stepping stone toward the product goal |
+| **Definition of done** | The agreed quality; the work is finished |
+| Undone work | Unfinished, or quality not OK |
 | **Sprint review** | Inspect the outcome and future adaptations |
-| **Sprint retrospective** (slides: "introspective") | How to improve quality and effectiveness |
+| **Sprint retrospective** | How to improve quality and effectiveness |
 
 ### Scrum Roles
 
+A Scrum team has 10 people or fewer (fewer is better). Need more people? Split the product and form several Scrum teams.
+
+| Role | Count | Responsibilities |
+|---|---|---|
+| **Scrum Master** | 1 | Guards quality; removes obstacles to progress; chairs Scrum events; trains the team (e.g. in pair programming); is **not a leader but a servant**; can be shared by several teams |
+| **Product Owner** | 1 | Owns the project goal; plans the product backlog and its priorities; communicates with customers; liaises with the organisation, which provides funding |
+| **Developers** | $n - 2$ | Must have all the skills needed; develop quality work to the definition of done; do sprint and daily planning |
+
 ![Scrum roles](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/04_Scrum/scrum-roles.svg)
 
-*One Scrum Master, one Product Owner and $n-2$ developers in a team of at most 10 (fewer is better).*
+*The Product Owner faces the customer and organisation, the Scrum Master serves and protects the team, and developers build the increment.*
 
-| Role | Responsibilities |
-|---|---|
-| **Scrum Master** (1) | A servant, not a leader. Removes obstacles to progress, chairs Scrum events, liaises between the team and the organisation, coaches (e.g. training through pair programming). |
-| **Product Owner** (1) | Develops the product goal, plans and prioritises the product backlog, communicates with customers, provides funding. Can be shared by multiple teams. |
-| **Developers** ($n-2$) | Have all the skills needed, do sprint and daily planning, and guard quality through the "definition of done". |
-
-Need more people? Split the product and run multiple Scrum teams.
-
-The team itself examines the requirements, considers the available technology, evaluates its own skills, and decides how to build the functionality, adjusting daily. **The heart of Scrum is the iterations and the creative process.**
+The team itself looks at the requirements, considers the available technology, evaluates its own skills, and decides how to build the functionality — modifying its approach daily. The heart of Scrum is the iterations plus this creative process.
 
 ### Pigs And Chickens
 
-#### Definitions
+| | Pigs | Chickens |
+|---|---|---|
+| Who | Team members: SM, PO, developers | Customers, users, vendors, management |
+| Involvement | **Committed** | **Involved** — needed, but indirectly |
 
-> **Pigs**: Team members (SM, PO, developers): fully committed.
-
-> **Chickens**: Customers, users, vendors, management: involved and needed, but indirectly.
-
-The name comes from the joke about a ham-and-eggs breakfast: the chicken is involved, the pig is committed. Scrum is about empowering the pigs and **getting the chickens out of the kitchen**.
+From the joke: in a ham-and-eggs breakfast, the chicken is involved but the pig is committed. Scrum is about empowering the pigs and getting the chickens out of the kitchen.
 
 ### Scrum Artefacts And Commitments
 
-Artefacts represent work or value. Each carries a **commitment** that adds transparency and focus, so progress can be measured against it.
+Artefacts represent work or value. Each contains a **commitment** that adds transparency and focus, against which progress can be measured.
 
-| Artefact | What it is | Commitment | What the commitment is | Characteristics |
+| Artefact | What it is | Commitment | Commitment meaning | Characteristics |
 |---|---|---|---|---|
-| **Product backlog** | Emergent, ordered list of what is needed to improve the product | **Product goal** | Future state of the product, used to plan sprints | Clear and concise; transparent in the backlog |
-| **Sprint backlog** | The set of product backlog items for this sprint | **Sprint goal** | Single objective for the sprint | Flexible in how it is achieved; if impossible, cancel the sprint |
-| **Increment** | Concrete stepping stone toward the product goal | **Definition of done** | Formal definition of quality all developers commit to | A sprint makes $\ge 1$ increments; not quality means not done |
+| **Product backlog** | Emergent, ordered list of what's needed to improve the product | Product goal | Future state of the product, used to plan sprints | Clear, concise, transparent in the backlog |
+| **Sprint backlog** | Set of product backlog items to work on in the sprint | Sprint goal | Single objective for the sprint | Flexible in how it's achieved; if impossible, cancel the sprint |
+| **Increment** | Concrete stepping stone toward the product goal | Definition of done | Formal quality standard all developers commit to | A sprint makes at least one increment; not quality → not done |
 
 ### Scrum Events
 
-Events happen only inside a sprint. Each is a formal opportunity to inspect and adapt artefacts, held at a regular time and place. Ideally there are no meetings outside them.
+#### Definitions
 
-| Event | Duration (1-month sprint) | Subject | Output | Participants |
+> **Scrum event**: A formal opportunity to inspect and adapt Scrum artefacts. All events happen inside a sprint, at a regular time and place; ideally there are no meetings outside events.
+
+| Event | Time-box | Inputs (subject) | Output | Participants |
 |---|---|---|---|---|
-| **Sprint** | $\le 1$ month (typically 2 weeks) | — | Increments | Mostly developers |
-| **Sprint planning** | $\le 8$ h | Product backlog, product goal, definition of done | Sprint backlog, sprint goal | Scrum team |
-| **Sprint review** | $\le 4$ h | Increment, sprint, product backlog, progress toward the product goal | Updated product backlog | Scrum team and stakeholders |
-| **Sprint retrospective** | $\le 3$ h | Sprint, definition of done | Actionable improvements, definition of done | Scrum team |
-| **Daily scrum** | 15 min daily | Progress toward the sprint goal | Progress toward the sprint goal | Developers |
+| Sprint | ≤ 1 month (typically 2 weeks) | — | Increments | Mostly developers |
+| Sprint planning | ≤ 8 hours (for a 1-month sprint) | Product backlog, product goal, definition of done | Sprint backlog, sprint goal | Scrum team |
+| Sprint review | ≤ 4 hours | Increment, sprint, product backlog, progress toward goal | Updated product backlog | Scrum team, stakeholders |
+| Sprint retrospective | ≤ 3 hours | Sprint, definition of done | Actionable improvements, updated definition of done | Scrum team |
+| Daily scrum | 15 minutes, daily | Progress toward sprint goal | Progress toward sprint goal | Developers |
 
 ### Scrum Rules
 
-- The **Scrum Master is the rule-master**. Rules mean everyone knows how to play.
-- Unenforced rules waste time while people work out what to do, and disputed rules waste time while everyone waits for a resolution.
+- The Scrum Master is the **rule-master**; rules mean everyone knows how to play.
+- If rules aren't enforced, people waste time working out what to do; if disputed, everyone waits for a resolution.
 - The rules have worked in thousands of successful projects.
-- **Changing rules** happens only in the sprint retrospective. Changes must come from the team, not management, and only once the Scrum Master is convinced everyone understands how Scrum works.
+- To change rules, use the sprint retrospective:
+  - changes should come from the team, not management;
+  - only once the Scrum Master is convinced everyone understands how Scrum works — no rule changes until then.
 
 ### Scrum Flow And Sprints
 
-1. A project starts with a **vision** (in XP terms, the "system metaphor"), which leads to the logical architecture.
-2. The Product Owner produces the **product backlog**: functional and non-functional requirements that together deliver the vision. It is prioritised by likely value and divided into proposed releases.
-3. Work is done in **sprints** of $\le 20$ consecutive workdays (a month), each starting with a sprint planning meeting.
-4. Each sprint produces a **potentially shippable product increment**.
+1. Every project starts with a **vision** (in XP terms, the "system metaphor"), which leads to the logical architecture.
+2. The **Product Owner** produces the **product backlog**: functional and non-functional requirements that, once built, deliver the vision. It is prioritised by likely value and divided into proposed releases.
+3. Work is done in **sprints** of at most 20 consecutive workdays (a month), each starting with a sprint planning meeting.
+4. Each day of the sprint has a 24-hour cycle with a daily scrum.
+5. Each sprint ends with a **potentially shippable product increment**.
 
-![Sprint flow](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/04_Scrum/sprint-flow.svg)
+![Scrum sprint flow](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/04_Scrum/sprint-flow.svg)
 
-*The PO's product backlog feeds sprint planning, which produces the team's sprint backlog. The sprint runs with a 24-hour daily scrum cycle and ends in a shippable increment.*
-
-The sprint is **time-boxed** to $\le 30$ days (typically 2 weeks) because that is:
-
-- enough time for the team to build something of significant interest to the PO and stakeholders, in a potentially shippable state
-- the maximum time to work without artefacts and documentation to support thinking
-- the maximum time most stakeholders will wait without losing interest or belief that the team is doing something meaningful
+*The prioritised product backlog feeds a sprint backlog; daily scrums run inside the sprint loop, which produces a shippable increment.*
 
 ### Sprint Planning Meeting
 
-The meeting lasts at most 8 hours, in two segments of up to 4 hours each.
+Time-boxed to **8 hours**, which prevents hand-wringing about what's possible: the goal is to get to work, not think about working.
 
-| Inputs | Outputs |
-|---|---|
-| Product backlog, team capabilities, business conditions, technology, current product | Sprint goal, sprint backlog |
+Inputs: product backlog, team capabilities, business conditions, technology, the current product. Outputs: sprint goal and sprint backlog.
 
-**Segment 1: select items.**
+It has two segments of at most 4 hours each:
 
-- The team selects product backlog items it believes it can turn into an increment, to demonstrate at the sprint review.
-- The PO says what is desired and makes the backlog selection; the team makes suggestions and decides **how many** items to include.
+| Segment | Purpose | Who decides |
+|---|---|---|
+| 1. Select product backlog | The PO says what's desired; the team says how much it believes it can turn into an increment, to demonstrate at the sprint review | Team suggests and decides **how many** items; the PO makes the **selection** |
+| 2. Prepare sprint backlog | The team works out how to turn the selected items into an increment; the PO answers questions; others only observe or answer | Team manages its own work |
 
-**Segment 2: prepare the sprint backlog.**
+The output of segment 2 is the sprint backlog: tasks, time estimates and assignments. It needn't be complete, but must be complete enough for every member to commit, and to carry them through the first part of the sprint while they devise more tasks.
 
-- The team manages its own work and works out how to turn the items into an increment. The PO answers questions; others only observe.
-- The output is the sprint backlog: tasks, time estimates and assignments.
-- It may be incomplete, but must be complete enough for every member's commitment and to carry the team through the first part of the sprint while more tasks are devised.
+### Daily Scrum Meeting
 
-The time box prevents hand-wringing about what is possible. The goal is to get to work, not to think about working.
+- Time-boxed to **15 minutes**, regardless of team size.
+- Same place, same time every workday — ideally first thing, so members think about yesterday and today.
+- All team members attend (remotely if necessary, or another member reports why they're absent).
+- The Scrum Master starts on time regardless of who's present; latecomers pay a fine to the Scrum Master immediately.
 
-### Daily Scrum
-
-- **Time-boxed to 15 minutes** regardless of team size.
-- Same place, same time every workday, ideally first thing so members think about yesterday and today.
-- **All team members attend**, remotely if needed, or someone reports why they are absent.
-- It starts on time whoever is present; latecomers pay a fine to the Scrum Master.
-
-The SM asks everyone three questions:
+The Scrum Master asks everyone three questions:
 
 1. What did you do yesterday?
 2. What will you do today?
 3. What stands in the way of getting your work done?
 
-One person talks while the others listen. Answers are short, with no digressions:
+One person talks while others listen. Answers are short — no digressions:
 
 $$
-\frac{15\text{ min}}{3\text{ questions} \times \text{people present}} \approx 30\text{ s per answer}
+\frac{15\text{ min}}{3\text{ questions} \times \text{people present}} \approx 30 \text{ seconds per answer}
 $$
 
-- **Purpose**: synchronise everyone's work daily and schedule any meetings needed to help progress.
-- **Chickens** may attend but cannot communicate, verbally or otherwise, and cannot start follow-up meetings with pigs.
+Purpose: synchronise the team's work daily and schedule any meetings needed to help progress. Chickens may attend but may not communicate (verbally or otherwise) or initiate follow-up meetings with pigs.
 
 ### During The Sprint
 
-- The team may seek outside advice, help and information, but **no unsolicited advice** is given. The team is self-managing.
-- The committed backlog is **frozen** until the end of the sprint.
-- **Can't finish?** The team consults the PO on which items to remove. If too many are removed, the SM can terminate the sprint.
-- **Want more?** The team asks the PO which product backlog items to add.
+**Time-boxing**: a sprint is at most 30 days (more typically 2 weeks). This is:
 
-A **non-viable sprint** may be terminated by the SM, at the team's or PO's request, followed by a new sprint planning meeting. A sprint can become non-viable when:
+- the time a team needs to build something of significant interest to the PO and stakeholders and make it potentially shippable;
+- the maximum time to work without artefacts and documentation supporting the thought process;
+- the maximum time most stakeholders will wait without losing interest or belief that the team is doing something meaningful.
 
-- the technology proves unworkable
-- business conditions change so the sprint no longer has value
-- someone outside the team interferes during the sprint
+**Rules during the sprint**:
 
-The team has two administrative duties during a sprint:
+- The team may seek outside advice, help and support, but receives **no unsolicited advice**. It is self-managing.
+- The team has committed to the selected backlog, which is **frozen** until the sprint ends.
+
+**Changing the sprint backlog**:
+
+| Situation | Action |
+|---|---|
+| Team can't complete the sprint backlog | Consult the PO on which items to remove; if too many go, the Scrum Master can terminate the sprint |
+| Team wants to do more | Ask the PO which product backlog items to add |
+
+**Non-viable sprint**: the Scrum Master may terminate the sprint (at the team's or PO's request) and start a new planning meeting if:
+
+- the technology proves unworkable;
+- business conditions change so the sprint has no business value;
+- anyone outside the team interferes during the sprint.
+
+**Team responsibilities** — two administrative tasks:
 
 1. Attend the daily scrum.
-2. Keep the sprint backlog up to date and publicly visible: add new tasks as they are conceived and update the daily estimated hours remaining.
+2. Keep the sprint backlog up to date and publicly visible: add new tasks as they arise and update each task's estimated remaining hours daily.
 
 ### Sprint Review And Retrospective
 
-**Sprint review** ($\le 4$ h, at most 1 h of preparation):
+**Sprint review** (≤ 4 hours, ≤ 1 hour of preparation):
 
-- The team presents the increment(s) to the PO and stakeholders.
-- Only work that is **done** (complete and shippable) can be presented. If "done" means something else, make sure the PO and stakeholders understand it.
-- Topics: the sprint goal, the completed sprint and product backlog items, what went well and what didn't, stakeholder questions, and a poll of stakeholder impressions, needs and priorities.
-- The PO adds and reorders product backlog items.
+- The team presents increments to the PO and stakeholders.
+- "Done" means complete and shippable; if "done" means anything else, make sure the PO and stakeholders understand. Anything not done cannot be presented.
+- Topics: sprint goal, sprint backlog, completed product backlog items; what went well and what didn't; stakeholder questions; a stakeholder poll on impressions, needs and their priorities.
+- The PO then adds and reorders product backlog items.
 
-**Sprint retrospective** ($\le 3$ h; team, SM, and optionally the PO):
+**Sprint retrospective** (≤ 3 hours; team, Scrum Master and optionally the PO):
 
-1. Each member briefly answers: *What went well last sprint? What could improve next sprint?*
-2. The SM summarises.
-3. The team prioritises the issues and discusses improvements, with the SM facilitating.
-4. Actionable items can become high-priority **non-functional** product backlog items.
+1. Each member briefly answers: What went well last sprint? What could be improved next sprint?
+2. The Scrum Master summarises the answers.
+3. The team prioritises the issues and discusses improvements, facilitated by the Scrum Master.
+4. Actionable items can become high-priority non-functional product backlog items.
 
-### Product Backlog, Sprint Backlog And Burndown
+### Product Backlog And Sprint Backlog
 
-#### Definitions
+Scrum's artefacts — product backlog, sprint backlog and burndown charts — can be managed in a spreadsheet or cloud tools (consider support for distributed teams).
 
-> **Product backlog**: A prioritised list of first-cut refinements. The PO is free to reorder it and add new items, which is where agility and change come in.
+**Product backlog**: a prioritised list of first-cut refinements. The PO can reorder items and add new ones at any time, which brings agility and change.
 
-> **Sprint backlog**: The list of things that will be done in the sprint, each with an estimate (usually hours), updated throughout the sprint.
-
-> **Velocity**: How fast a team completes work, measured from sprint backlog updates.
-
-> **Burndown chart**: A graph of the sprint backlog's hours remaining against days, showing the rate at which work is completed.
-
-Backlogs can be kept in a spreadsheet or a cloud tool; consider support for distributed teams. A sample product backlog from a game, with estimates in person-weeks:
-
-| Backlog item | Estimate |
+| Backlog item | Estimate (person-weeks) |
 |---|---|
 | Break props into separate rigid bodies | — |
 | Arrow projectiles stick to environment | 0.5 |
@@ -248,21 +245,37 @@ Backlogs can be kept in a spreadsheet or a cloud tool; consider support for dist
 | NPCs avoid dynamite thrown at them | — |
 | Improve exception handling | 0.5 |
 
-Keeping the sprint backlog updated gives the team's **velocity** and acts as an **early warning**. The sample sprint shows hours remaining falling $152 \to 144 \to 136 \to 124 \to 116 \to 112 \to 106$ over its first days, with minor items, major items and supervision assigned to owners.
+**Sprint backlog**: what will be "done" during the sprint, each item with an estimate (usually hours). The team must update it throughout. Keeping it current lets you measure the team's **velocity** and gives early warning of trouble.
 
-![Burndown chart](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/04_Scrum/burndown.svg)
+Example update (Sprint 1): remaining hours fall day by day — 152, 144, 136, 124, 116, 112, 106 — across items such as fixing login-screen formatting, correcting legacy report code, modifying user-file handling, adding network error handling, adding company logos, a de-jitter algorithm, a workflow design change and supervision; 19 days of work in the sprint.
 
-*The ideal is a steady drive to zero hours, a sustainable pace. Real lines are not perfectly straight. Staying above the line means too slow, falling well below it means too fast.*
+### Burndown Charts
 
-Burning down **too slowly** can be caused by inexperienced developers, hard roadblocks, distractions or bad planning. Burning down **too fast** suggests the sprint was under-committed or badly estimated.
+#### Definitions
+
+> **Burndown chart**: A graph of the sprint backlog's remaining hours against sprint days, showing the rate at which work is completed.
+
+- It should show a steady drive to zero hours remaining — a sustainable pace.
+- Some work takes longer and some shorter, so it won't be a perfect straight line.
+- At the start nothing is done, so the chart starts at the full estimate.
+- You can see at a glance whether work is on track.
+
+![Sprint burndown chart](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/04_Scrum/burndown.svg)
+
+*Remaining hours plotted against sprint days; a line staying above the ideal diagonal means the team is behind.*
+
+| Burndown | Likely causes |
+|---|---|
+| Too slow | Inexperienced developers, hard roadblocks, distractions, bad planning |
+| Too fast | Overestimated work (also a planning problem) |
 
 ### What Can Go Wrong
 
-| Problem | Why it hurts | Remedy |
+| Problem | Description | Remedy |
 |---|---|---|
-| **Loss of rhythm** | Sprints of different lengths feel like arbitrary units chosen by outside forces and make planning hard | Keep every sprint the same length |
-| **Talking chickens** | A chicken allowed one useful comment is a slippery slope | Only pigs speak; be strict |
-| **Missing pigs** | Flexible hours and night-owl developers mean people are late or absent; the rhythm breaks | Same time and place daily. If many miss it, the meeting is probably too long or straying from the 3 questions. Skip only in emergencies. |
-| **Specialised job roles** | Architect, DBA, tester roles undermine "we're all in this together" | The team need not be all generalists, but each specialist must take responsibility for the whole system |
-| **Daily scrum is for the SM** | It becomes a status report to the SM, who notes who failed to do what | The SM is a servant. The scrum coordinates the team and makes commitments public among peers; no rebukes, since unmet commitments already feel bad enough |
-| **SM assigns work** | Undermines self-organisation; even occasional assignment is harmful | Developers sign up for work and must feel fully in control of it |
+| **Loss of rhythm** | Sprints vary in length, so they feel like arbitrary units chosen by outside forces and are hard to plan | Keep every sprint the same length |
+| **Talking chickens** | Chickens ask questions or comment at the daily scrum; allowing useful comments is a slippery slope | Be strict: only pigs speak |
+| **Missing pigs** | Flex time and night-working developers mean members miss or are late for daily scrums | Same time and place daily builds rhythm; if many miss often, the meeting is probably too long or straying from the three questions; skipping only for emergencies |
+| **Specialised job roles** | Architect, designer, DBA, tester roles undermine "we're all in this together" | Teams needn't be all generalists, but every specialist must accept responsibility for the whole system |
+| **Daily scrum for the Scrum Master** | It becomes a status report to the SM, who notes who committed to what and why tasks slipped | The SM is a servant. The scrum coordinates everyone; members commit in front of peers. The SM doesn't rebuke unmet commitments — peers' awareness is enough |
+| **Scrum Master assigns work** | Work is assigned instead of signed up for | Self-organisation is fundamental; even occasional assignment undermines developers' responsibility. Teams must feel completely in control of their work |

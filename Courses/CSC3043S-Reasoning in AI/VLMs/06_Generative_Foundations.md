@@ -62,7 +62,7 @@ The lecture has three parts: autoencoders → VAEs (make the latent space sample
 
 ![Autoencoder](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/autoencoder.svg)
 
-*An image (e.g. $28 \times 28$) is encoded to a 16-d latent $z$ and decoded to $\hat{x} \approx x$.*
+*An image is compressed to a small latent code $z$ and decoded back to $\hat{x} \approx x$.*
 
 The AE is self-supervised. Its loss is reconstruction error, e.g. mean-squared error:
 
@@ -78,9 +78,9 @@ In theory, pick a random $z$ and decode it. In practice this **fails**:
 - The space between and around those codes was never trained. If $(1, 1)$ and $(10, 10)$ are encoded training examples, what does $(5, 5)$ decode to?
 - So a random $z$ usually decodes to noise or garbage.
 
-![Latent space comparison](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/latent-space.svg)
+![Latent gaps](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/latent-gaps.svg)
 
-*Left: plain AE codes are isolated points with big empty gaps, so random codes land in gaps. Right: a VAE regularizes codes into a region that is safe to sample.*
+*Plain autoencoder codes are scattered with gaps, so a random code decodes to garbage; VAE codes fill a region around $\mathcal{N}(0, I)$ that is safe to sample.*
 
 ### Variational autoencoders
 
@@ -96,6 +96,10 @@ In theory, pick a random $z$ and decode it. In practice this **fails**:
 2. During training, sample $z \sim q(z \mid x)$ and decode it. The decoder must handle a **region** of latent space, not an isolated point.
 3. Pull every posterior towards the same prior $p(z) = \mathcal{N}(0, I)$. The posteriors then overlap and together cover the region sampled later. Without this pull, the encoder could place posteriors anywhere and the gaps return.
 
+![Variational autoencoder](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/vae.svg)
+
+*The encoder outputs $\mu$ and $\sigma$ defining $q(z \mid x)$; a sample is decoded; the KL term pulls $q$ towards the prior.*
+
 **Generation** is cheap: keep only the decoder, draw $z \sim \mathcal{N}(0, I)$, and decode it into a new image.
 
 ### The reparameterization trick
@@ -110,9 +114,9 @@ $$
 
 The distribution of $z$ is unchanged, but $z$ is now a differentiable function of $\mu$ and $\sigma$, so gradients flow to the encoder. This makes the VAE trainable end-to-end.
 
-![Reparameterization](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/reparameterization.svg)
+![Reparameterization trick](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/reparameterization.svg)
 
-*The encoder outputs $\mu$ and $\sigma$; independent noise $\epsilon$ enters from outside; $z = \mu + \sigma \odot \epsilon$ is decoded to $\hat{x}$.*
+*Sampling inside the network blocks gradients; drawing $\epsilon$ from outside and setting $z = \mu + \sigma \odot \epsilon$ lets gradients reach the encoder.*
 
 ### KL divergence
 
@@ -133,7 +137,7 @@ $$
 
 ![Gaussian KL](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/gaussian-kl.svg)
 
-*A posterior matching the prior has zero KL; a shifted mean or a wrong width each add a penalty.*
+*A matched posterior has KL $0.02$; a shifted mean gives $2.43$; a posterior that is too wide gives $1.51$.*
 
 The KL term is the **only** thing tying each image's posterior to the distribution sampled at generation time.
 
@@ -183,7 +187,7 @@ VAEs rarely generate final images today, but the **VAE encoder is a core part of
 
 ![GAN](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/gan.svg)
 
-*Noise $z$ → generator → fake image $G(z)$. The discriminator compares fakes with real images; its feedback trains both networks.*
+*The generator turns noise into a fake image; the discriminator judges real versus fake, and its feedback trains both.*
 
 - Noise is the seed for **diversity**; a fixed input would always map to the same output.
 - The discriminator is trained to catch fakes; the generator is trained to fool it. As one improves, the other must too — an **arms race**.
@@ -231,9 +235,9 @@ GANs dominated image generation around 2016-2021, with many variants (conditiona
 
 > **Reverse process**: A trained network that undoes one noise step, run many times starting from pure noise.
 
-![Diffusion directions](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/diffusion-directions.svg)
+![Diffusion forward and reverse](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/diffusion-forward-reverse.svg)
 
-*Forward (fixed): clean $x_0$ → partly noisy $x_t$ → near-pure noise $x_T$. Reverse (learned): sample noise → denoising steps → new image.*
+*The fixed forward process adds noise until only noise remains; the learned reverse process removes it step by step to produce a new image.*
 
 ### Why many small steps
 
@@ -261,9 +265,9 @@ $$
 4. The network predicts the noise: $\hat{\epsilon} = \epsilon_\theta(x_t, t)$.
 5. Loss $= \|\epsilon - \hat{\epsilon}\|^2$; backpropagate to update $\theta$.
 
-![Noise prediction training](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/noise-prediction-training.svg)
+![Diffusion training](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/noise-prediction.svg)
 
-*Clean $x_0$ → sample $t$ and $\epsilon$ → construct $x_t$ with the fixed schedule → predict $\epsilon$ → MSE updates the weights.*
+*Pick a clean image, a random step and noise, build $x_t$ directly, predict the noise, and minimize the squared error.*
 
 No likelihood, no adversary — one clean regression.
 
@@ -276,9 +280,9 @@ No likelihood, no adversary — one clean regression.
 - $\bar{\alpha}_t \approx 1$ early (mostly clean image); $\bar{\alpha}_t \approx 0$ late (almost pure noise).
 - So $\sqrt{\bar{\alpha}_t}\,x_0$ fades out while $\sqrt{1 - \bar{\alpha}_t}\,\epsilon$ fades in, smoothly turning an image into noise.
 
-![Noise schedule](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/noise-schedule.svg)
+![Noise schedule](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/alpha-bar.svg)
 
-*Over normalized diffusion time, the clean-signal fraction $\bar{\alpha}$ falls from 1 to 0 while the noise fraction $1 - \bar{\alpha}$ rises.*
+*$\bar{\alpha}_t$ falls from 1 to 0 while $1 - \bar{\alpha}_t$ rises, so $x_t$ turns smoothly from image into noise.*
 
 ### The diffusion loss
 
@@ -305,6 +309,10 @@ $$
 2. Ask the network "what noise is in this?" and subtract a bit of it → a slightly cleaner image.
 3. Repeat 50-1000 times → a fully formed, novel image emerges.
 
+![Sampling loop](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/sampling-loop.svg)
+
+*Start from pure noise, predict the noise, subtract a little, and repeat many times.*
+
 | Pros | Cons |
 |---|---|
 | Excellent quality and diversity — why diffusion won | **Slow**: VAEs and GANs need one pass; diffusion needs many. Fast samplers (e.g. DDIM) cut 1000 steps to about 4 |
@@ -321,3 +329,7 @@ For high-resolution images, pixel-space diffusion is too expensive. Running diff
 | Samples | Smooth latent, blurry images | Sharp, one-pass | Best quality and diversity, slow |
 
 Many GAN variants exist, but all suffer from diversity or stability issues. Diffusion is now the dominant image-generation approach, and the basis of every modern generator: it turned a very complex problem into many easy steps.
+
+![Generator comparison](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/06_Generative_Foundations/generator-comparison.svg)
+
+*VAE, GAN, and diffusion side by side: their machinery, losses, and characteristic strengths.*

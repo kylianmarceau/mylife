@@ -3,14 +3,14 @@ tags:
   - advanced-programming
 ---
 
-# Haskell 8 — Monads
+# Monads
 
-**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)  
-**Source**: [FP-12-Haskell 8-Monads-2.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP-12-Haskell%208-Monads-2.pdf), Cael Marquard (adapted from Dr Sabre Didi), University of Cape Town, PDF pages 1–37  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)
+**Source**: [FP-12-Haskell 8-Monads-2.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP-12-Haskell%208-Monads-2.pdf), Cael Marquard (adapted from Dr Sabre Didi), University of Cape Town, pages 1–37
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes: `Maybe` failure propagation, bind (`>>=`), monads on lists, `pure`/`fmap`/`<*>`, monads as effect systems, the IO monad, `>>`, and `do` notation.
+> What `Maybe`, lists and `IO` have in common: bind (`>>=`) as flat-map, the monad operations (`pure`, `fmap`/`<$>`, `<*>`, `>>`), monads as effect systems, the `IO` monad, and `do` notation.
 
 ---
 
@@ -18,16 +18,16 @@ tags:
 
 - [[#Core Content|Core Content]]
   - [[#Maybe: Propagating Failure|Maybe: Propagating Failure]]
-  - [[#Flat-Map, Bind, >>=|Flat-Map, Bind, >>=]]
-  - [[#Bind For Lists|Bind For Lists]]
-  - [[#Generalising: The Monad Typeclass|Generalising: The Monad Typeclass]]
-  - [[#pure, fmap, <$> And <*>|pure, fmap, <$> And <*>]]
+  - [[#Flat-Map, Bind And >>=|Flat-Map, Bind And >>=]]
+  - [[#Bind On Lists|Bind On Lists]]
+  - [[#The Monad Typeclass And Its Operations|The Monad Typeclass And Its Operations]]
+  - [[#A Closer Look At <*>|A Closer Look At <*>]]
   - [[#Monads As Effect Systems|Monads As Effect Systems]]
   - [[#Tracking Effects: CounterMonad And DummyIO|Tracking Effects: CounterMonad And DummyIO]]
   - [[#The IO Monad|The IO Monad]]
-  - [[#>> And *>: Throwing Away Results|>> And *>: Throwing Away Results]]
+  - [[#>> And *>: Discarding Results|>> And *>: Discarding Results]]
   - [[#do Notation|do Notation]]
-  - [[#Not Examinable Extras|Not Examinable Extras]]
+  - [[#Beyond The Course And A Result Monad|Beyond The Course And A Result Monad]]
 
 ---
 
@@ -35,158 +35,192 @@ tags:
 
 ### Maybe: Propagating Failure
 
+Recall:
+
 ```haskell
 data Maybe a = Nothing | Just a
 ```
 
-To fetch a cat picture from the internet, every step can fail:
+`Maybe` represents something that may or may not be there. Suppose you want to fetch a cat picture from the internet. Every step can fail:
 
-| Step | Fails if… |
+| Step | Fails if |
 |---|---|
 | 1. Search Google for "cat" | eduroam is broken |
-| 2. Get the first link | No results |
-| 3. Load the webpage at that link | Link gives 404 |
-| 4. Find the first `<img>` tag | No `<img>` tag |
-| 5. Download that image's `src` | `src` gives 404 |
-| 6. Save it to disk | No disk space |
+| 2. Get the first link | There are no results |
+| 3. Load the page at that link | The link gives a 404 |
+| 4. Find the first `<img>` tag | There is no `<img>` |
+| 5. Download the image's `src` | The `src` gives a 404 |
+| 6. Save it to disk | There is no disk space |
 
-"Gracefully" handling failure means not crashing: the final result should simply be `Nothing`. Handling each step by hand is long and inelegant:
+We want to express the whole process while handling failure **gracefully** at every point: no crash, just a final result of `Nothing`.
+
+Handling it by hand is long and annoying:
 
 ```haskell
 searchCat :: Maybe String
 searchCat = firstResult $ searchGoogle "cat"
-    where
-  firstResult (Just (link:links)) = Just link
-  firstResult (Just [])           = Nothing
-  firstResult Nothing             = Nothing
+  where
+    firstResult (Just (link:links)) = Just link
+    firstResult (Just [])           = Nothing
+    firstResult Nothing             = Nothing
 ```
 
-`listToMaybe :: [a] -> Maybe a` returns `Just` the first element if there is one, else `Nothing`. It is a safe `head`; plain `head` crashes on `[]`. It removes one pattern:
+`listToMaybe :: [a] -> Maybe a` (from `Data.Maybe`) returns `Just` the first element of a list, or `Nothing` if it is empty — a **safe `head`**. It merges two patterns:
 
 ```haskell
 import Data.Maybe
+
+searchCat :: Maybe String
 searchCat = firstResult $ searchGoogle "cat"
-    where
-  firstResult (Just links) = listToMaybe links
-  firstResult Nothing      = Nothing
+  where
+    firstResult (Just links) = listToMaybe links
+    firstResult Nothing      = Nothing
 ```
 
-There are still two patterns. What we want is like `map`: apply a function to the value inside the structure. But mapping `listToMaybe` over a `Maybe [String]` gives `Maybe (Maybe String)`, so we also want to **flatten** `Just (Just "cats.com")` to `Just "cats.com"`.
+Better, but still a pattern per step. What we want is like `map` — apply a function to the value inside the structure — plus a **flatten**. Mapping `listToMaybe` over a `Maybe [String]` would give `Maybe (Maybe String)`; we want to collapse `Just (Just "cats.com")` into `Just "cats.com"`.
 
-### Flat-Map, Bind, >>=
+### Flat-Map, Bind And >>=
 
 #### Definitions
 
-> **Bind (`>>=`, flat-map)**: Applies a function that returns a wrapped value to the contents of a wrapped value, then flattens the result.
+> **Bind (`>>=`, flat-map)**: Applies a function that returns a wrapped value to the value inside a wrapper, then flattens the result into a single layer.
 
 ```haskell
-(>>=) :: Maybe a -> (a -> Maybe b) -> Maybe b
-fmap  :: (a -> b) -> Maybe a -> Maybe b
-
 searchCat :: Maybe String
 searchCat = searchGoogle "cat" >>= listToMaybe
 ```
 
-The mapper passed to `>>=` already returns `Maybe b`, so there is no double wrapping. The whole pipeline becomes:
+Compare the signatures:
+
+```haskell
+(>>=) :: Maybe a -> (a -> Maybe b) -> Maybe b
+fmap  :: (a -> b) -> Maybe a -> Maybe b
+```
+
+With `fmap` the function returns a plain `b`. With `>>=` the function itself returns a `Maybe b`, and bind merges the two layers — that is the "flattening".
+
+The whole pipeline now reads cleanly. If any step fails, everything stops early with `Nothing`, with no manual handling:
 
 ```haskell
 searchGoogle "cat"            -- 1. Search "cat" on Google
   >>= listToMaybe             -- 2. Get first link
   >>= loadWebpage             -- 3. Load webpage at first link
   >>= getImgs >>= listToMaybe -- 4. Get first <img>
-  >>= downloadImg             -- 5. Download img at <src>
+  >>= downloadImg             -- 5. Download img at src
   >>= saveToDisk              -- 6. Save to disk
 ```
 
 ![Bind chain short-circuits](../../../diagrams/CSC3003S-Advanced%20Programming/FP/12_Monads/bind-chain.svg)
 
-*Each `Just` result feeds the next step. The first `Nothing` stops the whole chain early, with no manual checks.*
+*Each `>>=` passes a `Just` value to the next step; the first `Nothing` skips every remaining step.*
 
-### Bind For Lists
+### Bind On Lists
 
-For `Maybe`, `>>=` collapses `Just (Just x)` into `Just x`. For lists it maps and then concatenates:
+`>>=` flat-maps `Maybe` by collapsing `Just (Just x)` into `Just x`. On lists, it maps a list-returning function over the list, then concatenates:
 
 ```haskell
 [1, 2, 3] >>= (\n -> [1..n])
--- map:     [[1], [1, 2], [1, 2, 3]]
--- flatten: [1, 1, 2, 1, 2, 3]
 ```
 
-![List bind is map then flatten](../../../diagrams/CSC3003S-Advanced%20Programming/FP/12_Monads/list-bind.svg)
+1. Map: `[[1], [1, 2], [1, 2, 3]]`
+2. Flatten: `[1, 1, 2, 1, 2, 3]`
 
-*`>>=` on lists maps each element to a list, then flattens. Unlike `fmap`, it can change the structure.*
+![Bind on lists](../../../diagrams/CSC3003S-Advanced%20Programming/FP/12_Monads/list-bind.svg)
 
-### Generalising: The Monad Typeclass
+*List bind is map followed by flatten (concatenation).*
+
+### The Monad Typeclass And Its Operations
 
 #### Definitions
 
-> **Monad**: The typeclass of types supporting `>>=` (plus `pure`). `List`, `Maybe` and `IO` are all monads.
+> **Monad**: The typeclass of types that support `>>=` (and `pure`). Lists, `Maybe` and `IO` are all monads.
 
-`>>=` works on both lists and `Maybe`, so from the polymorphism lecture it must be a generic function of a typeclass both types implement. That typeclass is `Monad`. The lecture's joke: a monad is like a burrito, a value wrapped in extra structure.
-
-### pure, fmap, <$> And <*>
+Because `>>=` works for both lists and `Maybe`, it must be a generic function, and both types must implement a common typeclass: `Monad`. Monads offer much more than flat-map:
 
 | Operation | Meaning | Example |
 |---|---|---|
-| `pure` | Wrap a value in the monad | `pure x = [x]` (list); `pure x = Just x` (Maybe) |
-| `fmap fn mon` | Apply a function to the inside | For lists, exactly `map` |
+| `pure x` | Wrap a value in the monad | `pure x = [x]` (list), `pure x = Just x` (`Maybe`) |
+| `fmap fn mon` | Apply a function to the inside of the monad; for lists it is exactly `map` | `fmap (*2) [1,2] = [2,4]` |
 | `<$>` | Infix `fmap` | `(*2) <$> myList = map (*2) myList` |
-| `<*>` | Apply a **wrapped** function to a wrapped value | `(*) <$> Just 1 <*> Just 3 = Just (1 * 3)` |
+| `<*>` | Apply a **wrapped** function to a wrapped value; sequences computations and curries functions in monads | `(*) <$> Just 1 <*> Just 3 = Just (1 * 3)` |
+| `>>=` | Bind / flat-map | see above |
+
+The lecture also promises to explain why "a monad is like a burrito": a value wrapped up with extra structure around it.
+
+### A Closer Look At <*>
 
 ```haskell
 (<*>) :: Applicative f => f (a -> b) -> f a -> f b
 ```
 
-`<*>` is `fmap` for when the function itself is wrapped. It expresses currying inside monads:
+`<*>` takes the function inside the wrapper and applies it to the value in another wrapper, giving a new wrapped value. It is like `fmap`/`<$>` for when the function is itself wrapped in `Maybe` or a list.
+
+It expresses currying inside monads:
 
 ```haskell
 (*)                       :: Int -> Int -> Int
 (*) <$> Just 1            :: Maybe (Int -> Int)
-(*) <$> Just 1 <*> Just 3 :: Maybe Int
+(*) <$> Just 1 <*> Just 3 :: Maybe Int        -- Just 3
 ```
 
 #### Definitions
 
 > **Functor**: A type supporting `fmap`.
 
-> **Applicative**: A Functor supporting `pure` and `<*>`. Every Monad is an Applicative, but not every Applicative is a Monad.
+> **Applicative**: A functor that also supports `pure` and `<*>`.
 
-The slide says "Applicative is a subclass of Monad". The hierarchy is the other way round: Monad is a subclass of Applicative, which matches the slide's own "every Monad is Applicative".
-
-| Typeclass | Key operation | Can do |
+| Class | Adds | Relationship |
 |---|---|---|
-| Functor | `fmap :: (a -> b) -> f a -> f b` | Change values inside |
-| Applicative | `<*> :: f (a -> b) -> f a -> f b` | Combine wrapped values and functions |
-| Monad | `>>= :: m a -> (a -> m b) -> m b` | Let a step decide the resulting structure |
+| Functor | `fmap` / `<$>` | — |
+| Applicative | `pure`, `<*>`, `*>` | Every Applicative is a Functor |
+| Monad | `>>=`, `>>` | Every Monad is an Applicative, but not every Applicative is a Monad |
 
 ### Monads As Effect Systems
 
 #### Definitions
 
-> **Effect**: A change to the structure itself (the wrapper's "higher information") rather than just to the values inside.
+> **Effect**: A change to the **structure** around a value (failing, producing several values, doing IO), as opposed to a change to the value itself.
 
-Could the cat pipeline be written with only `fmap`? **No.** `fmap :: (a -> b) -> Maybe a -> Maybe b` only changes what is inside. It can never say "something broke, abandon ship".
+Could the cat pipeline be written with just `fmap`? **No.** Its signature only lets you change what is **inside** the structure:
 
-`>>=` can change the structure because the mapping function returns a monad, which is merged (flattened) with the original:
+```haskell
+fmap :: Functor f => (a -> b) -> f a -> f b
+fmap :: (a -> b) -> Maybe a -> Maybe b      -- specialised to Maybe
+```
+
+At no point can `fmap` say "something broke — abandon ship!". Bind can, because the mapping function itself returns a monad, which is then combined (flattened) with the original:
 
 ```haskell
 (>>=) :: Monad m => m a -> (a -> m b) -> m b
 ```
 
-The slide prints this signature as `(a -> f b) -> f a -> f b`, mixing up the argument order and type variable. The standard signature is above.
+The same holds for lists. Can `fmap` add or remove elements?
 
-On lists, `fmap :: (Int -> Int) -> [Int] -> [Int]` always returns exactly one `Int` per input, so the length cannot change. `>>=` can add or remove elements:
+```haskell
+fmap :: (Int -> Int) -> [Int] -> [Int]
+```
+
+No: each element maps to exactly one element, so the length is fixed. With bind, the function can return zero, one or many elements, so it can change the structure:
 
 ```haskell
 filter f xs = xs >>= (\x -> if f x then [x] else [])
 repeat2 xs  = xs >>= (\x -> [x, x])
 ```
 
-Both affect the structure itself. That is an effect.
+In both cases we affect the structure itself — that is an **effect**.
+
+| Monad | Higher information ("metadata") it carries |
+|---|---|
+| `Maybe` | Whether a value is present |
+| List | That there are multiple values |
+| `IO` | Whether (and what) I/O is performed |
+
+- Values change only with `fmap`.
+- The monad's structure can change with `>>=` (bind / flat-map).
 
 ### Tracking Effects: CounterMonad And DummyIO
 
-A monad can track effects directly. This one counts calls to `inc`:
+Monads can track effects directly. This one counts how many times `inc` has been called:
 
 ```haskell
 data CounterMonad a = Count Int a deriving Show
@@ -203,17 +237,18 @@ instance Functor CounterMonad where
     fmap f (Count times val) = Count times (f val)
 
 inc = Count 1 ()
-x  = Count 0 "Hi"                               -- Count 0 "Hi"
-x' = (++ " there") <$> x <* inc <* inc <* inc   -- Count 3 "Hi there"
+
+x   = Count 0 "Hi"                              -- Count 0 "Hi"
+x'  = (++ " there") <$> x                       -- Count 0 "Hi there"
+x'' = x' *> inc                                 -- Count 1 ()
+y   = (++ " there") <$> x <* inc <* inc <* inc  -- Count 3 "Hi there"
 ```
 
-- `<*` sequences effects but keeps the **left** value; `*>` keeps the **right**.
-- `(++ " there") <$> x` alone gives `Count 0 "Hi there"`.
-- The slide says `x *> inc` returns `Count 1 "Hi there"`. Since `*>` keeps the right value, it actually gives `Count 1 ()`; `x' <* inc` would give `Count 1 "Hi there"`.
+`<*` and `*>` sequence two computations and keep the value on the arrow's side, while combining both structures (here, adding the counts).
 
-Because we defined the interfaces (`fmap`, `<*>`, `>>=`), we act as **gatekeeper** and see every `inc`. IO works the same way: GHC uses the IO monad to gatekeep IO actions.
+Because we define the monad and its interface (`<$>`/`fmap`, `<*>`, `>>=`), we act as **gatekeeper**: every call to `inc` passes through us and can be logged. This is how `IO` works — the compiler uses the `IO` monad to gatekeep IO actions. Imagine replacing `inc` with something that tells GHC to actually perform IO.
 
-A `DummyIO` monad records instructions instead of performing IO:
+A `DummyIO` monad that records IO instructions instead of performing them:
 
 ```haskell
 data Action = Print String
@@ -223,67 +258,73 @@ data Action = Print String
 data DummyIO a = Dummy [Action] a deriving Show
 
 instance Monad DummyIO where
-    Dummy actions val >>= f = dummy'
+    Dummy actions val >>= f = Dummy (actions ++ actions') val'
       where Dummy actions' val' = f val
-            dummy' = Dummy (actions ++ actions') val'
--- Applicative and Functor instances left for the reader
+-- Applicative and Functor instances left as an exercise
 
 x = Dummy [] "Hi"
+
 done = do
-   x' <- x
-   let out = x' ++ " there"
-   print' out
-   delete "somefile.txt"
-   write "out.txt" out
-   pure out
+    x' <- x
+    let out = x' ++ " there"
+    print' out
+    delete "somefile.txt"
+    write "out.txt" out
+    pure out
 -- Dummy [ Print "Hi there"
 --       , Delete {fname = "somefile.txt"}
---       , Write {fname = "out.txt", text = "Hi there"} ] "Hi there"
+--       , Write {fname = "out.txt", text = "Hi there"}
+--       ] "Hi there"
 ```
-
-In summary:
-
-- Monads wrap values but carry **higher information** (like metadata). `Maybe` carries presence or absence; `List` carries "multiple values".
-- `fmap` changes only the values.
-- `>>=` (bind, flat-map) can also change the structure.
-- Whether a function **does I/O** is exactly this kind of higher information.
 
 ### The IO Monad
 
-A function to read a terminal line (like Python's `input()`) cannot be typed `getLine :: String`. GHC would treat it as pure and substitute its value. But two calls can return different input, so it must run each time.
+Suppose `getLine` reads a line from the terminal (like Python's `input()`):
+
+```haskell
+getLine :: String   -- wrong!
+```
+
+With this type, Haskell would assume `getLine` is pure and could replace any call with its value. That breaks: two calls may return different input, so each call **must** run again.
+
+The fix is to wrap the result in the `IO` monad:
 
 ```haskell
 getLine :: IO String
 ```
 
-`IO` is a monad whose structure tracks the IO actions performed. The type also tells the compiler the function is not pure and cannot be replaced by its value.
+- `IO`'s higher structure tracks the IO actions performed, just as `Maybe` tracks presence and lists track multiplicity.
+- It tells the compiler the function is **not** pure and can't be replaced by its value.
 
-`>>=` in IO maps the value and merges the IO effects:
+In `IO`, `>>=` does the same as elsewhere: it maps the value and **merges the structure** — here, it merges the IO the next function performs into the same `IO` value.
 
 ```haskell
 putStrLn "Enter name" >>= \_ -> getLine >>= putStrLn . ("Hello, " ++)
 ```
 
-The `()` inside `putStrLn`'s `IO ()` is thrown away and replaced by `getLine`'s `IO String`. But the printing effect is merged in: the value was discarded, but the effect on the structure remained.
+The `()` inside `putStrLn`'s `IO ()` is thrown away and replaced by `getLine`'s `IO String`, but the printing effect is **merged in**. The value was discarded, yet its effect on the structure remained.
 
-### >> And *>: Throwing Away Results
+### >> And *>: Discarding Results
 
 #### Definitions
 
-> **`>>`**: Sequences two monadic values, merging structure and replacing the value without using the old one as input. It is the same as `*>`, which is more general (from Applicative).
+> **`>>`**: Sequences two monadic actions, merging their structure but discarding the first's value. `m >> k = m >>= \_ -> k`.
 
 ```haskell
 x :: IO () = putStrLn "Hi"
+
 x >>= (\_ -> putStrLn "There")
 -- is the same as
 x >> putStrLn "There"
 ```
 
+`>>` is the same as `*>`, but `*>` is more general: it comes from Applicative, and every Monad is an Applicative.
+
 ### do Notation
 
 #### Definitions
 
-> **do notation**: Syntactic sugar for chains of `>>=`. Any `do` block can be written with `>>=`.
+> **`do` notation**: Syntactic sugar for chains of `>>=` and `>>`. Any `do` block can be rewritten with `>>=`.
 
 ```haskell
 greet :: IO String
@@ -297,29 +338,43 @@ greet = do
 greet >>= putStrLn . ("Return value was " ++)
 ```
 
-The rules:
+Rules:
 
-1. Every statement must be a `let`, a `<-` expression, or a value of the monad.
-2. `<-` **unwraps** the monad, e.g. takes the `String` out of `IO String`.
+1. Every statement must be one of:
+   - a `let`,
+   - a `name <- expr`,
+   - a monadic value (an instance of the monad).
+2. `<-` **unwraps** the monad (e.g. gets the `String` out of `IO String`).
 3. `let` makes temporary variables.
 4. `pure` **wraps** a value into the monad.
 
-Desugared, the block above is roughly:
+The same function desugared:
 
 ```haskell
-putStrLn "What is your name?" >>
-getLine >>= \name ->
-let greeting = "Hello, " ++ name ++ "!" in
-putStrLn greeting >>
-pure name
+greet = putStrLn "What is your name?" >>
+        getLine >>= \name ->
+        let greeting = "Hello, " ++ name ++ "!"
+        in putStrLn greeting >> pure name
 ```
 
-`do` is the closest Haskell gets to imperative code, but it is still different:
+`do` notation is the closest Haskell gets to imperative code, but it differs:
 
-- You cannot modify variables with `let`. `let x = x + 2` loops forever, because it defines `x` recursively in terms of itself.
-- Rebinding with `<-` works as you might expect: each `<-` introduces a new binding that shadows the old one.
+| Statement | Behaviour |
+|---|---|
+| `let x = x + 2` | Does **not** modify `x`; it defines `x` recursively in terms of itself and loops forever |
+| `x <- action` | Binds a new `x` (shadowing the old one), which behaves as you'd expect |
+| Any other line | Must be a monadic value |
 
-The lecture exercise defines a `Result` monad:
+### Beyond The Course And A Result Monad
+
+Useful but **not examinable**:
+
+- **MonadPlus**: monads with a default empty value (`Maybe`, list, `IO`); they can be filtered with a general function.
+- **MonadFail**: monads with failure states. Fallible patterns can appear on the left of `<-` in a `do` block; when a match fails the block ends early, with the failure combined into the monad's structure.
+- More Applicative/Monad operators: `<$`, `$>`, `<*`, `*>`, `&`, `>>>` (`>>` is in scope; `>>>` is something else).
+- The precise differences between Functors, Applicatives and Monads.
+
+The lecture's longer exercise builds a monad for computations that might fail with an error value, like `Maybe` but keeping the error:
 
 ```haskell
 data Result e v = Ok v | Err e
@@ -343,13 +398,13 @@ throw = Err
 orErr :: Maybe v -> e -> Result e v
 orErr (Just v) _ = Ok v
 orErr Nothing  e = Err e
+
+-- Validate a name (at least 5 characters) and parse an age
+register :: String -> String -> Result String (String, Int)
+register name ageStr = do
+    if length name < 5 then throw "name too short" else pure ()
+    age <- readMaybe ageStr `orErr` "age is not a number"
+    pure (name, age)
 ```
 
-The slide's `throw` and `orErr` types write the parameters as `Result v e`. They are written here to match `data Result e v`.
-
-### Not Examinable Extras
-
-- **MonadPlus**: monads with default/empty values (`Maybe`, `List`, `IO`) that can be filtered generally.
-- **MonadFail**: monads with failure states. A failing pattern in a `do`-block `<-` ends the block early.
-- Other operators: `<$`, `$>`, `<*`, `*>`, `&`, `>>>`. `>>>` is different from `>>`.
-- The precise differences between Functors, Applicatives and Monads.
+`readMaybe` comes from `Text.Read`. Readings: haskell.org's "A Gentle Introduction to Haskell: Monads" and HaskellWiki's "Merely monadic".

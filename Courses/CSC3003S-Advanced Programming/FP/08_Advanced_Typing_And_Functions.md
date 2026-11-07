@@ -3,61 +3,59 @@ tags:
   - advanced-programming
 ---
 
-# Haskell 4 — Advanced Typing And Functions
+# Advanced Typing And Functions
 
-**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)  
-**Source**: [FP 8 - Haskell 4 - advanced typing and functions-3.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP%208%20-%20Haskell%204%20-%20advanced%20typing%20and%20functions-3.pdf), Cael Marquard (adapted from Dr Sabre Didi), University of Cape Town, PDF pages 1–31  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)
+**Source**: [FP 8 - Haskell 4 - advanced typing and functions-3.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP%208%20-%20Haskell%204%20-%20advanced%20typing%20and%20functions-3.pdf), Cael Marquard (adapted from Dr Sabre Didi), University of Cape Town, pages 1–31
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes: polymorphism, constraints, typeclasses, deriving `Show`, the `Maybe` type, kinds, and Hoogle.
+> Polymorphism and generic functions, type constraints and typeclasses, implementing and deriving `Show`, generic data types and `Maybe` instead of null, type constructors as functions on types, and Hoogle.
 
 ---
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Rationale For Polymorphism|Rationale For Polymorphism]]
+  - [[#Why Polymorphism?|Why Polymorphism?]]
   - [[#Declaring A Generic Function|Declaring A Generic Function]]
-  - [[#Constraints And Overloaded Functions|Constraints And Overloaded Functions]]
+  - [[#Type Constraints And Overloaded Functions|Type Constraints And Overloaded Functions]]
   - [[#Typeclasses|Typeclasses]]
-  - [[#Num As An Example Typeclass|Num As An Example Typeclass]]
+  - [[#The Num Typeclass|The Num Typeclass]]
   - [[#Implementing Show|Implementing Show]]
   - [[#Deriving Typeclasses|Deriving Typeclasses]]
-  - [[#Generic Types: The Problem With Null|Generic Types: The Problem With Null]]
+  - [[#The Problem With Null-Like Values|The Problem With Null-Like Values]]
   - [[#The Maybe Type|The Maybe Type]]
-  - [[#Type Constructors And Kinds|Type Constructors And Kinds]]
+  - [[#Type Constructors Are Functions On Types|Type Constructors Are Functions On Types]]
   - [[#Hoogle|Hoogle]]
 
 ---
 
 ## Core Content
 
-### Rationale For Polymorphism
+### Why Polymorphism?
 
-A function over concrete types works only on those types:
+So far, functions have taken and returned **concrete types**. `add' :: Int -> Int -> Int` works only on `Int`s — not even on `Float`s:
 
 ```haskell
 add' :: Int -> Int -> Int
 add' a b = a + b
 
 add' 1 2      -- 3
-add' 1.0 2.0  -- ERROR: this function takes only Ints
+add' 1.0 2.0  -- ERROR: this function only takes Ints
 ```
 
-Floats can be added too, so how do we write one function that accepts both?
-
-### Declaring A Generic Function
+Floats can be added perfectly well, so how do we write one function that accepts both?
 
 #### Definitions
 
-> **Polymorphism**: "Having many forms" (poly = many, morph = form). A polymorphic (generic) function works over many types.
+> **Polymorphism**: "Having many forms" (poly = many, morph = form). A polymorphic function or type works for many types.
 
-> **Type parameter (type variable)**: A placeholder such as `a` in a type signature, standing for any concrete type.
+> **Generic function**: A function that is parameterised over a type, like Java's `ArrayList<T>`, which is generic over type `T`.
 
-> **Unconstrained type variable**: A type variable with no constraint. It only forces all occurrences to be the same concrete type.
+### Declaring A Generic Function
 
-This is like Java generics such as `ArrayList<T>`. Make `add'` generic by adding a type parameter:
+Add a **type parameter** (type variable) to the signature:
 
 ```haskell
 add :: Int -> Int -> Int
@@ -65,7 +63,9 @@ add :: Int -> Int -> Int
 add :: a -> a -> a
 ```
 
-Read it as: "`add` has a type parameter `a`, takes two values of type `a`, and returns a value of type `a`."
+Read it as: "`add` is a function with a type parameter `a` that takes two values of type `a` and returns a value of type `a`."
+
+Writing the body fails:
 
 ```haskell
 add' :: a -> a -> a
@@ -74,69 +74,86 @@ add' x y = x + y
 
 ```text
 error: [GHC-39999]
-    * No instance for `Num a' arising from a use of `+'
-    * In the expression: x + y
+  * No instance for `Num a' arising from a use of `+'
+  * In the expression: x + y
 ```
 
-The mistake: the signature promises `add'` accepts **any** type, but not every type supports `+`.
+The signature claims `add'` accepts **any** type, but not every type can be added with `+`.
 
-### Constraints And Overloaded Functions
+### Type Constraints And Overloaded Functions
 
 #### Definitions
 
-> **Constraint**: A restriction on a type variable, written before `=>`, requiring it to belong to a typeclass.
+> **Unconstrained type variable**: A type variable such as `a` in `a -> a -> a` that only enforces that all uses are the same concrete type; it says nothing about what operations that type supports.
+
+> **Type constraint**: A restriction such as `Num a =>` limiting a type variable to types that belong to a typeclass.
 
 > **Overloaded function**: A function with one or more constraints on its type parameters.
 
+Restrict `a` to numbers:
+
 ```haskell
-add' :: Num a => a -> a -> a   -- Num a is the constraint
+add' :: Num a => a -> a -> a   -- "Num a =>" is the constraint
 add' x y = x + y
 
 add' 1 2      -- 3
 add' 1.0 2.4  -- 3.4
 ```
 
+[AR: "Ad-hoc Polymorphism" on HaskellWiki]
+
+The lecture exercise — a generic `sum` — uses the same idea:
+
+```haskell
+sum' :: Num a => [a] -> a
+sum' xs = foldl (+) 0 xs
+```
+
 ### Typeclasses
 
 #### Definitions
 
-> **Typeclass**: A named set of behaviours (functions) that a type can implement. It is like an interface in Java, and almost exactly like a trait in Rust. It is **not** an OOP class.
+> **Typeclass**: A named set of behaviours (functions) that a type can implement. It is not a Java/Python class; it is more like an **interface**, and almost exactly a Rust **trait**.
+
+`Num` in `Num a =>` is a typeclass.
 
 | Typeclass | OOP class |
 |---|---|
-| Specifies **behaviours** | Bundles **data and logic** |
-| A type can implement as many as you wish | Often only single inheritance |
-| The instance can be written with the typeclass **or** with the type, so it can be implemented for **foreign types** | Inheritance is declared at type definition; you cannot inherit "for" a foreign type |
+| Specifies **behaviours** | Bundles data **and** logic |
+| A type can implement as many as you like | Often you can inherit from only one |
+| The instance can be defined with the typeclass **or** with the type, so you can implement it for foreign types | Inheritance is fixed at the type's definition; you can't inherit "for" a foreign type |
 
-### Num As An Example Typeclass
+[AR: haskell.org tutorial, "Type Classes and Overloading"]
+
+### The Num Typeclass
 
 ```haskell
-class Num a where                  -- a: the type that will implement Num
-    (+), (-), (*)  :: a -> a -> a   -- member functions that must be implemented
+class Num a where              -- a: the type that will implement Num
+    (+), (-), (*)  :: a -> a -> a
     negate         :: a -> a
     abs            :: a -> a
     signum         :: a -> a
     fromInteger    :: Integer -> a
-    x - y          = x + negate y   -- member functions that are provided
-    negate x       = 0 - x          --   (default implementations)
+    x - y          = x + negate y   -- provided (default) definitions
+    negate x       = 0 - x
 ```
 
-- The type parameter `a` names the implementing type so signatures can mention it.
-- Signatures without bodies must be implemented by each instance.
-- Definitions with bodies are **defaults** an instance gets for free. `-` and `negate` are defined in terms of each other, so an instance must define at least one of them.
+| Part | Role |
+|---|---|
+| `class Num a where` | Declares the typeclass; `a` stands for the implementing type, so the signatures can mention it |
+| Signatures (`(+)`, `negate`, …) | Member functions an instance must implement |
+| Equations (`x - y = …`, `negate x = …`) | Member functions provided by default in terms of others |
 
 ### Implementing Show
 
-#### Definitions
+One advantage of typeclasses is implementing them for **foreign types**: a typeclass defined in one package (e.g. `base`, the standard library) can be implemented in another.
 
-> **`Show`**: A typeclass from `base` that specifies how to convert a value to a `String` for printing. Its only required function is `show :: a -> String`.
+`Show` (from `base`) is a common example. It specifies how to convert a type to a `String`, which is useful for debugging with `print :: Show a => a -> IO ()` (equivalent to `putStrLn . show`).
 
-> **Instance**: An implementation of a typeclass for a particular type, written `instance Class Type where …`.
-
-`Show` is often implemented for your own types and is useful for debugging with `print :: Show a => a -> IO ()`, which is equivalent to `putStrLn . show`. By tacit contract, `show` output should itself be a valid Haskell expression: it is for debugging, not pretty-printing.
+`Show` requires one function, `show :: a -> String`. There is a tacit contract that the output is itself a valid Haskell expression, so `show` is for debugging, not pretty-printing.
 
 ```haskell
--- It's legal to name the constructor something other than the type
+-- The constructor may be named differently from the type
 data StreetAddress = Addr {
     number :: Int,
     street :: String
@@ -152,7 +169,7 @@ x = Addr { number = 1, street = "Main Rd" }
 show x   -- Addr { number = 1, street = "Main Rd" }
 ```
 
-Every new field (postcode, city, province, …) needs another hand-written line, which quickly becomes tedious.
+Adding more fields (`postcode`, `city`, `province`, …) makes the hand-written instance grow line by line — tedious, fast.
 
 ### Deriving Typeclasses
 
@@ -175,13 +192,17 @@ show $ Addr 1 "Main Rd" 7700 "Western Cape" "Cape Town" "South Africa"
 --  province = \"Western Cape\", city = \"Cape Town\", country = \"South Africa\"}"
 ```
 
-### Generic Types: The Problem With Null
+Deriving `Show` also works for generic types, e.g. `data Pair a = Pair a a deriving Show`.
 
-A social-media user profile has these rules:
+### The Problem With Null-Like Values
 
-- A user **must** have a name.
-- A user **may** have an age.
-- A user **may** have a parent's email (e.g. if under 18).
+Generic **data types** are useful too. Example: a social-media user profile where
+
+- a user must always have a name,
+- a user may have an age,
+- a user may have a parent's email (e.g. for under-18s).
+
+In SQL:
 
 ```sql
 CREATE TABLE users (
@@ -191,7 +212,9 @@ CREATE TABLE users (
 );
 ```
 
-Haskell has **no null values**: you cannot assign "null" or "None" to an `Int` or `String`. A tempting workaround is to use sentinel values, `0` for no age and `""` for no email:
+**Haskell has no null values.** You can't assign "null" or "None" to an `Int` or `String`. [AR: "Null References: The Billion Dollar Mistake", Tony Hoare, the inventor of null]
+
+A tempting workaround uses 0 for "no age" and `""` for "no email":
 
 ```haskell
 data User = User
@@ -200,40 +223,41 @@ data User = User
     , parentEmail :: String
     }
 
-User "Cael" 24 ""
-User "Thabo" 16 "mama.ka.thabo@example.com"
-User "Haskell Curry" 0 ""      -- he is dead
+users = [ User "Cael" 24 ""
+        , User "Thabo" 16 "mama.ka.thabo@example.com"
+        , User "Haskell Curry" 0 ""   -- he is dead
+        ]
 ```
 
 Now spam every user:
 
 ```haskell
 sendEmail :: String -> String -> IO ()
--- sends the 1st string to the email address given by the 2nd string
+-- sends the 1st string to the email address in the 2nd string
 
 spamAll :: String -> [User] -> IO ()
 -- mapM_ is like map for IO functions, discarding the () results
 spamAll spam users = mapM_ (\user -> sendEmail spam $ email user) users
+
+spamAll "We miss you!" users
 ```
 
-The slides call the email accessor `email`. With the record above it would be `parentEmail`.
-
-Eventually this runs:
+Eventually this evaluates:
 
 ```haskell
 (\user -> sendEmail spam $ email user) (User "Cael" 24 "")
 = sendEmail "We miss you!" $ email (User "Cael" 24 "")
-= sendEmail "We miss you!" ""     -- uh-oh! No email address!
+= sendEmail "We miss you!" ""   -- uh-oh! No email address!
 ```
 
-This is fundamentally a **type error**: `sendEmail` expects a non-empty address, and the empty case was never handled. You could filter:
+This is fundamentally a **type error**: `sendEmail` expected a non-empty string, and we forgot to handle the empty case. Filtering fixes this one call site:
 
 ```haskell
 mapM_ (\user -> sendEmail spam $ email user)
     $ filter (\user -> (email user) /= "") users
 ```
 
-But you would need that filter everywhere the email is used. If "no email" is introduced late in development, every use must be tracked down. A type system exists to prevent exactly this kind of error. Tony Hoare, the inventor of null, called null references his "billion dollar mistake".
+But you would need that filter everywhere the email is used — and if empty emails are introduced late in development, how do you find every place? A type system exists precisely to prevent this kind of error.
 
 ### The Maybe Type
 
@@ -245,7 +269,7 @@ But you would need that filter everywhere the email is used. If "no email" is in
 data Maybe a = Nothing | Just a
 ```
 
-For a type, the type parameter `a` is written **before** the `=`. This differs from function syntax.
+The type parameter `a` goes before the `=`; this is different syntax from functions.
 
 ```haskell
 data User = User
@@ -255,16 +279,16 @@ data User = User
     }
 ```
 
-The old `spamAll` now fails to compile, so GHC catches the bug before it happens:
+Now the buggy `spamAll` doesn't compile:
 
 ```text
 error: [GHC-83865]
-    * Couldn't match expected type: [Char]
-                  with actual type: Maybe String
-    * In the second argument of `($)', namely `email user'
+  * Couldn't match expected type: [Char]
+                with actual type: Maybe String
+  * In the second argument of `($)', namely `email user'
 ```
 
-The fix uses `mapMaybe`:
+GHC catches the bug before it can happen. The fix uses `mapMaybe` from `Data.Maybe`, which applies a function returning `Maybe` and keeps only the `Just` results:
 
 ```haskell
 import Data.Maybe
@@ -275,21 +299,13 @@ spamAll spam users = mapM_
     $ mapMaybe email users
 ```
 
-> **`mapMaybe :: (a -> Maybe b) -> [a] -> [b]`**: A version of `map` that can throw out elements. If the function returns `Nothing`, nothing is added to the result; if it returns `Just b`, `b` is included.
+![mapMaybe](../../../diagrams/CSC3003S-Advanced%20Programming/FP/08_Advanced_Typing_And_Functions/mapmaybe.svg)
 
-![mapMaybe drops Nothing](../../../diagrams/CSC3003S-Advanced%20Programming/FP/08_Advanced_Typing_And_Functions/mapmaybe.svg)
+*`mapMaybe` unwraps every `Just` value and drops every `Nothing`.*
 
-*Users with no email give `Nothing` and are dropped. Only `Just` addresses reach `sendEmail`.*
-
-> [!warning] <span style="color:#ffc778">Loophole</span>
-> You can still build `Just ""`, a `Maybe String` holding an empty string. Ways to close this are covered in [Making Illegal States Unrepresentable](13_Making_Illegal_States_Unrepresentable.md).
-
-The exercise solutions for `sum'` and `mapMaybe'`:
+The lecture exercise re-implements it:
 
 ```haskell
-sum' :: Num a => [a] -> a
-sum' = foldl (+) 0
-
 mapMaybe' :: (a -> Maybe b) -> [a] -> [b]
 mapMaybe' _ [] = []
 mapMaybe' f (x:xs) = case f x of
@@ -297,32 +313,37 @@ mapMaybe' f (x:xs) = case f x of
     Just y  -> y : mapMaybe' f xs
 ```
 
-The exercise slide writes the type as `(a -> Maybe a) -> [a] -> [a]`. The general type above includes that case.
+A loophole remains: you can still construct `Just ""`. Closing it is covered in [Making Illegal States Unrepresentable](13_Making_Illegal_States_Unrepresentable.md). [AR: "Make illegal states unrepresentable"] [AR: "Parse, don't validate", Alexis King]
 
-### Type Constructors And Kinds
+### Type Constructors Are Functions On Types
 
 #### Definitions
 
-> **Type constructor**: A generic type such as `Maybe`, viewed as a function from types to types: it maps `Int` to `Maybe Int`.
+> **Type constructor**: A generic type such as `Maybe`, seen as a function that maps a type to another type: `Maybe` maps `Int` to `Maybe Int`.
 
-> **Kind**: The "type of a type". `*` is a concrete type and `* -> *` maps a type to a type. Check it with `:kind` in ghci, the type-level analogue of `:type`.
+> **Kind**: The "type of a type". `*` means a concrete type, so `* -> *` means "maps a type to a type".
+
+Functions map between values: `show :: Show a => a -> String` maps a `Show` instance to a string. Generic types map between **types**.
+
+In GHCi, `:kind` shows a type's kind, just as `:type` shows a value's type:
 
 ```text
+ghci> :kind Int
+Int :: *
 ghci> :kind Maybe
 Maybe :: * -> *
 ghci> :kind Maybe Int
 Maybe Int :: *
-ghci> :kind Int
-Int :: *
 ```
 
-![Maybe as a function on types](../../../diagrams/CSC3003S-Advanced%20Programming/FP/08_Advanced_Typing_And_Functions/type-constructor.svg)
+![Type constructors as functions on types](../../../diagrams/CSC3003S-Advanced%20Programming/FP/08_Advanced_Typing_And_Functions/type-constructor.svg)
 
-*Just as `show` maps a value to a `String`, the type constructor `Maybe` maps the type `Int` to the type `Maybe Int`.*
+*`Maybe` takes the concrete type `Int` and produces the concrete type `Maybe Int`.*
+
+[AR: "Type constructor" on HaskellWiki] [AR: "Kinds and Higher-Kinded Types in Haskell", Gints Dreimanis]
 
 ### Hoogle
 
-Haskell's type system is so expressive that Haskellers often search for functions by **type signature** rather than name, using Hoogle (`https://hoogle.haskell.org/`).
+Haskell's type system is expressive enough that Haskellers often search for functions by **type signature** rather than by name, using **Hoogle** (hoogle.haskell.org). For example, searching `Integer -> String` finds `show` and related functions.
 
-- Searching `Show a => a -> IO ()` finds `print`.
-- An exercise: search for functions mapping `Integer` to `String`.
+Assigned reading (LYAH): *Types and Typeclasses*, *Syntax in Functions*, *Making Our Own Types and Typeclasses*; in preparation: "Foldl and foldr" (Alexis King) and the Stack Overflow question "Why does foldl seem to be harmful despite being tail recursive?".

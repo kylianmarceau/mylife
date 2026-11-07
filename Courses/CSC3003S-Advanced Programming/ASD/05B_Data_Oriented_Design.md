@@ -5,310 +5,361 @@ tags:
 
 # Data-Oriented Design
 
-**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)  
-**Source**: [ASD05 Data oriented design - Copy.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD05%20Data%20oriented%20design%20-%20Copy.pdf), Johan Bontes, University of Cape Town, PDF pages 1–56 (2026 version; `ASD05 Data oriented design.pdf` is the identical 2025 deck)  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)
+**Source**: [ASD05 Data oriented design.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD05%20Data%20oriented%20design.pdf) (identical to [ASD05 Data oriented design - Copy.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD05%20Data%20oriented%20design%20-%20Copy.pdf) apart from slide dates), Johan Bontes, University of Cape Town, pages 1–56
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes: why OOP is slow for bulk data, how CPUs and caches move data and code, the costs of heap objects and virtual calls, the three DOD steps, and CPU code flow (pipelining, prediction, superscalar and out-of-order execution).
-
-> [!note] <span style="color:#b89aff">Not examinable</span>
-> The purple-titled slides "Hot data?" (register file and μop cache sizes) and "Eviction schemes" are marked not examinable. They are included briefly for context.
+> Why object-oriented code is slow on modern CPUs (memory bandwidth, caches, heap scattering, virtual calls), the three steps of data-oriented design shown on a Pacman example, and how CPU pipelining, prediction, superscalar and out-of-order execution interact with code structure.
 
 ---
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#What DOD Is And When To Use It|What DOD Is And When To Use It]]
-  - [[#The Problem With Traditional OOP|The Problem With Traditional OOP]]
-  - [[#How A CPU Works: Feeding The Beast|How A CPU Works: Feeding The Beast]]
-  - [[#The Cache Hierarchy And Hot Data|The Cache Hierarchy And Hot Data]]
-  - [[#Cache Movement, Eviction And Load Size|Cache Movement, Eviction And Load Size]]
+  - [[#What Data-Oriented Design Is|What Data-Oriented Design Is]]
+  - [[#The Pacman Case Study|The Pacman Case Study]]
+  - [[#Why OOP Mapping Is Slow|Why OOP Mapping Is Slow]]
+  - [[#Feeding The CPU: Memory Bandwidth|Feeding The CPU: Memory Bandwidth]]
+  - [[#The Cache Hierarchy|The Cache Hierarchy]]
+  - [[#Cache Rules And Eviction|Cache Rules And Eviction]]
   - [[#Access Patterns: Sequential Versus Random|Access Patterns: Sequential Versus Random]]
   - [[#Anatomy Of An Object And The Heap|Anatomy Of An Object And The Heap]]
-  - [[#Problem 1: Objects Live On The Heap|Problem 1: Objects Live On The Heap]]
-  - [[#Problem 2: Virtual Methods And Cache Eviction|Problem 2: Virtual Methods And Cache Eviction]]
-  - [[#Stack Versus Heap, And Polymorphism|Stack Versus Heap, And Polymorphism]]
-  - [[#DOD Step 1: Find The Hot Code (Measure)|DOD Step 1: Find The Hot Code (Measure)]]
+  - [[#Object Problem 1: Living On The Heap|Object Problem 1: Living On The Heap]]
+  - [[#Object Problem 2: Virtual Methods|Object Problem 2: Virtual Methods]]
+  - [[#Why Cache Lines Cause Eviction|Why Cache Lines Cause Eviction]]
+  - [[#Stack Versus Heap And Polymorphism|Stack Versus Heap And Polymorphism]]
+  - [[#DOD Step 1: Find The Hot Code|DOD Step 1: Find The Hot Code]]
   - [[#DOD Step 2: Analyse The Data Flow|DOD Step 2: Analyse The Data Flow]]
   - [[#DOD Step 3: Data That Flows Together Stays Together|DOD Step 3: Data That Flows Together Stays Together]]
-  - [[#DOD Speed-Up And Other Benefits|DOD Speed-Up And Other Benefits]]
+  - [[#DOD Speed-Ups And Benefits|DOD Speed-Ups And Benefits]]
   - [[#CPU Code Flow: Pipelining And Prediction|CPU Code Flow: Pipelining And Prediction]]
   - [[#Superscalar And Out-Of-Order Execution|Superscalar And Out-Of-Order Execution]]
-  - [[#Stack Engine And What The Compiler Can't Do|Stack Engine And What The Compiler Can't Do]]
+  - [[#The Stack Engine And The Compiler|The Stack Engine And The Compiler]]
 
 ---
 
 ## Core Content
 
-### What DOD Is And When To Use It
+### What Data-Oriented Design Is
 
 #### Definitions
 
-> **Data-oriented design (DOD)**: A technique to speed up data processing by organising code around how data flows through the CPU, rather than around real-world objects. It requires you to "think like a CPU": what slows it down, what speeds it up?
+> **Data-oriented design (DOD)**: A technique for speeding up data processing by organising code around how data flows through the CPU, rather than around real-world objects. It requires thinking like a CPU: what slows it down, and what speeds it up?
 
 **Rule 1: if it ain't broke, don't fix it.**
 
-- DOD is all about **lots of data**. No lots of data, no DOD; consider using a database instead.
-- It is used for lots of uniform data that must be processed when a database can't be used: inside database engines, games, numerical simulation (number crunching) and solvers.
-- Database techniques are moving into game engines, e.g. SpacetimeDB.
+- DOD is all about data — **lots** of data. No lots of data, no DOD.
+- Consider using a database instead.
 
-### The Problem With Traditional OOP
+Where DOD is used — anywhere with lots of uniform data to process, when a database can't be used:
 
-Traditional OOP courses say to map real-world entities to objects and solve issues with more objects. But:
+- inside database engines,
+- games,
+- numerical simulation (number crunching),
+- solvers.
 
-- The real world is complex, so a 1-to-1 mapping creates **blob objects**.
-- A "correct" OOP mapping has lots of **indirection**: extra work for the CPU, so it is slow.
-- Objects live on the **heap**.
-- Objects mix **hot and cold** data, and **read-only and read-write** data.
+Database techniques are moving into game engines (e.g. SpacetimeDB).
 
-![Pacman OOP versus DOD](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/05B_Data_Oriented_Design/pacman-oop-vs-dod.svg)
+### The Pacman Case Study
 
-*In the OOP design, the hot drawing path runs through a deep Sprite hierarchy of heap objects. In the DOD design, the sprite data collapses into arrays inside `Board`, leaving the cold timer, input and AI classes untouched.*
+The lecture compares two Pacman implementations.
 
-### How A CPU Works: Feeding The Beast
+![Pacman: OOP versus DOD](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/05B_Data_Oriented_Design/pacman-oop-vs-dod.svg)
 
-The CPU is a **von Neumann machine**: code and data share memory and move through the same system.
+*The OOP design scatters each doll's data and behaviour across a class hierarchy of heap objects; the DOD design keeps the hot data in a few flat arrays processed by static code.*
 
-| Source | Bandwidth | Relative to the CPU |
+- The traditional OOP design is about **20 000× slower than needed** in its hot path.
+- Parts of the OOP design that are not "hot" are not a problem.
+
+### Why OOP Mapping Is Slow
+
+Traditional OOP courses say:
+
+- map real-world entities onto objects, and
+- solve issues with more objects.
+
+The problems:
+
+| Issue | Consequence |
+|---|---|
+| The real world is complex, so 1-to-1 mapping creates **blob objects** | Large, unfocused objects |
+| "Correct" OOP mapping uses lots of **indirection** | Extra work for the CPU: slow |
+| Objects live on the **heap** | Scattered in memory |
+| Objects mix **hot and cold** data | Cold data pollutes the cache |
+| Objects mix **read-only and read-write** data | Harder to cache and parallelise |
+
+### Feeding The CPU: Memory Bandwidth
+
+A CPU is a **Von Neumann machine**: code and data are fetched from memory into the processor.
+
+A 5 GHz core can process about
+
+$$
+5\text{G} \times 32 \times 4 \approx 600\ \text{GiB/s per core}
+$$
+
+| Source | Bandwidth | Relative to CPU demand |
 |---|---|---|
-| 5 GHz core ($5\text{G}\times 32\times 4$) | $\approx 600$ GiB/s per core | — |
-| DDR5-5600, sequential | 70 GiB/s | about 10× slower |
-| DDR5-5600, random access | $\approx 400$ MiB/s | about 1500× slower |
-| 8-core CPU | $600\times 8 = 4.8$ TiB/s | — |
+| CPU core demand | ~600 GiB/s | — |
+| DDR5-5600, sequential | ~70 GiB/s | ~10× slower |
+| DDR5-5600, random access | ~400 MiB/s | ~1500× slower |
+| 8-core CPU demand | $600 \times 8 = 4.8$ TiB/s | — |
 
-RAM cannot keep up with the cores, especially for random access.
+Memory cannot keep the CPU fed, especially with random access.
 
-### The Cache Hierarchy And Hot Data
+### The Cache Hierarchy
 
 #### Definitions
 
-> **Hot data**: A small amount of data used over and over: lookup tables, database indexes, sprite coordinates, local variables on the stack, scratchpads, data inside loops.
+> **Hot data**: A small amount of data used over and over — lookup tables, a database index, sprite coordinates, local variables on the stack, scratchpads, data inside a loop.
 
 > **Cache**: Small, fast memory close to the CPU that holds the hottest data.
 
-Most time is spent on hot data, so the hottest data is kept closest to the CPU.
+Most time is spent on hot data, so the hottest data is kept closest to the CPU (figures for AMD Zen 5):
+
+| Level | Size | Bandwidth |
+|---|---|---|
+| "L0": register file + micro-op cache | 16 KiB / ~24 KiB | ~600 GiB/s |
+| L1 data / L1 code | 48 KiB / 32 KiB | ~200 GiB/s |
+| L2 (per core, data + code) | 1 MiB | ~20 GiB/s |
+| L3 (shared) | 32 MiB | ~2 GiB/s |
+| RAM (shared) | Big | ~0.4 GiB/s (best case, random) |
 
 ![Cache hierarchy](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/05B_Data_Oriented_Design/cache-hierarchy.svg)
 
-*Zen 5: register file plus μop cache (~600 GiB/s), L1 (200 GiB/s), L2 (20 GiB/s), shared L3 (2 GiB/s), RAM (0.4 GiB/s best case).*
+*Each level is larger and slower than the one above; the CPU only works on what reaches the register file and micro-op cache.*
 
-The CPU has a small notepad for data, the **register file** (about 500 variables), and a small "screen" for code, the **μop cache** (about 6000 micro-ops). This slide is not examinable.
+The CPU has a small "notepad" for data — the register file, about 500 variables — and a small "screen" for code — about 6000 micro-ops.
 
-### Cache Movement, Eviction And Load Size
+### Cache Rules And Eviction
 
-The CPU **cannot use RAM directly**:
+**The CPU cannot use RAM directly.**
 
-- Data is usable only once it is in the register file; code only once it is in the μop cache.
-- Data moves RAM → L3 → L2 → L1 → CPU. New data in means old data out.
-- The closer to the CPU, and the more recently or frequently used, the hotter the data.
+- Data can be used only once it is in the register file; code only once it is in the micro-op cache.
+- New data in means old data out.
+- Data moves in and out of the CPU via L1, into L1 via L2, into L2 via L3.
+- The closer to the CPU, the hotter the data. More re-used and more recent data is hotter.
 
-**Eviction schemes** (not examinable):
+#### Definitions
 
-| Era | Policy |
+> **Eviction scheme**: The rule for which cached data to discard when new data arrives.
+
+| Era | Scheme |
 |---|---|
-| 2000s | LRU: evict the least recently used |
-| 2010s | LFU: evict the least frequently used (coldest) |
-| Modern | A tiny neural network mixing LRU and LFU, plus prediction of the next data and code (speculative prefetching, which has security implications) |
+| 2000s | **LRU** — least recently used (delete the oldest) |
+| 2010s | **LFU** — least frequently used (delete the coldest) |
+| Modern | A tiny neural network mixing LRU and LFU |
 
-Tip: **make your data use predictable**.
-
-**Why evict so much?** The minimum load size is **32 bytes** on AMD and Intel. Ask for 1 byte and 32 bytes are fetched, evicting 32 other bytes. This lets the hardware fetch 256 bits in parallel, 32× faster than one byte at a time. Every CPU speed hack has a drawback somewhere else.
+Modern CPUs also **predict** which data and code will be needed next and fetch it speculatively (**speculative prefetching**, which has security implications). Tip: make your data use **predictable**.
 
 ### Access Patterns: Sequential Versus Random
 
 ```java
 final int GB = 1024 * 1024 * 1024;
-int[] array[1*GB];               // 4 GiB of ints
-for (var a: array) {             // A: sequential access
-  doStuff(a);
+int[] array = new int[1 * GB];
+
+// A: sequential
+for (var a : array) {
+    doStuff(a);
 }
-r = new Random();
-for (var i = 0; i < GB; i++) {   // B: random access
-  var i2 = r.nextInt(GB);
-  a = array[i2];
-  doStuff(a);
+
+// B: random
+var r = new Random();
+for (var i = 0; i < GB; i++) {
+    var i2 = r.nextInt(GB);
+    var a = array[i2];
+    doStuff(a);
 }
 ```
 
-Sequential access (A) streams through memory and the prefetcher predicts it. Random access (B) misses the cache on almost every read and can be over 1000× slower.
+Sequential access lets the prefetcher stream data; random access pays the full RAM latency on almost every read.
+
+Java objects add a twist:
 
 ```java
-Integer[] array2[1*GB];   // ~48 GiB after initialisation: why?
-for (var a: array2) {     // effectively random access: why?
-  doStuff(a);
+int[]     array  = new int[1 * GB];      // 4 GiB
+Integer[] array2 = new Integer[1 * GB];  // ~48 GiB after initialisation
+for (var a : array2) {                   // effectively random access!
+    doStuff(a);
 }
 ```
 
-- `Integer` is an object. The array holds 8-byte **links** to separately allocated heap objects, each with its own header and padding. That explains the roughly 48 GiB.
-- Iterating the array sequentially still dereferences each link to a scattered heap location, so the access pattern is effectively random.
+- `Integer[]` holds **pointers**; every `Integer` is a separate heap object with a header and padding, which is why it balloons to about 48 GiB.
+- Looping over it is effectively random access, because each element must be fetched from wherever its object landed on the heap.
 
 ### Anatomy Of An Object And The Heap
 
-#### Definitions
-
-> **Stack**: Where local variables live. It is effectively always in L1.
-
-> **Heap**: The object store in main memory.
-
-> **Virtual method table (VMT)**: A per-class table of code pointers, used to find the right method at run time.
-
 ```java
-ObjectX a;          // local variable: on the stack (L1/CPU)
-a = new ObjectX();  // ObjectX allocated on the heap
+ObjectX a;          // local variable: on the stack (always in L1)
+a = new ObjectX();  // the ObjectX itself is created on the heap
 ```
 
-- `a` is a link (pointer, 8 bytes) to the heap object.
-- An object combines data and code:
+- The local variable `a` is a **link (pointer)** of 8 bytes to the heap object.
+- The heap is the object store in main memory.
+- An object is data plus code:
 
-```c
+```text
 ObjectX = struct {
-  VMT;      // 'this'-side pointer to the virtual method table (list of code)
-  Data;     // data members
-  padding;  // fill so the size is a multiple of 8 bytes
+    VMT:     'this' pointer to the virtual method table (list of code)
+    Data:    data members
+    padding: empty space to make the size a multiple of 8 bytes
 }
 ```
 
-**The heap** keeps 4 free lists (tiny, small, medium and large objects).
+#### Definitions
 
-- Allocation is first come, first served.
-- Destruction happens at random times (garbage collection).
-- So objects end up **randomly distributed** through memory, and heap bookkeeping also takes space.
+> **Heap**: The memory area for dynamically allocated objects. It has four lists (tiny, small, medium and large objects); allocation is first come, first served, and destruction happens at random times (garbage collection).
 
-### Problem 1: Objects Live On The Heap
+> **Virtual method table (VMT)**: A per-class table of pointers to the class's (overridable) methods, reached through a pointer in each object.
 
-- Object data and code are spread randomly over memory, and related objects are not stored sequentially.
-- The longer the program runs, the more random the layout becomes.
-- Each object access can add about a **1500-cycle** penalty, time in which the core could have done about 6000 calculations. It is much worse in multi-threaded code.
+Because objects are allocated in arrival order and freed at random times, they end up **randomly distributed** through memory. Heap bookkeeping also takes space.
 
-### Problem 2: Virtual Methods And Cache Eviction
+### Object Problem 1: Living On The Heap
+
+- An object's data and code are spread randomly over memory.
+- Related objects are not stored sequentially, and the longer the program runs, the more randomly spaced they become.
+- This adds about a **1500-cycle start-up penalty** to each object access — time in which the core could have performed about 6000 calculations.
+- Delays are much worse in multi-threaded code.
+
+### Object Problem 2: Virtual Methods
 
 ```java
-Sprites[5] dolls;
-for (var i:1..4) { dolls[i] = new Ghost(); }
+Sprite[] dolls = new Sprite[5];
+for (var i = 1; i <= 4; i++) { dolls[i] = new Ghost(); }
 dolls[0] = new Pacman();
 // ... game loop
-  dolls[i].moveto(x,y);
+dolls[i].moveto(x, y);
 ```
 
-1. Look up the right doll on the heap.
-2. `moveto = doll.VMT[42]`, a pointer to code.
-3. Call `moveto`. The call **cannot be predicted**: the doll might be a ghost, Pacman or a zombie, each moving differently.
+1. Look up the correct doll on the heap.
+2. `moveto = doll.VMT[42]` — a pointer to code.
+3. Call `moveto` — the call **cannot be predicted**: it might be a ghost, Pacman or a zombie, which all move differently.
 
-With an inheritance chain the cost multiplies:
+A deeper chain:
 
 ```java
-public void Ghost.draw()        { bitmap = getScaryBitmap(); super.draw(); }
-public void MovingSprite.draw() { location = point(x,y);     super.draw(); }
-Sprite.draw()                   { display.draw(bitmap, location); }
+public void Ghost.draw() {
+    bitmap = getScaryBitmap();
+    super.draw();
+}
+public void MovingSprite.draw() {
+    location = point(x, y);
+    super.draw();
+}
+public void Sprite.draw() {
+    display.draw(bitmap, location);
+}
 ```
 
-One `dolls[i].draw()` makes 13 steps:
+`dolls[i].draw()` then performs:
 
 1. Look up the doll on the heap.
-2. `draw = doll.VMT[41]`.
-3. Call `Ghost.draw()`.
-4. `parent = doll.VMT[0]`.
-5. `draw = parent.VMT[41]`.
-6. Call `MovingSprite.draw()`.
-7. `grandparent = parent.VMT[0]`.
-8. `draw = grandparent.VMT[41]`.
-9. Call `Sprite.draw()`.
-10. Look up the display object on the heap.
-11. `draw = display.VMT[125]`.
-12. Call `Display.draw(bitmap, location)`.
-13. Look up the bitmap object on the heap.
+2. `draw = doll.VMT[41]`; call `Ghost.draw()` (unpredictable).
+3. `parent = doll.VMT[0]`; `draw = parent.VMT[41]`; call `MovingSprite.draw()` (maybe predicted).
+4. `grandparent = parent.VMT[0]`; `draw = grandparent.VMT[41]`; call `Sprite.draw()` (maybe predicted).
+5. Look up the `display` object on the heap; `draw = display.VMT[125]`; call `Display.draw(bitmap, location)` (maybe predicted).
+6. Look up the `bitmap` object on the heap.
 
-![Virtual dispatch chain](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/05B_Data_Oriented_Design/virtual-dispatch.svg)
+![Virtual call chain](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/05B_Data_Oriented_Design/virtual-dispatch.svg)
 
-*Each hop is an indirect lookup: heap misses evict the data cache, and unpredictable calls evict the code cache and stall the pipeline.*
+*One `draw()` call chases pointers through several objects and VMTs, each a potential cache miss.*
 
-- **2a, data cache eviction**: each heap lookup pulls whole objects into L1, evicting other hot data.
-- **2b, code cache eviction**: the first call (`Ghost.draw`) cannot be predicted and the later ones only maybe. Code for each class must be fetched into the L1 code cache.
+Every lookup can evict useful data from L1 (**data cache eviction**, problem 2a), and every indirect call can evict code from the L1 code / micro-op cache (**code cache eviction**, problem 2b).
 
-### Stack Versus Heap, And Polymorphism
+### Why Cache Lines Cause Eviction
 
-In Java, everything created with `new` lives on the heap and is reached through up to three levels of indirection:
+- The minimum load size for data is 32 bytes on AMD/Intel. Even if you ask for 1 byte, 32 bytes are fetched, so 32 bytes of other data are evicted.
+- Why? The hardware can fetch 256 bits in parallel, 32× faster than one byte at a time.
+- Every CPU speed hack has a drawback elsewhere.
 
-1. The variable holds a link to the object.
-2. Every non-static method is called indirectly through the VMT.
-3. Fields of object type, like `Bear bear;`, are themselves links.
+### Stack Versus Heap And Polymorphism
+
+In Java, everything created with `new` lives on the heap, giving layers of indirection:
+
+1. `ClassX myobject = new ClassX();` — `myobject` is a link to heap data.
+2. All non-static methods are accessed indirectly (through the VMT).
+3. Object fields such as `Bear bear;` are links to further heap objects.
 
 | | Stack | Heap |
 |---|---|---|
 | Access | Direct | Indirect |
-| Holds | Local variables and links to objects | Object data |
+| Contents | Local variables and links to objects | Object data |
 | Speed | Fast (effectively 0 time) | Slow: up to 1500 cycles |
 | Size | Tiny | Huge |
 | Typing | Literal | Polymorphic |
 
 #### Definitions
 
-> **Run-time polymorphism (late binding)**: The method is chosen at run time through the VMT. It is very flexible but costs up to 1500 cycles per access, and the CPU cannot predict it. This is the only kind Java has.
+> **Run-time polymorphism (late binding)**: The method called is chosen at run time via the VMT. Very flexible, but up to 1500 cycles per access, and the CPU can't predict it.
 
-> **Compile-time polymorphism (early binding)**: The method is chosen at compile time (C++ templates). It is almost as flexible but up to 1000× faster. It is not easy, though it is better in C++23.
+> **Compile-time polymorphism (early binding)**: The method called is fixed at compile time (e.g. C++ templates). Almost as flexible, but up to 1000× faster; not easy to use (better in C++23).
 
-### DOD Step 1: Find The Hot Code (Measure)
+Java only has run-time polymorphism; C++ has both.
 
-1. **Split the program into hot and cold code.**
-   - **Hot**: always in a loop, executed many times per second; more code or objects makes it slower.
-   - **Cold**: executed rarely; more code or objects has no measurable effect.
-2. **Unless you are 100% sure, measure** where the bottlenecks are:
-   - an **instrumenting profiler**: Java Flight Recorder, VisualVM or Async Profiler for Java; tools on hackingcpp.com for C++; pyinstrument for Python
-   - or a **timer**:
+### DOD Step 1: Find The Hot Code
 
-```java
+Split the program into hot and cold code:
+
+| | Hot code | Cold code |
+|---|---|---|
+| Where | Always in a loop | Rarely executed |
+| Frequency | Many times per second | Occasionally |
+| Effect of more code/objects | Slower program | No measurable effect |
+
+Unless you are 100% sure, **measure** where the bottlenecks are:
+
+- **Instrumenting profilers** — Java: Java Flight Recorder, VisualVM, Async Profiler; C++: various (hackingcpp.com lists them); Python: pyinstrument.
+- A simple **timer**:
+
+```text
 start = hiresTimer.microsecs();
-// doStuff()
+// dostuff()
 end = hiresTimer.microsecs();
-duration += end - start;   // uint64 accumulator
+duration: uint64 += end - start;
 ```
-
-In Pacman the sprite-drawing path is hot ("20 000× slower than needed"). The timer, keyboard, board and AI are not hot, so they are not a problem.
 
 ### DOD Step 2: Analyse The Data Flow
 
-What happens in the hot loop? For Pacman, 60 times a second the timer fires and the game:
+Pacman's hot loop runs on a timer 60 times per second:
 
-1. finds where the dolls are (Pacman and ghosts)
-2. checks collisions between Pacman and ghosts
-3. checks collisions between Pacman and pills or walls
-4. tries to move each doll one space
-5. animates the dolls and draws the grid
+1. Find where the dolls (Pacman and ghosts) are.
+2. Check collisions between Pacman and ghosts.
+3. Check collisions between Pacman and pills/walls.
+4. Try to move the dolls one space.
+5. Animate the dolls and draw the grid.
 
-The data involved is positions, bitmaps and the grid. With thousands of ghosts, the AI might be pulled in too.
+The data involved: positions, bitmaps and the grid. With thousands of ghosts, you might pull the AI into the hot path too.
 
 ### DOD Step 3: Data That Flows Together Stays Together
 
-This is a creative process. **Arrays are your friend.**
+This is a creative process.
 
-| Language | Guidance |
-|---|---|
-| Java | Arrays of simple types (`char`, `int`, `float`); fewer objects (`Integer`, `String`, `ObjectX`). Abusing a `String` as an array is OK. Use only **static** methods, passing data as the first parameter or making the data static arrays. |
-| C++ | Use `class`, but avoid `virtual`; templates give compile-time polymorphism |
-| Python | Lists of simple types; avoid sets and dictionaries |
+- **Arrays are your friend.** In Java use arrays of simple types (`char`, `int`, `float`) and fewer objects (`Integer`, `String`, `ObjectX`). Abusing a `String` as an array (as in the Pacman demo) is fine.
+- **Use only static methods**: pass the data as the first parameter, or make the data static (arrays of stuff).
+- **C++**: use classes but avoid `virtual`; templates give compile-time polymorphism.
+- **Python**: use lists of simple types; avoid sets and dictionaries.
 
 ```java
 public class GameBoard {
-  // everything static, few Objects
-  public static final int PM_id = 0;
-  public static final int GCOUNT = 4;
-  private static int  position[GCOUNT+1][2];        // 0 = Pacman, 1..4 = ghosts; x,y
-  private static char grid[GRID_SX][GRID_SY];
-  private static char bitmaps[GCOUNT+1][BITMAP_SIZE];
-  private static char doll_state[GCOUNT+1];
-  private static int  pillsLeft;
-  private static int  PM_PowerUpTimeLeft;
-  private static AI   GameAI;                       // access to normal objects
-  public static void moveto(int doll_id, int x, int y);
-  public static void draw(int doll_id);
+    // everything static, few Objects
+    public static final int PM_id = 0;
+    public static final int GCOUNT = 4;
+    private static int  position[GCOUNT+1][2];       // 0 = Pacman, 1..4 = ghosts; x,y
+    private static char grid[GRID_SX][GRID_SY];
+    private static char bitmaps[GCOUNT+1][BITMAP_SIZE];
+    private static char doll_state[GCOUNT+1];
+    private static int  pillsLeft;
+    private static int  PM_PowerUpTimeLeft;
+    private static AI   GameAI;                       // access to normal objects
+    public static void moveto(int doll_id, int x, int y);
+    public static void draw(int doll_id);
 }
 ```
 
 Put dynamic data in another object, not inside the DOD object.
 
-**What is in a Java object?** Mostly links, not much data.
+**What's in a Java object?** Mostly links, not much data.
 
 | Directly included | Indirectly linked |
 |---|---|
@@ -317,96 +368,113 @@ Put dynamic data in another object, not inside the DOD object.
 | `enum` | |
 | Static code | |
 
-This is not very flexible when dolls differ. Two solutions:
+This isn't very flexible when different dolls behave differently. Solutions:
 
-- **Tag bits** in Java: `isGhost = dollIdx & 1; dollId = dollIdx >> 1;`
-- **Variant objects** in C++ (`std::variant`), which are fully polymorphic without virtual calls
-
-### DOD Speed-Up And Other Benefits
-
-Static methods avoid indirect code lookups:
-
-$$
-20 \times 1500 = 30\text{K cycles} \times 5\text{ dolls} = 150\text{K cycles} \;/\; 5\text{ GHz} \approx 30\,\mu\text{s per frame}
-$$
-
-More realistically it saves about 300 μs per frame, because of other slowdowns. That is not worth it for Pacman alone, but with many ghosts the frame rate could drop below playable.
-
-In Conway's Game of Life pattern searching:
-
-| Algorithm | Method | Cells/gen/s | Speed-up |
-|---|---|---:|---:|
-| Naïve counting | Count neighbours for every pixel | $10^4$ | — |
-| JavaLife | Lookup table + linked list | $3\cdot10^7$ | 3000× |
-| QLife | Lookup table + quad tree | $10^8$ | 3× |
-| LifeCube | Half-adder logic | $2\cdot10^9$ | 20× |
-| Optimised LifeCube | Low-level assembly + stagger step + 64-ary tree | $10^{10}$ | 5× |
-| GPU LifeCube | CUDA on a GPU | $10^{13}$ | 1000× |
-
-Together that is a DOD speed-up of about $10^6\times$, data parallelism of about $10^3\times$, and a total of about $10^9\times$.
-
-| DOD | Traditional OOP |
+| Language | Technique |
 |---|---|
-| Data flow is easy to follow; code and its data flow are in one place | Pacman and ghost code is spread over many objects |
-| Sub-methods are still possible; static calls are effectively free | All member data of accessed objects gets pulled in, even if unused |
-| The CPU does not pull in unrelated data | More cache eviction |
+| C++ | Variant objects: `class Doll { boolean isGhost; /* data */ }`, or `std::variant` (fully polymorphic) |
+| Java | Tag bits in an index: `isGhost = dollIdx & 1; dollId = dollIdx >> 1;` |
+
+### DOD Speed-Ups And Benefits
+
+Static methods avoid indirect code lookup:
+
+$$
+20 \times 1500 = 30\text{K cycles} \times 5 \text{ dolls} = 150\text{K cycles}, \qquad \frac{150\text{K}}{5\text{ GHz}} \approx 30\ \mu\text{s per frame}
+$$
+
+In practice more like ~300 µs per frame because of other slowdowns. That's not worth it for Pacman as such, but with many ghosts the frame rate could drop below playable.
+
+| Technique | Speed-up |
+|---|---|
+| DOD | up to 1 000 000× |
+| Data parallelism | 1 000× |
+| Combined | up to 1 000 000 000× |
+
+Other benefits:
+
+- Data flow is much easier to follow; code and its data flow are in one place.
+- You can still use sub-methods; static calls are effectively free.
+- The CPU doesn't pull in unrelated data.
+
+With traditional OOP, Pacman/ghost code is spread over many objects, and all member data of every accessed object is pulled in even if never used, causing more cache eviction.
 
 ### CPU Code Flow: Pipelining And Prediction
 
 #### Definitions
 
-> **Pipelining**: Overlapping the stages (fetch, decode, execute, write) of consecutive instructions, so linear code completes one instruction per cycle.
+> **Pipelining**: Overlapping the stages (fetch, decode, execute, …) of successive instructions, so linear code completes one instruction every cycle.
 
-> **Branch prediction / speculative execution**: The CPU guesses a branch's outcome and executes ahead as if the guess were right. It commits if right, and rolls back and refetches if wrong.
+> **Branch prediction**: The CPU guesses which way a branch goes and speculatively fetches and executes code as if the guess were right.
 
 ![Pipelining](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/05B_Data_Oriented_Design/pipeline.svg)
 
-*Linear code keeps the pipeline full. A jump empties it, stalling for the length of the pipeline.*
+*Linear code keeps the pipeline full; a jump to unpredicted code empties it and stalls for the pipeline's length.*
 
-- **Linear code**: one instruction every cycle.
-- **Jump**: the pipeline empties and stalls for `length(pipeline)` cycles.
-- **Speculation on code**: a wrong guess means roll back the work, empty the pipeline and fetch the other code.
-- **Speculation on data**: a wrong guess may evict the wrong data, force a re-fetch, and leave the CPU waiting for the correct data.
-
-| OOP problem | Effect on the CPU |
+| Code shape | Effect |
 |---|---|
-| Virtual methods | Essentially random to the CPU; unpredictable; often not in the L1 code cache; costly waits |
-| Heap-based objects | Random locations in a chaotic heap; data flow can't be predicted; very costly L1/L2/L3 misses |
+| Linear | One instruction per cycle |
+| Jump (mispredicted) | Pipeline empties; stall for length(pipeline) cycles |
+
+Speculation:
+
+- **Correct guess**: commit the work.
+- **Wrong guess**: roll back, empty the pipeline, fetch the other code.
+- The CPU also prefetches data speculatively. If wrong, it may evict the wrong data, have to re-fetch evicted data, and wait for the correct data.
+
+OOP is a poor fit:
+
+| OOP feature | CPU effect |
+|---|---|
+| Virtual methods | Essentially random to the CPU; can't be predicted; often not in L1 code cache; costly waits |
+| Heap-based objects | Chaotic random locations; the CPU can't predict data flow; very costly L1/L2/L3 misses |
 
 ### Superscalar And Out-Of-Order Execution
 
 #### Definitions
 
-> **Superscalar execution**: Running independent instructions at the same time, e.g. `a = b + 10;` and `c = d * 11;`.
+> **Superscalar execution**: The CPU executes independent instructions at the same time.
 
-> **Out-of-order (OoO) execution**: Using a dependency graph to reorder instructions so independent ones can run together.
+> **Out-of-order (OoO) execution**: The CPU analyses code with a dependency graph and reorders independent instructions to keep execution units busy.
 
 ```c
-1: a = b + 10;   // a depends on b
-2: a += d;       // must wait for line 1
-3: c = d * 11;   // independent of a and b
-4: c += b;       // must wait for line 3
+a = b + 10;   // a depends on b
+c = d * 11;   // c depends on d, not on a or b
 ```
 
-The CPU reorders this to 1, 3, 2, 4. A 2-way superscalar CPU then executes 1 and 3 together, then 2 and 4.
+These two lines can run at the same time (superscalar), though both use the same pipeline.
+
+Out-of-order example:
+
+```c
+1: a = b + 10;  // depends on b
+2: a += d;      // must wait for line 1
+3: c = d * 11;  // depends on d only
+4: c += b;      // must wait for line 3
+```
+
+The CPU reorders this to 1, 3, 2, 4. A 2-way superscalar CPU executes 1+3 together, then 2+4.
 
 ![Dependency graph](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/05B_Data_Oriented_Design/dependency-graph.svg)
 
-*The source example's dependency graph: nodes without a path between them, such as $c$ and $d$, $e$ and $f$, or $i$ and $j$, can execute in parallel.*
+*Lines 1 and 3 are independent and can run together; lines 2 and 4 each wait for their own predecessor.*
 
-### Stack Engine And What The Compiler Can't Do
+### The Stack Engine And The Compiler
 
-#### Definitions
+**Stack engine** (since Intel P6b, 2003): modern CPUs simulate the stack in CPU registers.
 
-> **Stack engine**: Hardware (since Intel P6b, 2003) that simulates the stack in CPU registers, so local variables take zero time to access.
+| | Old CPUs | New CPUs |
+|---|---|---|
+| Stack bookkeeping | Has overhead | Takes zero time |
+| Local variables | Some cost | Zero access time |
 
-- On older CPUs stack bookkeeping had overhead; on new CPUs all stack work is effectively free.
-- C++ objects live on the stack by default. Small-ish objects (under about 8 KB) get zero access time, even with random access.
+C++ objects live on the stack by default; for smallish objects (< 8 KB) access takes zero time, even random access.
 
-**Why doesn't the compiler fix this?**
+**What about the compiler?**
 
 | CPU | Compiler |
 |---|---|
-| Sees instructions and the current data | Sees only a static picture of the code, never the data |
-| Builds a better local dependency graph | Cannot make assumptions without risking subtle bugs, so many "obvious" optimisations are skipped |
-| Uses a neural network trained as the program runs | Global dependency tracking is NP-hard |
+| Sees instructions **and** current data | Sees only a static picture of the code |
+| Builds a better local dependency graph | Can't make assumptions, or subtle bugs would appear |
+| Uses a neural network for prediction, trained as the program runs | Skips many seemingly obvious optimisations |
+| Knows things the compiler cannot | Can't see data; global dependency tracking is NP-hard |

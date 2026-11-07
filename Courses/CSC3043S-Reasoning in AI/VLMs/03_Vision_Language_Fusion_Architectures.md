@@ -53,9 +53,9 @@ We have a vision encoder and an LLM, both expensive, pretrained, and frozen. How
 
 > **Bridge (connector / adapter)**: A component that maps visual embeddings into a representation resembling a text-embedding sequence that the LLM can parse and reason about.
 
-![Projection bridge](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/03_Vision_Language_Fusion_Architectures/projection.svg)
+![The bridge problem](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/03_Vision_Language_Fusion_Architectures/bridge-problem.svg)
 
-*The image passes through a vision encoder ($D_v$-dimensional features); the bridge maps $D_v \rightarrow D_t$ so the LLM can generate text from them.*
+*A frozen vision encoder and a frozen LLM need a bridge that turns patch features into tokens the LLM can read.*
 
 ### Components to optimize over
 
@@ -83,6 +83,10 @@ We have a vision encoder and an LLM, both expensive, pretrained, and frozen. How
 | Attention | Standard self-attention over everything; every layer sees vision and text | Text queries attend to vision in inserted layers |
 | Strength | Simplest to implement (LLaVA, most modern VLMs) | LLM context is not used by image tokens — good for many interleaved images (Flamingo) |
 | Cost | Image tokens occupy context (576 per image adds up fast) | New parameters at every insertion; more invasive LM changes |
+
+![Where vision enters](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/03_Vision_Language_Fusion_Architectures/where-vision-enters.svg)
+
+*Concatenation puts projected image tokens in the LLM sequence; cross-attention keeps them outside and adds layers where text attends to them.*
 
 > [!info] <span style="color: #66b3ff">Which image features?</span>
 > Concatenation does **not** use CLIP's single pooled embedding. It uses the full set of per-patch ViT output tokens from before pooling.
@@ -112,6 +116,10 @@ Why freezing was favoured:
 - With 2022 context limits around 2k tokens, this was not viable.
 - This motivated **compressing** the visual token stream with a learned module.
 
+![Tokens per image](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/03_Vision_Language_Fusion_Architectures/token-budget.svg)
+
+*Raw ViT-L/14@336 gives 576 tokens per image (LLaVA keeps them all); Flamingo's resampler gives 64 and BLIP-2's Q-Former 32.*
+
 By 2024+, contexts grew to millions of tokens, so keeping all (or many more) tokens became viable, enabling fine-grained image-text interaction.
 
 ### Flamingo: few-shot learning with vision
@@ -136,7 +144,7 @@ Result (2022): one model, 32-shot prompted, beat or matched fine-tuned task-spec
 
 ![Flamingo architecture](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/03_Vision_Language_Fusion_Architectures/flamingo.svg)
 
-*Images/frames pass through a frozen NFNet-F6 encoder and a trainable resampler (64 latent queries). Gated cross-attention layers (text as Q, vision as K/V) are interleaved with frozen LM blocks processing the interleaved text.*
+*Each image goes through a frozen encoder and a trainable Perceiver Resampler; gated cross-attention layers inserted between frozen LM blocks let the interleaved text attend to them.*
 
 ### Perceiver Resampler
 
@@ -152,6 +160,10 @@ Result (2022): one model, 32-shot prompted, beat or matched fine-tuned task-spec
 - Output length equals the number of queries, regardless of input length: 1 image or 30 video frames in, 64 tokens out.
 - Each query learns to "ask for" a kind of content (objects, layout, text, ...) — a learned fixed-size summary.
 - Flamingo needs it because interleaved prompts contain many images; 64 tokens per image keeps cross-attention cheap and uniform.
+
+![Perceiver Resampler](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/03_Vision_Language_Fusion_Architectures/perceiver-resampler.svg)
+
+*64 learned latent queries cross-attend to any number of visual features and always return 64 visual tokens.*
 
 The idea of learned queries compressing a modality reappears in BLIP-2's Q-Former and in video models.
 
@@ -169,7 +181,7 @@ At initialization $\tanh(0) = 0$, so the new layers are invisible and the networ
 
 ![Tanh gate](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/03_Vision_Language_Fusion_Architectures/tanh-gate.svg)
 
-*$\tanh(\alpha)$ starts at zero and smoothly allows positive or negative visual contributions as $\alpha$ is learned.*
+*$\tanh(\alpha)$ is zero at initialization, so the added layers start invisible and open only as training finds them useful.*
 
 **Why gating is needed:**
 
@@ -209,7 +221,7 @@ Limits:
 
 ![BLIP-2 pipeline](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/03_Vision_Language_Fusion_Architectures/blip2.svg)
 
-*Frozen EVA-CLIP patch features → Q-Former (32 learned queries) → linear projection to LLM width → frozen OPT / FlanT5.*
+*A frozen EVA-CLIP ViT feeds a trained 188M Q-Former whose 32 output tokens are linearly projected into a frozen LLM.*
 
 Two-stage training of the Q-Former:
 
@@ -252,6 +264,10 @@ Contrastive gives global alignment, matching adds fine discrimination, and gener
 2. Adjust the Q-Former and projection weights for text generation (language modelling loss).
 3. No text enters the Q-Former here — only the frozen LLM receives text.
 
+![Q-Former objectives](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/03_Vision_Language_Fusion_Architectures/qformer-objectives.svg)
+
+*Queries cross-attend to the image and share self-attention with text; three attention masks give the ITC, ITM, and ITG losses.*
+
 ### BLIP-2 summary
 
 Compared with Flamingo:
@@ -280,7 +296,7 @@ Where it still failed:
 
 ![LLaVA](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/03_Vision_Language_Fusion_Architectures/llava.svg)
 
-*Frozen CLIP produces 576 patch tokens; a linear/MLP projector maps them into Vicuna, which is tuned in stage 2 to respond to image + instruction.*
+*LLaVA keeps all 576 CLIP patch tokens, maps them with a simple projection, and feeds them to Vicuna as ordinary sequence tokens.*
 
 Input format: `<image tokens> USER: What is unusual about this image? ASSISTANT: ...` — vision enters as ordinary sequence tokens (axis 1, option A).
 
@@ -323,6 +339,10 @@ This is **knowledge distillation across modalities**: a blind strong model teach
 - **Cost**: LLaVA-1.5 trains in about 1 day on 8 A100s, versus thousands of TPU-days for Flamingo and ~16 A100s × 9 days for BLIP-2.
 - **LLaVA-1.5** made small changes (MLP instead of linear, 336 px input, academic VQA data mixed in) and reached SOTA on 11 benchmarks with a trivial architecture.
 
+![LLaVA two-stage training](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/03_Vision_Language_Fusion_Architectures/llava-stages.svg)
+
+*Stage 1 trains only the projection on 595K pairs; stage 2 trains the projection and the whole LLM on 158K GPT-4 instructions.*
+
 ### Why the simplest bridge won
 
 1. **The components were already well trained.** CLIP aligned visual features to language; Vicuna's instruction tuning made the LM conversational. The gap between them was small enough for an MLP.
@@ -362,6 +382,10 @@ This is **knowledge distillation across modalities**: a blind strong model teach
 
 - **Benefit**: one set of weights handles any interleaving, plus both understanding and generation.
 - **Cost**: full-scale pretraining from scratch, plus real training-stability problems (the Chameleon paper covers many tricks).
+
+![Early fusion](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/03_Vision_Language_Fusion_Architectures/early-fusion.svg)
+
+*Native multimodal models interleave image and text tokens in one stream for a single Transformer trained from scratch.*
 
 ### How the field evolved and which design to use
 

@@ -10,180 +10,124 @@ qard-topic: "ASD 13 — SOLID Design Principles"
 
 **Source note:** [SOLID Design Principles](../../ASD/13_SOLID.md)
 
-Exam recall cards for definitions, distinctions, mechanisms, assumptions and limits. Example-specific arithmetic and explicitly non-examinable reference cards are omitted.
+Exam recall cards: definitions, mechanisms, comparisons and key facts. Source-specific examples are left out.
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Focused Responsibilities And Extension|Focused Responsibilities And Extension]]
-  - [[#Substitutability And Contracts|Substitutability And Contracts]]
-  - [[#Interfaces And Dependency Direction|Interfaces And Dependency Direction]]
-  - [[#What Is A Responsibility?|What Is A Responsibility?]]
-  - [[#Extension Mechanisms|Extension Mechanisms]]
-  - [[#L — Liskov Substitution Principle|L — Liskov Substitution Principle]]
-  - [[#Design By Contract|Design By Contract]]
-  - [[#No God Classes|No God Classes]]
-  - [[#I — Interface Segregation Principle|I — Interface Segregation Principle]]
-  - [[#Applying The Principles|Applying The Principles]]
+  - [[#SOLID|SOLID]]
+  - [[#Single Responsibility|Single Responsibility]]
+  - [[#Open–Closed|Open–Closed]]
+  - [[#Liskov Substitution|Liskov Substitution]]
+  - [[#Interface Segregation|Interface Segregation]]
+  - [[#Dependency Inversion|Dependency Inversion]]
 
 ## Core Content
 
-### Focused Responsibilities And Extension
+### SOLID
 
-<!-- qard-id: ap-27148c704d01d4f28a0f -->
-> [!qard]- What is the Single Responsibility Principle?
-> A component should have one reason to change: gather behaviour that changes together and separate independent responsibilities.
+<!-- qard-id: ap-a8f61dfb16ebe09cab59 -->
+> [!qard]- What does SOLID stand for?
+> Single responsibility, Open–closed, Liskov substitution, Interface segregation, Dependency inversion.
 
-<!-- qard-id: ap-a2b57f30bd406f573eb7 -->
-> [!qard]- Why can a class that both draws a rectangle and computes its area violate SRP?
-> Presentation and geometry change for different reasons; entangling them couples independent clients and risks unrelated breakage.
+### Single Responsibility
 
-<!-- qard-id: ap-31e7c1de93ebcdd137df -->
-> [!qard]- What does the Open–Closed Principle recommend?
-> Allow anticipated new behaviour through extension points rather than repeatedly modifying stable existing logic.
+<!-- qard-id: ap-b21d9bd21afbcf3c012e -->
+> [!qard]- State the single responsibility principle.
+> A class should have only one reason to change.
 
-<!-- qard-id: ap-529e9c699c8b455d0bcc -->
-> [!qard]- How can interfaces and composition support OCP?
-> Add another implementation behind an existing abstraction or compose another behaviour, allowing client logic to stay unchanged.
+<!-- qard-id: ap-f794d7fd861bb63018d6 -->
+> [!qard]- What counts as a responsibility?
+> A reason for change.
 
-### Substitutability And Contracts
+<!-- qard-id: ap-3f396f4f98a3b9eb2b09 -->
+> [!qard]- Why does a `Rectangle` with `draw()` and `area()` violate SRP?
+> Drawing and geometry change for different reasons, entangling two applications; split into `GeometricRect` and `Rectangle`.
 
-<!-- qard-id: ap-cb46eb6ad2d9d8521d11 -->
-> [!qard]- What does the Liskov Substitution Principle require?
-> A subtype must honour the base type's behavioural contract so callers using the base abstraction remain correct without special cases.
+<!-- qard-id: ap-d6889624e04982ca5d28 -->
+> [!qard]- How should a `Modem` interface be split under SRP?
+> Into connection control (`dial`, `hangup`) and data control (`send`, `receive`).
 
-<!-- qard-id: ap-56b22e9d3fca4dd247eb -->
-> [!qard]- Why can mutable Square-as-Rectangle violate LSP?
-> A Rectangle client may change width and height independently; a Square must keep them equal, so it cannot preserve that contract for those setters.
+<!-- qard-id: ap-53dc7c30913c874ed740 -->
+> [!qard]- Which older principles does SRP combine?
+> Decomposition (Parnas), separation of concerns (Dijkstra), coupling and cohesion (Constantine).
 
-<!-- qard-id: ap-4f5432f45c3739fbc352 -->
-> [!qard]- Does mathematical “is a” automatically justify implementation inheritance?
-> No. Substitutability depends on supported operations, invariants and observable behaviour, not just a mathematical classification.
+### Open–Closed
 
-<!-- qard-id: ap-c90c1aec887f68a0cbd4 -->
-> [!qard]- How do preconditions and postconditions constrain a behavioural subtype?
-> It must not require stronger preconditions or promise weaker postconditions than the base contract; it must preserve required invariants.
+<!-- qard-id: ap-4ad0d600f059ca19c828 -->
+> [!qard]- State the open–closed principle.
+> Modules should be open for extension but closed for modification (Meyer).
 
-<!-- qard-id: ap-9d877839a056c4139f21 -->
-> [!qard]- When should HAS-A composition replace inheritance?
-> When a component uses or delegates to another rather than being a valid behavioural substitute for it.
+<!-- qard-id: ap-f4b1c7168db37d2fea61 -->
+> [!qard]- Is fixing a bug a modification under OCP?
+> No — bug fixes are allowed.
 
-### Interfaces And Dependency Direction
+<!-- qard-id: ap-b82618e1a78b62cb628d -->
+> [!qard]- Name three mechanisms for extension without modification.
+> Class inheritance, interface inheritance (virtual methods), message handlers.
 
-<!-- qard-id: ap-806618939fc2b386d12c -->
-> [!qard]- What is the Interface Segregation Principle?
-> Clients should not depend on operations they do not use; provide small interfaces aligned with client needs.
+<!-- qard-id: ap-13d687015f9b71bbb82a -->
+> [!qard]- Why prefer pure interfaces over polymorphic class inheritance?
+> Overriding concrete virtual methods is an antipattern; interfaces carry no implementation to break.
 
-<!-- qard-id: ap-1c974b53a1e821c159ca -->
-> [!qard]- How does splitting an ATM's large UI interface help transactions?
-> Deposit, withdrawal and transfer clients depend only on their own operations, reducing accidental coupling and the impact of unrelated changes.
+### Liskov Substitution
 
-<!-- qard-id: ap-d9f7ee0cf8bb8404f397 -->
-> [!qard]- What is the Dependency Inversion Principle?
-> High-level policy and low-level details both depend on abstractions; details implement those abstractions rather than dictate the policy's dependencies.
+<!-- qard-id: ap-468c5eabd0bf904323d4 -->
+> [!qard]- State the Liskov substitution principle.
+> Code using a base type must work with any subtype without knowing it.
 
-<!-- qard-id: ap-8d96bd9a5f23da38fa0e -->
-> [!qard]- How does a copy routine using Reader and Writer abstractions apply DIP?
-> The copy policy depends on reading/writing contracts; keyboard, file and printer details implement them, so devices can change without rewriting the policy.
+<!-- qard-id: ap-963ee293a25d0180f10f -->
+> [!qard]- Why does checking `typeid` in `DrawShape` violate LSP?
+> The function must know every subtype, breaking when new types are added or RTTI is off.
 
-<!-- qard-id: ap-4498bba38fcfa553497e -->
-> [!qard]- How do ISP and DIP solve different dependency problems?
-> ISP narrows which operations a client depends on; DIP changes the dependency's target from a concrete detail to an abstraction.
+<!-- qard-id: ap-64e4701d371116459615 -->
+> [!qard]- Why isn't a `Square` a `Rectangle` in code?
+> Setting width then height breaks a square's invariant, so code relying on rectangle behaviour fails.
 
-### What Is A Responsibility?
+<!-- qard-id: ap-13cc5646e6fb7727d822 -->
+> [!qard]- When should inheritance be used, per LSP?
+> Only for pure IS-A relationships (rare outside UIs); otherwise interfaces, and composition for HAS-A.
 
-<!-- qard-id: ap-00e945c50bafc69e56c4 -->
-> [!qard]- How does the modem example separate responsibilities without requiring two physical devices?
-> Connection control (`dial`, `hangup`) and data transfer (`send`, `receive`) get separate interfaces; one implementation may supply both, while each client depends only on what it uses.
+<!-- qard-id: ap-e138d7d55a35ea4a917b -->
+> [!qard]- How does design by contract support LSP?
+> Pre- and post-conditions state each method's promises; subtypes must honour them.
 
-### Extension Mechanisms
+<!-- qard-id: ap-515b38732fe0e66a87e4 -->
+> [!qard]- Contract violations versus errors?
+> Contract violations can't be recovered from; errors can be handled with fallbacks.
 
-<!-- qard-id: ap-f8f1f357703e491e0ea4 -->
-> [!qard]- How do interface implementations and message handlers allow extension without device-specific branches everywhere?
-> New implementations satisfy existing contracts; new handlers receive defined messages. Clients use the abstraction/message rather than growing concrete-type tests. The course excludes advanced compile-time mixin/CRTP details.
+<!-- qard-id: ap-88f801053f19c4e3fcb7 -->
+> [!qard]- What three detection rules identify a god class?
+> It uses many attributes of other classes directly, has very high complexity, and has low cohesion.
 
-### L — Liskov Substitution Principle
+### Interface Segregation
 
-<!-- qard-id: ap-9288911983579974add5 -->
-> [!qard]- Why can a function switching on every concrete subtype violate both LSP's intent and OCP?
-> It cannot operate through the base contract alone and must change when a new subtype is added. Push the supported operation behind the appropriate abstraction rather than hard-coding a closed list of class identities.
+<!-- qard-id: ap-34f8f86118be3245f99e -->
+> [!qard]- State the interface segregation principle.
+> Clients shouldn't be forced to depend on interfaces they don't use.
 
-### Design By Contract
+<!-- qard-id: ap-b6a625325dbd26c717e8 -->
+> [!qard]- Why shouldn't `Door` implement `ITimerClient`?
+> Every door would depend on the timer interface and change when it changes.
 
-<!-- qard-id: ap-4accbf18ca15565cbbe4 -->
-> [!qard]- Why are contracts not a proof that the whole program is correct?
-> They express/check selected assumptions and guarantees, possibly only on executed paths. Missing specifications, unchecked paths and other logical errors remain; valid error recovery is distinct from violating a promised contract.
+<!-- qard-id: ap-c0d9247c3dd003ab0c19 -->
+> [!qard]- How is a timed door built with single inheritance?
+> `TimedDoor` implements `IDoor` and delegates timer callbacks to an adapter (Adapter pattern).
 
-### No God Classes
+<!-- qard-id: ap-6b863545e382fd7139f0 -->
+> [!qard]- How does ISP apply to an ATM?
+> Split the fat UI into deposit, withdrawal and transfer UIs, so each transaction depends only on its own.
 
-<!-- qard-id: ap-b7fec9d2743a7d26f3bd -->
-> [!qard]- Which combination of symptoms identifies the lecture's god-class problem?
-> High functional complexity, low cohesion and direct use of many other classes' attributes: too many responsibilities and dependencies accumulate in one place.
+### Dependency Inversion
 
-### I — Interface Segregation Principle
+<!-- qard-id: ap-cd80b84f55c75c1ccb33 -->
+> [!qard]- State the dependency inversion principle.
+> High-level modules shouldn't depend on low-level ones; both should depend on abstractions, and details on abstractions.
 
-<!-- qard-id: ap-4ecb06ceca08a85a3292 -->
-> [!qard]- How does the TimedDoor adapter avoid burdening every Door with timer behaviour?
-> Keep ordinary door operations in `IDoor`; only a timed door owns or implements a timer-client adapter that forwards timeout events. Plain doors need not depend on unused timer methods.
+<!-- qard-id: ap-da388d1c03ce0e21de95 -->
+> [!qard]- How does DIP fix a `Copy` routine tied to keyboard and printer?
+> Make `Copy` use `Reader` and `Writer` interfaces, so any device can be plugged in.
 
-### Applying The Principles
-
-<!-- qard-id: ap-72b54987df3d907c8420 -->
-> [!qard]- Does SRP mean every class must contain exactly one method?
-> No. Methods supporting one coherent reason for change can belong together; unrelated change drivers indicate multiple responsibilities.
-
-<!-- qard-id: ap-f23ae8ac6ff8b896e5cc -->
-> [!qard]- Why can splitting an interface improve SRP without splitting its one implementation into several objects?
-> Clients' dependency surfaces and implementation storage are separate choices. One concrete object may implement several focused roles.
-
-<!-- qard-id: ap-eff8e1d11f941c100b8d -->
-> [!qard]- Does OCP mean existing code must never be corrected?
-> No. It guides adding anticipated behaviour through stable abstractions; bug fixes and mistaken abstraction/design changes still require deliberate edits.
-
-<!-- qard-id: ap-35ded87493dcbdcaefda -->
-> [!qard]- Why should an OCP extension point be chosen around plausible variation?
-> Generalising every imagined future need creates speculative complexity. Preserve stable policy and expose variation supported by the real requirements.
-
-<!-- qard-id: ap-774404eef019f6ed3809 -->
-> [!qard]- How can a subtype strengthen a precondition and thereby break LSP?
-> It rejects inputs the base contract allowed, so a previously valid base-type caller can fail when given the subtype.
-
-<!-- qard-id: ap-c101c8656c9bc25a79c7 -->
-> [!qard]- How can a subtype weaken a postcondition and thereby break LSP?
-> It returns less than the base contract promised, invalidating callers relying on that guarantee even if input types still match.
-
-<!-- qard-id: ap-01a1f230516014a3936e -->
-> [!qard]- Why is preserving a subtype's own invariant insufficient for LSP?
-> It must also preserve the base abstraction's client-visible contract; keeping a square square can still break a mutable rectangle client's independent-dimension expectations.
-
-<!-- qard-id: ap-237ae3103f889c8028f8 -->
-> [!qard]- How does composition express a HAS-A relationship differently from subtype inheritance?
-> A component owns/uses another and delegates selected operations without claiming it can substitute for that component's full interface.
-
-<!-- qard-id: ap-50ad34fb8a21b5fea3fd -->
-> [!qard]- How does a timer capability forced into every Door violate ISP?
-> Plain door clients/implementations depend on methods they do not need, so unrelated timer changes or obligations affect them.
-
-<!-- qard-id: ap-4922500b29b9ce00c4e3 -->
-> [!qard]- Why can many small interfaces still be implemented by one concrete UI?
-> Interface segregation limits what each client knows, not necessarily the number of implementation objects.
-
-<!-- qard-id: ap-2c367d8d0ab89e74c227 -->
-> [!qard]- What distinguishes dependency inversion from simply inserting another concrete wrapper?
-> The high-level policy must depend on a stable abstraction; details implement it. More layers with the same wrong concrete dependency direction do not supply DIP.
-
-<!-- qard-id: ap-4ea2e82bc28d8ad0a09d -->
-> [!qard]- Who should determine the useful shape of Reader/Writer contracts in the copy example?
-> The policy's required operations, rather than accidental device details, so different devices can satisfy the same reusable need.
-
-<!-- qard-id: ap-06db08a0d0284a38d753 -->
-> [!qard]- Why does a growing switch on printer/disk/output types undermine the copy routine's reuse?
-> Each new device modifies high-level logic and embeds low-level knowledge; an output abstraction moves those differences behind implementations.
-
-<!-- qard-id: ap-ac8025275abd1e3946d5 -->
-> [!qard]- How can SOLID principles reinforce one another in an extension?
-> Focused responsibilities and small interfaces define stable abstractions; substitutable implementations then add behaviour without concrete-type branches or broad client changes.
-
-<!-- qard-id: ap-653d02b7c42e08c8725d -->
-> [!qard]- Why must a design still consider the cost of indirection after applying SOLID?
-> Extra boundaries can add complexity/dispatch/coordination overhead; choose abstractions that reduce meaningful change risk without unnecessary layers.
+<!-- qard-id: ap-7346dfd1443ae76259dc -->
+> [!qard]- Why is it called "inversion"?
+> Traditional design has policy depending on details; DIP reverses the arrows so details depend on abstractions, making high-level modules reusable.

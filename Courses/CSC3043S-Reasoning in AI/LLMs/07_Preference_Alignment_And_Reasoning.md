@@ -73,9 +73,9 @@ The goal is to train the LM to produce outputs with high reward.
    2. score them with the reward model,
    3. update the policy with RL.
 
-![RLHF loop](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/07_Preference_Alignment_And_Reasoning/rlhf-loop.svg)
+![RLHF pipeline](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/07_Preference_Alignment_And_Reasoning/rlhf-pipeline.svg)
 
-*Human preference pairs train a reward model. The policy samples responses to prompts; the reward model scores them; PPO updates the policy, with a KL penalty against a reference LM.*
+*Step 1 fine-tunes on labeller-written answers; step 2 trains a reward model on ranked outputs; step 3 repeatedly samples, scores, and updates the policy with PPO.*
 
 In InstructGPT (Ouyang et al., 2022): a prompt and several model outputs are sampled, a labeller ranks them best to worst, and this trains the reward model. Then a new prompt is sampled, the policy generates an output, the reward model scores it, and the reward updates the policy using PPO.
 
@@ -94,6 +94,10 @@ J_{RM}(\phi) = -\mathbb{E}_{(s^w, s^l) \sim D}\Big[\log \sigma\big(RM_\phi(s^w) 
 $$
 
 The loss pushes $s^w$ to score higher than $s^l$. Check that the reward model's predictions are accurate enough before using it.
+
+![Reward model training](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/07_Preference_Alignment_And_Reasoning/reward-model.svg)
+
+*The reward model scores a preferred and a dispreferred summary; the pairwise loss pushes $RM(s^w)$ above $RM(s^l)$.*
 
 ### Imitation versus optimization
 
@@ -129,6 +133,10 @@ $$
 - $A^{\pi_{\theta_k}}(s, a)$ is the **advantage**: how much better action $a$ is than average in state $s$.
 - Clipping to $[1 - \epsilon, 1 + \epsilon]$ stops the policy changing too much in one update.
 
+![PPO clipped objective](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/07_Preference_Alignment_And_Reasoning/ppo-clip.svg)
+
+*For $A > 0$ the objective stops rising once the ratio passes $1 + \epsilon$; for $A < 0$ it stops falling below $1 - \epsilon$, so large policy moves earn nothing extra.*
+
 ### KL penalty and the full RLHF system
 
 Optimizing purely for reward can produce nonsensical text that exploits the reward model. The full reward subtracts a **KL divergence** term to stay close to the pretrained model:
@@ -138,6 +146,10 @@ R(s) = RM_\phi(s) - \beta \log\!\left(\frac{p_\theta^{RL}(s)}{p^{PT}(s)}\right)
 $$
 
 $\beta$ controls how strongly the policy is pulled back towards the pretrained (reference) model $p^{PT}$.
+
+![RL fine-tuning with a KL penalty](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/07_Preference_Alignment_And_Reasoning/rlhf-kl.svg)
+
+*The frozen initial LM and the RL policy both answer the prompt; the reward model scores the policy's answer, a KL penalty compares the two, and PPO updates the policy.*
 
 The full PPO-based system combines:
 
@@ -189,6 +201,10 @@ The update scales the difference between the winning and losing gradients by the
 | Reward model | Separately trained | Implicit in the policy |
 | Optimization | RL, sampling during training | Supervised-style loss on fixed preference pairs |
 | Complexity | Several models, unstable RL | Simpler |
+
+![RLHF versus DPO](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/07_Preference_Alignment_And_Reasoning/rlhf-vs-dpo.svg)
+
+*RLHF trains a reward model and runs RL with sampling; DPO turns the same preference pairs directly into a supervised-style loss on the policy.*
 
 ### Limitations of RLHF
 
@@ -245,9 +261,9 @@ RLHF can train a chat model but does not produce the capabilities of recent mode
 - Through RL, the model learns to generate **long outputs with multiple "reasoning" steps** that help it reach the correct final answer.
 - Standard RL at first did not succeed. **GRPO** proved more suitable, especially for scaling to longer sequences.
 
-![Verifiable rewards](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/07_Preference_Alignment_And_Reasoning/verifiable-rewards.svg)
+![RLVR with GRPO](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/07_Preference_Alignment_And_Reasoning/rlvr-grpo.svg)
 
-*For each problem, sample a group of solutions, verify the final answers, and use group-relative rewards to update the policy.*
+*For each problem, a group of solutions is sampled and checked by a verifier; group-relative rewards push the policy towards above-average solutions.*
 
 In GRPO's standard form, the advantage of solution $i$ in a group with rewards $r_1, \dots, r_G$ is its reward normalized within the group:
 
@@ -255,9 +271,9 @@ $$
 \hat{A}_i = \frac{r_i - \text{mean}(r_1, \dots, r_G)}{\text{std}(r_1, \dots, r_G)}
 $$
 
-![GRPO response length](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/07_Preference_Alignment_And_Reasoning/grpo-length.svg)
+![R1-Zero response length](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/07_Preference_Alignment_And_Reasoning/r1-length.svg)
 
-*During DeepSeek-R1-Zero training, the average response length rises steadily (with fluctuations): the model learns to "think" longer.*
+*During DeepSeek-R1-Zero RL training, average response length rises steadily (with fluctuations): the model learns to "think" longer.*
 
 ### Test-time scaling
 
@@ -269,4 +285,4 @@ The longer the model "thinks" during inference, the more performance improves.
 
 ![Test-time scaling](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/07_Preference_Alignment_And_Reasoning/test-time-scaling.svg)
 
-*For Qwen3-235B-A22B, thinking mode improves on AIME'24, AIME'25, LiveCodeBench v5, and GPQA Diamond as the thinking budget grows (1K to 32K tokens), while non-thinking mode stays flat.*
+*For Qwen3-235B-A22B, thinking-mode scores climb as the thinking budget grows from 1K to 32K tokens, while non-thinking mode (dashed) stays flat.*

@@ -10,149 +10,91 @@ qard-topic: "FP 15 — Interactive Fiction And Inform 7"
 
 **Source note:** [Interactive Fiction And Inform 7](../../FP/15_Interactive_Fiction.md)
 
-Exam recall cards for definitions, distinctions, mechanisms, assumptions and limits. Example-specific arithmetic and explicitly non-examinable reference cards are omitted.
+Exam recall cards: definitions, mechanisms, comparisons and key facts. Source-specific examples are left out.
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Inform 7 And World Modelling|Inform 7 And World Modelling]]
-  - [[#Rules And Fair Play|Rules And Fair Play]]
-  - [[#Flavours Of IF|Flavours Of IF]]
-  - [[#How To Play|How To Play]]
-  - [[#Inform 7 And Its Design Philosophy|Inform 7 And Its Design Philosophy]]
-  - [[#Source Text Structure|Source Text Structure]]
-  - [[#Devices, Vehicles And People|Devices, Vehicles And People]]
-  - [[#Designing Interactive Fiction|Designing Interactive Fiction]]
-  - [[#World Representation And Rules|World Representation And Rules]]
+  - [[#Interactive Fiction|Interactive Fiction]]
+  - [[#Inform 7|Inform 7]]
+  - [[#Design|Design]]
 
 ## Core Content
 
-### Inform 7 And World Modelling
+### Interactive Fiction
 
-<!-- qard-id: ap-18f46cc4f5921d205ffb -->
-> [!qard]- What is interactive fiction, and why is Inform 7 domain-specific?
-> IF is a narrative/puzzle world controlled through text commands. Inform 7 provides English-like declarations and rules tailored to modelling and interacting with that world.
+<!-- qard-id: ap-448d0fe4f2f281cac8d9 -->
+> [!qard]- What is interactive fiction?
+> Software where players control a character with natural-language text commands; text in, mostly text out, focused on narrative and puzzles.
 
-<!-- qard-id: ap-08275f23e74d152d248b -->
-> [!qard]- What two main jobs does Inform 7 source text perform?
-> Declare objects, relationships and initial state; define rules that govern actions and changes.
+<!-- qard-id: ap-ea2b12db33ca109f0015 -->
+> [!qard]- What form do IF input and output take?
+> Input: simple imperative sentences. Output: present tense, second person.
 
-<!-- qard-id: ap-0d0e38aa3c932959020e -->
-> [!qard]- How is an Inform 7 map a graph?
-> Rooms are nodes and directional exits are edges. Connections are normally reciprocal, but can be rewired or made one-way.
+<!-- qard-id: ap-8f418c55231be2aac573 -->
+> [!qard]- Name three flavours of interactive fiction.
+> Text adventures, MUDs (multi-user dungeons), Choose Your Own Adventure books.
 
-<!-- qard-id: ap-404691f57df26aa2b435 -->
-> [!qard]- How does `nowhere` affect a map connection?
-> It removes an exit in a specified direction, allowing one-way movement or overriding an inferred connection.
+### Inform 7
 
-<!-- qard-id: ap-1e2ca73bc5cf057dc1db -->
-> [!qard]- What is a region used for?
-> Group rooms so shared rules and organisation apply to them. Regions may nest but must not overlap.
+<!-- qard-id: ap-41a23a218b330da3ab47 -->
+> [!qard]- What is Inform 7?
+> A declarative, natural-language domain-specific language and IDE for writing interactive fiction.
 
-<!-- qard-id: ap-b10440b2c4d36179bfbd -->
-> [!qard]- What are kinds and either/or properties?
-> Kinds classify objects, such as rooms, containers or devices; either/or properties encode alternatives such as open/closed or portable/fixed.
+<!-- qard-id: ap-d6952adcedfec9e9e469 -->
+> [!qard]- What is Graham Nelson's design philosophy for Inform 7?
+> "The natural language in which to write interactive fiction is natural language" — readable by a casual reader, economical, modelled on books.
 
-<!-- qard-id: ap-f1506756e536213774e2 -->
-> [!qard]- How do a container and a supporter differ?
-> A container holds things inside; a supporter holds things on top. Their supported actions and properties differ.
+<!-- qard-id: ap-989c1655adf5ae955f61 -->
+> [!qard]- What are the two parts of an Inform 7 program?
+> Assertions creating things and starting conditions, and rules modifying state and behaviour.
 
-<!-- qard-id: ap-fb180185932132add667 -->
-> [!qard]- Why explicitly declare a named connection to be a door?
-> Otherwise directional assertions can make Inform infer it is a room. A door connects two sides and may be openable, lockable and matched to a key.
+<!-- qard-id: ap-662d07949e34000cc281 -->
+> [!qard]- How are maps represented in Inform 7?
+> As graphs: rooms are nodes and connections (compass directions, up/down, inside/outside) are edges.
 
-<!-- qard-id: ap-8705b1c9358f23449135 -->
-> [!qard]- How do initial appearance, description and printed name differ?
-> Initial appearance introduces an object; description is shown when examined; printed name controls the displayed object name, including listings.
+<!-- qard-id: ap-540b0cb2c423ac305881 -->
+> [!qard]- Are Inform 7 connections symmetric?
+> By default yes; they can be made asymmetric, or one-way using `nowhere`.
 
-### Rules And Fair Play
+<!-- qard-id: ap-5acc9234ab0dd1781bdf -->
+> [!qard]- What is a region?
+> A named group of rooms; regions may nest but not overlap, and rules can target them.
 
-<!-- qard-id: ap-8eda0553b5e511ede605 -->
-> [!qard]- What does a scene's begin/end condition express?
-> A rule-defined phase of play triggered or completed when world-state conditions hold; its start/end rules can produce effects or narrative.
+<!-- qard-id: ap-fbb3c5da9ea5e53753b6 -->
+> [!qard]- What is a kind in Inform 7?
+> An object type such as room, thing, container, supporter or person — often inferred from the text.
 
-<!-- qard-id: ap-f234eda24d3cc3c776c9 -->
-> [!qard]- What makes an interactive-fiction puzzle fair?
-> Consistent rules, understandable hints and warnings before lethal or irreversible consequences, without requiring knowledge from future events or previous failed lives.
+<!-- qard-id: ap-01c9b6652d52a5ccb2d3 -->
+> [!qard]- What is an either/or property?
+> A two-valued property like open/closed, lockable, portable/fixed in place.
 
-### Flavours Of IF
+<!-- qard-id: ap-6fd18b29b368ef544259 -->
+> [!qard]- What three descriptions can an object have?
+> Its first-appearance text, its examine description, and its printed (inventory) name.
 
-<!-- qard-id: ap-77013c00be562717f187 -->
-> [!qard]- How do text adventures, MUDs and choose-your-own-adventure fiction differ?
-> Text adventures interpret commands in a simulated world; MUDs add networked multiplayer interaction; branching books/games present choices leading to predefined next passages.
+<!-- qard-id: ap-c7bcbf2b0aa0872ad003 -->
+> [!qard]- What defaults do doors have?
+> Fixed in place, closed and openable; they can be lockable with a matching key.
 
-### How To Play
+<!-- qard-id: ap-04f567937caa46bf9fe4 -->
+> [!qard]- What is a scene?
+> A stretch of play with a begin condition, an end condition and rules that run when it ends.
 
-<!-- qard-id: ap-cd72cef0965408a0f27c -->
-> [!qard]- Which command families help a player investigate and manipulate an IF world?
-> Movement (`N`, `GO WEST`, `UP`), observation (`LOOK`, `EXAMINE`), inventory, taking/dropping, searching, opening/locking, conversation and waiting. Inspecting objects and feedback is part of solving the puzzle.
+### Design
 
-### Inform 7 And Its Design Philosophy
+<!-- qard-id: ap-97445ac9fdcdb6eb6e52 -->
+> [!qard]- What is the Player's Bill of Rights?
+> Not to be killed without warning; no horribly unclear hints; win without past lives or knowledge of future events; not closed off without warning.
 
-<!-- qard-id: ap-4bd1ee43598b687ef7b1 -->
-> [!qard]- What trade-off does Inform 7's natural-language design seek?
-> Economical, readable declarations whose effects a casual reader can often infer, while still obeying precise language rules and relying on author-supplied context rather than unrestricted English understanding.
+<!-- qard-id: ap-ddc9f56bec5d96284a4a -->
+> [!qard]- Give three tips for designing interactive fiction.
+> Avoid linearity, keep internal consistency, be descriptive but not excessive (and beware exponential content growth).
 
-### Source Text Structure
+<!-- qard-id: ap-3fddefd8f0d2a790b739 -->
+> [!qard]- Name six common interactive-fiction commands.
+> LOOK (L), EXAMINE (X), TAKE/DROP, INVENTORY (I), OPEN/CLOSE, UNLOCK…WITH (also compass moves N/S/E/W, U/D, and WAIT (Z)).
 
-<!-- qard-id: ap-648bd072b679525fab5f -->
-> [!qard]- How do punctuation and `Test ... with ...` support Inform 7 authoring?
-> Full stops end declarations; quoted text supplies descriptions; square brackets serve comments/substitutions depending on context. A named test string runs a scripted sequence of player commands for repeatable checks.
-
-### Devices, Vehicles And People
-
-<!-- qard-id: ap-a400039708ba33841fb9 -->
-> [!qard]- What behaviours do Inform 7's device, vehicle and person kinds provide?
-> Devices have switched-on/off state; vehicles are enterable containers for movement; people participate as characters, with more specific kinds such as animals. Descriptions/rules may depend on their state.
-
-### Designing Interactive Fiction
-
-<!-- qard-id: ap-d7f507939e931ae30bce -->
-> [!qard]- What design principles complement the Player's Bill of Rights?
-> Offer meaningful alternative routes/order, maintain consistent world rules, provide useful but economical descriptions and control combinatorial growth; avoid obscure hints, unwarned dead ends and required foreknowledge.
-
-### World Representation And Rules
-
-<!-- qard-id: ap-d680ced80da1640ee7b1 -->
-> [!qard]- Why is Inform 7 declarative even though a running story changes state?
-> The author states world relationships, properties and rules; the system supplies much of the command interpretation and control machinery. Declarative does not require the simulated world to stay unchanged.
-
-<!-- qard-id: ap-fedd0292ca1142d82145 -->
-> [!qard]- What does a directional relationship normally imply about the reverse route?
-> Inform normally supplies the reciprocal connection; explicit declarations can override it, so check each outgoing direction when modelling an asymmetric map.
-
-<!-- qard-id: ap-6bec53d20106a3cb77b1 -->
-> [!qard]- Why can “inside from” and “outside from” matter separately from compass directions?
-> They describe entry/exit relationships whose precise syntax and reciprocal routes must match the intended map, rather than being interchangeable with every directional assertion.
-
-<!-- qard-id: ap-535b86da7d3248c7b2bc -->
-> [!qard]- What is the constraint on nested regions?
-> One region may contain another, but overlapping membership is disallowed; use the hierarchy to apply shared rules coherently.
-
-<!-- qard-id: ap-cd580f5f074f7b62485f -->
-> [!qard]- How can Inform infer an object's kind from its relationships?
-> Placement “on” another object can imply a supporter, while containment/room statements supply different contextual information; explicit kind declarations resolve ambiguity.
-
-<!-- qard-id: ap-09d8d1c0146e2e891073 -->
-> [!qard]- How do open/closed, openable/not-openable and locked/unlocked describe different properties?
-> Current opening state, capability to be opened, and access restriction are separate; something can be closed yet not openable, or lockable but currently unlocked.
-
-<!-- qard-id: ap-db1858b42901e1c10082 -->
-> [!qard]- Why does a door declaration need both its spatial role and its object kind?
-> Directions establish the connected rooms; the kind supplies door behaviour instead of accidentally treating the named connection as another room.
-
-<!-- qard-id: ap-f39b01c740f1ad322974 -->
-> [!qard]- How does matching a key to a lock express a domain relation?
-> It states which object authorises the unlock action; the key need not be a conventional-looking key if the game consistently defines another object for that role.
-
-<!-- qard-id: ap-31ad984a974f2507f809 -->
-> [!qard]- How do conditional descriptions communicate simulated state?
-> Text substitutions choose appropriate output according to properties such as switched-on/off, letting observation expose meaningful changes to the player.
-
-<!-- qard-id: ap-424d111e527991b68d51 -->
-> [!qard]- What is the difference between winning through deduction and requiring a previous failed life?
-> Fair clues and consistent rules let the current player infer a solution; mandatory foreknowledge from an unwarned failure violates the stated Player's Bill of Rights.
-
-<!-- qard-id: ap-3a08c782a37ac169a31e -->
-> [!qard]- Why can branching puzzle dependencies create exponential authoring/testing work?
-> Choices combine with object and world states, multiplying possible interactions. Limit unnecessary combinations while retaining meaningful player freedom.
+<!-- qard-id: ap-3ad88f7c6711fead7e05 -->
+> [!qard]- What are devices, vehicles and people in Inform 7?
+> Devices switch on/off; vehicles are enterable containers (optionally pushable); people (men, women, animals) are kinds of person.

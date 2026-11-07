@@ -3,21 +3,20 @@ tags:
   - advanced-programming
 ---
 
-# Haskell 3 — Working With Lists And Lambdas
+# Working With Lists And Lambdas
 
-**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)  
-**Source**: [FP-7-Haskell 3-working with lists-2.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP-7-Haskell%203-working%20with%20lists-2.pdf), Cael Marquard (adapted from Dr Sabre Didi), University of Cape Town, PDF pages 1–29  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)
+**Source**: [FP-7-Haskell 3-working with lists-2.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP-7-Haskell%203-working%20with%20lists-2.pdf), Cael Marquard (adapted from Dr Sabre Didi), University of Cape Town, pages 1–29
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes: map, filter, zip, fold, lambdas, and list/string comprehensions with guards and dependent generators.
+> List combinators (map, filter, zip, fold and friends), lambdas, and list, set and string comprehensions with multiple and dependent generators.
 
 ---
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Recap Quiz|Recap Quiz]]
   - [[#Map And Filter|Map And Filter]]
   - [[#Batch Processing: Prime Factorisation|Batch Processing: Prime Factorisation]]
   - [[#Lambdas|Lambdas]]
@@ -25,11 +24,10 @@ tags:
   - [[#Zip|Zip]]
   - [[#Quickfire Combinators|Quickfire Combinators]]
   - [[#Fold|Fold]]
-  - [[#foldl Versus foldr|foldl Versus foldr]]
+  - [[#Left Versus Right Folds|Left Versus Right Folds]]
   - [[#Fold Is The Universal List Combinator|Fold Is The Universal List Combinator]]
-  - [[#Sequence Comprehensions And Generators|Sequence Comprehensions And Generators]]
-  - [[#Guards: Comprehensions Versus Combinators|Guards: Comprehensions Versus Combinators]]
-  - [[#Multiple Generators (Not Zip)|Multiple Generators (Not Zip)]]
+  - [[#Sequence Comprehensions|Sequence Comprehensions]]
+  - [[#Multiple Generators|Multiple Generators]]
   - [[#Dependent Generators|Dependent Generators]]
   - [[#String Comprehensions|String Comprehensions]]
 
@@ -37,47 +35,40 @@ tags:
 
 ## Core Content
 
-### Recap Quiz
-
-| Question | Answer |
-|---|---|
-| How do you state that `x` has type `Int -> Int -> Int`? | `x :: Int -> Int -> Int = ...` |
-| What is a sum type? | A type whose value must be **one of** the types it is a sum of |
-
 ### Map And Filter
 
 #### Definitions
 
 > **Higher-order function**: A function that accepts a function as an argument.
 
-> **`map`**: Applies the given function (the **mapper**) to each element of a sequence.
+> **Map**: Applies a given function (the **mapper**) to each element of a sequence.
 
-> **`filter`**: Applies the given function (the **predicate**) to each element and removes elements for which it returns `False`.
+> **Filter**: Applies a given function (the **predicate**) to each element of a sequence and removes the element if the predicate returns `False`.
 
-> **(List) combinator**: A function like `map` or `filter` that builds sequence processing from other functions.
+> **(List) combinator**: A name for `map`, `filter` and similar functions that build list computations from smaller functions.
 
 ```haskell
 map (* 2) [1, 2, 3, 4]     -- [2, 4, 6, 8]
 filter (<= 2) [1, 2, 3, 4] -- [1, 2]
 ```
 
-They are useful because data processing becomes a pipeline of independent steps, which suits batch and parallel stream processing.
+They work on sequences such as lists and strings. They are practically useful because they make batch and streaming data processing simple — and parallelisable (e.g. Channable's parallel streaming in Haskell).
 
-![Map and filter pipeline](../../../diagrams/CSC3003S-Advanced%20Programming/FP/07_Working_With_Lists_And_Lambdas/map-filter-pipeline.svg)
-
-*A stream passes through `map (+1)`, `filter isOdd`, then `map (*2)`. Each stage is independent, so stages can be streamed or parallelised.*
+Recap: `x :: Int -> Int -> Int = ...` declares that `x` has that type, and a **sum type** must hold a value of exactly **one** of the types it is a sum of.
 
 ### Batch Processing: Prime Factorisation
 
-Goal: the **unique** prime factors of each number, e.g. $9 \mapsto [3]$, not $[3,3]$. The naive plan:
+Task: get the unique prime factors of each number (for 9, return just `[3]`, not `[3, 3]`).
 
-1. Get each number's factors: all numbers in $1..N$ that divide $N$.
-2. Keep only prime factors: $F$ is prime when the only numbers in $1..F$ dividing $F$ are $1$ and $F$.
+A naive approach:
 
-In combinator terms:
+1. Get every factor of each number $N$: all numbers in $1..N$ that divide $N$.
+2. Keep only the prime factors: $F$ is prime if, among $1..F$, only $1$ and $F$ divide $F$.
 
-1. **map** each input number to its factors by **filtering** $1..N$ for divisors.
-2. **filter** the factors to the primes by checking that the factors of $F$ equal $[1,F]$.
+In terms of maps and filters:
+
+1. **Map** the input list to each number's factors (filter $1..N$ to those dividing $N$).
+2. **Filter** the factors to the primes (filter $1..F$ to the divisors of $F$ and check the result equals $[1, F]$).
 
 ```haskell
 primeFactoriseNums :: [Int] -> [[Int]]
@@ -96,27 +87,29 @@ isPrime :: Int -> Bool
 isPrime n = (factorise n) == [1, n]
 ```
 
-| Question | Answer |
-|---|---|
-| Q1. What does `divides n` do? | It partially applies `divides`, fixing `num = n`. The result is a predicate `Int -> Bool` testing whether a candidate divides `n`. |
-| Q2. What do the backticks do? | They use a prefix function as an infix operator: ``num `mod` denom`` means `mod num denom`. |
+Two details:
 
-`1` is never counted as prime: `factorise 1 = [1]`, which is not `[1, 1]`.
+- `divides n` is a **partial application**: `divides` takes two `Int`s, so giving it `n` produces a predicate `Int -> Bool` that tests whether its argument divides `n`. That is exactly what `filter` needs.
+- The backticks in `` num `mod` denom `` turn the prefix function `mod` into an infix operator: it means `mod num denom`.
+
+![Map and filter pipeline](../../../diagrams/CSC3003S-Advanced%20Programming/FP/07_Working_With_Lists_And_Lambdas/map-filter-pipeline.svg)
+
+*Each number is mapped to its factor list, which is then filtered down to the primes.*
 
 ### Lambdas
 
 #### Definitions
 
-> **Lambda**: An anonymous function, named after the Greek letter λ, because Haskell is based on lambda calculus.
+> **Lambda**: An anonymous function — that is all. Named after the Greek letter λ, because Haskell is based on the lambda calculus.
 
-`divides` exists only to be passed to `filter`, so replace it with a lambda:
+`divides` exists only to be passed to `filter`. A lambda replaces it:
 
 ```haskell
 factorise :: Int -> [Int]
 factorise n = filter (\f -> n `mod` f == 0) [1..n]
 ```
 
-| Language | Notation |
+| Language | Lambda for "double x" |
 |---|---|
 | Haskell | `\x -> 2 * x` |
 | Python | `lambda x: 2 * x` |
@@ -124,132 +117,138 @@ factorise n = filter (\f -> n `mod` f == 0) [1..n]
 | JavaScript (closures) | `(x) => 2 * x` |
 | Rust (closures / `Fn*` family) | `\|x\| 2 * x` |
 | Mathematics | $x \mapsto 2x$ |
-| Lambda calculus | $(\lambda x.\,2x)$ or $\lambda x \to 2x$ |
+| Lambda calculus | $\lambda x.\ 2x$ or $\lambda x \to 2x$ |
 
 ### Why Have Lambdas?
 
-1. **Fewer one-off functions** to define.
-2. **Notating currying**: "a function returning a function" is easy to write.
-
+1. **Fewer one-off functions**: no need to name helpers like `divides`.
+2. **Notating currying**: "a function returning a function" is easy to write:
 $$
-\texttt{add x y = x + y} \quad\equiv\quad \texttt{add} = \lambda x \to (\lambda y \to x + y)
+\texttt{add } x\ y = x + y \quad\equiv\quad \texttt{add} = \lambda x \to (\lambda y \to x + y)
 $$
-
-3. **Writing functions that return functions**, which can show intent better than currying a two-argument function. For example, a UI button callback receives the press count (`Int`) and returns text to display (`String`):
+3. **Functions that return functions**, for clearer intent. A UI framework might call a button callback with the press count (`Int`) and display the returned `String`:
 
 ```haskell
 makeCallback :: String -> (Int -> String)
-makeCallback name = \n -> "Hello" ++ name ++
-                          "! Button has been pressed" ++ show n ++ "times."
+makeCallback name = \n -> "Hello " ++ name ++
+                          "! Button has been pressed " ++ show n ++ " times."
 
 makeButton (makeCallback "Cael")
 ```
 
-This is about ergonomics and expressivity, which FP values highly, not about what is possible.
+This could also be a two-argument function that is then curried. The lambda isn't about what is possible but about **ergonomics and expressivity**, which FP values highly.
 
 ### Zip
 
 #### Definitions
 
-> **`zip`**: Combines two parallel lists pairwise into a list of tuples.
+> **Zip**: Combines two lists pairwise into a list of tuples.
 
-Task: print the names of everyone under 65. Filtering names alone loses the ages, and filtering ages alone loses the names.
+Suppose you have parallel lists of names and ages and want the names of everyone under 65. Filtering `names` fails (the predicate doesn't see ages), and filtering `ages` fails (you lose the names). Zip them first:
 
 ```haskell
 names = ["John", "Eliza", "Muhammad", "Velesazi"]
 ages  = [ 18,     102,     34,         68       ]
 
 zip names ages
--- [("John", 18), ("Eliza", 102), ("Muhammad", 34), ("Velesazi", 68)]
+-- [("John",18), ("Eliza",102), ("Muhammad",34), ("Velesazi",68)]
 
 map fst $ filter (\(name, age) -> age < 65) $ zip names ages
 -- ["John", "Muhammad"]
 ```
 
-- `fst` returns the first element of a pair.
-- `foo $ bar baz quux` is sugar for `foo (bar baz quux)`.
-- The lambda pattern-matches the tuple directly: `\(name, age) -> …`.
+Recall that `fst` returns the first element of a pair, and `foo $ bar baz quux` means `foo (bar baz quux)`.
 
 ### Quickfire Combinators
 
-| Combinator | Behaviour |
+| Combinator | Result |
 |---|---|
 | `all pred list` | `True` if `pred` holds for **all** elements |
 | `any pred list` | `True` if `pred` holds for **any** element |
-| `take n list` | First $n$ elements |
-| `drop n list` | Remove first $n$ elements |
-| `takeWhile pred list` | Elements matching `pred` from the front, **stopping at the first non-match** |
-| `dropWhile pred list` | Remove elements matching `pred` from the front, stopping at the first non-match |
+| `take n list` | The first `n` elements |
+| `drop n list` | The list without its first `n` elements |
+| `takeWhile pred list` | Elements from the front while `pred` holds; stops at the first non-matching element |
+| `dropWhile pred list` | Removes elements from the front while `pred` holds; stops at the first non-matching element |
 
 ### Fold
 
 #### Definitions
 
-> **Fold**: The most powerful list combinator. It takes an operation $f$, an **accumulator** (`acc`) and the data, and runs `f acc elt` for each element, using the output as the next accumulator.
+> **Fold**: The most general list combinator. It walks a list, combining each element into an accumulator with a given function.
 
-$$
-acc' = f(acc,\ elt)
-$$
+> **Accumulator (`acc`)**: The running result carried from one step to the next.
 
-Use fold when a task does not fit `zip`, `filter`, `map` or another combinator:
+Some tasks don't fit `zip`, `filter`, `map` or the other combinators. For example, greet everyone in a list in one paragraph:
 
 ```haskell
 names = ["Tshepo", "Tafadzwa", "Tom"]
+-- want "Hello, Tshepo, Tafadzwa, Tom, and everyone else!"
+```
+
+Fold takes three arguments:
+
+1. the operation `f`,
+2. the initial accumulator `acc`,
+3. the data to fold over.
+
+For each element it computes `f acc elt` and uses the result as the next accumulator — the recurrence $acc' = f(acc, elt)$.
+
+```haskell
 (foldl (\acc elt -> acc ++ elt ++ ", ") "Hello, " names)
     ++ "and everyone else!"
 -- "Hello, Tshepo, Tafadzwa, Tom, and everyone else!"
 ```
 
-Product:
+Product of a list:
 
 ```haskell
 ns = [5, 10, 2, 3]
 foldl (*) 1 ns   -- 300
 ```
 
-### foldl Versus foldr
+### Left Versus Right Folds
 
-The product above is $1\times5\times10\times2\times3=300$, but the order of combination differs:
+`foldl (*) 1 ns` computes $1 \times 5 \times 10 \times 2 \times 3 = 300$, but in what order?
 
-| Fold | Associativity | Product expansion |
+| Fold | Associativity | Product example |
 |---|---|---|
-| `foldl` (left) | Left-associative | $(((1\times5)\times10)\times2)\times3$ |
-| `foldr` (right) | Right-associative | $5\times(10\times(2\times(3\times1)))$ |
+| `foldl` ("L" = left) | Left-associative | $(((1 \times 5) \times 10) \times 2) \times 3$ |
+| `foldr` | Right-associative | $5 \times (10 \times (2 \times (3 \times 1)))$ |
 
 ![foldl versus foldr](../../../diagrams/CSC3003S-Advanced%20Programming/FP/07_Working_With_Lists_And_Lambdas/fold-trees.svg)
 
-*`foldl` nests from the left starting at `z`. `foldr` nests from the right, ending at `z`. In the captions, `f` is written infix.*
+*`foldl` nests to the left starting from the accumulator; `foldr` nests to the right, ending with the accumulator.*
 
-The difference matters for operators that are not associative, such as subtraction:
-
-$$
-\texttt{foldl (-) 1 ns} = (((1-5)-10)-2)-3 = -19
-$$
+The order matters for operators that are not associative and commutative, such as subtraction:
 
 $$
-\texttt{foldr (-) 1 ns} = 5-(10-(2-(3-1))) = 5-(10-0) = -5
+\texttt{foldl (-) 1 [5,10,2,3]} = (((1 - 5) - 10) - 2) - 3 = -19
 $$
 
-The strict variant `foldl'` is covered in the lazy evaluation lecture ([Recursion And Lazy Evaluation](09_Recursion_And_Lazy_Evaluation.md)).
+$$
+\texttt{foldr (-) 1 [5,10,2,3]} = 5 - (10 - (2 - (3 - 1))) = 5 - (10 - 0) = -5
+$$
+
+`foldl'` (the strict left fold) is covered in [Recursion And Lazy Evaluation](09_Recursion_And_Lazy_Evaluation.md).
 
 ### Fold Is The Universal List Combinator
 
-Fold can implement any other list combinator. It is the FP analogue of a `for` loop with state:
+Fold can implement every other list combinator because it is so general. It is FP's analogue of a `for` loop with state:
 
 ```python
 greeting = "Hello, "
 for name in names:
-    greeting += name + ","
+    greeting += name + ", "
 greeting += "and everyone else"
 ```
 
-The difference: the accumulator is not mutated. A new copy is passed forward for each element.
+The difference: instead of mutating the accumulator (`greeting`), fold creates a new copy and passes it forward for each element.
 
-The lecture exercise reimplements `sum`, `map` and `filter` with `foldl`:
+The lecture exercise proves this by re-implementing `sum`, `map` and `filter` with `foldl`:
 
 ```haskell
 sum' :: [Int] -> Int
-sum' = foldl (+) 0
+sum' xs = foldl (+) 0 xs
 
 map' :: (a -> b) -> [a] -> [b]
 map' f xs = foldl (\acc x -> acc ++ [f x]) [] xs
@@ -258,32 +257,28 @@ filter' :: (a -> Bool) -> [a] -> [a]
 filter' p xs = foldl (\acc x -> if p x then acc ++ [x] else acc) [] xs
 ```
 
-### Sequence Comprehensions And Generators
+### Sequence Comprehensions
 
 #### Definitions
 
-> **Comprehension**: Building a sequence the way a set is defined in mathematics.
+> **Comprehension**: An expression that builds a sequence from generators and guards, like set-builder notation in maths.
 
-> **Generator**: The part `x <- xs` that draws each element from a source sequence.
+> **Generator**: The `x <- list` part of a comprehension, which draws values from a list.
 
-The even positive integers:
+> **Guard**: A Boolean condition in a comprehension; only values satisfying it are kept.
+
+The set of positive even integers in maths:
 
 $$
-E=\{\,2x \mid x\in\mathbb{N}\,\}
+E = \{\, 2x \mid x \in \mathbb{N} \,\}
 $$
+
+"Take every positive integer $x$ and double it." In Haskell:
 
 ```haskell
 e = [2 * x | x <- [1..]]   -- x <- [1..] is a generator
 take 3 e                   -- [2, 4, 6]
 ```
-
-Laziness makes the infinite source `[1..]` safe.
-
-### Guards: Comprehensions Versus Combinators
-
-#### Definitions
-
-> **Guard (in a comprehension)**: A Boolean condition after the generators that filters which elements are kept.
 
 Comprehensions are an alternative to `map` and `filter`:
 
@@ -293,15 +288,16 @@ factorise  n = filter (\f -> n `mod` f == 0) [1..n]
 factorise' n = [f | f <- [1..n], n `mod` f == 0]   -- n `mod` f == 0 is a guard
 ```
 
-Mapping strings to their lengths: `[length s | s <- strs]`, equivalent to `map length strs`.
+Mapping a list of strings to their lengths: `[length s | s <- strings]`, which equals `map length strings`.
 
-### Multiple Generators (Not Zip)
+### Multiple Generators
 
-Several generators produce the **Cartesian product**: every combination. They work like nested `for` loops, so order matters. The **later** generator varies fastest.
+Several generators give the **Cartesian product** of the inputs — every combination, like a nested `for` loop. This is **not** the same as `zip`, which pairs elements position by position.
 
 ```haskell
 suits = ["Clubs", "Hearts", "Spades", "Diamonds"]
--- deck without jokers, aces, or royalty
+
+-- deck without jokers, aces or royalty
 regularCards = [(n, suit) | suit <- suits, n <- [2..10]]
 
 take 3 regularCards
@@ -310,16 +306,13 @@ take 3 $ drop 9 regularCards
 -- [(2,"Hearts"), (3,"Hearts"), (4,"Hearts")]
 ```
 
-Swapping the generators, `[(n, suit) | n <- [2..10], suit <- suits]`, cycles suits fastest: `(2,"Clubs"), (2,"Hearts"), (2,"Spades"), …`.
-
-| `zip xs ys` | `[(x, y) \| x <- xs, y <- ys]` |
-|---|---|
-| Pairs elements position by position | Pairs every element with every element |
-| Length = shorter list | Length = product of lengths |
+Order matters: the **later** generator varies fastest, like an inner loop. Swapping them (`n <- [2..10], suit <- suits`) gives `(2,"Clubs"), (2,"Hearts"), (2,"Spades"), (2,"Diamonds"), (3,"Clubs"), …`.
 
 ### Dependent Generators
 
-A later generator can depend on variables bound by an **earlier** one. For example, the coordinates of the 1s in a $3\times3$ bottom-left triangular matrix:
+A generator can depend on an earlier generator's variable (only earlier ones, since it must already be bound).
+
+Coordinates of the 1s in a $3 \times 3$ lower-triangular matrix:
 
 ```haskell
 [(x, y) | x <- [1..3], y <- [1..x]]
@@ -328,18 +321,22 @@ A later generator can depend on variables bound by an **earlier** one. For examp
 --  (3,1), (3,2), (3,3)]
 ```
 
-Flattening a list of lists:
+Flattening a list of lists uses the same idea:
 
 ```haskell
+flatten :: [[a]] -> [a]
 flatten xss = [x | xs <- xss, x <- xs]
-flatten [[1, 2], [3, 4], [5]]   -- [1, 2, 3, 4, 5]
+-- flatten [[1, 2], [3, 4], [5]] == [1, 2, 3, 4, 5]
 ```
 
 ### String Comprehensions
 
-A `String` is a list of `Char`, so `map`, `filter`, `fold` and comprehensions all work on it:
+A string is just a list of characters, so `map`, `filter`, `fold` and comprehensions all work on it:
 
 ```haskell
 import Data.Char
+
 [toUpper c | c <- "hello"]   -- "HELLO"
 ```
+
+Assigned reading (LYAH): "I'm a list comprehension", "An intro to lists"; in preparation: the whole *Types and Typeclasses* and *Syntax in Functions* chapters.

@@ -3,14 +3,14 @@ tags:
   - advanced-programming
 ---
 
-# Functional Programming — Introduction
+# Introduction To Functional Programming
 
-**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)  
-**Source**: [FP-1-Introduction.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP-1-Introduction.pdf), James Gain, University of Cape Town, PDF pages 1–23  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)
+**Source**: [FP-1-Introduction.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP-1-Introduction.pdf), James Gain, University of Cape Town, pages 1–23
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes for the opening FP lecture: what functional programming is, why it is used, and what it costs.
+> What functional programming is, its core features (immutability, purity, first-class functions), where Haskell fits, and the benefits and costs of the paradigm.
 
 ---
 
@@ -37,215 +37,198 @@ tags:
 
 ### Course Structure, Evaluation And Readings
 
-The FP section has four parts.
-
-| Part | Lectures | Lecturer | Topics |
-|---|---:|---|---|
-| Introduction | 2 | James Gain (JG) | The what and why of functional programming |
-| Supporting theory | 3 | JG | Lazy evaluation, lambda calculus |
-| Haskell | 10 | Cael Marquard (CM) | Core language features and coding examples |
-| Other programming paradigms | 5 | JG | LLM-based code generation, logic programming, quantum programming |
+| Part | Lectures | Lecturer | Content |
+|---|---|---|---|
+| Introduction | 2 | James Gain | What functional programming is and why to use it |
+| Supporting theory | 3 | James Gain | Lazy evaluation, lambda calculus |
+| Haskell | 10 | Cael Marquard | Core language features and coding examples |
+| Other paradigms | 5 | James Gain | LLM-based code generation, logic programming, quantum programming |
 
 | Assessment | CS3 | Honours |
 |---|---|---|
 | Test | Part of Test 2 | None |
-| Closed prac | Mon 19 Oct and Thu 22 Oct | Mon 26 Oct (25%) |
-| Exam | 10 November, 50% of a $2\tfrac{1}{2}$-hour paper 1 | 10 November, $1\tfrac{1}{2}$-hour paper (75%) |
-| DP requirement | As per notes to students | None |
+| Closed practical | Mon 19 Oct and Thu 22 Oct | Mon 26 Oct (25%) |
+| Exam (10 November) | 50% of a 2½-hour paper; DP requirement as per student notes | 75%, 1½-hour paper; no DP requirement |
 
-- **Recommended textbook**: Hutton, G. (2016) *Programming in Haskell* (2nd ed.). Cambridge University Press.
-- **Free option**: Lipovaca, M. (2011) *Learn You a Haskell for Great Good!*
-- **Additional readings**: released progressively under the Readings tab on Amathuba.
+Readings:
+
+- Recommended textbook: Hutton, G. (2016), *Programming in Haskell* (2nd ed.), Cambridge University Press.
+- Free option: Lipovača, M. (2011), *Learn You a Haskell for Great Good!*
+- Additional readings are released progressively on Amathuba.
 
 ### Haskell
 
 #### Definitions
 
-> **Haskell**: A statically-typed, lazily-evaluated, pure functional programming language.
+> **Haskell**: A statically typed, lazily evaluated, pure functional programming language. It is named after Haskell Curry, a mathematician and computer scientist known for combinatory logic.
 
-> **Glasgow Haskell Compiler (GHC)**: The standard Haskell compiler and interactive interpreter.
+> **GHC (Glasgow Haskell Compiler)**: The standard Haskell compiler and interactive interpreter (GHCi).
 
-- Haskell is the language used in this course.
-- It is named after **Haskell Curry**, a mathematician and computer scientist known for **combinatory logic**.
-- Starting point: `https://www.haskell.org`; platform: `https://www.haskell.org/platform/`; an EclipseFP plugin also exists.
+Starting points: haskell.org, the Haskell Platform, and the EclipseFP plugin.
 
 ### What Is Functional Programming?
 
 #### Definitions
 
-> **Functional programming**: A form of declarative programming built by composing and applying mathematical functions.
+> **Functional programming (FP)**: A form of declarative programming that builds programs by composing and applying mathematical functions.
 
-> **Immutable**: Once created, data cannot be modified.
+> **First-class functions**: Functions that can be passed as parameters, returned as values and stored, just like any other data.
 
-> **Pure**: A function deterministically produces the same output for the same input, with no side effects.
+Core features:
 
-> **First-class functions**: Functions can be passed as parameters, returned as values, and stored.
+| Feature | Meaning |
+|---|---|
+| **Immutable** | Once created, data cannot be modified |
+| **Pure** | Functions deterministically produce the same output for the same input, without side effects |
+| **First-class functions** | Functions are values: passed, returned and stored |
 
-The three defining features are immutability, purity, and first-class functions.
-
-- Not every functional language obeys all three features.
-- Some non-functional languages borrow individual elements.
+Not every functional language obeys all of these, and some non-functional languages borrow some of them.
 
 ### Declarative Programming
 
 #### Definitions
 
-> **Declarative programming**: Describing *what* result is wanted rather than *how* to compute it.
+> **Imperative programming**: A step-by-step "cookbook" approach that says **how** to compute a result.
 
-> **Imperative programming**: A step-by-step "cookbook" approach that spells out how to compute a result.
+> **Declarative programming**: Describes the logic and goal — **what** to compute — at a higher level of abstraction. State and control flow are managed by the system.
 
-| Imperative | Declarative |
-|---|---|
-| Step-by-step cookbook | Describes the logic; goal-oriented |
-| Programmer manages state and control flow | State and control flow are managed by the system |
-| Lower level of abstraction | Higher level of abstraction |
-| Python, Java | Functional (Haskell) and logic (Prolog) |
-
-Functional and logic programming are both declarative paradigms; imperative programming is not.
+| Family | Style | Example languages |
+|---|---|---|
+| Imperative | How | Python, Java |
+| Functional | What (declarative) | Haskell |
+| Logic | What (declarative) | Prolog |
 
 ### Side Effects
 
 #### Definitions
 
-> **Side effect**: An interaction in which a function accesses or changes something outside its local scope.
+> **Side effect**: Any effect of a function beyond returning a value — accessing or changing something outside its local scope.
 
-Imperative functions can produce side effects by:
+Imperative programs let functions:
 
-- modifying global variables
-- mutating function arguments
-- performing input/output
-- making network requests
+- modify global variables,
+- mutate their arguments,
+- perform input/output,
+- make network requests.
 
-**Nondeterminism** follows: you cannot guarantee that a function called with the same inputs always returns the same output. This makes code hard to debug and reason about. Side effects are sometimes necessary, and FP controls them with immutable data and pure functions.
+Nondeterminism is the consequence: you can't guarantee that a function called with the same inputs produces the same outputs. This makes programs hard to debug and reason about. Side effects are sometimes necessary, but FP controls them through immutable data and pure functions.
 
-![Impure function with side causes and side effects](../../../diagrams/CSC3003S-Advanced%20Programming/FP/01_Introduction/side-effects.svg)
+![Function with side causes and side effects](../../../diagrams/CSC3003S-Advanced%20Programming/FP/01_Introduction/side-effects.svg)
 
-*An impure function has hidden inputs (side causes) and hidden outputs (side effects) beyond its arguments and return value.*
+*An impure function depends on hidden inputs (side causes) and changes hidden outputs (side effects) beyond its arguments and return value.*
 
-The side-effecting `incr` below flips a global flag on each call, so the same call returns different results:
+**Example**:
 
-```python
-even = True
-def incr(value):
-    global even
-    even = not even
-    if even:
-        return value + 1
-    else:
-        return value + 2
+| Imperative (impure) | Functional (pure) |
+|---|---|
+| `global even = True` | `FUNC incr(INT value): INT` |
+| `def incr(value):` | `    RETURN value+1` |
+| `    global even` | |
+| `    even = not even` | |
+| `    if even: return value+1` | |
+| `    else: return value+2` | |
+| `print(incr(6))` → **8** | `print(incr(6))` → **7** |
+| `print(incr(6))` → **7** | `print(incr(6))` → **7** |
 
-print(incr(6))   # 8
-print(incr(6))   # 7
-```
-
-The pure version depends only on its argument:
-
-```pseudo
-FUNC incr(INT value): INT
-    RETURN value + 1
-
-print(incr(6))   -- 7
-print(incr(6))   -- 7
-```
+The impure `incr` flips a global flag on every call, so the same call returns different answers.
 
 ### Immutable Data
 
 #### Definitions
 
-> **Immutable data**: Data bound to a name during initialisation that cannot afterwards be changed or overwritten.
+> **Immutable data**: Data bound to a name at initialisation that cannot afterwards be changed or overwritten.
 
-| Operation | Example | Allowed? |
+| Statement | Allowed? | Why |
 |---|---|---|
-| Initialising assignment | `A = [1,2,3,4]` | Yes |
-| Mutating assignment | `A[0] = 0` | No |
+| `A = [1,2,3,4]` | ✓ | Initialising assignment |
+| `A[0] = 0` | ✗ | Mutating assignment |
 
-Instead of changing data in place, FP creates new values and data structures attached to new names.
+Instead of changing values in place, FP creates new values and data structures bound to new names.
 
 ### Pure Functions And Referential Transparency
 
 #### Definitions
 
-> **Pure function**: A function that behaves like a deterministic mathematical function: the same input always yields the same output, and there are no side effects.
+> **Pure function**: A function that behaves like a deterministic mathematical function: the same input always yields the same output, with no side effects.
 
-> **Referential transparency**: An expression (such as a name or function call) can always be replaced by its evaluated value without changing program behaviour.
+> **Referential transparency**: An expression (e.g. a name or function call) can always be replaced by its evaluated value without changing the program's behaviour. Pure functions enable it.
 
-Purity is what enables referential transparency. It is hard to enforce in practice:
+Purity is hard to enforce in practice. These are **opaque** (not referentially transparent):
 
-- Non-deterministic functions such as `time.now()` and `random.rand()` are **opaque** (not referentially transparent).
-- Input from, and output to, an external source is opaque.
+- Non-deterministic functions such as `time.now()` and `random.rand()`.
+- Input from, and output to, an external source.
 
 ### Where Haskell Fits And Typing
 
-![Programming language tree](../../../diagrams/CSC3003S-Advanced%20Programming/FP/01_Introduction/language-tree.svg)
+![Language tree](../../../diagrams/CSC3003S-Advanced%20Programming/FP/01_Introduction/language-tree.svg)
 
-*Haskell is a functional, statically typed, lazily evaluated and pure language. Functional and logic languages together form the declarative family.*
+*Haskell is statically typed, functional, lazily evaluated and pure; SML is functional but eager and impure.*
+
+| Branch | Examples |
+|---|---|
+| Dynamically typed (functional) | Lisp, Scheme |
+| Statically typed, imperative | C++, Python, Java (as grouped in the source) |
+| Statically typed, logic | Prolog |
+| Statically typed, functional, eager / impure | SML |
+| Statically typed, functional, lazy / pure | Haskell |
 
 #### Definitions
 
 > **Dynamic typing**: Data types are inferred automatically from values and established at run time, e.g. `pie = 3.14`.
 
-> **Static typing**: Data types are declared in code and established at compile time, e.g. `float pie = 3.14`.
+> **Static typing**: Data types are declared in the code and established at compile time, e.g. `float pie = 3.14`.
 
-| | Dynamic | Static |
+| | Dynamic typing | Static typing |
 |---|---|---|
 | When types are fixed | Run time | Compile time |
-| Advantages | Faster to code, greater flexibility | Fewer bugs, better compiler optimisation |
+| Advantages | Faster to code, more flexible | Fewer bugs, better compiler optimisation |
 | Disadvantages | Possible run-time errors, potential performance cost | Slower to code, more verbose |
-| Functional examples | Lisp, Scheme | Haskell (lazy, pure), SML (eager, impure) |
 
-Haskell infers types too, but it is still statically typed: the types are checked at compile time.
+Haskell is statically typed but infers most types, so it avoids much of the verbosity.
 
 ### Functional Programming Style
 
 | Imperative habit | Functional replacement |
 |---|---|
 | Mutating assignment | Create new allocations |
-| Loops | Function recursion (can cause memory issues on both heap and stack) |
-| Step-by-step control flow | Data-flow: compose simple functions and pipe data through them |
+| Loops | Recursion — which can cause memory issues on both heap and stack |
+| Step-by-step control flow | **Data-flow** design: compose simple functions and pipe data through them |
 
 ```haskell
 -- Apply the square function to a list using map
 square :: Int -> Int
 square x = x * x
 
-map square [1, 2, 3, 4]   -- Result: [1, 4, 9, 16]
+-- Result: [1, 4, 9, 16]
+map square [1, 2, 3, 4]
 ```
 
 ### Benefits: Parallelism And Code Clarity
 
-Most imperative languages predate multi-core hardware: C++ (1983), Python (1991), Java (1995).
+**Parallelism**
 
-- They handle parallelism with threads that share state, controlled by locks, semaphores and atomics.
-- Proving such code correct when side effects are present is very hard.
+- Most imperative languages predate the multi-core era: C++ (1983), Python (1991), Java (1995).
+- They handle parallelism with threads sharing state controlled by locks, semaphores and atomics. Proving correctness with side effects is a nightmare.
+- FP sidesteps "writing while reading": immutable data can't be written after creation, and pure functions have no side effects.
+- This is an excellent fit for **data-stream parallelism**.
 
-FP sidesteps the "writing while reading" problem:
+**Code clarity**
 
-- **Immutability**: data cannot be written once created.
-- **Purity**: there are no side effects.
-- The result fits **data-stream parallelism** very well.
-
-FP also improves code clarity:
-
-- It abstracts away execution detail: no memory locations, register states or pointer manipulation.
-- High-level operations such as `map`, `filter` and `reduce` are native.
-- Pure functions can be tested, and proved correct, in isolation. That means more unit testing and less integration testing.
+- FP abstracts away execution detail: no worrying about memory locations, register states or pointer manipulation.
+- It has native high-level operations such as `map`, `filter` and `reduce`, making code easier to write.
+- Pure functions can be tested (and proved correct) in isolation — more unit testing, less integration testing.
 - Once you know the formalism, code is easier to read.
 
 ### Costs: Overheads
 
-#### Definitions
-
-> **Computation overhead**: Performance lost because a higher level of abstraction gives less fine control over execution.
-
-> **Memory overhead**: Extra stack and heap use, caused in FP mainly by lazy evaluation and recursion.
-
 ![Abstraction versus performance](../../../diagrams/CSC3003S-Advanced%20Programming/FP/01_Introduction/abstraction-performance.svg)
 
-*Moving up from machine code to languages like Haskell raises abstraction and gives up low-level performance control.*
+*Higher abstraction (Haskell above Python above assembler above machine code) gives less fine-grained control over performance.*
 
-- Functional code can gain from static typing, from reordering operations at compile time, and from lazy evaluation at run time.
-- Imperative code still wins overall through low-level optimisation.
-- Lazy evaluation and recursion can impose stack and heap costs (see [Lazy Evaluation](02_Lazy_Evaluation.md)).
+| Cost | Explanation |
+|---|---|
+| Computation | The higher the abstraction, the less fine control. FP can win through static typing, compile-time reordering of operations and lazy evaluation, but imperative code wins overall through low-level optimisation. |
+| Memory | Lazy evaluation and recursion impose stack and heap costs (see [Lazy Evaluation](02_Lazy_Evaluation.md)). |
 
 ### Industry Use And Mixing Paradigms
 
@@ -256,31 +239,34 @@ FP also improves code clarity:
 | Telecoms and messaging | Concurrency, scalability |
 | Natural language processing | Functional syntax |
 
-Imperative languages have added functional constructs: C++ lambda expressions, Python `map`, and Java `util.stream`. This gives only part of the benefit:
+**Best of both worlds?** C++ (lambda expressions), Python (`map`) and Java (`util.stream`) all add functional constructs to imperative languages. But:
 
-- "Sprinkling const dust" does not remove side effects.
-- Functional languages are **immutable by default**, so purity needs no extra thought.
-- Imperative languages are **mutable by default**, so staying pure needs extreme discipline.
-- "A jack of all trades is a master of none."
+- "Sprinkling `const` dust" does not magically remove side effects.
+- Functional languages are immutable by default and need no thought.
+- Imperative languages are mutable by default and need extreme discipline to stay functional.
+
+A jack of all trades is a master of none.
 
 ### Example: The Countdown Problem
 
-#### Definitions
+Inspired by the British TV quiz show *Countdown*:
 
-> **Countdown problem**: Given source numbers and the operators $+,-,\times,\div$, build an expression whose value equals a target. Each source number is used at most once, and every value, including intermediate results, must be a positive natural number.
+- Given source numbers $[1, 3, 7, 10, 25, 50]$ and the operators $+, -, \times, \div$,
+- construct an expression whose value is the target 765.
+- Each source number may be used at most once.
+- All numbers, including intermediate results, must be positive naturals.
 
-The problem is inspired by the British quiz show *Countdown*. Source numbers are $1,3,7,10,25,50$ and the target is $765$.
+One solution is $(25 - 10) \times (50 + 1) = 765$. There are 780 solutions; changing the target to 831 gives 0 solutions.
 
-- One solution: $(25-10)\times(50+1)=765$.
-- There are $780$ solutions; changing the target to $831$ gives $0$ solutions.
-- **Brute force** builds a list of lists of all permutations. The search space is large and contains many inadmissible partial results. For example, $[1,3,7,10,25,50]$ with target $765$ has about $33$ million expressions, of which only about $5$ million are valid.
+The brute-force approach builds a list of lists with all possible permutations. The search space is large, with many inadmissible partial results: about 33 million expressions, of which only about 5 million are valid.
 
-| Version (2.8 GHz Core 2 Duo, 4 GB RAM, GHC 7.10.2) | One solution | All solutions |
-|---|---:|---:|
+Performance (2.8 GHz Core 2 Duo, 4 GB RAM, GHC 7.10.2):
+
+| Version | One solution | All solutions |
+|---|---|---|
 | Brute-force functional | 0.108 s | 12.224 s |
 | Optimised functional | 0.014 s | 1.312 s |
 
-The speed-up comes from lazy evaluation and pruning the search space. Hand-tuned imperative code would be faster, but much harder to write, debug and optimise. The course returns to this example once you have Haskell experience.
+The speed-up comes from lazy evaluation and pruning the search space. A hand-tuned imperative version would be faster, but much harder to code, debug and optimise. This example is revisited once you have Haskell experience.
 
-> [!tip] <span style="color:#5ad4b5">Takeaway</span>
-> FP is declarative programming with immutable data and pure, first-class functions. It suits parallelism and high-level problem solving, at a possible cost in memory and performance.
+**Summary**: functional programming is a declarative style with immutable data and pure, first-class functions. It suits parallelism and high-level problem solving, at a potential cost in memory and performance.

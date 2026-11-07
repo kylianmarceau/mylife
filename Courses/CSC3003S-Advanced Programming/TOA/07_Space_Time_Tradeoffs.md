@@ -3,329 +3,343 @@ tags:
   - advanced-programming
 ---
 
-# Space And Time Tradeoffs
+# Space And Time Trade-offs
 
-**Subject**: CSC3003S Advanced Programming — Theory of Algorithms (TOA)  
-**Source**: [7 - TOA SpaceTime Tradeoffs.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/TOA/7%20-%20TOA%20SpaceTime%20Tradeoffs.pdf), Patrick Marais, University of Cape Town, PDF pages 1–34  
-**Generated**: 2026-10-02
+**Subject**: CSC3003S Advanced Programming — Theory of Algorithms (TOA)
+**Source**: [7 - TOA SpaceTime Tradeoffs.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/TOA/7%20-%20TOA%20SpaceTime%20Tradeoffs.pdf), Patrick Marais, University of Cape Town, pages 1–34
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes. Examples and corrections appear beside the relevant concept.
+> Input enhancement: sorting by counting, Horspool's string matching, and Boyer–Moore with bad-symbol and good-suffix shifts.
 
 ---
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Input Enhancement And Prestructuring|Input Enhancement And Prestructuring]]
-  - [[#Stable Counting Sort|Stable Counting Sort]]
-  - [[#Horspool Shift Tables And Four Cases|Horspool Shift Tables And Four Cases]]
-  - [[#Horspool Search And Source Traces|Horspool Search And Source Traces]]
-  - [[#Boyer–Moore Bad-Symbol Rule|Boyer–Moore Bad-Symbol Rule]]
-  - [[#Boyer–Moore Good-Suffix Rule|Boyer–Moore Good-Suffix Rule]]
-  - [[#Combined Boyer–Moore And Worked Traces|Combined Boyer–Moore And Worked Traces]]
-  - [[#Performance And Preprocessing Choices|Performance And Preprocessing Choices]]
+  - [[#Trading Space For Time|Trading Space For Time]]
+  - [[#Sorting By Counting|Sorting By Counting]]
+  - [[#Brute-Force String Matching Reminder|Brute-Force String Matching Reminder]]
+  - [[#Horspool's Algorithm|Horspool's Algorithm]]
+  - [[#Horspool's Four Mismatch Cases|Horspool's Four Mismatch Cases]]
+  - [[#Building The Horspool Shift Table|Building The Horspool Shift Table]]
+  - [[#Horspool Examples|Horspool Examples]]
+  - [[#Boyer-Moore: Bad-Symbol Shift|Boyer-Moore: Bad-Symbol Shift]]
+  - [[#Preprocessing Uses Only The Pattern|Preprocessing Uses Only The Pattern]]
+  - [[#Boyer-Moore: Good-Suffix Shift|Boyer-Moore: Good-Suffix Shift]]
+  - [[#The Boyer-Moore Algorithm And Examples|The Boyer-Moore Algorithm And Examples]]
+  - [[#Horspool Versus Boyer-Moore|Horspool Versus Boyer-Moore]]
 
 ---
 
 ## Core Content
 
-### Input Enhancement And Prestructuring
+### Trading Space For Time
 
 #### Definitions
 
-> **Space–time tradeoff**: Use additional storage to reduce the amount of repeated computation.
+> **Space–time trade-off**: Using more memory to reduce computation cost.
 
-> **Input enhancement**: Precompute and store auxiliary information about an instance to accelerate the subsequent algorithm.
+> **Input enhancement (preprocessing)**: Storing ancillary information about the problem instance so that solving it afterwards is faster. Examples: sorting by counting, Horspool's and Boyer–Moore's string matching.
 
-> **Prestructuring**: Organise data in a structure supporting faster access.
+> **Prestructuring**: An initial operation that makes access to the data faster. Examples: hashing, indexing with B-trees (covered elsewhere in CS).
 
-| Approach | Examples | Stored information |
-|---|---|---|
-| Input enhancement | Counting sort; Horspool; Boyer–Moore | Frequencies, positions or legal shifts |
-| Prestructuring | Hashing; B-tree indexing | Lookup structure |
-| Dynamic programming | Cached subproblem answers | Results reused by later subproblems |
+Dynamic programming also fits this category but is treated separately.
 
-Count both preprocessing and later use. A structure pays off when it saves enough work, especially when reused repeatedly.
+The general lesson:
 
-### Stable Counting Sort
+- Preprocess all or part of the instance to create an **acceleration data structure**.
+- This is very effective if the structure is used repeatedly in the rest of the algorithm.
+- The cost of preprocessing must be counted in the overall efficiency.
+
+### Sorting By Counting
 
 #### Definitions
 
-> **Counting sort**: Sort integer-keyed records by counting key frequencies and using cumulative counts to determine output positions.
+> **Frequency table**: A table $D$ with $U - L + 1$ entries that counts how often each value in the range $[L, U]$ occurs.
 
-> **Distribution table**: Cumulative frequencies, giving the number of records with key at most each table key.
+> **Distribution table**: Running totals of the frequencies. Entry $D[j]$ gives one past the last position where value $L + j$ belongs in the sorted output.
 
-Keys lie in a known integer range $[L,U]$, with $r=U-L+1$ possible keys. Map key $x$ to table index $x-L$.
+> **Stable sort**: A sort that keeps equal keys in their original relative order.
 
-1. Initialise a frequency table of size $r$ to zero.
-2. Count each input key.
-3. Replace frequencies with cumulative counts.
-4. Scan the input backwards, placing each record at its key's last unfilled position.
-5. Decrement that key's cumulative count after placement.
+Sorting by counting (distribution counting) sorts a list whose elements fall in a restricted integer range $[L \dots U]$:
 
-```pseudo
-CountingSort(A, L, U):
-    r = U - L + 1
-    D[0 .. r - 1] = all zeros
-    for i = 0 to length(A) - 1:
-        D[key(A[i]) - L] = D[key(A[i]) - L] + 1
-    for j = 1 to r - 1:
-        D[j] = D[j - 1] + D[j]
-    for i = length(A) - 1 downto 0:
-        j = key(A[i]) - L
-        S[D[j] - 1] = A[i]
-        D[j] = D[j] - 1
-    return S
+- It moves the original elements into their correct positions in a new list $S$.
+- Extra data can be attached to each element, so it can sort complex records by key.
+- It is stable.
+
+```text
+// A[0..n-1] with values in [L..U]; output S[0..n-1]
+for j ← 0 to U-L do D[j] ← 0                    // initialise frequencies
+for i ← 0 to n-1 do D[A[i]-L] ← D[A[i]-L] + 1   // count frequencies
+for j ← 1 to U-L do D[j] ← D[j-1] + D[j]        // distribution (running sums)
+for i ← n-1 downto 0 do
+    j ← A[i] - L
+    S[D[j]-1] ← A[i]
+    D[j] ← D[j] - 1
+return S
 ```
 
-> [!warning] <span style="color:#ffc778">Source index corrections</span>
-> The frequency loop must use its actual loop index. The cumulative loop starts at one, preventing access to the entry before the table. The pseudocode above corrects both errors.
+Scanning $A$ from right to left and decrementing $D[j]$ after each placement keeps the sort stable.
 
-For the source array $13,11,12,13,12,12$:
+**Example**: $A = [13, 11, 12, 13, 12, 12]$, range $[11, 13]$.
 
-| Key | Frequency | Initial distribution |
-|---|---:|---:|
-| $11$ | $1$ | $1$ |
-| $12$ | $3$ | $4$ |
-| $13$ | $2$ | $6$ |
+| Array value | 11 | 12 | 13 |
+|---|---|---|---|
+| Frequency | 1 | 3 | 2 |
+| Distribution | 1 | 4 | 6 |
 
-| Input index processed | Key | Output position | Distribution after placement |
-|---:|---:|---:|---|
-| $5$ | $12$ | $3$ | $(1,3,6)$ |
-| $4$ | $12$ | $2$ | $(1,2,6)$ |
-| $3$ | $13$ | $5$ | $(1,2,5)$ |
-| $2$ | $12$ | $1$ | $(1,1,5)$ |
-| $1$ | $11$ | $0$ | $(0,1,5)$ |
-| $0$ | $13$ | $4$ | $(0,1,4)$ |
+Placing elements from right to left ($D$ shown before each placement):
 
-Output is $11,12,12,12,13,13$. Reverse scanning places later equal-key records in later positions, preserving stability and attached record data.
-
-Time is $\Theta(n+r)$ and extra storage is $\Theta(n+r)$ including the output. The lecture's linear-in-input claim assumes a sufficiently small range, such as $r=O(n)$. A huge sparse key range makes the table unattractive. Counting sort is not a comparison sort, so it does not contradict comparison-sorting lower bounds.
-
-### Horspool Shift Tables And Four Cases
-
-#### Definitions
-
-> **Horspool's algorithm**: Compare pattern characters right to left, then shift according to the text character aligned with the pattern's last position.
-
-> **Shift table**: A table assigning each alphabet character a positive safe shift distance.
-
-For pattern $P$ of length $m$, define:
-
-$$
-T(c)=\begin{cases}
-m-1-j,&j\text{ is the rightmost position of }c\text{ in }P[0\ldots m-2],\\
-m,&c\text{ does not occur in }P[0\ldots m-2].
-\end{cases}
-$$
-
-Exclude the final pattern position: including it would give a zero shift and fail to make progress. The table is determined entirely by the pattern.
-
-| Situation for the last-aligned text character | Shift action |
-|---|---|
-| Character absent from the pattern | Shift the full pattern length |
-| Character appears only at the last pattern position | Shift the full pattern length |
-| Character appears before the last position | Align with its rightmost earlier occurrence |
-| Last character matches and also appears earlier | Ignore its final occurrence; align the rightmost earlier one |
-
-The shift lookup uses the character at the final aligned text position, even when the actual mismatch is further left.
-
-For `ENGAGING`, $m=8$:
-
-| Character | $E$ | $N$ | $G$ | $A$ | $I$ | Other |
-|---|---:|---:|---:|---:|---:|---:|
-| Shift | $7$ | $1$ | $3$ | $4$ | $2$ | $8$ |
-
-For `GECKO`, the earlier-position shifts are $T(G)=4,T(E)=3,T(C)=2,T(K)=1$; $T(O)=5$ and absent characters also shift five.
-
-![Horspool four shift cases](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/07_Space_Time_Tradeoffs/horspool-cases.svg)
-
-*The four source cases depend on the final aligned text character, with earlier pattern occurrences deciding the shift.*
-
-### Horspool Search And Source Traces
-
-```java
-BuildShift(P, alphabet):
-    m = length(P)
-    for each c in alphabet: T[c] = m
-    for j = 0 to m - 2: T[P[j]] = m - 1 - j
-    return T
-
-Horspool(Txt, P):
-    if length(P) == 0: return 0
-    shift = BuildShift(P, alphabet)
-    end = length(P) - 1
-    while end < length(Txt):
-        k = 0
-        while k < length(P) and P[length(P) - 1 - k] == Txt[end - k]:
-            k = k + 1
-        if k == length(P): return end - length(P) + 1
-        end = end + shift[Txt[end]]
-    return -1
-```
-
-For `THE_CAT_ATE_THE_GECKO’S_TAIL`, the pattern `GECKO` starts at index sixteen:
-
-| Start | Last-aligned text character | Shift / result |
-|---:|---|---|
-| $0$ | $C$ | $2$ |
-| $2$ | $T$ | $5$ |
-| $7$ | `_` | $5$ |
-| $12$ | $G$ | $4$ |
-| $16$ | $O$ | Match |
-
-That is four shifts and five attempted alignments; brute force uses sixteen shifts and seventeen alignments. The PDF labels the alignment counts as shifts.
-
-![GECKO and ENGAGING source alignment traces](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/07_Space_Time_Tradeoffs/horspool-traces.svg)
-
-*Precomputed shifts skip text positions without skipping a possible match.*
-
-| Text, pattern `ENGAGING` | Alignment starts | Shift sequence before match |
-|---|---|---|
-| `IT_WAS_ENGAGING` | $0,7$ | $7$ |
-| `IT_WAS_VERY_ENGAGING` | $0,8,12$ | $8,4$ |
-| `IT_WAS_NOT_ENGAGING` | $0,1,9,11$ | $1,8,2$ |
-| `IT_WAS_GOING_ENGAGINGLY` | $0,3,4,7,8,11,13$ | $3,1,3,1,3,2$ |
-
-Preprocessing takes $\Theta(\lvert\Sigma\rvert+m)$ time and $\Theta(\lvert\Sigma\rvert)$ table storage for alphabet $\Sigma$. Worst-case search remains $O(mn)$; expected linear-in-text behaviour assumes an appropriate random-text model, commonly with fixed pattern length.
-
-### Boyer–Moore Bad-Symbol Rule
-
-#### Definitions
-
-> **Bad symbol**: The text character at the position where right-to-left comparison fails.
-
-> **Matched suffix**: The final $k$ pattern characters that have already matched before the mismatch.
-
-Boyer–Moore uses information about the mismatch and the matched suffix. For the course's bad-symbol rule, reuse the Horspool-style table:
-
-$$
-d_1=\max(T(c)-k,1),
-$$
-
-where $c$ is the actual mismatching text character and $k$ is the number of successful comparisons from the end. This differs from Horspool, which looks up the final-aligned text character.
-
-For `BARBER`, $T(B)=2,T(A)=4,T(R)=3,T(E)=1$, with all other characters assigned six.
-
-| Source example | Matched suffix | Bad symbol | Boyer–Moore bad shift | Horspool shift |
+| Element | $D[0]$ | $D[1]$ | $D[2]$ | Placed at |
 |---|---|---|---|---|
-| `TANSER` aligned with `BARBER` | `ER`, $k=2$ | $S$ | $\max(6-2,1)=4$ | $T(R)=3$ |
-| `MY_AEROPLANE`, initial alignment | `ER`, $k=2$ | $A$ | $\max(4-2,1)=2$ | $T(R)=3$ |
+| $A[5] = 12$ | 1 | **4** | 6 | $S[3]$ |
+| $A[4] = 12$ | 1 | **3** | 6 | $S[2]$ |
+| $A[3] = 13$ | 1 | 2 | **6** | $S[5]$ |
+| $A[2] = 12$ | 1 | **2** | 5 | $S[1]$ |
+| $A[1] = 11$ | **1** | 1 | 5 | $S[0]$ |
+| $A[0] = 13$ | 0 | 1 | **5** | $S[4]$ |
 
-The bad-symbol rule alone does not always beat Horspool. Boyer–Moore's final shift also considers the good-suffix rule.
+Result: $S = [11, 12, 12, 12, 13, 13]$.
 
-### Boyer–Moore Good-Suffix Rule
+Time efficiency is $\Theta(n)$ — the best sort so far — but only for highly restricted inputs and applications (small integer key ranges).
+
+### Brute-Force String Matching Reminder
+
+Brute force aligns the pattern with the start of the text, checks it until a mismatch, then shifts one place right.
+
+Searching for `GECKO` in `THE_CAT_ATE_THE_GECKO'S_TAIL` takes 17 shifts of one position each before the match is found.
+
+### Horspool's Algorithm
 
 #### Definitions
 
-> **Good-suffix table**: A pattern-only table $G(k)$ giving a safe shift after matching the final $k>0$ characters and then failing.
+> **Shift table $T$**: A table with one entry per alphabet character $c$, giving how far to shift the pattern when text character $c$ is aligned with the **last** character of the pattern. The maximum shift is $m$, the pattern length.
 
-> **Prefix**: A substring beginning at the start of the pattern.
+Horspool's principle:
 
-1. Search backwards for an earlier occurrence of the entire matched suffix.
-2. Prefer the rightmost occurrence preceded by a different character from the original pattern mismatch position, or by the start boundary.
-3. If none exists, align the longest pattern prefix that matches the end of the matched suffix.
-4. If neither exists, shift by the full pattern length.
+- Start matching from the **end** of the pattern.
+- On a mismatch, shift the pattern by more than one position, using the precomputed table $T$.
 
-An earlier occurrence with the same preceding pattern character would repeat the known mismatch. Overlapping occurrences and overlapping prefix/suffix matches are allowed.
+The same `GECKO` search takes only 5 shifts with Horspool versus 17 with brute force.
 
-| Pattern | Matched suffix | Reason | $G(3)$ |
-|---|---|---|---:|
-| `MAOBAB` | `BAB` | No earlier suffix or matching prefix | $6$ |
-| `OBABOBAB` | `BAB` | Earlier suffix has the same preceding character; no useful prefix | $8$ |
-| `ABABOBAB` | `BAB` | Earlier occurrence has a different preceding character | $4$ |
-| `ABCBAB` | `BAB` | Prefix `AB` matches the end of the suffix | $4$ |
-| `BABOBAB` | `BAB` | Earlier occurrence at the start has no preceding character | $4$ |
+Algorithm:
 
-![Good-suffix source cases](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/07_Space_Time_Tradeoffs/good-suffix.svg)
+1. Construct the shift table $T$ from the pattern.
+2. Align the pattern with the beginning of the text.
+3. Repeat until a match is found or the pattern passes the end of the text:
+   1. Starting with the last pattern character, compare corresponding characters right to left until all $m$ match or a mismatch is found.
+   2. On a mismatch, let $c$ be the text character aligned with the **last** pattern character. Shift the pattern right by $T(c)$.
 
-*Full-suffix alignment, different preceding characters and prefix fallback determine safe good-suffix shifts.*
+Only the text character under the last pattern position decides the shift. For random texts, Horspool's algorithm can be shown to run in $\Theta(n)$ on average.
 
-A transparent, though inefficient, construction tests each possible positive shift:
+### Horspool's Four Mismatch Cases
 
-```java
-BuildGoodSuffix(P):
-    m = length(P)
-    G[0] = 1
-    for k = 1 to m - 1:
-        mismatchIndex = m - k - 1
-        for shift = 1 to m:
-            valid = true
-            for q = mismatchIndex + 1 to m - 1:
-                if q - shift >= 0 and P[q - shift] != P[q]:
-                    valid = false
-            if mismatchIndex - shift >= 0:
-                if P[mismatchIndex - shift] == P[mismatchIndex]:
-                    valid = false
-            if valid:
-                G[k] = shift
-                break
-    return G
-```
+In every case the shift is determined by the text character $c$ aligned with the last pattern character.
 
-The overlap tests enforce agreement with known matched text; the preceding-character test rejects shifts that necessarily repeat the mismatch. This simple construction costs up to $O(m^3)$ time; efficient implementations use more specialised preprocessing. Table construction cost is separate from search cost.
+| Case | Situation | Example | Shift |
+|---|---|---|---|
+| 1 | $c$ is not in the pattern | `A_CAT` vs `GECKO`: T not in GECKO | Move the whole pattern past $c$: shift $m$ |
+| 2 | Last letters match, and $c$ does not occur elsewhere in the pattern | `HE_FOUND` vs `GECKO`: O only at the end | Shift $m$ (same as case 1) |
+| 3 | $c$ is in the pattern, but not at the end | `THE_C` vs `GECKO`: C is in GECKO | Align $c$ with its rightmost occurrence in the pattern: $T(c) = m - 1 - \text{pos}(c)$ |
+| 4 | Last letters match and $c$ occurs elsewhere in the pattern | `ENDURING` vs `ENGAGING`: G occurs earlier | Align with the rightmost occurrence of $c$, ignoring the last character (same as case 3) |
 
-### Combined Boyer–Moore And Worked Traces
+![Horspool four cases](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/07_Space_Time_Tradeoffs/horspool-cases.svg)
 
-For a mismatch after $k$ matches:
+*The character under the pattern's last position either does not occur in the first $m-1$ positions (shift $m$) or is aligned with its rightmost earlier occurrence.*
+
+### Building The Horspool Shift Table
 
 $$
-\text{shift}=\begin{cases}
-d_1,&k=0,\\
-\max(d_1,G(k)),&k>0.
+T(c) =
+\begin{cases}
+m - 1 - (\text{index of rightmost } c \text{ among the first } m-1 \text{ pattern characters}) & \text{if such a } c \text{ exists} \\
+m & \text{otherwise}
 \end{cases}
 $$
 
-Each rule supplies a safe lower bound on how far the pattern can move. The larger avoids more positions already ruled out.
+Example: `ENGAGING`, $m = 8$, with 5 unique letters.
 
-```java
-BoyerMoore(Txt, P):
-    if length(P) == 0: return 0
-    T = BuildShift(P, alphabet)
-    G = BuildGoodSuffix(P)
-    start = 0
-    while start <= length(Txt) - length(P):
-        k = 0
-        while k < length(P) and P[length(P) - 1 - k] == Txt[start + length(P) - 1 - k]:
-            k = k + 1
-        if k == length(P): return start
-        c = Txt[start + length(P) - 1 - k]
-        bad = max(T[c] - k, 1)
-        good = G[k] if k > 0 else 1
-        start = start + max(bad, good)
-    return -1
+| Character | Rightmost index (excluding last position) | Shift $T(c)$ |
+|---|---|---|
+| E | 0 | $8 - 1 - 0 = 7$ |
+| N | 6 | $8 - 1 - 6 = 1$ |
+| I | 5 | $8 - 1 - 5 = 2$ |
+| G | 4 | $8 - 1 - 4 = 3$ |
+| A | 3 | $8 - 1 - 3 = 4$ |
+| All others | — | $m = 8$ |
+
+The final G at index 7 is ignored, which is why $T(G) = 3$ (from the G at index 4).
+
+### Horspool Examples
+
+All use pattern `ENGAGING` and the table above.
+
+| Text | Steps |
+|---|---|
+| `IT_WAS_ENGAGING` | Character under the last position is E (it occurs earlier in the pattern): shift $T(E) = 7$ → match |
+| `IT_WAS_VERY_ENGAGING` | Under the last position is V: shift $T(V) = 8$ (any character not in the pattern). Then A: shift $T(A) = 4$ → match |
+| `IT_WAS_NOT_ENGAGING` | N: shift 1; O: shift 8; I: shift 2 → match |
+| `IT_WAS_GOING_ENGAGINGLY` | G: shift 3; N: shift 1; G: shift 3; N: shift 1; G: shift 3; I: shift 2 → match |
+
+![Horspool traces](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/07_Space_Time_Tradeoffs/horspool-traces.svg)
+
+*Each row is an alignment; the shift is looked up from the text character under the pattern's last position.*
+
+### Boyer-Moore: Bad-Symbol Shift
+
+Boyer–Moore uses the same two ideas as Horspool — compare right to left, and precompute shifts from the pattern — but adds a second table.
+
+#### Definitions
+
+> **Bad-character (bad-symbol) rule**: Use the Horspool table $T$, but look up the shift of the **rightmost mismatched** text character $c$, not the character at the end of the pattern.
+
+Let $k$ be the number of characters matched from the end before the mismatch, and $c$ the mismatched text character:
+
+$$
+d_1 = \max\big(T(c) - k,\ 1\big)
+$$
+
+$T(c) - k$ can be less than 1, hence the $\max$: we can always shift at least one position, as in brute force.
+
+Table for `BARBER` ($m = 6$):
+
+| $c$ | A | B | C | D | E | F | … | R | … | Z | _ |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| $T(c)$ | 4 | 2 | 6 | 6 | 1 | 6 | 6 | 3 | 6 | 6 | 6 |
+
+**Example**: text `…SER`, pattern `BARBER`. "ER" matches ($k = 2$), then S mismatches.
+
+| Algorithm | Shift |
+|---|---|
+| Horspool | Uses R (under the last position): $T(R) = 3$ |
+| Boyer–Moore | S is not in BARBER, so move the pattern past S: $\max(T(S) - 2, 1) = \max(6 - 2, 1) = 4$ |
+
+Neither rule is always better:
+
+| Text | Boyer–Moore $d_1$ | Horspool | Winner |
+|---|---|---|---|
+| `TANSER` | $\max(T(S) - 2, 1) = 4$ | $T(R) = 3$ | Boyer–Moore |
+| `MY AEROPLANE` (A mismatches after `ER` matches) | $\max(T(A) - 2, 1) = 2$ | $T(R) = 3$ | Horspool |
+
+### Preprocessing Uses Only The Pattern
+
+Before searching, we know everything about the pattern and nothing about the text.
+
+- Shift tables are built only from the pattern.
+- Both algorithms extract information from the pattern in advance to maximise the shift on each mismatch.
+- The shift tables depend solely on properties of the pattern, not the text. This is key to understanding the good-suffix rule.
+
+### Boyer-Moore: Good-Suffix Shift
+
+#### Definitions
+
+> **$\text{suff}(k)$**: The suffix of length $k$ of the pattern — the $k$ characters that matched at the end before a mismatch.
+
+> **Good-suffix table $G(k)$**: A table giving the shift $d_2$ to use after $k$ characters matched, based on where else $\text{suff}(k)$ (or part of it) occurs in the pattern.
+
+Boyer–Moore takes whichever is larger: the good-suffix shift or the bad-symbol shift. Three cases arise when building $G(k)$:
+
+**Case 1 — $\text{suff}(k)$ does not occur elsewhere in the pattern.**
+
+- Text `…ABAB…`, pattern `MAOBAB`. For $k = 3$ the suffix `BAB` has no earlier occurrence, so $G(3) = m = 6$.
+- But not always: check case 3 first, because part of the suffix might occur at the start. Don't stop just because $\text{suff}(k)$ isn't found earlier.
+
+**Case 2 — $\text{suff}(k)$ occurs earlier in the pattern, preceded by a different character.**
+
+- Search right to left in the pattern for another instance. Instances may overlap.
+- The position just left of the pattern counts as a "match anything" character: in `(x)BABOBAB`, the initial `BAB` qualifies.
+- An earlier instance preceded by the **same** character is useless — the same mismatch would recur. Pattern `OBABOBAB` with text `…ABAB…`: the earlier `BAB` is also preceded by O, so shift past it: $G(3) = 8$.
+- Pattern `ABABOBAB`: the earlier `BAB` is preceded by A (different from O), so align it with the matched suffix: $G(3) = 4$.
+
+**Case 3 — part of $\text{suff}(k)$ occurs at the beginning of the pattern.**
+
+- If the whole suffix cannot be matched earlier, look for the longest **prefix** of the pattern that matches the end of $\text{suff}(k)$. The prefix may overlap the suffix.
+- Pattern `ABCBAB`, text `…ABAB…`, $k = 3$: `BAB` does not occur earlier, but the prefix `AB` matches the end of `BAB`. Shift to align them: $G(3) = 4$.
+
+![Good-suffix alignments](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/07_Space_Time_Tradeoffs/good-suffix.svg)
+
+*The shift aligns an earlier copy of the matched suffix (with a different preceding character), or else the longest prefix matching the suffix's end, or else moves the whole pattern.*
+
+Algorithm for building $G(k)$:
+
+```text
+// Scan from right to left; pattern length = m; k = matched chars
+// suff(k) is the k matching characters at the end of the pattern
+if (suff(k) is present earlier in pattern)
+    if (an instance exists whose preceding character is different, or empty)
+        shift to align this earlier instance with suff(k)
+        return shift
+if (a prefix matches the end of suff(k))
+    shift to align the longest such prefix with the end of suff(k)
+    return shift
+shift = m
+return shift
 ```
 
-For source pattern `BAOBAB`:
+### The Boyer-Moore Algorithm And Examples
 
-| Bad-symbol character | $A$ | $B$ | $O$ | Other |
-|---|---:|---:|---:|---:|
-| $T(c)$ | $1$ | $2$ | $3$ | $6$ |
+1. Build tables $T$ and $G$ from the pattern.
+2. When a mismatch occurs after $k$ matches, with $c$ the mismatched text character:
+   - Bad-symbol shift ($k \ge 0$): $d_1 = \max(T(c) - k, 1)$.
+   - Good-suffix shift (only if $k > 0$): $d_2 = G(k)$.
+3. Shift by
+$$
+d = \begin{cases} d_1 & k = 0 \\ \max(d_1, d_2) & k > 0 \end{cases}
+$$
 
-| Matched count $k$ | $1$ | $2$ | $3$ | $4$ | $5$ |
-|---|---:|---:|---:|---:|---:|
-| $G(k)$ | $2$ | $5$ | $5$ | $5$ | $5$ |
+#### Example 1: `BAOBAB`
 
-For `BESS_KNEW_ABOUT_BAOBABS`:
+Bad-symbol table:
 
-| Start | $k$ | Actual bad symbol | $d_1$ | $d_2$ | Shift / result |
-|---:|---:|---|---:|---:|---|
-| $0$ | $0$ | $K$ | $6$ | Not used | $6$ |
-| $6$ | $2$ | `_` | $4$ | $5$ | $5$ |
-| $11$ | $1$ | `_` | $5$ | $2$ | $5$ |
-| $16$ | $6$ | None | — | — | Match |
+| $c$ | A | B | C | D | … | O | … | Z | _ |
+|---|---|---|---|---|---|---|---|---|---|
+| $t_1(c)$ | 1 | 2 | 6 | 6 | 6 | 3 | 6 | 6 | 6 |
 
-For a thousand zero characters and pattern `10000`, each attempt matches four zeros, then fails on the initial one. The bad-symbol shift is one; the good-suffix shift is five. Starts are $0,5,\ldots,995$: two hundred alignments, five comparisons each, giving exactly one thousand comparisons. Brute force would perform $5(1000-5+1)=4980$ comparisons on this instance.
+Good-suffix table:
 
-### Performance And Preprocessing Choices
-
-| Aspect | Horspool | Boyer–Moore |
+| $k$ | Matched suffix | $d_2$ |
 |---|---|---|
-| Lookup on mismatch | Last-aligned text character | Actual bad symbol and matched suffix |
-| Stored tables | Bad-character-style table | Bad-symbol and good-suffix tables |
-| Implementation | Simpler | More preprocessing and logic |
-| Often useful setting | Large alphabets, frequent absent characters | Repetitive text and small alphabets, such as DNA |
-| Basic variant worst case | $O(mn)$ | Can also be $O(mn)$; stronger guarantees depend on the exact variant |
+| 1 | B | 2 |
+| 2 | AB | 5 |
+| 3 | BAB | 5 |
+| 4 | OBAB | 5 |
+| 5 | AOBAB | 5 |
 
-The lecture's expected-linear performance comparisons assume text models and omit variant-specific refinements. Actual performance depends on patterns, alphabet size, repetitions and reuse of tables. Consider preprocessing overhead and memory, rather than treating either method as universally faster.
+Search in `BESS_KNEW_ABOUT_BAOBABS`:
+
+| Alignment | Mismatch | Shift |
+|---|---|---|
+| 1 | K vs B, $k = 0$ | $d_1 = t_1(K) - 0 = 6$ |
+| 2 | `_` after matching `AB`, $k = 2$ | $d_1 = t_1(\_) - 2 = 4$, $d_2 = 5$ → $d = 5$ |
+| 3 | `_` after matching `B`, $k = 1$ | $d_1 = t_1(\_) - 1 = 5$, $d_2 = 2$ → $d = 5$ |
+| 4 | full match of `BAOBAB` | done |
+
+#### Example 2: 1000 zeros, pattern `10000`
+
+How many comparisons does Boyer–Moore make on $S = 000\dots0$ (1000 zeros) with $P = 10000$?
+
+| Bad-symbol $c$ | 0 | 1 |
+|---|---|---|
+| $t_1(c)$ | 1 | 4 |
+
+| $k$ | Matched suffix | $d_2$ |
+|---|---|---|
+| 1 | 0 | 3 |
+| 2 | 00 | 2 |
+| 3 | 000 | 1 |
+| 4 | 0000 | 5 |
+
+1. At each alignment the four 0s match and the 1 fails: 5 comparisons.
+2. With $k = 4$: $d_1 = \max(t_1(0) - 4, 1) = 1$ and $d_2 = 5$, so the shift is $\max(1, 5) = 5$.
+3. The same failure pattern repeats until the text is exhausted.
+4. There are $1000/5 = 200$ alignments, so $200 \times 5 = 1000$ comparisons.
+
+### Horspool Versus Boyer-Moore
+
+Their performance is asymptotically the same; Horspool's approach is simpler and at least as efficient on average. To choose, look at how each opts out early:
+
+| Algorithm | Best for | Why | Example |
+|---|---|---|---|
+| Horspool | Large alphabets, natural language | A mismatch is often caused by a character not in the pattern, giving the maximum shift | English word matching |
+| Boyer–Moore | Small alphabets with very long, repetitive text | The good-suffix table exploits repeating sub-patterns when shifting | DNA matching (G, T, A, C) |

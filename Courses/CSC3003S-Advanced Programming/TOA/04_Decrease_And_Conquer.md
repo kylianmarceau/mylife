@@ -5,341 +5,377 @@ tags:
 
 # Decrease And Conquer
 
-**Subject**: CSC3003S Advanced Programming — Theory of Algorithms (TOA)  
-**Source**: [4 - TOA Decrease and Conquer.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/TOA/4%20-%20TOA%20Decrease%20and%20Conquer.pdf), Patrick Marais, University of Cape Town, PDF pages 1–27  
-**Generated**: 2026-10-02
+**Subject**: CSC3003S Advanced Programming — Theory of Algorithms (TOA)
+**Source**: [4 - TOA Decrease and Conquer.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/TOA/4%20-%20TOA%20Decrease%20and%20Conquer.pdf), Patrick Marais, University of Cape Town, pages 1–27
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes. Examples and corrections appear beside the relevant concept.
+> The three decrease-and-conquer variants: decrease by a constant (insertion sort, topological sort, subsets, permutations), by a constant factor (exponentiation, fake coin, Russian multiplication) and by a variable amount (Euclid, quickselect, interpolation search).
 
 ---
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Strategy And Variants|Strategy And Variants]]
+  - [[#The Decrease-And-Conquer Strategy|The Decrease-And-Conquer Strategy]]
+  - [[#Decrease And Conquer Versus Divide And Conquer|Decrease And Conquer Versus Divide And Conquer]]
+  - [[#Map Of Algorithms, Strengths And Weaknesses|Map Of Algorithms, Strengths And Weaknesses]]
   - [[#Insertion Sort|Insertion Sort]]
-  - [[#Topological Sorting|Topological Sorting]]
+  - [[#Topological Sort|Topological Sort]]
   - [[#Generating The Power Set|Generating The Power Set]]
-  - [[#Permutations By Insertion And Johnson–Trotter|Permutations By Insertion And Johnson–Trotter]]
-  - [[#Binary Search And Exponentiation|Binary Search And Exponentiation]]
-  - [[#Fake-Coin Detection|Fake-Coin Detection]]
-  - [[#Russian Multiplication|Russian Multiplication]]
-  - [[#Euclid And Quickselect|Euclid And Quickselect]]
+  - [[#Generating Permutations By Insertion|Generating Permutations By Insertion]]
+  - [[#Johnson-Trotter Algorithm|Johnson-Trotter Algorithm]]
+  - [[#Exponentiation|Exponentiation]]
+  - [[#Fake-Coin Problem|Fake-Coin Problem]]
+  - [[#Multiplication À La Russe|Multiplication À La Russe]]
+  - [[#Euclid's GCD (Variable-Size Decrease)|Euclid's GCD (Variable-Size Decrease)]]
+  - [[#Kth Order Statistic And Quickselect|Kth Order Statistic And Quickselect]]
   - [[#Interpolation Search|Interpolation Search]]
 
 ---
 
 ## Core Content
 
-### Strategy And Variants
+### The Decrease-And-Conquer Strategy
 
 #### Definitions
 
-> **Decrease and conquer**: Solve one smaller instance, then use its solution to obtain the original solution; also called an inductive or incremental strategy.
+> **Decrease and conquer**: Solve a smaller instance of the problem, then extend that solution to obtain a solution to the original problem. Also called the **inductive** or **incremental** approach.
 
-| Variant | Smaller instance | Examples |
+> **Decrease by a constant**: The instance shrinks by the same constant (often 1) at each step: size $n \to n - c$.
+
+> **Decrease by a constant factor**: The instance shrinks by the same factor (usually 2) at each step: size $n \to n/c$.
+
+> **Variable-size decrease**: The amount by which the instance shrinks changes from one step to the next.
+
+![Decrease variants](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/04_Decrease_And_Conquer/decrease-variants.svg)
+
+*All three variants reduce a problem of size $n$ to one smaller subproblem; they differ only in how much smaller it is.*
+
+### Decrease And Conquer Versus Divide And Conquer
+
+| Strategy | Subproblems solved | What happens to the rest |
 |---|---|---|
-| Constant decrease | $n-c$, commonly $n-1$ | Insertion sort; topological sort; generating subsets/permutations |
-| Constant-factor decrease | $n/c$, commonly half | Binary search; exponentiation; fake coins; Russian multiplication |
-| Variable-size decrease | Reduction depends on input | Euclid; quickselect; interpolation search |
+| Decrease by a constant factor | One subproblem of size $n/2$ | The other half (or constant fraction) of the work is **thrown away** |
+| Divide and conquer | Two subproblems of size $n/2$ | **Both** halves are solved, then the solutions are combined |
 
-![Decrease variants and comparison with divide and conquer](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/04_Decrease_And_Conquer/decrease-variants.svg)
+Binary search is decrease and conquer (it discards half the array). Mergesort is divide and conquer (it sorts both halves).
 
-*Decrease and conquer solves one smaller instance. Divide and conquer solves multiple instances and combines their results.*
+### Map Of Algorithms, Strengths And Weaknesses
 
-The method can be implemented top down with recursion or bottom up with iteration. It can be highly efficient, but the existence of a useful reduction depends on the problem.
+| Variant | Algorithms |
+|---|---|
+| Decrease by a constant (often 1) | Insertion sort; graph searching (DFS, BFS); generating permutations and subsets; topological sort |
+| Decrease by a constant factor (usually 2) | Binary search (see Levitin for the formal analysis); fake-coin problem; multiplication à la russe |
+| Variable-size decrease | Euclid's algorithm; interpolation search; finding the $k$th order statistic (e.g. the median) |
+
+| Strengths | Weaknesses |
+|---|---|
+| Can be implemented top-down (recursively) or bottom-up (without recursion) | Less widely applicable, especially decrease by a constant factor |
+| Often very efficient — possibly $\Theta(\log n)$ | |
 
 ### Insertion Sort
 
-#### Definitions
+Insertion sort is decrease by 1 and conquer:
 
-> **Insertion sort**: Build a sorted prefix by inserting each next element into its correct position.
+1. Assume the first $n-1$ elements are already sorted (by recursively insertion-sorting them).
+2. Insert the remaining element into its correct position in the sorted part.
 
-> **Stable sort**: A sort preserving the original relative order of records with equal keys.
+The idea is recursive, but it is better performed iteratively, bottom-up.
 
-Assume the first $n-1$ entries are sorted. Save the remaining entry, shift larger entries right, and insert the saved value into the gap.
-
-```java
-InsertionSortRecursive(A, n):
-    if n <= 1: return
-    InsertionSortRecursive(A, n - 1)
-    inserted = A[n - 1]
-    j = n - 2
-    while j >= 0 and A[j] > inserted:
-        A[j + 1] = A[j]
-        j = j - 1
-    A[j + 1] = inserted
+```text
+insertionSort(Array arr, int n)
+    if (n <= 1) return;            // base case
+    insertionSort(arr, n-1);
+    // insert last element
+    ins = arr[n-1];  j = n-2;
+    while (j >= 0 and arr[j] > ins)
+        arr[j+1] = arr[j];
+        j = j - 1;
+    arr[j+1] = ins;
 ```
 
-The bottom-up version repeats the insertion body for prefix lengths from two through the full size, avoiding recursion storage.
+Trace on `6 5 0 2 8 7 4` (the bar separates the sorted prefix from the rest):
 
-| Sorted prefix after insertion | Remaining suffix |
+| Step | Array |
 |---|---|
-| $6$ | $5,0,2,8,7,4$ |
-| $5,6$ | $0,2,8,7,4$ |
-| $0,5,6$ | $2,8,7,4$ |
-| $0,2,5,6$ | $8,7,4$ |
-| $0,2,5,6,8$ | $7,4$ |
-| $0,2,5,6,7,8$ | $4$ |
-| $0,2,4,5,6,7,8$ | None |
+| Start | `6 | 5 0 2 8 7 4` |
+| Insert 5 | `5 6 | 0 2 8 7 4` |
+| Insert 0 | `0 5 6 | 2 8 7 4` |
+| Insert 2 | `0 2 5 6 | 8 7 4` |
+| Insert 8 | `0 2 5 6 8 | 7 4` |
+| Insert 7 | `0 2 5 6 7 8 | 4` |
+| Insert 4 | `0 2 4 5 6 7 8` |
 
-Replacing the final four with nine leaves the last insertion in place, producing $0,2,5,6,7,8,9$. This illustrates how nearly sorted input reduces shifting.
+The recursive view on `6 5 0 2 8 7 9`: `sort(1); insert(2nd)`, then `sort(2); insert(3rd)`, … up to `sort(7)`. Each call sorts a prefix one element longer.
 
-| Case or property | Result |
+| Case | Efficiency |
 |---|---|
-| Reverse-sorted input | $\sum_{i=1}^{n-1}i=n(n-1)/2$ shifts; $\Theta(n^2)$ time |
-| Already sorted input | One key comparison per insertion; $\Theta(n)$ time |
-| Ordinary average case | $\Theta(n^2)$ under random-permutation assumptions |
-| Iterative auxiliary space | $\Theta(1)$ |
-| Stability | Preserved by shifting only strictly larger keys |
+| Worst (reverse-sorted input) | $\Theta(n^2)$ |
+| Partially sorted input | Works well — few shifts are needed |
 
-### Topological Sorting
+### Topological Sort
 
 #### Definitions
 
-> **Directed acyclic graph (DAG)**: A directed graph containing no directed cycle.
+> **Directed acyclic graph (DAG)**: A directed graph with no directed cycles.
 
-> **Topological ordering**: A vertex ordering in which the source of every directed edge precedes its destination.
+> **Topological sort**: A listing of a DAG's vertices such that for every directed edge, the source vertex appears before the destination vertex.
 
-> **Source vertex**: A vertex with no incoming edges in the remaining graph.
+> **Source vertex**: A vertex with no incoming edges.
 
-> **Indegree**: Number of incoming edges to a vertex.
+Properties:
 
-Dependencies occur in course prerequisites, spreadsheet calculations and project tasks. Several valid orders can exist; a directed cycle prevents any topological order.
+- There may be several valid orderings.
+- The problem is not solvable if the graph has a cycle.
+- It can also be solved with depth-first search (see Levitin).
 
-1. Compute every vertex's indegree.
-2. Put all zero-indegree vertices in a queue or other source collection.
-3. Remove a source, append it to the output, and remove its outgoing edges by decrementing neighbour indegrees.
-4. Add any newly zero-indegree neighbours to the source collection.
-5. If fewer than all vertices are output, the remaining graph has a cycle.
+Applications:
 
-```java
-TopologicalSort(G):
-    indegree = count incoming edges for every vertex
-    sources = all vertices with indegree zero
-    result = empty list
-    while sources is not empty:
-        u = remove one source
-        append u to result
-        for each edge u -> v:
-            indegree[v] = indegree[v] - 1
-            if indegree[v] == 0: add v to sources
-    if length(result) != number of vertices: report cycle
-    return result
-```
+- Ordering courses that have prerequisites.
+- Evaluating spreadsheet formulas with dependencies.
+- Ordering tasks in a complex project.
 
-![Source-removal topological sort](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/04_Decrease_And_Conquer/topological-sort.svg)
+**Source-removal algorithm** (decrease by 1):
 
-*Removing a, then b, then c, then d respects all five dependencies in the source graph.*
+1. Find a source vertex (in-degree 0).
+2. Remove it and all its outgoing edges, and append it to the sorted list.
+3. Repeat. If no source exists, either all vertices are listed (finished) or the remaining graph has a cycle.
 
-The edges are $a\to b$, $a\to c$, $b\to c$, $b\to d$, $c\to d$. Initial indegrees are $0,1,2,2$; after removing $a$, the remaining indegrees are $0,1,2$ for $b,c,d$.
+Example with edges $a \to b$, $a \to c$, $b \to c$, $b \to d$, $c \to d$:
 
-With adjacency lists, time is $\Theta(\lvert V\rvert+\lvert E\rvert)$. A DFS alternative appends vertices on completion and reverses that finish order; it must detect cycles, usually via active-recursion marks.
+| Step | Removed | Edges removed | List |
+|---|---|---|---|
+| 1 | $a$ | $a \to b$, $a \to c$ | $\{a\}$ |
+| 2 | $b$ | $b \to c$, $b \to d$ | $\{a, b\}$ |
+| 3 | $c$ | $c \to d$ | $\{a, b, c\}$ |
+| 4 | $d$ | — | $\{a, b, c, d\}$ |
+
+![Topological sort by source removal](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/04_Decrease_And_Conquer/topological-sort.svg)
+
+*Each step removes the current source; in-degree counts show which vertex becomes a source next.*
 
 ### Generating The Power Set
 
 #### Definitions
 
-> **Power set**: The set of every subset of a given set, including the empty set and the full set.
+> **Power set**: The set of all $2^n$ subsets of $\{a_1, a_2, \dots, a_n\}$. Element order does not matter and there are no duplicates.
 
-> **Minimal-change order**: An enumeration in which consecutive outputs differ by a small prescribed change.
-
-For $n$ distinct elements there are $2^n$ subsets. Solve for the first $n-1$ elements, then retain each earlier subset and make a copy containing the new element:
+Example:
 
 $$
-\mathcal P(S\cup\{a\})=\mathcal P(S)\cup\{X\cup\{a\}:X\in\mathcal P(S)\},\qquad
-\mathcal P(\varnothing)=\{\varnothing\}.
+\mathcal{P}(\{a,b,c\}) = [\,\{\},\ \{a\},\ \{b\},\ \{a,b\},\ \{c\},\ \{a,c\},\ \{b,c\},\ \{a,b,c\}\,]
 $$
 
-For $\{a,b,c\}$ the generated sequence is:
+| Method | How it works |
+|---|---|
+| Decrease by 1 and conquer | Recursively generate all subsets of $\{a_1, \dots, a_{n-1}\}$ (base case: $\{\}$). Keep them, and also add $a_n$ to each of them. |
+| Bit strings (brute force) | Enumerate all values $0 \dots 2^n - 1$. Assign each element a bit position (LSB to MSB works best). A 1 bit means the element is present. |
+| Binary reflected Gray code | Gives a **minimal-change** power set: consecutive subsets differ by a single bit flip (one element added or removed). See Levitin. |
 
-$$
-\varnothing,\{a\},\{b\},\{a,b\},\{c\},\{a,c\},\{b,c\},\{a,b,c\}.
-$$
+With LSB = $a$, the bit-string order $000, 001, 010, 011, \dots$ produces exactly the list above.
 
-An alternative enumerates integer masks from zero through $2^n-1$. A set element is present exactly when its assigned bit is one.
+### Generating Permutations By Insertion
 
-**Binary reflected Gray code** gives consecutive masks differing in one bit:
+Permutations are needed as a component of exhaustive search. Generate all orderings of $\{1, \dots, n\}$; these can be used as indices for any other objects.
 
-$$
-g(i)=i\mathbin{\oplus}\lfloor i/2\rfloor.
-$$
+Decrease by 1 and conquer:
 
-For three bits: $000,001,011,010,110,111,101,100$. Ordinary binary enumeration does not have this property; for example $011\to100$ changes three bits.
+1. Generate all $(n-1)!$ permutations of $\{1, \dots, n-1\}$.
+2. Insert $n$ into every possible position of each one.
+3. Insert alternately from right to left and from left to right. This satisfies the **minimal-change requirement**: each permutation is obtained from the previous one by swapping two adjacent elements.
 
-Generating compact masks requires at least one output per subset. Writing full explicit subsets takes $\Theta(n2^n)$ total element-output work.
+| Stage | Permutations |
+|---|---|
+| Start | 1 |
+| Insert 2 (right to left) | 12, 21 |
+| Insert 3 into 12 (right to left) | 123, 132, 312 |
+| Insert 3 into 21 (left to right) | 321, 231, 213 |
 
-### Permutations By Insertion And Johnson–Trotter
+![Permutation generation tree](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/04_Decrease_And_Conquer/permutation-tree.svg)
+
+*Alternating the insertion direction makes neighbouring permutations differ by one adjacent swap.*
+
+### Johnson-Trotter Algorithm
 
 #### Definitions
 
-> **Permutation**: An ordering of all elements of a set; there are $n!$ permutations of $n$ distinct elements.
+> **Mobile element**: An element $k$ whose arrow points to an adjacent element smaller than $k$.
 
-> **Mobile element**: In Johnson–Trotter enumeration, an element whose direction points to an adjacent smaller element.
+Johnson–Trotter generates permutations without first generating permutations of smaller lists. Each element carries a direction arrow.
 
-Generate all permutations of the first $n-1$ elements, then insert the new largest element into each of the $n$ positions. Alternate insertion from right to left and left to right across consecutive smaller permutations to preserve adjacent-swap minimal change.
+Example: in $\overrightarrow{3}\ \overleftarrow{2}\ \overrightarrow{4}\ \overleftarrow{1}$, 3 and 4 are mobile (3 points at 2, 4 points at 1). 2 and 1 are not (2 points at 3, which is larger; 1 points at 4).
 
-![Permutation insertion tree](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/04_Decrease_And_Conquer/permutation-tree.svg)
+Algorithm:
 
-*Alternating insertion directions produces 123, 132, 312, 321, 231, 213.*
+1. Initialise the first permutation $\overleftarrow{1}\ \overleftarrow{2} \cdots \overleftarrow{n}$ (all arrows left).
+2. While the last permutation has a mobile element:
+   1. Find its largest mobile element $k$.
+   2. Swap $k$ with the neighbour its arrow points to.
+   3. Reverse the direction of all elements larger than $k$.
+   4. Add the new permutation to the list.
+3. Return the list.
 
-The **Johnson–Trotter algorithm** avoids explicitly constructing smaller permutation lists:
+Trace for $n = 3$:
 
-1. Start with ascending values, all directed left, and output this permutation.
-2. Find the largest mobile value.
-3. Swap it with the neighbour it points to.
-4. Reverse the directions of all values greater than the swapped value.
-5. Output the new permutation and repeat until no element is mobile.
-
-For the directed sequence $\overrightarrow3,\overleftarrow2,\overrightarrow4,\overleftarrow1$, values three and four are mobile; two and one are not. Four is the chosen value.
-
-![Johnson–Trotter direction trace](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/04_Decrease_And_Conquer/johnson-trotter.svg)
-
-*For three values, the largest mobile element determines each adjacent swap and later direction reversal.*
-
-The output order is $123,132,312,321,231,213$. A simple implementation scans the values to find mobility and reverse directions, taking $O(n)$ per permutation and $O(n\,n!)$ overall, with $O(n)$ working storage if outputs are streamed.
-
-### Binary Search And Exponentiation
-
-#### Definitions
-
-> **Binary search**: Search sorted input by comparing with a midpoint and continuing only in the half that can contain the key.
-
-> **Exponentiation by squaring**: Compute a power by recursively solving the half-exponent power once, then squaring it.
-
-Binary search has worst-case $\Theta(\log n)$ comparisons because $T(n)=T(\lfloor n/2\rfloor)+\Theta(1)$. Its best case is a midpoint match, $\Theta(1)$.
-
-For a nonnegative integer exponent:
-
-$$
-a^0=1,\qquad
-a^n=\begin{cases}(a^{\lfloor n/2\rfloor})^2,&n>0\text{ even},\\
-a(a^{\lfloor n/2\rfloor})^2,&n\text{ odd}.
-\end{cases}
-$$
-
-```java
-Power(a, n):
-    if n == 0: return 1
-    halfPower = Power(a, floor(n / 2))
-    result = halfPower * halfPower
-    if n is odd: result = result * a
-    return result
-```
-
-Repeated multiplication uses $\Theta(n)$ multiplications. Squaring uses $M(n)=M(\lfloor n/2\rfloor)+\Theta(1)$, hence $\Theta(\log n)$ for growing positive exponents. Cache the half-power: calling the recursive function twice repeats work and defeats the single-subproblem strategy. The multiplication-count base case is $M(0)=0$, not one.
-
-### Fake-Coin Detection
-
-#### Definitions
-
-> **Fake-coin problem**: Among otherwise equal coins, find the single lighter coin using a balance comparing two equal-sized groups.
-
-For two groups, weigh $\lfloor n/2\rfloor$ against $\lfloor n/2\rfloor$, leaving one coin aside if necessary. If balanced, the aside coin is fake; otherwise recurse into the lighter group.
-
-$$
-W(1)=0,\qquad W(n)=1+W(\lfloor n/2\rfloor),\qquad
-W(n)=\lfloor\log_2n\rfloor\text{ in the worst case}.
-$$
-
-A balance has three outcomes, so three groups use its information more effectively. Partition into near-equal groups, weigh equal-sized first and second groups, and continue in the lighter group or the third group if balanced.
-
-| Coin count | First two groups | Third group |
+| Permutation | Largest mobile | Action |
 |---|---|---|
-| $3q$ | $q,q$ | $q$ |
-| $3q+1$ | $q,q$ | $q+1$ |
-| $3q+2$ | $q+1,q+1$ | $q$ |
+| $\overleftarrow{1}\,\overleftarrow{2}\,\overleftarrow{3}$ | 3 | swap with 2 |
+| $\overleftarrow{1}\,\overleftarrow{3}\,\overleftarrow{2}$ | 3 | swap with 1 |
+| $\overleftarrow{3}\,\overleftarrow{1}\,\overleftarrow{2}$ | 2 | swap with 1, reverse 3 |
+| $\overrightarrow{3}\,\overleftarrow{2}\,\overleftarrow{1}$ | 3 | swap with 2 |
+| $\overleftarrow{2}\,\overrightarrow{3}\,\overleftarrow{1}$ | 3 | swap with 1 |
+| $\overleftarrow{2}\,\overleftarrow{1}\,\overrightarrow{3}$ | none | stop |
 
-This ensures the chosen group has at most $\lceil n/3\rceil$ coins, giving $\Theta(\log_3n)$ worst-case weighings and an information bound of $\lceil\log_3n\rceil$.
+![Johnson-Trotter steps](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/04_Decrease_And_Conquer/johnson-trotter.svg)
 
-> [!warning] <span style="color:#ffc778">Small-instance correction</span>
-> The PDF's formula using two groups of size $\lceil n/3\rceil$ gives a negative third-group size when there are four coins. Use the partition above. Equal weighed-group sizes are required for a meaningful balance comparison.
+*At each step the largest mobile element moves one place in its arrow's direction.*
 
-The two- and three-group versions have the same logarithmic asymptotic class, but the latter improves the constant factor by roughly $\log_2 3\approx1.585$.
+### Exponentiation
 
-### Russian Multiplication
+Computing $a^n$ can be done two ways.
 
-#### Definitions
+**Bottom-up iteration (decrease by a constant)**: $1 \cdot a \cdots a$ ($n$ times).
 
-> **Russian peasant multiplication**: Multiply integers using halving, doubling and addition, selecting doubled values corresponding to odd halved values.
+```c
+expv = 1;
+for (i = 0; i < n; i++)
+    expv *= a;
+```
 
-For a nonnegative integer $n$:
+This is clearly $\Theta(n)$.
+
+**Top-down recursion (decrease by a constant factor)**: use
 
 $$
-nm=\begin{cases}
-(n/2)(2m),&n\text{ even},\\
-\lfloor n/2\rfloor(2m)+m,&n\text{ odd}.
+a^n =
+\begin{cases}
+\left(a^{n/2}\right)^2 & n \text{ even} \\
+\left(a^{(n-1)/2}\right)^2 \cdot a & n \text{ odd} \\
+1 & n = 0
 \end{cases}
 $$
 
-```java
-RussianMultiply(n, m):
-    result = 0
-    while n > 0:
-        if n is odd: result = result + m
-        n = floor(n / 2)
-        m = 2 * m
-    return result
-```
+Odd exponents need one extra multiply, which does not change the asymptotic complexity. Each step needs 1 or 2 multiplications:
 
-| Halved value | Doubled value | Added? |
-|---:|---:|---|
-| $50$ | $20$ | No |
-| $25$ | $40$ | Yes |
-| $12$ | $80$ | No |
-| $6$ | $160$ | No |
-| $3$ | $320$ | Yes |
-| $1$ | $640$ | Yes |
+$$
+M(n) = M(n/2) + \Theta(1)
+$$
 
-Thus $50\cdot20=40+320+640=1000$. There are $\Theta(\log n)$ iterations; shifts implement halving and doubling efficiently for fixed-size integers. Arbitrary-precision bit costs are a separate analysis.
+By the Master Theorem ($a = 1$, $b = 2$, $d = 0$, so $a = b^d$, case 2): $M(n) \in \Theta(n^0\log n) = \Theta(\log n)$.
 
-### Euclid And Quickselect
+### Fake-Coin Problem
+
+Among $n$ coins, one is fake and weighs less. A balance scale can compare any two sets of coins.
+
+**Two-pile version**:
+
+1. Divide the coins into two piles of $\lfloor n/2 \rfloor$, keeping one coin aside if $n$ is odd.
+2. Weigh the piles. If they weigh the same, the coin set aside is fake.
+3. Otherwise, continue recursively with the lighter pile.
+
+$$
+W(n) = W(\lfloor n/2 \rfloor) + 1 \ (n > 1), \quad W(1) = 0 \;\Rightarrow\; W(n) = \lfloor \log_2 n \rfloor \in \Theta(\log_2 n)
+$$
+
+**Three-pile version** (better):
+
+1. Divide into three piles of sizes $\lfloor n/3 \rfloor$, $\lfloor n/3 \rfloor$ and $n - 2\lfloor n/3 \rfloor$.
+2. Weigh the first two. If they balance, discard both and continue with the third pile.
+3. Otherwise continue recursively with the lighter pile.
+
+$$
+W(n) = W(\lceil n/3 \rceil) + 1 \ (n > 1), \quad W(1) = 0 \;\Rightarrow\; W(n) \in \Theta(\log_3 n)
+$$
+
+This is better by a factor of about $\log_2 3 \approx 1.6$ than the two-pile solution.
+
+### Multiplication À La Russe
+
+This method multiplies two numbers using only halving, doubling and addition, avoiding multiplication tables:
+
+$$
+n \cdot m =
+\begin{cases}
+\dfrac{n}{2} \cdot 2m & n \text{ even} \\[6pt]
+\dfrac{n-1}{2} \cdot 2m + m & n \text{ odd}
+\end{cases}
+$$
+
+Stop when $n = 1$. Halving and doubling are just bit shifts, so this is efficient in hardware. It is decrease by a constant factor of 2.
+
+Example $50 \times 20$:
+
+$$
+\begin{aligned}
+50 \times 20 &= 25 \times 40 \\
+&= (12 \times 80) + 40 \\
+&= (6 \times 160) + 40 \\
+&= (3 \times 320) + 40 \\
+&= (1 \times 640) + 320 + 40 = 1000
+\end{aligned}
+$$
+
+### Euclid's GCD (Variable-Size Decrease)
+
+$$
+\gcd(m, n) = \gcd(n,\ m \bmod n), \qquad \gcd(m, 0) = m
+$$
+
+The right-hand arguments are smaller, but by neither a constant amount nor a constant factor — the decrease varies. Example:
+
+$$
+\gcd(60, 24) = \gcd(24, 12) = \gcd(12, 0) = 12
+$$
+
+### Kth Order Statistic And Quickselect
 
 #### Definitions
 
-> **Order statistic**: An element at a specified rank in sorted order; the $k$th order statistic is the $k$th smallest element.
+> **$k$th order statistic**: The $k$th smallest element in a list. The **median** is the case $k = \lceil n/2 \rceil$.
 
-> **Quickselect**: Select an order statistic by partitioning around a pivot and recursively processing only the side containing the required rank.
+Sorting the whole list first ($\Theta(n\log n)$) may be inefficient. Quickselect uses partitioning instead:
 
-Euclid's reduction $\gcd(m,n)=\gcd(n,m\bmod n)$ has an input-dependent smaller instance. For example, $(60,24)\to(24,12)\to(12,0)$ returns twelve.
+1. Choose a pivot $p$ and partition the array around it, as in quicksort.
+2. If the pivot lands at position $k-1$ (0-based), it is the answer.
+3. Otherwise continue with only one partition: the left one if $k-1$ is before the pivot, the right one if after.
 
-For a zero-based array, the desired $k$th smallest value has target index $k-1$:
+![Quickselect](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/04_Decrease_And_Conquer/quickselect.svg)
 
-```java
-Quickselect(A, left, right, target):
-    if left == right: return A[left]
-    s = PartitionWithPivotInFinalPosition(A, left, right)
-    if s == target: return A[s]
-    if target < s: return Quickselect(A, left, s - 1, target)
-    return Quickselect(A, s + 1, right, target)
-```
+*Quickselect discards the partition that cannot contain the target rank.*
 
-![Quickselect keeps one partition](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/04_Decrease_And_Conquer/quickselect.svg)
-
-*Only the partition containing the target rank remains relevant after the pivot is placed.*
-
-Each partition costs linear time in its current size. Balanced or random pivots give expected $\Theta(n)$ time; repeatedly removing only one irrelevant element gives worst-case $\Theta(n^2)$. A median is rank $\lceil n/2\rceil$ under the lower-median convention; some even-size definitions average the two central values.
+| Case | Efficiency |
+|---|---|
+| Average | $\Theta(n)$ |
+| Worst (bad pivots every time) | $\Theta(n^2)$ |
 
 ### Interpolation Search
 
-#### Definitions
+Interpolation search is an alternative to binary search's even split for a sorted array. It mimics how people search a phone book: to find "Bloggs", look near the beginning.
 
-> **Interpolation search**: Search sorted numeric input using the relative key value to estimate its array position.
+It assumes the array values between the leftmost $A[l]$ and rightmost $A[r]$ elements increase linearly.
 
-Assuming values approximately increase linearly between the endpoints, the estimated zero-based probe is:
+Algorithm (search key $v$):
+
+1. Draw a straight line through $(l, A[l])$ and $(r, A[r])$.
+2. Find the point on the line at height $v$; its x-coordinate is the proposed index:
 
 $$
-x=l+\left\lfloor\frac{(v-A[l])(r-l)}{A[r]-A[l]}\right\rfloor.
+x = l + \left\lfloor \frac{(v - A[l])(r - l)}{A[r] - A[l]} \right\rfloor
 $$
 
-![Interpolation search projection](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/04_Decrease_And_Conquer/interpolation.svg)
+3. If $A[x] = v$, stop. Otherwise split at $x$ like binary search and continue in the part that can contain $v$.
 
-*Projecting the target value onto the endpoint line estimates a position, instead of always probing the midpoint.*
+![Interpolation search](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/04_Decrease_And_Conquer/interpolation.svg)
 
-1. Ensure the key is between the endpoint values; otherwise fail.
-2. If the endpoint values are equal, check that value and avoid dividing by zero.
-3. Compute a valid probe in the current range.
-4. Return if the value matches; otherwise continue to the appropriate side, excluding the probe.
+*The key's value, not the midpoint, chooses where to probe.*
 
-Expected cost is $O(\log\log n)$ under suitable approximately uniform value distributions, with worst-case $O(n)$. Nonuniform data can produce poor probes. It may be useful when the distribution fits the model and accesses or comparisons are expensive.
+| Case | Key comparisons |
+|---|---|
+| Average | $O(\log\log n)$ — better than binary search |
+| Worst | $O(n)$ |
+
+It may beat binary search for:
+
+- large files, and
+- cases where accesses or comparisons are very expensive, such as some database applications.

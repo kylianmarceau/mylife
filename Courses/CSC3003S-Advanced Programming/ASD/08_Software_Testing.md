@@ -5,98 +5,83 @@ tags:
 
 # Software Testing
 
-**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)  
-**Source**: [ASD08 Software Testing.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD08%20Software%20Testing.pdf), Johan Bontes (with credit to Sarina Till), University of Cape Town, PDF pages 1–45  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)
+**Source**: [ASD08 Software Testing.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD08%20Software%20Testing.pdf), Johan Bontes (with credit to Sarina Till), University of Cape Town, pages 1–45
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes: defensive programming, automated testing (static analysis, sanitisers, fuzzing), unit tests and TDD, mocking, integration, regression, user acceptance, and security testing.
-
-> [!note] <span style="color:#b89aff">Not examinable</span>
-> The OWASP Top 10 slide has a purple title and is marked not examinable. It is included as a table for reference.
+> Defensive programming (const correctness, validation, assertions, error handling, resource management), automated testing (static analysis, sanitizers, fuzzing), unit tests, TDD and mocking, integration, regression and user acceptance testing, and security testing.
 
 ---
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Types Of Testing And No Silver Bullet|Types Of Testing And No Silver Bullet]]
+  - [[#Types Of Software Testing|Types Of Software Testing]]
   - [[#Defensive Programming Overview|Defensive Programming Overview]]
   - [[#Const Correctness|Const Correctness]]
   - [[#Input Validation|Input Validation]]
   - [[#Assertions And Design By Contract|Assertions And Design By Contract]]
   - [[#Error Handling And Exceptions|Error Handling And Exceptions]]
   - [[#Resource Management And Compiler Warnings|Resource Management And Compiler Warnings]]
-  - [[#Automated Testing: Static Analysis|Automated Testing: Static Analysis]]
-  - [[#Code Sanitisers And Fuzzing|Code Sanitisers And Fuzzing]]
-  - [[#Unit Tests And Coverage|Unit Tests And Coverage]]
+  - [[#Static Analysis|Static Analysis]]
+  - [[#Code Sanitizers|Code Sanitizers]]
+  - [[#Fuzzing|Fuzzing]]
+  - [[#Unit Tests|Unit Tests]]
   - [[#Test-Driven Development|Test-Driven Development]]
-  - [[#Mocking Dependencies|Mocking Dependencies]]
+  - [[#Mock Objects|Mock Objects]]
   - [[#Selecting Test Cases|Selecting Test Cases]]
   - [[#Integration Testing|Integration Testing]]
   - [[#Regression Testing|Regression Testing]]
   - [[#User Acceptance Testing|User Acceptance Testing]]
   - [[#Security Testing|Security Testing]]
+  - [[#Traps And Pitfalls|Traps And Pitfalls]]
 
 ---
 
 ## Core Content
 
-### Types Of Testing And No Silver Bullet
+### Types Of Software Testing
+
+There is no silver bullet: no single kind of testing catches everything.
 
 ![Types of software testing](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/08_Software_Testing/testing-types.svg)
 
-*Functional testing checks what the system does. Non-functional testing checks how well it does it; performance testing splits into load, stress, scalability and volume testing.*
+*Functional testing checks what the system does; non-functional testing checks how well it does it.*
 
-No single technique finds most defects. Defect-detection rates (*Code Complete*, Table 20-2, after Jones and Shull et al.):
-
-| Removal step | Lowest | Modal | Highest |
-|---|---:|---:|---:|
-| Informal design reviews | 25% | 35% | 40% |
-| Formal design inspections | 45% | 55% | 65% |
-| Informal code reviews | 20% | 25% | 35% |
-| **Formal code inspections** | 45% | 60% | **70%** |
-| **Modelling or prototyping** | 35% | 65% | **80%** |
-| Personal desk-checking of code | 20% | 40% | 60% |
-| Unit test | 15% | 30% | 50% |
-| New function (component) test | 20% | 30% | 35% |
-| Integration test | 25% | 35% | 40% |
-| Regression test | 15% | 25% | 30% |
-| System test | 25% | 40% | 55% |
-| Low-volume beta test (<10 sites) | 25% | 35% | 40% |
-| **High-volume beta test (>1000 sites)** | 60% | 75% | **85%** |
-
-Combine several techniques; each catches a different share of defects.
+| Functional testing | Non-functional testing |
+|---|---|
+| Unit testing | Documentation testing |
+| Integration testing | Installation testing |
+| Interface testing | Performance testing — load, stress, scalability, volume |
+| System testing | Reliability testing |
+| Regression testing | Security testing |
+| User acceptance testing | |
 
 ### Defensive Programming Overview
 
 #### Definitions
 
-> **Defensive programming**: Writing code that protects itself against misuse and invalid state, using const correctness, input validation, assertions, error handling and resource management.
+> **Defensive programming**: Writing code that protects itself against misuse and bad input, so errors are caught early and close to their cause.
 
 | Technique | Example |
 |---|---|
-| **Const correctness** | `void setName(const string& newName); string getName() const;` |
-| **Input validation** | `if (uid >= size(Users)) …`, `if (newName == "") …`, `if (size(newName) < 2) …` |
-| **Assertions** | `assert(Users); assert(isValid(Users));` (sanity checks in debug builds) |
-| **Error handling** | `try { internalSetName(uid, newName); } catch …` |
-| **Resource management** | Java `try … finally { file.close(); }`; C++ RAII: `auto file = ifstream(name);` is closed automatically when destroyed |
-
-`assert(newName != nullptr)` is wrong. This check must run at run time in release builds, so it belongs in input validation, not an assertion.
+| Const correctness | `void setName(const string& newName); string getName() const;` |
+| Input validation | `if (uid >= size(Users)) {...}`, `if (newName == "") {...}` |
+| Assertions | `assert(Users); assert(isValid(Users));` |
+| Error handling | `try { internalSetName(uid, newName); } catch ...` |
+| Resource management | `finally { file.close(); }` or RAII |
 
 ### Const Correctness
 
 #### Definitions
 
-> **Const correctness**: Marking what may not change, so the compiler enforces it.
+> **Const correctness**: Marking what must not change (methods, objects, parameters) as constant so the compiler enforces it.
 
-In C++, Rust and similar languages:
-
-- `const` methods cannot change their object.
-- `const` objects cannot be changed.
-- `const` parameters are fixed inside the function body.
-
-Java has no built-in equivalent, but JSR 305 and 308 annotations (`@Readonly`, `@Immutable`, `@Mutable`) work with a checker.
+| Language | Mechanism |
+|---|---|
+| C++, Rust, etc. | `const` methods can't change their object; `const` objects can't be changed; `const` parameters are fixed in the body |
+| Java | Annotations from JSR 305/308 with the Checker Framework: `@ReadOnly`, `@Immutable`, `@Mutable` |
 
 ```cpp
 string Person::getName() const { return name; }
@@ -106,61 +91,69 @@ person.getName();        // succeeds
 person.setName("test");  // does not compile
 
 void doStuff(const int uid) {
-  uid++;                 // does not compile
-  auto nextId = uid + 1; // fine
+    uid++;                  // does not compile
+    auto nextId = uid + 1;  // fine
 }
 ```
 
 ```java
+public String getName(@ReadOnly Person this) { return name; }
+
 @ReadOnly Person person = new Person();
 person.getName();        // succeeds
 person.setName("test");  // does not compile
-public String getName(@ReadOnly Person this) { return name; }
 ```
 
 ### Input Validation
 
-Input validation **must run in release code**. That is what makes it different from assertions.
+Input validation **must run in release code** — unlike assertions.
 
 | Check | Example |
 |---|---|
-| Input within bounds | `if (id < size(P)) …` |
-| Object valid | `if (P && P.isOpen()) …` |
-| Container big enough | `if (size(A) >= size(input)) …` |
-| No SQL injection | `sqlSafe = sanitize(sql);`, or better, **parameterised queries** |
+| Input within bounds | `if (id < size(P)) {...}` |
+| Object valid | `if (P && P.isOpen()) {...}` |
+| Container big enough | `if (size(A) >= size(input)) {...}` |
+| No SQL injection | `sqlSafe = sanitize(sql);` — better, use **parameterised queries** |
 | No HTML injection | `displayTxt = sanitize(userTxt);` |
 
 - Never display raw user input; always sanitise display text.
-- Escaping is hard. Never roll your own; use standard solutions.
+- Escaping is hard: never roll your own; use standard solutions.
 
 ### Assertions And Design By Contract
 
 #### Definitions
 
-> **Assertion**: A check for a condition that should **never** occur in production code. It runs only in debug builds and may be as slow as needed.
+> **Assertion**: A check for a condition that should **never** occur in production code. It runs only in debug builds and can be as slow as you like.
 
-> **Design by contract** (Meyer, 1997; contracts in C++26): Stating pre-conditions and post-conditions for each routine and checking them with assertions.
+> **Design by contract**: Specifying each routine's pre-conditions and post-conditions as checked assertions (Meyer, 1997; contracts are coming to C++26).
 
-```pseudo
+- Assertions are removed in release builds, so **never put action code in an assertion**: `assert(DoAction());` would stop calling `DoAction` in release.
+- Use them for pre-conditions and post-conditions:
+
+```text
 func Velocity(lat, lon, height: float): float;
-  assert(-90 <= lat and lat <= 90);          // pre-conditions
-  assert(0 <= lon and lon < 360);
-  assert(-500 <= height and height <= 75000);
-  ...
-  assert(0 < result and result <= 600);      // post-condition
-  return result;
+    assert(-90 <= lat and lat <= 90);          // pre
+    assert(0 <= lon and lon < 360);
+    assert(-500 <= height and height <= 75000);
+    ...
+    assert(0 < result and result <= 600);      // post
+    return result;
 ```
 
-- **Don't put action code in assertions**: `assert(DoAction());` disappears in release builds, taking the action with it.
-- Assertions can break the debug state when they fire. If so, wrap the same condition in an `if` under `#ifdef _DEBUG` and set a **breakpoint**, which preserves program state:
+A failing assertion can abort and lose the debug state. If so, wrap it in the same condition so a breakpoint preserves program state:
 
-```cpp
+```text
 #ifdef _DEBUG
 if (not(-90 <= lat and lat <= 90)) {   // exactly the same condition
-  assert(-90 <= lat and lat <= 90);    // breakpoint here
+    assert(-90 <= lat and lat <= 90);   // breakpoint here keeps state
 }
-#endif
 ```
+
+| | Input validation | Assertions |
+|---|---|---|
+| Runs in release? | Yes | No (debug only) |
+| Guards against | Bad external input | Programmer errors — "impossible" states |
+| Cost | Must be cheap | Can be slow |
 
 ### Error Handling And Exceptions
 
@@ -168,160 +161,222 @@ There are "2½ schools of thought":
 
 | Approach | Happy path | Error path | Notes |
 |---|---|---|---|
-| **Exceptions** | Zero overhead | Lots of overhead | |
-| **Error codes** | Little overhead | Little overhead | Much harder to get right |
-| **Handle errors on the spot** | — | — | Needs a crystal ball |
+| Exceptions | Zero overhead | Lots of overhead | — |
+| Error codes | Little overhead | Little overhead | Much harder to get right |
+| Handle errors on the spot | — | — | Needs a crystal ball |
 
 ```java
-try { a = file.getData(); ... }
-catch (SomeException e) {
-  // never silently drop errors: do something useful
-  editBox.textColor = clRed;
+try {
+    a = file.getData();
+    ...
+} catch (SomeException e) {
+    // never silently drop errors ("ignore it")
+    // do something useful:
+    editBox.textColor = clRed;
 } finally {
-  file.close();
+    file.close();
 }
 ```
 
-- **Never silently drop errors**.
-- **Don't leak exceptions to the user.** Alan Cooper (*About Face*): error messages are idiotic and should never be used.
-- Instead, **prevent users from making errors**. A slider cannot be in error; a text box can.
+- Never silently swallow errors.
+- Don't leak exceptions to the user. Alan Cooper (*About Face*): error messages are idiotic and should never be used. Instead, **prevent users from making errors** in the first place — a slider cannot be in error, but a text box can.
 
 ### Resource Management And Compiler Warnings
 
-- **Resource management**: release resources deterministically, with `finally` in Java or **RAII** in C++, where the destructor runs at scope exit.
-- **Compiler warnings are your friend.** Compile with full warnings:
+Resources must be released even when errors occur:
 
-| Language | Setting |
-|---|---|
-| C++ MSVC | `/W4` |
-| C++ Clang | `-Wall -Wextra -Wpedantic -Weverything` |
-| C++ GCC | `-Wall -Wextra` |
-| Python | `import warnings; warnings.simplefilter('always')` |
-| Java | IDE-specific, e.g. NetBeans: Show warnings = true; Warnings = All |
-
-### Automated Testing: Static Analysis
-
-#### Definitions
-
-> **Static analysis**: Examining code without running it. **Lint** (Johnson, 1978) is the classic tool and is especially useful for Python.
-
-> **Code smell**: A sign of bad programming practice, i.e. a known antipattern (Fowler, *Refactoring*): duplicated or complex code, poor naming, global variables.
-
-Static analysis checks for:
-
-- **smells** (bad practice)
-- **bugs**: code matching known bug patterns, such as infinite loops or division by zero
-
-Formal proofs of correctness are NP-hard, so they are rarely feasible.
-
-### Code Sanitisers And Fuzzing
-
-#### Definitions
-
-> **Code sanitiser**: A tool that instruments source or compiled code to detect errors at run time. Google's AddressSanitizer appeared in 2012.
-
-> **Fuzzing**: Feeding randomised input into a program to see whether it misbehaves, testing error handling and security (Miller et al., 1990).
-
-| Sanitiser | Detects |
-|---|---|
-| AddressSanitizer | Dangling pointers, reads past the end, use after free |
-| MemorySanitizer | Uninitialised memory |
-| UBSan | Undefined behaviour |
-| LeakSan | Memory allocated but never freed |
-| ThreadSan | Deadlocks, data races |
-
-Fuzzing can be **black-box** or **white-box**. Tools exist for most languages: Python `atheris`, Java `jazzer`, C++ `libFuzzer`.
-
-### Unit Tests And Coverage
-
-#### Definitions
-
-> **Unit test**: A test of a small section of code (often a class or function) in isolation.
-
-> **Test coverage**: How much is exercised by tests: all code (measurable automatically) or all possible inputs (hard).
-
-- Frameworks: Java JUnit; Python `unittest`; C++ Catch2.
-- Tests go in a separate module, usually one test file per source file.
-- The goal is 100% coverage; Python's `coverage` tool measures it.
-
-```cpp
-#include <catch2/catch_test_macros.hpp>
-unsigned factorial(const unsigned n) {
-  assert(n < 13);                  // why this assert?
-  if (n <= 1) { return n; }
-  else return factorial(n) * n;    // code smell
-}
-
-TEST_CASE("Factorials are computed", "[factorial]") {
-  REQUIRE(factorial( 1) == 1);
-  REQUIRE(factorial( 2) == 2);
-  REQUIRE(factorial( 3) == 6);
-  REQUIRE(factorial(10) == 3'628'800);
-  REQUIRE(factorial(13) == 6'227'020'800);  // fail
+```java
+String readFile(String name) {
+    File file = new File(name);
+    try { /* do stuff with file */ }
+    finally { file.close(); }
 }
 ```
 
-- The `assert(n < 13)` is there because $13! = 6\,227\,020\,800$ overflows a 32-bit unsigned (max about $4.29\times10^9$).
-- The recursion `factorial(n) * n` should be `factorial(n - 1) * n`; as written it never terminates.
-- `n <= 1` returning `n` makes `factorial(0) = 0`, but $0! = 1$.
+```cpp
+void rF(const string& name) {
+    auto file = ifstream(name);
+    // do stuff with file
+}   // RAII: ifstream destroyed, file closed automatically
+```
 
-A failing Catch2 run reports the expression and its expansion, e.g. `REQUIRE( binary_search(arr, 176) == 0 )` with expansion `-1 == 0`, then a summary: `test cases: 1 | 1 failed`, `assertions: 5 | 4 passed | 1 failed`.
+#### Definitions
+
+> **RAII (Resource Acquisition Is Initialisation)**: Tying a resource's lifetime to an object's scope, so the destructor releases it automatically.
+
+**Bonus check: compiler warnings are your friend.** Enable all warnings:
+
+| Language | Setting |
+|---|---|
+| C++ (MSVC) | `/W4` |
+| C++ (Clang) | `-Wall -Wextra -Wpedantic -Weverything` |
+| C++ (GCC) | `-Wall -Wextra` |
+| Python | `import warnings; warnings.simplefilter('always')` |
+| Java | IDE-specific, e.g. NetBeans: Project properties → Build → Compiling → Show warnings; Tools → Options → Java → Compiler → Warnings = All |
+
+### Static Analysis
+
+#### Definitions
+
+> **Static analysis**: Automatically examining source code without running it.
+
+> **Code smell**: A sign of bad programming practice (a known antipattern), e.g. duplicated or complex code, poor naming, global variables (Fowler, *Refactoring*, 1999).
+
+**Lint** (S. Johnson, 1978) is the classic tool, and is especially useful for Python. Static analysers check for:
+
+- **smells** — known antipatterns;
+- **bugs** — code matching known bug patterns, such as infinite loops or division by zero.
+
+Formal proofs of correctness are NP-hard, so they are rarely feasible.
+
+### Code Sanitizers
+
+#### Definitions
+
+> **Sanitizer**: A run-time checker that instruments source code (or injects into compiled code) to detect classes of bugs as the program runs. Introduced by Google in 2012 with AddressSanitizer.
+
+| Sanitizer | Detects |
+|---|---|
+| AddressSanitizer | Dangling pointers, reading past the end, use after free |
+| MemorySanitizer | Uninitialised memory |
+| UBSan | Undefined behaviour |
+| LeakSanitizer | Memory allocated but never freed |
+| ThreadSanitizer | Deadlocks, data races |
+
+### Fuzzing
+
+#### Definitions
+
+> **Fuzzing**: Feeding randomised input into a program to check its error handling, see whether it misbehaves, and find security problems (Miller et al., 1990).
+
+- Can be **black-box** (no knowledge of internals) or **white-box** (uses code structure).
+- Tools exist for most languages: Python — `atheris`; Java — Jazzer; C++ — libFuzzer.
+
+### Unit Tests
+
+#### Definitions
+
+> **Unit test**: A test of a small section of code — often a class or function — in isolation.
+
+> **Test coverage**: How much is exercised by tests: all code (measurable automatically) or all possible inputs (hard).
+
+- Frameworks: Java — JUnit; Python — `unittest`; C++ — Catch2.
+- Tests live in a separate module, typically one test file per file under test.
+- The goal is **100% test coverage**. Python's `coverage` tool measures it.
+
+```cpp
+#include <catch2/catch_test_macros.hpp>
+
+unsigned factorial(const unsigned n) {
+    assert(n < 13);                // 13! overflows a 32-bit unsigned
+    if (n <= 1) { return n; }      // bug: 0! should be 1
+    else return factorial(n) * n;  // code smell — should be factorial(n-1)
+}
+
+TEST_CASE("Factorials are computed", "[factorial]") {
+    REQUIRE(factorial(1)  == 1);
+    REQUIRE(factorial(2)  == 2);
+    REQUIRE(factorial(3)  == 6);
+    REQUIRE(factorial(10) == 3'628'800);
+    REQUIRE(factorial(13) == 6'227'020'800);  // fails
+}
+```
+
+A failed test reports the expression and its expansion:
+
+```text
+test.cpp:18: FAILED:
+  REQUIRE( binary_search(arr, 176) == 0 )
+with expansion:
+  -1 == 0
+test cases: 1 | 1 failed
+assertions: 5 | 4 passed | 1 failed
+```
 
 ### Test-Driven Development
 
 #### Definitions
 
-> **Test-driven development (TDD)**: Writing a failing test before the code that makes it pass.
+> **Test-driven development (TDD)**: Writing tests **before** the code they test, then writing just enough code to make them pass.
 
 ![TDD cycle](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/08_Software_Testing/tdd-cycle.svg)
 
-*Stub, write a failing test, implement until it passes, and repeat for each new behaviour. Finally make the tests comprehensive.*
+*Stub the code, write a failing test, implement until it passes, then add tests before each new piece of code.*
 
-1. Write code with no implementation: `unsigned factorial(const unsigned n) { return n; }`
-2. Write tests, which will fail.
-3. Implement until (more) tests pass:
-
+1. Write the code's interface with no implementation:
+```cpp
+unsigned factorial(const unsigned n) { return n; }
+```
+2. Write a test for it — it fails:
+```cpp
+TEST_CASE("Do factorials", "[factorial]") {
+    REQUIRE(factorial(1)  == 1);
+    REQUIRE(factorial(2)  == 2);
+    REQUIRE(factorial(3)  == 6);
+    REQUIRE(factorial(10) == 3'628'800);
+}
+```
+3. Implement the code so (more) tests pass:
 ```cpp
 unsigned factorial(const unsigned n) {
-  auto f = n;                      // should start at 1, or f ends up n * n!
-  for (auto i = 1; i <= n; i++) f *= i;
-  return f;
+    auto f = n;                              // as written this gives n * n!;
+    for (auto i = 1; i <= n; i++) f *= i;    // starting from f = 1 is correct
+    return f;
+}
+```
+4. Before adding code, add tests — they fail:
+```cpp
+REQUIRE(factorial(13) == 6'227'020'800);
+REQUIRE(factorial(21) == {});               // 21! overflows 64 bits
+```
+5. Add code so the tests pass:
+```cpp
+optional<uint64_t> factorial(const uint64_t n) {
+    if (n > 20) { return {}; }   // empty result
+    assert(n <= 20);             // defensive programming
+    ...
+}
+```
+6. Ask "do we have full coverage?" and make the tests comprehensive:
+```cpp
+for (unsigned i = 21; i < UINT32_MAX; i *= 2) {
+    REQUIRE(factorial(i) == {});
 }
 ```
 
-4. Before adding code, add tests (which fail): `REQUIRE(factorial(13) == 6'227'020'800); REQUIRE(factorial(21) == {});`
-5. Add code so the tests pass: `optional<uint64_t> factorial(const uint64_t n) { if (n > 20) return {}; assert(n <= 20); … }`. $20!$ is the largest factorial that fits in 64 bits.
-6. Ask "do we have full coverage?" and make the tests comprehensive, e.g. loop over `i = 21, 42, 84, …` checking `factorial(i) == {}`.
-
-### Mocking Dependencies
+### Mock Objects
 
 #### Definitions
 
-> **Mock object**: A stand-in for a component that is not yet implemented or is hard to use in tests (a dummy database or API). It records how it was called.
+> **Mock object**: A stand-in for a component that isn't implemented yet (or is expensive), such as a dummy database or API, that records how it is called and returns programmed values.
 
-Tools: Java Mockito; Python `unittest.mock`.
+Tools: Java — Mockito; Python — `unittest.mock`.
 
 ```python
 from unittest.mock import Mock
+
 json = Mock()
-json.loads('{"key": "value"}')          # "magically" works
+json.loads('{"key": "value"}')     # will magically work
 json.loads.assert_called()
 json.loads.assert_called_once()
 json.loads.assert_called_with('{"key": "value"}')
 json.loads.assert_called_once_with('{"key": "value"}')
 ```
 
-Mocking makes time-dependent code testable:
+Mocks make non-deterministic code testable:
 
 ```python
+from datetime import datetime
 from unittest.mock import Mock
+
 datetime = Mock()
 
 def is_weekday(d):
     today = d.today()
-    return (0 <= today.weekday() < 5)   # Monday = 0 … Sunday = 6
+    # Python's datetime treats Monday as 0 and Sunday as 6
+    return (0 <= today.weekday() < 5)
 
-datetime.today.return_value = wednesday
+datetime.today.return_value = wednesday   # mock today() to return Wednesday
 assert is_weekday(datetime)
 datetime.today.return_value = sunday
 assert not is_weekday(datetime)
@@ -329,93 +384,126 @@ assert not is_weekday(datetime)
 
 ### Selecting Test Cases
 
-#### Definitions
-
-> **Partition testing**: Group possible inputs and outputs into categories (partitions) and test each, looking especially for **edge cases** at partition boundaries.
-
-> **Guideline testing**: Choose test cases based on known failure points.
+| Strategy | Approach |
+|---|---|
+| **Partition testing** | Group possible inputs and outputs into categories (partitions) and look for edge cases at their boundaries |
+| **Guideline testing** | Choose test cases from known failure points (experience of where programs commonly fail) |
 
 ### Integration Testing
 
 #### Definitions
 
-> **Integration testing**: Testing the interactions between modules and classes. It is the same idea as unit testing at a higher level; unit tests test a class or function in isolation.
-
-A unit test can pass for each part while the assembled whole fails, like a door latch that works but is mounted where it cannot reach the frame.
+> **Integration testing**: Testing the interactions between modules and classes — like unit testing, but at a higher level. Unit testing checks a class or function in isolation.
 
 ![Integration approaches](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/08_Software_Testing/integration-approaches.svg)
 
-*Big-bang tests everything at once. Incremental approaches test in phases: top-down, bottom-up, or sandwich (both together).*
+*Big-bang integrates everything at once; incremental approaches integrate in phases from the top, the bottom, or both.*
+
+| Approach | How |
+|---|---|
+| **Big-bang** | Everything at once |
+| **Incremental** | Tested in phases: |
+| — Top-down | Higher-level modules first (lower ones stubbed) |
+| — Bottom-up | Lower-level modules first (higher ones driven by test harnesses) |
+| — Sandwich | Higher and lower levels together |
 
 ### Regression Testing
 
 #### Definitions
 
-> **Regression testing**: After adding code, rerun all the old tests, fix any breakage, and add new tests as needed.
+> **Regression testing**: Re-running old tests after changes to make sure existing behaviour hasn't broken.
 
-Three steps from the source: **retest all**, **regression test selection**, and **prioritisation of test cases**.
+When you add new code:
 
-![Regression testing types](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/08_Software_Testing/regression-types.svg)
+1. Rerun all your old tests.
+2. Fix any breakage.
+3. Add new tests as needed.
 
-*Seven types: corrective, retest-all, selective, progressive, complete, partial and unit regression testing.*
+![Types of regression testing](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/08_Software_Testing/regression-types.svg)
+
+*Regression testing ranges from rerunning everything to selecting only the tests the change can affect.*
+
+| Type | Scope |
+|---|---|
+| Corrective | Reuse existing tests when the specification hasn't changed |
+| Retest-all | Rerun every test |
+| Selective | Rerun only tests affected by the change |
+| Progressive | New tests for changed specifications |
+| Complete | Full retest after major changes |
+| Partial | Test the changed part and its interactions |
+| Unit | Rerun the unit tests of the changed unit only |
 
 ### User Acceptance Testing
 
 #### Definitions
 
-> **User acceptance testing (UAT)**: The testing phase that ensures software is ready for production. It checks that the software is what the user wanted, is usable, matches user stories (functional), and can be used and maintained (operational).
+> **User acceptance testing (UAT)**: The testing phase that ensures software is ready for production — that it is what the user wanted, and is usable and user-friendly.
 
-> **Alpha testing**: Testing late prototypes in the software house or with "super users".
-
-> **Beta testing**: Testing with end users of the system.
-
-| Usability testing | User acceptance testing |
+| Aspect | Check |
 |---|---|
-| Measures ease of access | Validates the requirements document from a real user's perspective |
-| Done towards the middle and end of the SDLC | Done at the end of the SDLC |
-| Focuses on behaviour, experience and goals | Focuses on functionality |
-| Can be expensive | Not that expensive |
-| Satisfaction, memorability, desirability, credibility | Compatibility, roadmap validation, test-support processes |
+| Functional | Matches the user stories (Agile/XP) |
+| Operational | The system can be used and maintained |
 
-Both cover errors, efficiency and learnability.
+Alpha and beta tests are late, usable prototypes:
+
+| | Alpha testing | Beta testing |
+|---|---|---|
+| Where / who | In the software house, or with "super users" | With end users of the system |
+
+**Usability testing versus UAT**:
+
+| | Usability testing | User acceptance testing |
+|---|---|---|
+| Purpose | Measure ease of access | Validate the requirements document from a real user's perspective |
+| When | Middle to end of the SDLC | End of the SDLC |
+| Focus | Behaviour, experience and goals | Functionality |
+| Cost | Can be expensive | Not that expensive |
+| Measures | Satisfaction, memorability, desirability, credibility | Compatibility, roadmap validation, test support processes |
+| Shared | Errors, efficiency, learnability | (same) |
 
 ### Security Testing
 
-Kinds of security testing include vulnerability scanning, security scanning, penetration testing, risk assessment, security auditing, ethical hacking and posture assessment.
+Security must be built in from the start, for example:
 
-**Security must be built in from the start**:
+- parameterised queries, not cut-and-paste SQL;
+- never displaying unescaped HTML;
+- salted password hashes, with a different salt per user ID;
+- strong cryptographic functions (e.g. post-quantum Kyber rather than RSA);
+- not keeping passwords in memory.
 
-- parameterised queries, not cut-and-paste SQL
-- never display unescaped HTML
-- salted password hashes, with a different salt per user ID
-- strong cryptographic functions (post-quantum Kyber rather than RSA)
-- do not keep passwords in memory
+**OWASP Top 10 (2021):**
+
+| Rank | Vulnerability (change) | Fix |
+|---|---|---|
+| A01 | Broken access control (↑5) | Deny by default |
+| A02 | Cryptographic failures (=2) | Encrypt data in transit and at rest |
+| A03 | Injection (↓1) | Safe APIs; whitelist input validation |
+| A04 | Insecure design (new) | "Shift left" |
+| A05 | Security misconfiguration (↑6) | Secure installation process |
+| A06 | Vulnerable and outdated components (↑9) | Patch management; signed components |
+| A07 | Identification and authentication failures (↓2) | Multi-factor authentication; no back doors |
+| A08 | Software and data integrity failures (new) | Signed software |
+| A09 | Security logging and monitoring failures (↑10) | Log everything and keep the logs |
+| A10 | Server-side request forgery (new) | Sanitise and whitelist |
 
 #### Definitions
 
-> **Shift left**: Moving testing, security and quality earlier in the process: into design before code, and into code before test.
-
-> **Penetration testing**: Simulating attempts to breach security to discover vulnerabilities. MobSF is an open-source pen-testing tool, shown in the source auditing an Android APK.
+> **Shift left**: Moving testing, security and quality earlier in the process — into design before code, and into code before test.
 
 - Unit tests should also test for security and quality issues.
-- Run sanitisers regularly (AddressSan, UBSan, MemSan); it is cheap and easy.
+- Run sanitizers regularly (AddressSan, UBSan, MemSan, …) — cheap and easy.
 - Security in particular is nearly impossible to fix in late stages.
-- **Continuous integration** on GitHub can run **CodeQL** to analyse code for security flaws.
 
-OWASP Top 10 (2021), not examinable:
+> **Penetration testing (pen testing)**: Simulating attempts to breach security to discover vulnerabilities. MobSF is an open-source tool supporting it.
 
-| Problem | Fix |
-|---|---|
-| A01 Broken access control | Deny by default |
-| A02 Cryptographic failures | Encrypt data in transit and at rest |
-| A03 Injection | Safe APIs; input whitelisting |
-| A04 Insecure design (new) | "Shift left" |
-| A05 Security misconfiguration | Secure installation process |
-| A06 Vulnerable and outdated components | Patch management; signed components |
-| A07 Identification and authentication failures | Multi-factor authentication; no backdoors |
-| A08 Software and data integrity failures (new) | Signed software |
-| A09 Security logging and monitoring failures | Log everything and keep the logs |
-| A10 Server-side request forgery (new) | Sanitise and whitelist |
+Security audits report vulnerabilities systematically. In continuous integration, GitHub integrates easily with **CodeQL** to analyse code for security flaws.
 
-> [!warning] <span style="color:#ffc778">Traps and pitfalls</span>
-> "It is not enough to be busy; the question is what are we busy about?" (Thoreau). Many tests that never exercise the real failure are like mousetraps without cheese. "Absence of proof is not proof of absence" (Cowper): passing tests do not prove there are no bugs.
+### Traps And Pitfalls
+
+> "It is not enough to be busy; the question is, what are we busy about?" — Henry David Thoreau
+
+More traps don't help if they target the wrong thing (a mouse that doesn't like cheese): test what actually matters.
+
+> "Absence of proof is not proof of absence." — William Cowper
+
+Passing tests don't prove there are no bugs — only that the tests didn't find any.

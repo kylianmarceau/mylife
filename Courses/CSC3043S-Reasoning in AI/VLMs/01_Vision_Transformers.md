@@ -87,6 +87,10 @@ So to process images we "only" replace the front of the pipeline, answering two 
 1. What plays the role of a **token**? (Part I)
 2. What plays the role of **position**? (Part II)
 
+![Text versus image pipeline](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/text-vs-image-pipeline.svg)
+
+*Images reuse the whole Transformer; only the front changes: patchify and project instead of tokenize and look up.*
+
 ### Why not attend over pixels
 
 The simplest idea is one pixel per token. It fails on cost and meaning.
@@ -110,6 +114,10 @@ We need a coarser token: big enough to mean something, cheap enough to compute. 
 
 Reading patches in raster order **throws away spatial layout**; positional encodings must put it back.
 
+![Patchify and raster order](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/patchify.svg)
+
+*A $224 \times 224$ image with $P = 32$ becomes a $7 \times 7$ grid of patches, read row by row into a sequence of 49 tokens.*
+
 ### Patch embedding: flatten and project
 
 #### Definitions
@@ -131,7 +139,7 @@ Projection by $E$ is equivalent to a `Conv2d` with kernel $E$ and stride $P$.
 
 ![Patch embedding](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/patch-embedding.svg)
 
-*A $224 \times 224 \times 3$ image becomes 196 patches of $16 \times 16 \times 3$; each flattens to 768 values and is projected by the shared $E$ to a $D$-dimensional token.*
+*A $16 \times 16 \times 3$ patch flattens to 768 values and one shared learned matrix $E$ projects it to a $D$-dimensional token, the analogue of an embedding lookup.*
 
 ### ViT-B/16 at a glance
 
@@ -169,9 +177,9 @@ This is essentially the difference between BERT's input and ViT's input.
 
 ### The complete Vision Transformer
 
-![ViT encoder](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/vit-encoder.svg)
+![Vision Transformer architecture](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/vit-architecture.svg)
 
-*Patch embeddings and a learned `[CLS]` are concatenated and given position embeddings, pass through encoder blocks (attention + MLP), and the final `[CLS]` goes to a classification head.*
+*Projected patches plus a learned `[CLS]`, each with a position embedding, pass through $L$ pre-norm encoder blocks; the final `[CLS]` feeds an MLP classification head.*
 
 - Each encoder block is **identical to the text encoder**: multi-head self-attention + MLP, LayerNorm, residuals.
 - Every patch attends to every patch from layer 1: a **global receptive field immediately**. A CNN needs many layers to see the whole image.
@@ -202,6 +210,10 @@ The core ViT here targets **image classification**, not object detection or segm
 > **Permutation equivariance**: Reordering the input tokens reorders the outputs identically and changes nothing else. Self-attention has this property.
 
 Without positions a ViT sees a **bag of patches**: a scrambled image and the original are the same input.
+
+![Bag of patches](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/bag-of-patches.svg)
+
+*Shuffling the patches gives exactly the same set of tokens, so a position-free Transformer cannot tell the two images apart.*
 
 - In text, losing order is problematic ("dog bites man").
 - In vision, spatial arrangement contains all the information. Pixel-level shuffling destroys it; patch-level shuffling is less severe but still loses accuracy.
@@ -244,6 +256,10 @@ Comparing each of the $7 \times 7$ learned position embeddings to all 49 (cosine
 | Row/column structure | Same-row and same-column patches are similar (a bright cross through each cell) |
 | Smooth distance decay | Similarity falls off gradually with 2D distance |
 
+![Position embedding similarity](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/position-similarity.svg)
+
+*Each small square shows one position embedding's similarity to all 49: brightest at its own location, high along its row and column, and fading with distance (schematic).*
+
 The model infers grid geometry from image statistics. Hand-designed 2D encodings gain almost nothing, so the simple 1D embedding is used.
 
 ### Changing resolution by interpolation
@@ -254,13 +270,9 @@ $E_{\text{pos}}$ has exactly $N$ rows. A larger image gives more patches with no
 2. Treat them as samples of a smooth 2D function and **bicubically interpolate** to the new grid, e.g. $10 \times 10 \times D$.
 3. Flatten back to a sequence and restore `[CLS]`.
 
-![Position interpolation](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/position-interpolation.svg)
+![Position embedding interpolation](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/position-interpolation.svg)
 
-*49 positions ($7 \times 7 \times D$) are interpolated in 2D to 100 positions ($10 \times 10 \times D$), then flattened with `[CLS]` restored.*
-
-![Spatial position grids](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/spatial-position-grids.svg)
-
-*Interpolating the grid changes resolution while preserving the spatial arrangement the embeddings learned.*
+*The learned $7 \times 7$ position grid is bicubically interpolated to $10 \times 10$ for a higher-resolution input, with no retraining.*
 
 - It works because of the learned locality and smoothness. It is the standard trick for fine-tuning ViTs at higher resolution.
 - Interpolation shifts effective patch geometry; a short fine-tune at the new resolution recovers (and usually improves) accuracy.
@@ -292,9 +304,9 @@ Every scheme answers: how should attention between two patches depend on their s
 
 ### Data scale: why ViT needs data
 
-![Data scale trend](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/data-scale-trend.svg)
+![ViT versus CNN data scale](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/data-scale.svg)
 
-*Qualitatively: CNN biases help with less data, while large ViTs benefit more from scale and overtake at web-scale data.*
+*On ImageNet alone the BiT ResNets win; at JFT-300M scale large ViTs overtake them (approximate values).*
 
 **BiT** is a very deep ResNet (convolutional) vision model.
 
@@ -315,7 +327,7 @@ ViT is also $2$-$4\times$ cheaper to pre-train at matched accuracy. So modality-
 
 ![Residual block](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/residual-block.svg)
 
-*The block adds its learned residual $F(x)$ to an identity (or projected) shortcut of $x$.*
+*The input skips around the convolution block and is added to its output, so the block can fall back to the identity.*
 
 - Stacking residual blocks lets exceptionally deep CNNs train stably with great expressive power.
 - The skip connection makes it easy to learn an **identity map**: capacity is only used when needed.
@@ -331,6 +343,10 @@ ViT is also $2$-$4\times$ cheaper to pre-train at matched accuracy. So modality-
 |---|---|
 | Early layers | Heads split: some act like small conv kernels (local), others are already global |
 | Deep layers | All heads are global |
+
+![Mean attention distance](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/attention-distance.svg)
+
+*In early layers some heads look locally (CNN-like) and others globally; by the deep layers every head is global (schematic).*
 
 Locality is useful, so ViT learns it where needed but is never limited by it. The CNN inductive bias is a special case ViT can discover.
 
@@ -365,9 +381,9 @@ Goal: train a competitive ViT on ImageNet-1k only (1.3M images), on one machine,
 1. **Aggressive augmentation and regularization**: RandAugment, Mixup, CutMix, random erasing, stochastic depth. Synthetic diversity substitutes for a massive unique dataset.
 2. **Learn the missing inductive bias from a CNN teacher**: add `[DIST]` to the input patch embeddings; train with a ground-truth cross-entropy loss on the `[CLS]` prediction plus a distillation loss on the `[DIST]` prediction (teacher vs ViT student).
 
-![DeiT distillation](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/distillation.svg)
+![DeiT distillation](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/01_Vision_Transformers/deit-distillation.svg)
 
-*The `[CLS]` output is trained on ground-truth labels; the `[DIST]` output is trained on the CNN teacher's predictions.*
+*The `[CLS]` output learns from ground-truth labels, while the `[DIST]` output learns from a pretrained CNN teacher, transferring its inductive biases.*
 
 - The CNN's locality and translation knowledge transfers into the ViT through this loss.
 - **Result**: DeiT-B reaches $\approx 83.4\%$ ImageNet top-1 with no external data, making ViT training practical for many more groups.

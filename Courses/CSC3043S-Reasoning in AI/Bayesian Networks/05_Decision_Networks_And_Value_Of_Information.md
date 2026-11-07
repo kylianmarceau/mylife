@@ -72,9 +72,9 @@ Properties of utilities:
 
 **Example**: decide whether to take an umbrella when going outside. What is the utility of taking an umbrella if it rains, versus if it is sunny?
 
-![Umbrella decision network](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/05_Decision_Networks_And_Value_Of_Information/umbrella-influence.svg)
+![Umbrella decision network](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/05_Decision_Networks_And_Value_Of_Information/umbrella-network.svg)
 
-*Weather affects the forecast and the utility. The umbrella decision also affects utility. The forecast is observable; the weather is not.*
+*Weather (chance) influences the forecast and the utility; the Umbrella decision (rectangle) also feeds the utility (diamond). The forecast is observed; the weather is not.*
 
 ### Node types
 
@@ -195,9 +195,9 @@ $\text{MEU} = -100$: with no information, always repair.
 
 **Add the information link $T \rightarrow D$.** The link only says $T$ will be known when deciding. The answer becomes a decision table.
 
-![Repair decision network with information link](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/05_Decision_Networks_And_Value_Of_Information/repair-policy.svg)
+![Repair network with information link](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/05_Decision_Networks_And_Value_Of_Information/repair-network.svg)
 
-*Fault influences the test result and the utility. The information link from Test to Repair makes the test result available before choosing.*
+*Fault influences the test result and the utility; Repair also affects utility. The dashed information link means the test result is known before choosing.*
 
 **Case $T = \text{pos}$:**
 
@@ -229,6 +229,10 @@ $$
 $$
 
 The two observations ($0.692$ and $0.027$) fall on opposite sides of $0.1$.
+
+![Repair threshold](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/05_Decision_Networks_And_Value_Of_Information/repair-threshold.svg)
+
+*Repair is optimal when $P(\text{faulty} \mid T) > 0.1$. A negative test ($0.027$) falls below the threshold and a positive test ($0.692$) above it, so the test changes the decision.*
 
 **What is the test worth?** Average the MEU of each branch over $P(T)$:
 
@@ -274,3 +278,7 @@ $$
 $$
 \text{VPI}(F) = \text{MEU}(F) - \text{MEU}(\varnothing) = 77.8 - 70 = 7.8
 $$
+
+![VPI of the forecast](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/05_Decision_Networks_And_Value_Of_Information/vpi-forecast.svg)
+
+*Observing the forecast first gives MEU 95 (good, leave) or 53 (bad, take); weighted by $P(F)$ that is $77.8$, versus $70$ without it, so $\text{VPI}(F) = 7.8$.*

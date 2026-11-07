@@ -35,9 +35,9 @@ tags:
 
 The alarm network has CPTs $P(B)$, $P(E)$, $P(A \mid B, E)$, $P(J \mid A)$, and $P(M \mid A)$.
 
-![Alarm network](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/03_Bayesian_Network_Inference/alarm-network.svg)
+![Alarm network query](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/03_Bayesian_Network_Inference/alarm-query.svg)
 
-*Burglary and earthquake are parents of Alarm; Alarm is the parent of both calls.*
+*For $P(B \mid +j, +m)$, $B$ is the query, $J$ and $M$ are observed evidence (shaded), and $E$ and $A$ are hidden variables to sum out.*
 
 Typical queries:
 
@@ -88,9 +88,7 @@ The result is then multiplied by $\frac{1}{Z}$ to normalize over $B$.
 
 Inference by enumeration can be reframed as operations on factors. The running example is a chain $R \rightarrow T \rightarrow L$ (rain, traffic, late).
 
-![R to T to L chain](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/03_Bayesian_Network_Inference/factor-chain.svg)
-
-*Rain influences traffic, which influences whether you are late ($L$).*
+*The chain is $R \rightarrow T \rightarrow L$: rain influences traffic, which influences whether you are late ($L$).*
 
 | $R$ | $P(R)$ |
 |---|---|
@@ -181,6 +179,10 @@ Summing $R$ out of $P(R, T)$:
 | Inference by enumeration | All joins first, then all eliminations | $P(R, T, L)$, 8 entries |
 | Variable elimination | Join on a variable, eliminate it, repeat | $P(R, T)$ or $P(T, L)$, 4 entries |
 
+![Enumeration versus variable elimination](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/03_Bayesian_Network_Inference/enumeration-vs-ve.svg)
+
+*Enumeration joins everything into the 8-entry $P(R, T, L)$ before summing. Variable elimination joins and sums out one variable at a time, so no factor exceeds 4 entries.*
+
 VE on the chain:
 
 1. Join $R$: $P(R) \times P(T \mid R) \rightarrow P(R, T)$.
@@ -237,6 +239,10 @@ Query: $P(B \mid j, m) \propto P(B, j, m)$. Initial factors: $P(B)$, $P(E)$, $P(
 4. Remaining factors: $P(B)$, $P(j, m \mid B)$.
 5. **Finally $B$.** Join into $P(j, m, B)$ and normalize to get $P(B \mid j, m)$.
 
+![Variable elimination on the alarm network](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/03_Bayesian_Network_Inference/ve-alarm.svg)
+
+*Eliminating $A$ produces $f_1(B, e, j, m)$; eliminating $E$ produces $f_2(B, j, m)$; joining with $P(B)$ and normalizing gives the answer.*
+
 The same computation in equations:
 
 $$
@@ -265,9 +271,9 @@ The elimination order changes the computational cost. Complexity depends critica
 | $X_1, X_2, Z$ | Every generated factor has one variable, size 2 |
 | $Z$ first | Joining on $Z$ connects its children, giving a factor of size 4 |
 
-![Eliminating a shared parent early](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/03_Bayesian_Network_Inference/elimination-order.svg)
+![Elimination order](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/03_Bayesian_Network_Inference/elimination-order.svg)
 
-*$Z$ is shared by every $X_i$. Eliminating $Z$ first creates one factor over all its children; eliminating the $X_i$ first keeps every factor small.*
+*$Z$ is shared by every $X_i$. Eliminating $Z$ first creates one factor over all its children ($2^{n+1}$ entries); eliminating the $X_i$ first keeps every factor at 2 variables.*
 
 **General query** $P(X_n \mid y_1, \dots, y_n)$ on the same structure:
 

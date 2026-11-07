@@ -5,247 +5,341 @@ tags:
 
 # Introduction To Algorithms
 
-**Subject**: CSC3003S Advanced Programming — Theory of Algorithms (TOA)  
-**Source**: [1 - TOA Introduction.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/TOA/1%20-%20TOA%20Introduction.pdf), Patrick Marais, University of Cape Town, PDF pages 1–25  
-**Generated**: 2026-10-02
+**Subject**: CSC3003S Advanced Programming — Theory of Algorithms (TOA)
+**Source**: [1 - TOA Introduction.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/TOA/1%20-%20TOA%20Introduction.pdf), Patrick Marais, University of Cape Town, pages 1–25
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes. Examples and corrections appear beside the relevant concept.
+> Opening TOA lecture: what an algorithm is, design principles, the main design strategies, and three worked comparisons (Fibonacci, GCD).
 
 ---
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Algorithms And Correctness|Algorithms And Correctness]]
-  - [[#Design, Analysis And Problem Domains|Design, Analysis And Problem Domains]]
-  - [[#Algorithm Design Strategies|Algorithm Design Strategies]]
-  - [[#Fibonacci: Recursion, Tables And Rolling Storage|Fibonacci: Recursion, Tables And Rolling Storage]]
-  - [[#Fibonacci By Formula And Numerical Accuracy|Fibonacci By Formula And Numerical Accuracy]]
+  - [[#What Is An Algorithm?|What Is An Algorithm?]]
+  - [[#Algorithm Features|Algorithm Features]]
+  - [[#When A Better Algorithm Is Worth It|When A Better Algorithm Is Worth It]]
+  - [[#Algorithm Design Basics|Algorithm Design Basics]]
+  - [[#History Of Algorithms|History Of Algorithms]]
+  - [[#Typical Problem Domains|Typical Problem Domains]]
+  - [[#Types Of Algorithms (Design Strategies)|Types Of Algorithms (Design Strategies)]]
+  - [[#Fibonacci: Brute-Force Recursion|Fibonacci: Brute-Force Recursion]]
+  - [[#Fibonacci: Iterative Table Versions|Fibonacci: Iterative Table Versions]]
+  - [[#Fibonacci: Closed-Form Formula|Fibonacci: Closed-Form Formula]]
   - [[#Greatest Common Divisor|Greatest Common Divisor]]
-  - [[#Course Resources And Study Expectations|Course Resources And Study Expectations]]
+  - [[#Course Resources, Tests And Practicals|Course Resources, Tests And Practicals]]
 
 ---
 
 ## Core Content
 
-### Algorithms And Correctness
+### What Is An Algorithm?
 
 #### Definitions
 
-> **Algorithm**: A finite sequence of unambiguous, effective instructions that solves a well-defined problem and produces a correct result for every valid input.
+> **Algorithm**: A sequence of unambiguous instructions for solving a well-defined problem. An algorithm is guaranteed to terminate if the input is valid.
 
-> **Valid input**: Input satisfying the algorithm's stated preconditions.
+> **Valid input**: An input that belongs to the clearly specified range of inputs the algorithm is designed for.
 
-> **Correctness**: The guarantee that an algorithm returns the required output when its input satisfies those preconditions.
+An algorithm sits between a problem and a running program. The problem specification says what must be computed; the algorithm says how; the implementation is the algorithm written in a particular language.
 
-An algorithm describes a method; a program implements it in a language. The same algorithm can have several representations, and the same problem can have several algorithms with different costs.
+![Problem, algorithm and implementation](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/01_Introduction/problem-model.svg)
 
-| Feature | Requirement |
+*An algorithm maps every valid input of the problem to a correct output; the implementation is one concrete realisation of it.*
+
+The lecture opens with a challenge: can you write an algorithm that takes any program as input and decides whether that program stops for every input? This is the **halting problem**, and the answer is no. No algorithm can decide halting for all programs, so some well-defined problems have no algorithm at all.
+
+Key points about the notion of an algorithm:
+
+- Each step must be unambiguous.
+- The range of inputs must be specified carefully.
+- The same algorithm can be represented in different ways (pseudocode, flowchart, code in several languages).
+- Several different algorithms may solve the same problem, each with different properties (speed, memory, simplicity).
+
+### Algorithm Features
+
+Every algorithm must have these five features:
+
+| Feature | Meaning |
 |---|---|
-| Finite | Terminates after finitely many steps on every valid input |
-| Definite | Every instruction has an unambiguous meaning |
-| Input | Clearly specifies the allowed input domain |
-| Output | Produces the required result, with a correctness argument |
-| Effective | Uses elementary steps that can actually be carried out |
+| **Finite** | Terminates after a finite number of steps |
+| **Definite** | Rigorously and unambiguously specified |
+| **Input** | Valid inputs are clearly specified |
+| **Output** | Can be proved to produce the correct output given a valid input |
+| **Effective** | Steps are sufficiently simple and basic to be carried out (comprehensibility) |
 
-A terminating implementation can still return the wrong result. Correctness requires both a suitable result and termination.
+### When A Better Algorithm Is Worth It
 
-The **halting problem** asks whether a program terminates on a specified input. No algorithm decides this for every possible program and input. This limits what algorithms can compute, rather than how fast they compute it.
+Faster algorithms are usually desirable, but there is no point in finding the fastest algorithm if:
 
-![Problem, algorithm, input and output](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/01_Introduction/problem-model.svg)
+- That part of the system is not the **bottleneck**, so speeding it up does not speed up the whole system.
+- The program will only be run very few times, e.g. reconciling and merging two databases when two companies merge.
+- Time is not an issue, e.g. the job can run overnight.
 
-*An algorithm turns a problem specification into executable steps mapping valid inputs to outputs.*
-
-### Design, Analysis And Problem Domains
+### Algorithm Design Basics
 
 #### Definitions
 
-> **Pseudocode**: A language-independent description of an algorithm's instructions.
+> **Pseudocode**: A language-neutral, semi-formal description of an algorithm's steps, used to specify algorithms without committing to a programming language.
 
-> **Time efficiency**: The amount of computation needed as a function of input size.
+> **Generality**: How wide a range of inputs (including special cases) an algorithm handles.
 
-> **Space efficiency**: The memory needed as a function of input size, usually counting additional storage separately from the input.
+> **Optimality**: The property that no other algorithm for the problem can do better (for the measure being considered).
 
-> **Optimal algorithm**: An algorithm whose cost cannot be improved within the stated problem and computational model.
+> **Efficiency**: How much time and space an algorithm uses, determined through formal algorithm analysis.
 
-1. Understand the problem, including inputs, outputs and special cases.
-2. Choose the computational model, exact or approximate solving, a design technique and data structures.
-3. Specify the algorithm, normally using pseudocode.
-4. Prove correctness; revisit the design if the argument fails.
-5. Analyse time and space; revisit choices if the cost is unsuitable.
-6. Implement the algorithm.
+Designing an algorithm involves:
+
+1. **Specify the algorithm**, typically in pseudocode. The data structures chosen are just as important as the steps.
+2. Apply the **design principles**:
+   - **Simplicity** — easier to understand, prove and implement.
+   - **Generality** — handles the full range of inputs and special cases.
+   - **Optimality** — no other algorithm can do better.
+3. Perform **formal algorithm analysis** of efficiency in time and space.
 
 ![Algorithm design workflow](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/01_Introduction/design-workflow.svg)
 
-*Correctness and efficiency checks can send the design back to earlier choices.*
+*Design is iterative: failing a correctness proof or an efficiency analysis sends you back to revise earlier choices.*
 
-Design aims include **simplicity**, **generality** across valid inputs, and optimality. Data structures affect both clarity and cost.
+### History Of Algorithms
 
-Optimisation is useful when this computation is a bottleneck. A faster method may not justify its development effort for a one-off database merge, a rarely used operation, or a task that can run overnight.
+| When | Who | Contribution |
+|---|---|---|
+| 1600 BC | Babylonians | Algorithms for factorisation and square roots |
+| 300 BC | Euclid | Several algorithms, including the GCD algorithm below |
+| 780–850 AD | Muḥammad ibn Mūsā al-Khwārizmī | Contributions to algebra and decimal numbers; the word "algorithm" comes from the Latin form of his name |
+| Medieval Italy | Leonardo Fibonacci | Introduced the decimal system to the West and defined the Fibonacci series |
 
-| Domain | Typical tasks |
+### Typical Problem Domains
+
+| Domain | Examples |
 |---|---|
-| Sorting and searching | Order records; find a key |
-| String processing | Find a pattern in text |
-| Graph problems | Find routes or dependencies |
-| Combinatorial problems | Generate permutations or subsets |
-| Computational geometry | Closest pair; convex hull |
-| Numerical problems | Linear systems; matrix multiplication; random numbers |
+| Sorting and searching | Ordering lists, finding a key |
+| String processing | Pattern matching in text |
+| Graph problems | GPS: fewest roads or shortest path from A to B |
+| Combinatorial problems | Listing all permutations of a set |
+| Geometric problems | Closest pair, convex hull |
+| Numerical problems | Solving systems of equations, random numbers, matrix multiplication |
 
-Babylonian procedures for factorisation and square roots and Euclid's GCD method are early algorithms. The word algorithm derives from the Latinised name of al-Khwārizmī.
+### Types Of Algorithms (Design Strategies)
 
-### Algorithm Design Strategies
+These strategies structure the rest of the TOA section:
+
+| Strategy | Core idea |
+|---|---|
+| **Brute force** | Follow the definition directly; try all possibilities |
+| **Decrease and conquer** | Solve a larger instance in terms of one smaller instance |
+| **Divide and conquer** | Break the problem into distinct (non-overlapping) subproblems |
+| **Transformation** (transform and conquer) | Convert the problem into another, easier one |
+| **Space/time trade-off** | Use additional data structures to save time |
+| **Dynamic programming** | Break the problem into *overlapping* subproblems and store their answers |
+| **Greedy** | Repeatedly do what is best right now |
+
+### Fibonacci: Brute-Force Recursion
 
 #### Definitions
 
-> **Design strategy**: A reusable way to organise the solution of a class of problems.
+> **Fibonacci series**: $0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, \dots$, where each term is the sum of the two before it.
 
-| Strategy | Core idea | Example |
+The recurrence is:
+
+$$
+F_n =
+\begin{cases}
+0 & n = 0 \\
+1 & n = 1 \\
+F_{n-1} + F_{n-2} & n > 1
+\end{cases}
+$$
+
+The brute-force solution translates the definition directly into code. It looks fine:
+
+```java
+public long fibo(long n) {
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    return fibo(n-1) + fibo(n-2);
+}
+```
+
+The problem is that it recomputes the same values again and again. Each call spawns two more calls, so the number of calls grows exponentially in $n$. Computing $F(100)$ this way is hopeless.
+
+![Fibonacci recursion tree for F(6)](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/01_Introduction/fibonacci-tree.svg)
+
+*The call tree for $F(6)$: $F(4)$ is computed twice, $F(3)$ three times, and $F(2)$ five times.*
+
+### Fibonacci: Iterative Table Versions
+
+**Version 1** fills an array bottom-up, so each value is computed exactly once. This takes $n-1$ additions, i.e. linear time and linear space.
+
+```text
+Fibo(n):
+// Computes nth Fibonacci number
+// Input: Non-negative integer n
+// Output: nth Fibonacci number
+F[0] = 0
+F[1] = 1
+for i = 2 to n do:
+    F[i] = F[i - 1] + F[i - 2]
+return F[n]
+```
+
+**Version 2** keeps only the last few values in a 3-element rolling table and uses `BigInteger`:
+
+```java
+public BigInteger fibo(int n) {
+    if (n==0) return 0; if (n==1) return 1;
+    BigInteger [] table = new BigInteger[3];
+    table[0] = new BigInteger("0");
+    table[1] = new BigInteger("1");
+    for (int i=2; i<n; i++) {
+        table[2] = table[1].add(table[0]);
+        table[0] = table[1];
+        table[1] = table[2];
+    }
+    return table[2];
+}
+```
+
+Comparing v2 with v1:
+
+| Aspect | v1 (full array) | v2 (rolling table) |
 |---|---|---|
-| **Brute force** | Follow the definition directly; try candidates | Linear search |
-| **Decrease and conquer** | Solve one smaller instance, then extend its answer | Insertion sort |
-| **Divide and conquer** | Solve multiple smaller instances, then combine answers | Mergesort |
-| **Transform and conquer** | Change the instance, representation or problem | Horner's rule |
-| **Space–time tradeoff** | Store extra information to reduce later work | String-matching shift tables |
-| **Dynamic programming** | Store answers to overlapping subproblems | Coin-row optimisation |
-| **Greedy technique** | Commit to a feasible locally best choice at each step | Prim's algorithm |
+| Space | $\Theta(n)$ array | Constant: three cells |
+| Time | $n-1$ additions | $n-1$ additions |
+| Overflow | Overflows if stored in fixed-size integers ($F_{93}$ exceeds a `long`) | `BigInteger` gives exact arbitrary-size results |
+| Cost per addition | Constant for fixed-size integers | Grows with the number of digits for `BigInteger` |
+| Risk | Simple to get right | Easy to get wrong |
 
-The distinction depends on the work performed. Binary search solves only one selected half; mergesort solves both halves. Recursive syntax alone does not determine the strategy.
+As written, v2 has bugs worth spotting. The loop runs while `i<n`, which stops one step early (for $n=2$ the loop never runs and `table[2]` is still null), so the bound should be `i<=n`. The early `return 0` / `return 1` also need to return `BigInteger` values to compile.
 
-### Fibonacci: Recursion, Tables And Rolling Storage
+### Fibonacci: Closed-Form Formula
 
-#### Definitions
-
-> **Fibonacci sequence**: The sequence whose first two values are zero and one, with each later value the sum of its two predecessors.
-
-> **Overlapping subproblems**: Subproblems whose answers are needed repeatedly in the same computation.
+Fibonacci numbers have a closed form (Binet's formula). Because the second term shrinks to zero, rounding the first term gives the answer:
 
 $$
-F_0=0,\qquad F_1=1,\qquad F_n=F_{n-1}+F_{n-2}\quad(n\ge2).
+F_n = \operatorname{round}\!\left(\frac{1}{\sqrt{5}}\,\phi^{\,n}\right), \qquad \phi = \frac{1+\sqrt{5}}{2} \approx 1.6180339887
 $$
 
-The sequence begins $0,1,1,2,3,5,8,13,21,34,55$. Direct recursion follows the definition:
+where $\phi$ is the golden ratio.
 
 ```java
-Fibonacci(n):
-    if n <= 1: return n
-    return Fibonacci(n - 1) + Fibonacci(n - 2)
+public long fibo(int n) {
+    return Math.round(
+        (1.0/Math.sqrt(5.0)) *
+        Math.pow(1.6180339887, n));
+}
 ```
 
-![Full Fibonacci recursion tree for six](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/01_Introduction/fibonacci-tree.svg)
+Why it is only **superficially** efficient:
 
-*Computing the sixth Fibonacci number repeatedly recomputes the same smaller values.*
+- It looks like a single constant-time step, but computing $\phi^n$ is not free: `Math.pow` hides work, and exact power computation needs about $\log n$ multiplications on numbers whose size grows with $n$.
+- It has practical implementation problems with **floating-point rounding**. In Java it gives correct results only up to $F_{42}$. For $F_{43}$ it returns $433494436$ instead of the correct $433494437$, and the error grows for larger $n$.
 
-For example, $F_4$ occurs in both branches of the $F_6$ computation. Repeated work leads to exponential time.
-
-A table stores each computed answer:
-
-```java
-FibonacciTable(n):
-    if n == 0: return 0
-    F[0] = 0
-    F[1] = 1
-    for i = 2 to n:
-        F[i] = F[i - 1] + F[i - 2]
-    return F[n]
-```
-
-Only two preceding values are needed if earlier results need not be retained:
-
-```java
-FibonacciRolling(n):
-    if n <= 1: return n
-    previous = 0
-    current = 1
-    for i = 2 to n:
-        next = previous + current
-        previous = current
-        current = next
-    return current
-```
-
-| Method | Time, counting arithmetic operations | Extra storage |
-|---|---|---|
-| Direct recursion | $\Theta(\varphi^n)$, where $\varphi=(1+\sqrt5)/2$ | $\Theta(n)$ stack depth |
-| Table | $\Theta(n)$ | $\Theta(n)$ integer values |
-| Rolling values | $\Theta(n)$ | $\Theta(1)$ integer values |
-
-> [!warning] <span style="color:#ffc778">Source code correction</span>
-> The rolling-storage loop uses `i < n` in the PDF. It must include the final iteration, `i <= n`. Otherwise it returns the previous Fibonacci value and leaves the result uninitialised for the input two. The pseudocode above also handles zero before allocating a table entry for one.
-
-Fixed-size integers eventually overflow. Arbitrary-precision integers avoid that, but additions become more expensive as values grow; the table reports arithmetic-operation counts, not bit-operation costs.
-
-### Fibonacci By Formula And Numerical Accuracy
-
-#### Definitions
-
-> **Floating-point rounding error**: Error caused by storing and computing with finite-precision approximations to real numbers.
-
-The exact closed form is:
-
-$$
-F_n=\frac{\varphi^n-\psi^n}{\sqrt5},\qquad
-\varphi=\frac{1+\sqrt5}{2},\quad\psi=\frac{1-\sqrt5}{2}.
-$$
-
-The approximate implementation rounds $\varphi^n/\sqrt5$, using the truncated constant $1.6180339887$. It looks like a short constant-sized expression, but numerical accuracy and the cost of exponentiation still matter.
-
-The provided implementation gives $433{,}494{,}436$ for $F_{43}$; the correct result is $433{,}494{,}437$. Small relative errors in a large power can exceed half an integer, so rounding cannot recover the exact answer. The failure point depends on the constant and numerical implementation.
+The three Fibonacci solutions are instructive even though you rarely need Fibonacci numbers: the same problem has an exponential solution, a linear one, and a "constant-looking" one that is numerically wrong. Their complexity is analysed in the next lecture.
 
 ### Greatest Common Divisor
 
 #### Definitions
 
-> **Greatest common divisor (GCD)**: The largest positive integer dividing both given positive integers without remainder.
+> **Greatest common divisor (GCD)**: For two positive integers $m$ and $n$, the largest integer that divides both without remainder.
 
-> **Tail recursion**: Recursion in which the recursive call is the final action of the function.
+Example: $\gcd(60, 24) = 12$.
 
-For example, $\gcd(60,24)=12$. A direct method tests possible common divisors from the smaller input downward:
+| Number | Divisors |
+|---|---|
+| 60 | 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60 |
+| 24 | 1, 2, 3, 4, 6, 8, 12, 24 |
 
-```java
-ConsecutiveIntegerGCD(m, n):
-    t = min(m, n)
-    while m mod t != 0 or n mod t != 0:
-        t = t - 1
-    return t
+The largest value common to both lists is 12.
+
+#### Euclid's algorithm
+
+Euclid's algorithm (about 2300 years old) repeatedly applies:
+
+$$
+\gcd(m, n) = \gcd(n,\; m \bmod n), \qquad \gcd(m, 0) = m
+$$
+
+```cpp
+int gcd(int m, int n) {
+    if (n==0) return m;
+    return gcd(n, m % n);
+}
 ```
 
-Euclid uses a remainder to reduce the problem:
+Trace for $\gcd(14142, 3131)$:
 
-$$
-\gcd(m,n)=\gcd(n,m\bmod n),\qquad \gcd(m,0)=m.
-$$
+| Step | Call |
+|---|---|
+| 1 | $\gcd(14142, 3131)$ |
+| 2 | $\gcd(3131, 1618)$ |
+| 3 | $\gcd(1618, 1513)$ |
+| 4 | $\gcd(1513, 105)$ |
+| 5 | $\gcd(105, 43)$ |
+| 6 | $\gcd(43, 19)$ |
+| 7 | $\gcd(19, 5)$ |
+| 8 | $\gcd(5, 4)$ |
+| 9 | $\gcd(4, 1)$ |
+| 10 | $\gcd(1, 0) = 1$ |
 
-A divisor of both original numbers divides the remainder, and a divisor of the second number and remainder divides the first. The common-divisor set is preserved.
+The same algorithm without recursion:
 
-```java
-Euclid(m, n):
-    if n == 0: return m
-    return Euclid(n, m mod n)
-
-EuclidIterative(m, n):
-    while n != 0:
-        remainder = m mod n
-        m = n
-        n = remainder
-    return m
+```cpp
+int gcd(int m, int n) {
+    int r;
+    while (n != 0) {
+        r = m % n;
+        m = n;
+        n = r;
+    }
+    return m;
+}
 ```
 
-The source trace is:
+The iterative version is no more efficient than the recursive one on some compilers. The recursive version is **tail recursive** (the recursive call is the last action), so a C++ compiler will optimise it into a loop and remove the recursion.
 
-$$
-(14142,3131)\to(3131,1618)\to(1618,1513)\to(1513,105)
-\to(105,43)\to(43,19)\to(19,5)\to(5,4)\to(4,1)\to(1,0).
-$$
+#### Consecutive integer checking (GCD v2)
 
-Thus the GCD is $1$. Euclid needs $O(\log\min(m,n))$ remainder operations; downward testing can try $\Theta(\min(m,n))$ candidates. Recursive Euclid may use a stack; tail-call optimisation is compiler-dependent and is not guaranteed by C++.
+A second method starts at $t = \min(m, n)$ and counts down until $t$ divides both numbers:
 
-### Course Resources And Study Expectations
+```cpp
+int gcd(int m, int n) {
+    int t = min(m,n);
+    while (m % t > 0 || n % t > 0) {
+        t--;
+    }
+    return t;
+}
+```
 
-The prescribed text is Anany Levitin, *Introduction to the Design and Analysis of Algorithms*, third edition. Additional references are Dasgupta, Papadimitriou and Vazirani's *Algorithms* and Knuth's *The Art of Computer Programming*.
+For $\gcd(60, 42)$ it tries $42, 41, 40, \dots$ until it reaches $6$.
 
-- Material in the lectures is examinable unless explicitly excluded, including material outside Levitin.
-- Sections delegated to Levitin must also be understood; these notes expand the named algorithms where needed.
-- Closed practicals progress through brute force, recursion/divide and conquer, then dynamic programming.
-- Practise implementing and tracing algorithms, and submit your own work.
+| Method | Work | Notes |
+|---|---|---|
+| Euclid | Few steps; the remainders shrink quickly (logarithmic in the smaller number) | Works when $n = 0$ |
+| Consecutive integer checking | Up to $\min(m,n)$ iterations | Brute force; fails if either input is 0 (division by zero) |
+
+### Course Resources, Tests And Practicals
+
+| Resource | Notes |
+|---|---|
+| Levitin, *Introduction to the Design and Analysis of Algorithms* (3rd ed.) | Prescribed textbook |
+| Dasgupta, Papadimitriou & Vazirani, *Algorithms* | Free; basis of the Berkeley algorithms course |
+| Knuth, *The Art of Computer Programming* | The "bible" of algorithms, in four volumes and counting; expensive |
+
+Studying for the test:
+
+- Go through the slides; if a slide is unclear, read the matching Levitin section.
+- When slides point to a Levitin section with no further explanation, read and understand that section.
+- Content in the slides but not in Levitin **is examinable** unless explicitly stated otherwise.
+- References to other sources (e.g. Dasgupta) are optional unless you cannot understand the slide.
+
+Closed practicals are hard but are a chance to improve your programming, and must be your own work:
+
+| Week | Topic | Difficulty |
+|---|---|---|
+| 1 | Brute force | Easiest, but not trivial |
+| 2 | Divide and conquer / recursion | Hard |
+| 3 | Dynamic programming | Very hard |

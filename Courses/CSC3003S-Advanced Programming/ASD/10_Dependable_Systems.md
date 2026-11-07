@@ -3,32 +3,34 @@ tags:
   - advanced-programming
 ---
 
-# Dependable Systems
+# Dependable Systems And Software Quality
 
-**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)  
-**Source**: [ASD10 Dependable Systems - Copy.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD10%20Dependable%20Systems%20-%20Copy.pdf), Johan Bontes, University of Cape Town, PDF pages 1–30  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Advanced Software Development (ASD)
+**Source**: [ASD10 Dependable Systems - Copy.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/ASD/ASD10%20Dependable%20Systems%20-%20Copy.pdf), Johan Bontes, University of Cape Town, pages 1–30
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes: ISO 25010 software quality, information quality, each quality characteristic, availability and failure metrics, security risk, quality in use, quality control versus assurance, and the Boeing 737 MAX MCAS case.
+> Software quality according to ISO 25010 plus information quality, functional and non-functional characteristics (reliability and the "nines", security risk, maintainability, flexibility, safety, compatibility), quality in use, quality control versus assurance, and the Boeing 737 MAX MCAS as a case of bad design.
 
 ---
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Ambiguity And Quality|Ambiguity And Quality]]
-  - [[#ISO 25010 Software Quality|ISO 25010 Software Quality]]
+  - [[#Quality Has Two Meanings|Quality Has Two Meanings]]
+  - [[#ISO 25010 Software Quality Model|ISO 25010 Software Quality Model]]
   - [[#Information Quality|Information Quality]]
   - [[#Standards Are Made By People|Standards Are Made By People]]
-  - [[#Functional Suitability, Performance And Usability|Functional Suitability, Performance And Usability]]
+  - [[#Functional Suitability|Functional Suitability]]
+  - [[#Performance Efficiency|Performance Efficiency]]
+  - [[#Usability|Usability]]
   - [[#Reliability And Availability|Reliability And Availability]]
   - [[#Functional Versus Non-Functional|Functional Versus Non-Functional]]
-  - [[#Security: The Most Important Quality|Security: The Most Important Quality]]
-  - [[#Maintainability, Flexibility, Safety, Compatibility|Maintainability, Flexibility, Safety, Compatibility]]
+  - [[#Security And The Risk Matrix|Security And The Risk Matrix]]
+  - [[#Maintainability, Flexibility, Safety And Compatibility|Maintainability, Flexibility, Safety And Compatibility]]
   - [[#Quality In Use|Quality In Use]]
   - [[#Quality Control Versus Quality Assurance|Quality Control Versus Quality Assurance]]
-  - [[#Dromey's Quality Model|Dromey's Quality Model]]
+  - [[#Dromley's Quality Model|Dromley's Quality Model]]
   - [[#The Cost Of Poor Quality|The Cost Of Poor Quality]]
   - [[#Case Study: Boeing 737 MAX MCAS|Case Study: Boeing 737 MAX MCAS]]
 
@@ -36,62 +38,73 @@ tags:
 
 ## Core Content
 
-### Ambiguity And Quality
+### Quality Has Two Meanings
 
-The lecture opens with *Stairway to Heaven*: "'Cause you know sometimes words have two meanings." Requirements and quality terms are ambiguous, and different readers interpret them differently. Quality must therefore be broken into explicit, agreed characteristics.
+The lecture opens with *Stairway to Heaven*: "'Cause you know sometimes words have two meanings." "Quality" is such a word — the programmer and the user mean different things by it, so it must be broken into well-defined characteristics.
 
-### ISO 25010 Software Quality
+### ISO 25010 Software Quality Model
 
 #### Definitions
 
-> **ISO 25010**: The international standard model of software product quality. It breaks quality into characteristics, each with sub-characteristics.
+> **ISO 25010 (2011)**: The international standard model of software product quality, splitting quality into characteristics and sub-characteristics.
 
-![ISO 25010 characteristics](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/10_Dependable_Systems/iso25010.svg)
+![ISO 25010 quality characteristics](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/10_Dependable_Systems/iso25010.svg)
 
-*Functional characteristics directly affect users. Non-functional ones affect business risk. Security is singled out as the most important, and the lecturer adds information quality.*
+*Functional suitability is the functional characteristic; the rest are non-functional. The lecturer adds information quality, and treats security as the most important.*
 
 | Characteristic | Sub-characteristics |
 |---|---|
-| **Suitable** (functional suitability) | Complete, correct, appropriate |
-| **Efficient** (performance) | Time, resources, capacity |
-| **Compatible** | Co-existence, interoperable |
-| **Usable** | Recognisable, learnable, user-error protection, engagement, inclusivity, assistance, self-describing |
-| **Reliable** | Fault-free, availability, fault tolerant, recoverability |
-| **Secure** | Confidential, integrity, non-repudiation, accountability, authenticity, resistance |
-| **Maintainable** | Modular, reusable, analysable, modifiable, testable |
-| **Flexible** | Adaptable, scalable, installable, replaceable |
-| **Safe** | Operations, identifying risks, fail-safe, hazard warning, safe integration |
-| **+ Information quality** | Accurate, usable, secure |
+| Functionally suitable | Complete, correct, appropriate |
+| Performance efficient | Time, resources, capacity |
+| Compatible | Co-existence, interoperable |
+| Usable | Recognisable, learnable, operable, user-error protection, engagement (aesthetics), inclusivity (accessibility), user assistance, self-describing |
+| Reliable | Fault-free, availability, fault tolerant, recoverability |
+| Secure | Confidential, integrity, non-repudiation, accountability, authenticity, resistance |
+| Maintainable | Modular, reusable, analysable, modifiable, testable |
+| Flexible | Adaptable, scalable, installable, replaceable |
+| Safe | Operations, identifying risks, fail-safe, hazard warning, safe integration |
+| **+ Information quality** (lecturer's addition) | Accurate, usable, secure |
+
+(Sub-characteristics follow Lew et al., 2010, and the updated ISO 25010.)
 
 ### Information Quality
 
-| Accurate | Usable | Secure |
+The lecturer adds **information quality** — whether the information the software handles is fit for purpose.
+
+| Group | Aspect | Meaning |
 |---|---|---|
-| **Complete**: not too much (the whole truth) | **Legible**: can be read or deciphered (binary formats) | **Trustworthy**: believable; what is the source? |
-| **Correct**: not too little (nothing but the truth) | **Relevant**: fits the information demand; not outdated | **Legally compliant**: violates no laws (e.g. VAT calculations) |
-| **Timely**: correct timestamp ("robbing Peter to pay Paul") | **Understandable**: including its assumptions | **Ethical**: privacy, medical |
-| **Mathematically accurate**: correct calculations (Excel sheets!) | **Comparable**: over time and against other data | **Authorised**: is the user allowed access? |
-| | **Verified**: has it been, or can it be, checked? | |
+| Accurate | Complete | Not too little — "the whole truth" |
+| | Correct | Not too much — "and nothing but the truth" |
+| | Timely | Correct timestamp (no "robbing Peter to pay Paul") |
+| | Mathematically accurate | Correct calculations (Excel sheets!) |
+| Usable | Legible | Can be read/deciphered (e.g. binary file formats can't) |
+| | Relevant | Fits the information demand; not outdated |
+| | Understandable | Including its assumptions |
+| | Comparable | Over time and against other data |
+| Secure | Verified | Has it been, or can it be, checked? |
+| | Trustworthy | Believable — what is the source? |
+| | Legally compliant | Violates no laws (e.g. VAT calculations) |
+| | Ethical | Privacy, medical data |
+| | Authorised | Is the user allowed access? |
 
 ### Standards Are Made By People
 
-| ISO 25010 | Quality aspects of information |
+| ISO 25010 (engineers) | Information quality (accountants) |
 |---|---|
-| Made by engineers | Made by accountants |
 | Focus on models and processes | Focus on information flows and procedures |
 | Software as a machine | Software as an administrative system |
 
-IT stands for *information* technology, yet information is only implied in quality standards, not explicit, much as security was a few years ago.
+IT means *information* technology, yet information quality is only implied in quality standards, not explicit — much as security was a few years ago.
 
-### Functional Suitability, Performance And Usability
+### Functional Suitability
 
-**Functional suitability**:
+| Sub-characteristic | Meaning |
+|---|---|
+| Complete | All needed features |
+| Correct | All features implemented correctly |
+| Appropriate | No unneeded or harmful features |
 
-- **Complete**: all needed features.
-- **Correct**: all implemented correctly.
-- **Appropriate**: no unneeded features and no harmful ones.
-
-**Performance / efficiency**:
+### Performance Efficiency
 
 | Aspect | Examples |
 |---|---|
@@ -99,149 +112,177 @@ IT stands for *information* technology, yet information is only implied in quali
 | Resources | Data storage, network usage, CPU required |
 | Capacity | How much data it can process |
 
-**Usability**:
+### Usability
 
-- **Recognisable**: use standard UI patterns.
-- **Learnable**.
-- **Operable**.
-- **Protection from user error**: no data loss and no "idiotic showstoppers" (see Cooper, *About Face*, ch. 12).
-- **UI aesthetics**.
-- **Accessible**: works for users with disabilities.
+| Sub-characteristic | Meaning |
+|---|---|
+| Recognisable | Uses standard UI patterns |
+| Learnable | Easy to learn |
+| Operable | Easy to operate |
+| Protection from user error | No data loss; no idiotic showstoppers (see Cooper, *About Face*, ch. 12) |
+| UI aesthetics | Pleasant to use |
+| Accessible | Works for users with disabilities |
 
 ### Reliability And Availability
 
+| Sub-characteristic | Meaning |
+|---|---|
+| Available | Uptime |
+| Faultless | No errors inside the software |
+| Fault tolerant | Keeps working despite outside errors (hardware or other software failing) |
+| Recoverable | If a fault occurs: how long recovery takes, and whether it fully recovers |
+
 #### Definitions
 
-> **Availability**: The probability that a system is "up".
-
-> **Fault tolerance**: Continuing to work when outside hardware or software fails.
-
-> **Recoverability**: After a fault, how long recovery takes and whether the system fully recovers.
-
-Reliability covers being **available** (uptime), **faultless** (no internal errors), **fault tolerant** and **recoverable**.
-
-Uptime is measured in "nines":
+> **Availability**: The probability that a system is "up". Uptime is quoted in "nines".
 
 | Nines | Availability | Downtime per year |
 |---|---|---|
-| 2 | 99% | 3½ days |
-| 3 | 99.9% | 8 hours |
-| 4 | 99.99% | 1 hour |
-| 5 | 99.999% | 5 minutes |
+| 2 | 99% | ~3½ days |
+| 3 | 99.9% | ~8 hours |
+| 4 | 99.99% | ~1 hour |
+| 5 | 99.999% | ~5 minutes |
 | 6 | 99.9999% | < 1 minute |
 
-| Metric | Meaning |
-|---|---|
-| **MTTF** | Mean time **to** failure: correct behaviour until a failure |
-| **MTTD** | Mean time to diagnose |
-| **MTTR** | Mean time to repair |
-| **MTBF** | Mean time **between** failures |
+Downtime per year is $(1 - A) \times 365 \times 24$ hours, e.g. $(1 - 0.999) \times 8760 \approx 8.8$ hours.
 
-![Failure timeline](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/10_Dependable_Systems/mtbf-timeline.svg)
+> **MTTF (mean time to failure)**: Average time the system behaves correctly before failing.
 
-*After the first failure the system is diagnosed (MTTD), repaired (MTTR), then behaves correctly (MTTF) until the next failure. MTBF spans from one failure to the next.*
+> **MTTD (mean time to diagnose)**: Average time from failure until repair begins.
+
+> **MTTR (mean time to repair)**: Average time to complete the repair.
+
+> **MTBF (mean time between failures)**: Average time from one failure to the next.
 
 $$
-\text{MTBF} = \text{MTTD} + \text{MTTR} + \text{MTTF}
+\text{MTBF} = \text{MTTD} + \text{MTTR} + \text{MTTF}, \qquad A = \frac{\text{MTTF}}{\text{MTBF}}
 $$
+
+![MTTF, MTTD, MTTR and MTBF](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/10_Dependable_Systems/mtbf-timeline.svg)
+
+*After a failure the system is diagnosed and repaired, then runs correctly until the next failure; MTBF spans the whole cycle.*
 
 ### Functional Versus Non-Functional
 
 The distinction is somewhat blurry:
 
-- **Functional**: directly affects users.
-- **Non-functional**: users may not notice it, but it affects business risks.
+| Functional | Non-functional |
+|---|---|
+| Directly affects users | Users may not notice, but it affects business risk |
 
-### Security: The Most Important Quality
+### Security And The Risk Matrix
 
-Security is the most important quality metric, because of risk:
+Security is the **most important** quality characteristic. Why? Because
 
 $$
 \text{Risk} = \text{cost} \times \text{likelihood}
 $$
 
-![Risk matrix](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/10_Dependable_Systems/risk-matrix.svg)
-
-*Cheap and unlikely risks are accepted. Expensive but unlikely ones are transferred (insured). Likely but cheap ones are reduced. Likely and expensive ones must be avoided.*
+and insecure software is both likely to be attacked and expensive when it is.
 
 | | Cheap | Expensive |
 |---|---|---|
 | **Unlikely** | Accept | Transfer (insure) |
 | **Likely** | Reduce | Avoid |
 
-This is the ARTA strategy (Accept, Reduce, Transfer, Avoid) from [Project Management](05A_Project_Management.md). Insecure software is likely and expensive, so it must be avoided.
+![Risk matrix](../../../diagrams/CSC3003S-Advanced%20Programming/ASD/10_Dependable_Systems/risk-matrix.svg)
 
-### Maintainability, Flexibility, Safety, Compatibility
+*Each risk is treated according to its cost and likelihood: accept, reduce, transfer or avoid (ARTA).*
 
-| Characteristic | Audience | Properties |
-|---|---|---|
-| **Maintainability** | Programmers | Modular, few connections (low fan-out), reusable, analysable, modifiable, testable |
-| **Flexibility** | Implementers | Adaptable (portable), scalable, installable, replaceable |
-| **Safety** | Everyone (not harmful) | Operations don't hurt people or the organisation; risks of harm identified; **fail-safe** ("plane does not crash"); **hazard warnings** ("Format disk: are you sure?"); safe integration |
-| **Compatibility** | Other systems | **Co-existence** (does not misbehave alongside other software); **interoperability** (can exchange information) |
+### Maintainability, Flexibility, Safety And Compatibility
+
+**Maintainability** — for programmers:
+
+- modular, with few connections (low fan-out);
+- reusable;
+- analysable;
+- modifiable;
+- testable.
+
+**Flexibility** — for implementers:
+
+- adaptable (portable);
+- scalable;
+- installable;
+- replaceable.
+
+**Safety** — not harmful:
+
+| Sub-characteristic | Meaning |
+|---|---|
+| Operations | Doesn't hurt people or the organisation |
+| Identify risks | Risks of harm are known |
+| Fail-safe | "The plane does not crash" |
+| Hazard warning | "Format disk: are you sure?" |
+| Safe integration | Integrates with other systems without creating hazards |
+
+**Compatibility**:
+
+| Sub-characteristic | Meaning |
+|---|---|
+| Co-existence | Doesn't misbehave alongside other software |
+| Interoperable | Can exchange information with other software |
 
 ### Quality In Use
 
-| Perspective | View | Model |
-|---|---|---|
-| **Inside quality** | The programmer's view | ISO 25010 product quality characteristics |
-| **Outside quality** (quality in use) | The user's view | Effectiveness; efficiency; satisfaction (usefulness, trust, pleasure, comfort); freedom from risk (economic, health and safety, environmental risk mitigation); context coverage (completeness, flexibility) |
+| Perspective | Whose view |
+|---|---|
+| Inside quality | The programmer's view (the product's internal and external characteristics) |
+| Outside quality (quality in use) | The user's view (how well it serves them in practice) |
 
 ### Quality Control Versus Quality Assurance
 
 #### Definitions
 
-> **Quality control**: A **reactive** process that tries to detect quality problems through testing (unit, automated, functionality, stress, alpha/beta tests). It does not prescribe procedures or standardised documentation.
+> **Quality control**: A **reactive** approach that tries to detect quality problems, mainly by testing.
 
-> **Quality assurance**: A **preventative** process that puts procedures in place to assure quality (the ISO 9000 series), with documentation showing after the fact that the procedures were followed.
+> **Quality assurance**: A **preventive** approach that puts procedures in place to assure quality (e.g. the ISO 9000 series) and documents the work done.
 
-| Quality control | Quality assurance |
-|---|---|
-| Reactive: detect problems | Preventative: procedures, checklists |
-| Testing | Documented audit trail, useful for certification |
-| No prescribed documentation | Formal assurance assumes **waterfall**: quality is checked against each stage's documents (who, what, why, where, when) |
-| | Pure **Agile** grows the design organically, so it is hard to certify because documentation is minimal |
+| | Quality control | Quality assurance |
+|---|---|---|
+| Nature | Reactive: detect problems | Preventive: procedures |
+| Methods | Unit tests, automated tests, functionality tests, stress tests, alpha/beta tests | Documentation of work, checklists, an audit trail (who, what, why, where, when) |
+| Prescribes procedures? | No | Yes |
+| Certification | Not by itself | Useful for quality certification |
 
-### Dromey's Quality Model
+Formal assurance assumes a **waterfall** model: quality is checked against documentation, especially requirements and analysis, and each stage has its own documents. Pure Agile assumes the design grows organically, so it is hard to certify because of minimal documentation.
 
-Every quality model breaks "quality" down differently. The course follows ISO 25010 but uses Dromey's five-step process (the slide spells it "Dromley"):
+### Dromley's Quality Model
 
-1. Pick high-level quality metrics to evaluate.
-2. List the components of the system.
+Every quality model (including Dromley's) breaks quality into different sub-components; the course sticks with ISO 25010's breakdown but uses Dromley's 5-step process:
+
+1. Pick the high-level quality metrics to evaluate.
+2. List the components in the system.
 3. Identify the quality-carrying properties of each component.
-4. Determine how each property affects the quality metrics.
-5. Evaluate, identify weaknesses, and use a risk matrix to mitigate them.
+4. Determine how each property affects the quality metric.
+5. Evaluate, identify weaknesses, and use a risk matrix to mitigate.
 
 ### The Cost Of Poor Quality
 
-The cost of poor quality is **exponential**. It comes from:
+The cost of poor quality is **exponential**. Sources include:
 
-- errors in specification and development (communication and testing)
-- verification and validation issues
-- availability problems: the system goes down
-- buggy systems
-- security problems: costly risks and cyber attacks
+- errors in specification and development (communication and testing);
+- verification and validation issues;
+- availability problems — the system goes down;
+- a buggy system;
+- security problems — costly risks and cyber-attacks.
 
-**Design for recovery** from failures and attacks without loss of data.
+Design for recovery from failures and attacks **without loss of data**.
 
 ### Case Study: Boeing 737 MAX MCAS
 
-MCAS (the Maneuvering Characteristics Augmentation System) is an example of bad design that violates many quality characteristics:
+The **MCAS** (Manoeuvring Characteristics Augmentation System) shows how bad design kills.
 
-| Flaw | Quality violated |
+| Design flaw | Consequence |
 |---|---|
-| Solved a trivial problem | Functional appropriateness |
-| No training, just a bulletin; not on the "runaway stabiliser" checklist | Usability, learnability |
-| Pilot had about 3 seconds to respond | Safety: protection from operator error |
-| Had a hidden "cheat code", yet restarted every 5 seconds with a bigger correction each time, up to 90° nose-down | Safety, fail-safe |
-| Depended on a **single** angle-of-attack sensor | Reliability, fault tolerance (no redundancy) |
-| Used the tail stabiliser, a huge lever, so the pilot needed tens of kilograms of force, then tons, on the yoke | Safety, operability |
-| Could only be switched off manually, after which the stabilisers were stuck | Recoverability |
+| Solved a trivial problem | Added risk for little benefit |
+| No training, just a bulletin | Pilots didn't know it existed |
+| Pilot has 3 seconds to respond | Little margin for error |
+| Has a hidden "cheat code" (pilot trim interrupts it) but restarts every 5 seconds | Repeated activation |
+| Not on the runaway-stabiliser checklist | Pilots followed the wrong procedure |
+| Depends on a **single** angle-of-attack (AoA) sensor | One faulty sensor triggers it — no redundancy |
+| Bigger correction on every restart, up to 90° nose down | Escalating danger |
+| Uses the tail, a huge lever | Pilot must exert tens of kg, then tons, to overcome it |
+| Can only be switched off manually, and then the stabilisers are stuck | The fallback is a slow, awkward manual trim wheel |
 
-Three controls act on the stabiliser:
-
-- **MCAS**, with increasing trim speed
-- the **trim switches**, at a fixed slow speed
-- the **manual trim wheel**, which is awkward to use
-
-The pilot works the **yoke** (the slide's pun is "Pilot Joke"). Flight-recorder data (BEA, Ethiopian Airlines ET302) shows pilots needing about **50 kg** of force on the yoke, later about 25 kg, to counter MCAS.
+MCAS drove the trim at increasing speed, while the pilot's only alternative was a slow, awkward manual trim wheel. The force needed on the control yoke was around 25–50 kg. It violates the safety characteristics above: no fail-safe, no hazard warning, unidentified risks, and unsafe integration.

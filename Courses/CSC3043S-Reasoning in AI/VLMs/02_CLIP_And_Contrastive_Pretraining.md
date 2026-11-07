@@ -72,7 +72,7 @@ The pretrained encoders directly enable a simple text-to-image retrieval pipelin
 
 ![CLIP dual encoder](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/02_CLIP_And_Contrastive_Pretraining/dual-encoder.svg)
 
-*Images and captions are encoded separately, projected, and L2-normalized; their cosine similarity measures semantic match.*
+*Images and captions are encoded separately, projected, and L2-normalized into one 512-d space where cosine similarity measures semantic match.*
 
 | Tower | Encoder | Output |
 |---|---|---|
@@ -96,6 +96,10 @@ $$
 
 "Dog" is never defined. The structure comes entirely from **co-occurrence**: which texts appear with which images.
 
+![Alignment before and after](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/02_CLIP_And_Contrastive_Pretraining/alignment-before-after.svg)
+
+*Before training, image and text embeddings are unrelated; after contrastive training each image sits next to its own caption.*
+
 ### Batches as self-labelling data
 
 Sample $N$ pairs $(I_1, T_1), \dots, (I_N, T_N)$. No annotators are needed. Each batch gives, for free:
@@ -116,7 +120,7 @@ Stack $v_1, \dots, v_N$ into $V$ and $t_1, \dots, t_N$ into $T$. All $N^2$ cosin
 
 ![Similarity matrix](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/02_CLIP_And_Contrastive_Pretraining/similarity-matrix.svg)
 
-*Every image is scored against every caption; the diagonal holds the matching pairs, which training pushes up while pushing everything else down.*
+*The six-pair batch from the lecture: matched pairs on the diagonal score 0.84-0.93, while mismatches stay low.*
 
 - Row $i$ scores image $i$ against every caption.
 - Column $j$ scores caption $j$ against every image.
@@ -130,6 +134,10 @@ The matrix is **not symmetric**, and rows and columns answer different questions
 | Text → image (column) | Out of all these images, which best represents this caption? |
 
 Associations are one-to-many (many captions could fit an image and vice versa), so the loss must handle **both** query directions.
+
+![Row and column softmaxes](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/02_CLIP_And_Contrastive_Pretraining/row-column-softmax.svg)
+
+*Image→text is a softmax over each row; text→image is a softmax over each column. Both target the diagonal.*
 
 | Problem | Logits | Target | Loss |
 |---|---|---|---|
@@ -171,7 +179,7 @@ $$
 
 ![Contrastive temperature](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/02_CLIP_And_Contrastive_Pretraining/contrastive-temperature.svg)
 
-*With the same similarities, $\tau = 1$ gives a nearly flat distribution, $\tau = 0.3$ favours the match, and $\tau = 0.07$ puts almost all probability on it.*
+*With the same similarities, $\tau = 1$ gives the match 0.26, $\tau = 0.3$ gives 0.57, and $\tau = 0.07$ puts almost all probability on it.*
 
 ### CLIP in code
 
@@ -214,6 +222,10 @@ The alternative is an image-conditioned LM that generates the caption word by wo
 
 **Why**: exact wording is mostly not predictable from the image. In "my dog Max at gran's, summer '19", the visual content cannot determine those words, so a generative LM wastes capacity modelling caption noise. Matching only asks: "is this text more compatible with this image than 32,767 others?" — a much less restrictive request, with no concern for grammar or phrasing.
 
+![Caption prediction versus contrastive](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/02_CLIP_And_Contrastive_Pretraining/caption-vs-contrastive.svg)
+
+*Predicting a bag of words is 3× more efficient than generating exact captions, and contrastive matching a further 4× (≈12× overall).*
+
 ### Training CLIP: summary
 
 | Aspect | Value | Comment |
@@ -233,7 +245,7 @@ The alternative is an image-conditioned LM that generates the caption word by wo
 
 ![Zero-shot classification](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/02_CLIP_And_Contrastive_Pretraining/zero-shot.svg)
 
-*Class names fill a prompt template, the text encoder builds (and caches) one vector per class, and the image vector is compared with each to pick the argmax.*
+*Class names fill a prompt template, the text encoder caches one vector per class, and the image is assigned to the closest one.*
 
 1. Choose a label set, e.g. {house, farm, mountain, beach, street}.
 2. Fill a template: "a photo of a {label}" → 5 captions.
@@ -264,6 +276,10 @@ Averaging happens in embedding space, so each class is still one vector with zer
 - Zero-shot CLIP reaches $\approx 76.2\%$ ImageNet top-1, matching the original supervised ResNet-50 with **no ImageNet labels**.
 - Across 27 datasets it wins on 16 against a supervised ResNet-50 linear probe: strong on natural categories, weak on specialized or abstract tasks (satellite images, tumours, counting).
 - **Robust to distribution shift**: supervised models collapse on sketches, renditions, and adversarial photos; CLIP barely moves. It never overfits ImageNet's photo distribution because its training distribution was the whole web.
+
+![Robustness under distribution shift](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/02_CLIP_And_Contrastive_Pretraining/robustness.svg)
+
+*Both models score 76% on ImageNet, but the supervised ResNet-101 collapses on shifted test sets (down to 2% on ImageNet-A) while zero-shot CLIP stays high.*
 
 > [!warning] <span style="color: #ff939b">Check per domain</span>
 > Zero-shot is not universally good. CLIP's EuroSAT zero-shot accuracy was under $60\%$, while a trained linear probe gets about $98\%$.
@@ -317,6 +333,10 @@ Benefits:
 - No cross-example normalization → stable across batch sizes; simpler multi-device training (no logits all-gather).
 - Strong at moderate batches (saturates around 32k; still good when smaller, so faster training).
 - SigLIP towers are the default vision encoder in many current open VLMs.
+
+![CLIP versus SigLIP](../../../diagrams/CSC3043S-Reasoning%20in%20AI/VLMs/02_CLIP_And_Contrastive_Pretraining/clip-vs-siglip.svg)
+
+*CLIP normalizes each row and column with a softmax over the whole batch; SigLIP scores every cell independently as matched (+1) or not (−1).*
 
 ### CLIP versus SigLIP
 

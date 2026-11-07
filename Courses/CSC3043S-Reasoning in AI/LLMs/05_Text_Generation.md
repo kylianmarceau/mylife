@@ -38,6 +38,10 @@ tags:
 
 At each time step $t$, an autoregressive LM takes the previous tokens $y_{<t}$ as input and outputs a new token $\hat{y}_t$, which is appended to the input for the next step.
 
+![Autoregressive generation](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/05_Text_Generation/autoregressive.svg)
+
+*The model reads the tokens so far and outputs $\hat{y}_t$, which is appended to the input for the next step.*
+
 The model $f$ computes logits, which a softmax turns into a distribution over $w \in V$:
 
 $$
@@ -86,13 +90,9 @@ $$
 
 Greedy decoding is simple but **not guaranteed to find the globally highest-scoring output**.
 
-![Decoding tree](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/05_Text_Generation/decoding-tree-dark.svg)
+![Greedy decoding tree](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/05_Text_Generation/greedy-tree.svg)
 
-*At $t_1$: ok $0.4$, yes $0.5$, end $0.1$. Each branch continues with its own conditional probabilities at $t_2$, then ends.*
-
-![Greedy counterexample](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/05_Text_Generation/greedy-counterexample.svg)
-
-*Greedy takes "yes" ($0.5$) first and finishes at $0.5 \times 0.4 = 0.20$, but "ok ok" scores $0.4 \times 0.7 = 0.28$. The locally best first token leads to a worse full sequence.*
+*Greedy takes "yes" ($0.5$) then "yes" ($0.4$) for $0.20$, but "ok ok" scores $0.4 \times 0.7 = 0.28$: the locally best first token leads to a worse sequence.*
 
 | Sequence | Probability |
 |---|---|
@@ -118,7 +118,7 @@ Greedy decoding is simple but **not guaranteed to find the globally highest-scor
 
 ![Beam search](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/05_Text_Generation/beam-search.svg)
 
-*Keep the top-$k$ prefixes, expand each over the vocabulary, score the full prefixes, and keep the top-$k$ overall.*
+*With $k = 2$, every kept prefix is expanded, all expansions are scored by cumulative score, and only the two best (teal) survive to the next step.*
 
 With beam size 2, the beam might hold "arrived" and "the" at $t_1$, then "the green" and "the witch" at $t_2$, discarding other expansions.
 
@@ -126,6 +126,10 @@ With beam size 2, the beam might hold "arrived" and "the" at $t_1$, then "the gr
 
 - Maximization-based decoding (greedy, beam search) does **not** generate high-quality open-ended text in practice. It tends to produce **repetitive** phrases.
 - It may not reflect how language works. Beam search keeps the per-token probability near 1, while human text constantly includes lower-probability tokens.
+
+![Beam search versus human text](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/05_Text_Generation/beam-vs-human.svg)
+
+*Per-token probability over 100 timesteps: beam search stays close to 1, while human text swings widely between likely and unlikely words.*
 
 ### Sampling-based decoding
 
@@ -158,6 +162,10 @@ A fixed $k$ fails in both directions:
 | **Flat** | "She said, 'I never ___'" — thought, knew, had, saw, did, said, ... all similar | Cuts off **too quickly**, excluding reasonable options |
 | **Peaked** | "I ate the pizza while it was still ___" — "hot" has $\approx 0.8$ | Cuts off **too slowly**, admitting unreasonable options |
 
+![Top-k on flat and peaked distributions](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/05_Text_Generation/topk-flat-peaked.svg)
+
+*With a fixed $k = 5$, the flat distribution loses plausible words (too quick), while the peaked one keeps unlikely words (too slow).*
+
 ### Top-p (nucleus) sampling
 
 #### Definitions
@@ -182,6 +190,10 @@ The number of candidate words varies with the distribution's shape:
 
 - Flat distribution → many words in the nucleus.
 - Peaked distribution → few words.
+
+![Top-p sampling](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/05_Text_Generation/top-p.svg)
+
+*With $p = 0.7$, the nucleus holds 5 tokens for a medium distribution, 7 for a flat one, and only 1 for a peaked one.*
 
 This adapts to both of top-$k$'s failure cases.
 
@@ -211,6 +223,6 @@ Example with logits all $= 1.2$, the $= 0.9$, your $= 0.1$, that $= -0.5$:
 | your | 0.1 | 0.00 | 0.07 | 0.15 | 0.24 | 0.25 |
 | that | -0.5 | 0.00 | 0.02 | 0.08 | 0.23 | 0.25 |
 
-![Temperature effect](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/05_Text_Generation/temperature-probabilities.svg)
+![Softmax temperature](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/05_Text_Generation/temperature.svg)
 
-*The same four logits become nearly greedy at $\tau = 0.1$, normal at $\tau = 1$, and nearly uniform at $\tau = 10$.*
+*The same four logits become nearly greedy at $\tau = 0.1$, the ordinary softmax at $\tau = 1$, and nearly uniform at $\tau = 10$.*

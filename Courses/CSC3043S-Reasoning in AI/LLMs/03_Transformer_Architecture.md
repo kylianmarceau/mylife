@@ -48,9 +48,9 @@ The Transformer is the dominant LLM architecture. There is no single standard ve
 
 Modern models also make particular hyperparameter choices. The best references are the tech reports of open-weight models: Llama 3, Qwen 2.5, Gemma 2, OLMo 2.
 
-![Modern decoder-only transformer](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/modern-transformer-block-dark.svg)
+![Original versus modern block](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/original-vs-modern.svg)
 
-*Left: token embedding, $N$ stacked blocks, final RMSNorm, linear output layer, softmax. Right: one block with pre-RMSNorm, causal GQA with RoPE, and a SwiGLU feedforward network, each wrapped in a residual connection.*
+*The original block normalizes after each residual add and uses sinusoidal positions and ReLU; the modern block normalizes before causal GQA with RoPE and a SwiGLU FFN.*
 
 ### Token embedding
 
@@ -64,7 +64,7 @@ $$
 X = \text{OneHot}(w_{1:N})\,E, \qquad \text{OneHot}(w_{1:N}) \in \{0, 1\}^{N \times |V|}, \quad X \in \mathbb{R}^{N \times d}
 $$
 
-![Token embedding lookup](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/token-embedding-dark.svg)
+![Token embedding lookup](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/token-embedding.svg)
 
 *Each one-hot row selects exactly one row of $E$, so the lookup is a matrix multiply.*
 
@@ -87,13 +87,9 @@ $$
 
 Dividing by $\sqrt{d_k}$ keeps dot products from growing with dimension, which would push the softmax into saturation.
 
-![Self-attention for one output position](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/self-attention-dark.svg)
+![Self-attention for one output](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/self-attention.svg)
 
 *Query $q_3$ is compared with keys $k_1, k_2, k_3$; the softmax weights combine $v_1, v_2, v_3$ into output $y_3$.*
-
-![Attention components](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/attention-components.svg)
-
-*Queries and keys produce scaled, causally masked scores; their softmax weights combine the values into the output.*
 
 ### Self-attention as matrix operations
 
@@ -103,9 +99,9 @@ $$
 Q = X W^Q, \qquad K = X W^K, \qquad V = X W^V
 $$
 
-![Q, K, and V projections](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/qkv-projections.svg)
+![Q, K and V projections](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/qkv-projections.svg)
 
-*The same three weight matrices are applied to every input row, producing one query, key, and value per token.*
+*The same three weight matrices are applied to every input row, giving one query, key, and value per token.*
 
 $$
 \text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}} + M\right) V
@@ -117,13 +113,9 @@ $$
 
 In a decoder model the attention is masked, because the model must not see future tokens when predicting the next one.
 
-![Causal mask](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/causal-mask.svg)
+![Masked attention as matrix operations](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/masked-attention.svg)
 
-*Rows are queries and columns keys; every key after the query's position is masked out.*
-
-![Attention matrix operations](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/attention-matrix-operations.svg)
-
-*$QK^\top$ gives all pairwise scores; masking sets future entries to $-\infty$; a row-wise softmax gives attention weights; multiplying by $V$ gives the outputs.*
+*$QK^\top$ gives all pairwise scores; the mask sets future entries to $-\infty$; a row-wise softmax and multiplication by $V$ give the outputs $A$.*
 
 ### Multi-head self-attention
 
@@ -141,7 +133,7 @@ Set $d_q = d_k = d_v = d/h$. The concatenation then has dimension $d$, and the t
 
 ![Multi-head attention](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/multi-head-attention.svg)
 
-*Four heads each produce an $N \times d_v$ output; these are concatenated to $N \times h d_v$ and projected by $W^O$ back to $N \times d$.*
+*Four heads each produce an $N \times d_v$ output; these are concatenated and projected by $W^O$ back to $N \times d$.*
 
 ### KV cache
 
@@ -158,7 +150,7 @@ During inference, the context grows by one token each step, so attention would h
 
 ![KV cache](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/kv-cache.svg)
 
-*Each decode step only computes projections for the new token; the stored prefix keys and values are reused.*
+*Without a cache, step 4 recomputes keys and values for all four tokens. With a cache, only token 4's query, key, and value are computed; earlier keys and values are read from memory.*
 
 ### Grouped-query attention (GQA)
 
@@ -170,7 +162,7 @@ During inference, the context grows by one token each step, so attention would h
 
 Using a KV cache requires many memory operations, which limits computational efficiency. Sharing keys and values across heads reduces how many key/value heads must be read from the cache.
 
-![MHA, GQA, and MQA](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/gqa-dark.svg)
+![MHA, GQA and MQA](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/mha-gqa-mqa.svg)
 
 *With eight query heads: MHA has eight K/V heads, GQA has four (each shared by two queries), and MQA has one shared by all.*
 
@@ -224,9 +216,9 @@ $$
 
 where $b$ is a base hyperparameter (commonly $10000$).
 
-![RoPE rotation](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/rotary-position.svg)
+![RoPE rotation](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/rope-rotation.svg)
 
-*A query or key coordinate pair is rotated by an angle proportional to its position; relative offsets then appear in the query-key score.*
+*Each coordinate pair is rotated by $m\theta$ for position $m$; the query-key inner product then depends only on the offset $m - n$.*
 
 - RoPE is applied to **queries and keys, not values**, before attention.
 - It is applied at **every layer**, reinforcing positional information throughout the model.
@@ -242,9 +234,9 @@ where $b$ is a base hyperparameter (commonly $10000$).
 - Standard practice now drops bias terms: this saves memory lookups (faster) and improves training stability.
 - Activations used include ReLU and GELU.
 
-![ReLU, GELU, and Swish](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/activation-functions.svg)
+![ReLU, GELU and Swish](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/activation-functions.svg)
 
-*ReLU is zero for negative input; GELU and Swish are smooth and dip slightly below zero before becoming approximately linear.*
+*ReLU is exactly zero for negative input; GELU and Swish are smooth and dip slightly below zero before becoming approximately linear.*
 
 ### Gated activations
 
@@ -284,9 +276,9 @@ Gated FFNs scale the hidden size down by $2/3$ to keep the parameter count simil
 
 Most LLMs reorder the original block's operations. Pre-norm gives more stable training for large networks.
 
-![Pre-norm block](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/pre-norm-block.svg)
+![Post-norm versus pre-norm](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/03_Transformer_Architecture/pre-norm-vs-post-norm.svg)
 
-*Normalization happens inside each branch; the residual stream bypasses the sublayer untouched.*
+*In post-norm the residual stream itself passes through LayerNorm; in pre-norm the norm sits inside each branch and the residual (amber) bypasses it.*
 
 | Order | Post-norm (original) | Pre-norm (current) |
 |---|---|---|

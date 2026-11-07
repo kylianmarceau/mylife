@@ -5,12 +5,12 @@ tags:
 
 # Recursion
 
-**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)  
-**Source**: [FP-3-Recursion - Copy.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP-3-Recursion%20-%20Copy.pdf), James Gain, University of Cape Town, PDF pages 1–11  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)
+**Source**: [FP-3-Recursion - Copy.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP-3-Recursion%20-%20Copy.pdf), James Gain, University of Cape Town, pages 1–11
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes on replacing loops with recursion, higher-order list functions, and tail recursion.
+> Why pure Haskell has no loops, recursion as the replacement, higher-order list functions, and cutting stack use with tail recursion and strict evaluation.
 
 ---
 
@@ -19,11 +19,11 @@ tags:
 - [[#Core Content|Core Content]]
   - [[#No Loops In Pure Haskell|No Loops In Pure Haskell]]
   - [[#Recursion Instead Of Loops|Recursion Instead Of Loops]]
-  - [[#Higher-Order Functions: map, filter, foldr|Higher-Order Functions: map, filter, foldr]]
-  - [[#Memory Issues|Memory Issues]]
-  - [[#Example: Factorial And Lazy Evaluation|Example: Factorial And Lazy Evaluation]]
+  - [[#Higher-Order List Functions|Higher-Order List Functions]]
+  - [[#Memory Issues With Recursion|Memory Issues With Recursion]]
+  - [[#Example: Factorial With Straight Recursion|Example: Factorial With Straight Recursion]]
   - [[#Tail Recursion|Tail Recursion]]
-  - [[#Limits Of Tail Recursion|Limits Of Tail Recursion]]
+  - [[#Recursion Summary|Recursion Summary]]
 
 ---
 
@@ -31,26 +31,28 @@ tags:
 
 ### No Loops In Pure Haskell
 
-A loop needs a **counter variable** that changes on each iteration. That mutation breaks immutability, so pure Haskell has no loops.
+A loop needs a counter variable that changes on each iteration, which breaks immutability.
 
-To build $[n, n-1, \ldots, 1]$ in Python:
+Example: build the list $[n, n-1, \dots, 1]$ in Python.
 
 ```python
 countdown = []
-for i in range(n, 0, -1):    # mutating loop counter
+for i in range(n, 0, -1):     # mutating loop counter
     countdown.append(i)
 
 # Pythonic alternative
 countdown = [i for i in range(n, 0, -1)]
 ```
 
+Both the loop counter `i` and the list `countdown` are mutated.
+
 ### Recursion Instead Of Loops
 
 #### Definitions
 
-> **Base case**: The non-recursive case of a recursive definition. It plays the role of the loop exit.
+> **Base case**: The case that stops the recursion — the equivalent of a loop's exit condition.
 
-> **Recursive step**: The case that calls the function again on a smaller input. It plays the role of the loop body.
+> **Recursive step**: The case that calls the function on a smaller input — the equivalent of the loop body.
 
 ```haskell
 buildList :: Int -> [Int]
@@ -58,52 +60,45 @@ buildList 0 = []                     -- base case: exit at 0
 buildList n = n : buildList (n - 1)  -- recursive step: add n to the front
 ```
 
-- `:` (cons) adds an element to the front of a list.
-- This does not break immutability because lists are built from pointers: each new cell points at the existing, unchanged tail.
-- Haskell also has range syntax that does this automatically: `countdown = [5, 4 .. 1]`.
+This doesn't break immutability: lists are built from pointers, so `n : rest` creates a new cell pointing at the existing list instead of changing anything.
 
-### Higher-Order Functions: map, filter, foldr
+For illustration only — Haskell has syntax to do this directly:
+
+```haskell
+countdown :: [Int]
+countdown = [5, 4 .. 1]
+```
+
+### Higher-Order List Functions
 
 #### Definitions
 
-> **Higher-order function**: A function that takes another function as an argument or returns one.
+> **Higher-order function**: A function that takes a function as an argument or returns one.
 
-> **`map fn lst`**: Applies function `fn` to every element of list `lst`.
+Haskell provides higher-order functions that operate on lists, so you rarely need to write recursive loops over list elements yourself. They made all the imperative languages jealous.
 
-> **`filter prd lst`**: Returns the elements of `lst` that satisfy the predicate function `prd`.
+| Function | Meaning | Example | Output |
+|---|---|---|---|
+| `map fn lst` | Apply `fn` to every element of `lst` | `map square [1,2,3]` | `[1,4,9]` |
+| `filter prd lst` | Keep the elements of `lst` that satisfy predicate `prd` | `filter even [1,2,3]` | `[2]` |
+| `foldr cmb base lst` | Combine the elements of `lst` from the right with `cmb`, starting from `base` | `foldr (+) 0 [1,2,3]` | `6` |
 
-> **`foldr cmb base lst`**: Combines the elements of `lst`, starting from the right, using combining function `cmb` and starting value `base`.
+`even` is built into the Haskell Prelude. `foldr (+) 0 [1,2,3]` computes $1 + (2 + (3 + 0))$.
 
-These Prelude functions remove the need to write recursive loops over list elements by hand.
-
-| Function | Example | Output |
-|---|---|---|
-| `map` | `map square [1,2,3]` | `[1,4,9]` |
-| `filter` | `filter even [1,2,3]` (`even` is in the Prelude) | `[2]` |
-| `foldr` | `foldr (+) 0 [1,2,3]` | `6` |
-
-`foldr (+) 0 [1,2,3]` works from the right end:
-
-$$
-1 + (2 + (3 + 0)) = 6
-$$
-
-These higher-order functions "made all the imperative programming languages jealous", which is why many of them later adopted similar functions.
-
-### Memory Issues
+### Memory Issues With Recursion
 
 - Each function call creates a **stack frame**.
-- With enough nested calls, recursion can cause a **stack overflow**.
-- Recursion is often forbidden in safety-critical systems for reliability reasons. Lockheed Martin and NASA coding rules state: "Functions shall not call themselves either directly or indirectly."
+- With enough calls, recursion causes a **stack overflow**.
+- Recursion is often forbidden in safety-critical systems for reliability reasons. Lockheed Martin and NASA coding standards say: "Functions shall not call themselves either directly or indirectly."
 
-### Example: Factorial And Lazy Evaluation
+### Example: Factorial With Straight Recursion
 
 ```haskell
 fac 0 = 1
 fac n = n * fac (n-1)
 ```
 
-```haskell
+```text
 fac 5 = 5 * (fac 4)
       = 5 * (4 * (fac 3))
       = 5 * (4 * (3 * (fac 2)))
@@ -117,25 +112,26 @@ fac 5 = 5 * (fac 4)
       = 120
 ```
 
+How lazy evaluation handles it:
+
+1. During recursion, the expression is built up lazily.
+2. During reduction, Haskell tries outermost order.
+3. But `*` is **strict** — it needs both operands as values — so evaluation collapses to innermost order.
+
 | Approach | Stack space |
 |---|---|
 | Standard recursion | $O(n)$ |
 | Iteration | $O(1)$ |
 
-Under lazy evaluation:
-
-1. During recursion, the expression is built lazily.
-2. During reduction, Haskell tries outermost order.
-3. But `*` is **strict**: it needs both operands to be values.
-4. So evaluation collapses to innermost order, and every pending multiplication stays on the stack.
-
 ### Tail Recursion
 
 #### Definitions
 
-> **Tail recursion**: Recursion in which everything is calculated first and the recursive call is the very last action, so no state needs to be saved in the calling frame.
+> **Tail recursion**: Recursion where the recursive call is the very last action; everything else is calculated before the call.
 
-> **Accumulator**: An extra parameter that carries the partial result forward into the next call.
+> **Accumulator**: An extra parameter that carries the partial result through the recursive calls.
+
+Because nothing remains to be done after the recursive call, no state needs saving in the current frame, and the compiler can optimise away the stack frames. The stack space drops to $O(1)$.
 
 ```haskell
 facAux 0 r = r
@@ -143,7 +139,7 @@ facAux n r = facAux (n-1) (r * n)
 fac n = facAux n 1
 ```
 
-```haskell
+```text
 fac 5 = facAux 5 1
       = facAux (5-1) (5*1)
       = facAux 4 5
@@ -154,17 +150,25 @@ fac 5 = facAux 5 1
       = 120
 ```
 
-- The compiler can optimise away stack frames, using $O(1)$ stack space.
-- `n` is always evaluated because of the pattern match against `0`.
-- It **requires strict evaluation** of the accumulator. Otherwise `r * n` builds a chain of heap thunks: stack frames are just replaced by thunks, with a risk of **heap overflow**.
+Tail recursion **requires strict evaluation** of the accumulator:
+
+- Under pure lazy evaluation, `r * n` would not be computed; it would pile up as a chain of heap thunks `(((1*5)*4)*3)…`.
+- That just replaces stack frames with heap thunks, risking **heap overflow** instead.
+- The counter `n` is always evaluated because of the pattern-match check against 0; the accumulator needs forcing explicitly (e.g. a strictness annotation).
 
 ![Factorial stack frames](../../../diagrams/CSC3003S-Advanced%20Programming/FP/03_Recursion/factorial-stack.svg)
 
-*Straight recursion keeps six `fac` frames alive until the multiplications unwind. Strict tail recursion reuses one frame for each `facAux` call.*
+*Straight recursion stacks a frame per call (`fac 5` … `fac 0`); tail recursion reuses one frame as the accumulator carries the result.*
 
-### Limits Of Tail Recursion
+| | Straight recursion | Tail recursion (strict) |
+|---|---|---|
+| Work after the recursive call | Multiply by `n` | None |
+| Stack space | $O(n)$ | $O(1)$ |
+| Shape of evaluation | Expression grows then shrinks | Constant-size calls |
+
+### Recursion Summary
 
 - Haskell uses recursion instead of explicit iteration.
-- Tail recursion plus strict evaluation cuts stack cost from $O(n)$ to $O(1)$.
-- It needs compiler support and programmer directives (to force strictness).
-- It does not apply in every case: some **branching recursion** (several recursive calls per step) cannot be refactored into tail form.
+- Stack frame cost can be cut from $O(n)$ to $O(1)$ using tail recursion plus strict evaluation.
+- This requires compiler support and programmer directives.
+- It is not applicable in all cases: some branching recursion (e.g. the doubly recursive Fibonacci) cannot be refactored into tail recursion.

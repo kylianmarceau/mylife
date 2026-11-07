@@ -5,321 +5,508 @@ tags:
 
 # Algorithm Efficiency Analysis
 
-**Subject**: CSC3003S Advanced Programming — Theory of Algorithms (TOA)  
-**Source**: [2 - TOA Efficiency.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/TOA/2%20-%20TOA%20Efficiency.pdf), Patrick Marais, University of Cape Town, PDF pages 1–44  
-**Generated**: 2026-10-02
+**Subject**: CSC3003S Advanced Programming — Theory of Algorithms (TOA)
+**Source**: [2 - TOA Efficiency.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/TOA/2%20-%20TOA%20Efficiency.pdf), Patrick Marais, University of Cape Town, pages 1–44
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes. Examples and corrections appear beside the relevant concept.
+> Asymptotic notation ($O$, $\Omega$, $\Theta$), counting basic operations with summations, and solving recurrences by backward substitution and the Master Theorem.
 
 ---
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Input Size, Basic Operations And Cases|Input Size, Basic Operations And Cases]]
-  - [[#Growth Orders And Asymptotic Bounds|Growth Orders And Asymptotic Bounds]]
-  - [[#Combining Costs And Comparing Classes|Combining Costs And Comparing Classes]]
-  - [[#Counting Iterative Algorithms|Counting Iterative Algorithms]]
-  - [[#Checking Uniqueness: Three Designs|Checking Uniqueness: Three Designs]]
-  - [[#Recurrences And Backward Substitution|Recurrences And Backward Substitution]]
-  - [[#Fibonacci Recursion Analysis|Fibonacci Recursion Analysis]]
-  - [[#Master Theorem|Master Theorem]]
+  - [[#Measuring Algorithm Efficiency|Measuring Algorithm Efficiency]]
+  - [[#Best, Worst And Average Case: Linear Search|Best, Worst And Average Case: Linear Search]]
+  - [[#Typical Efficiency Classes|Typical Efficiency Classes]]
+  - [[#Big O|Big O]]
+  - [[#Big Omega|Big Omega]]
+  - [[#Big Theta|Big Theta]]
+  - [[#Sum Rule For Sequential Parts|Sum Rule For Sequential Parts]]
+  - [[#Comparing O, Ω And Θ|Comparing O, Ω And Θ]]
+  - [[#Checkpoint: Asymptotic Equalities|Checkpoint: Asymptotic Equalities]]
+  - [[#Analysing Non-Recursive Algorithms|Analysing Non-Recursive Algorithms]]
+  - [[#Summation Rules|Summation Rules]]
+  - [[#Example: Maximum Element|Example: Maximum Element]]
+  - [[#Example: Is The Array A Set?|Example: Is The Array A Set?]]
+  - [[#Analysing Recursive Algorithms|Analysing Recursive Algorithms]]
+  - [[#Backward Substitution Examples|Backward Substitution Examples]]
+  - [[#Fibonacci Recurrence|Fibonacci Recurrence]]
+  - [[#The Master Theorem|The Master Theorem]]
 
 ---
 
 ## Core Content
 
-### Input Size, Basic Operations And Cases
+### Measuring Algorithm Efficiency
 
 #### Definitions
 
-> **Input size**: A measure of the amount of input, denoted $n$; its meaning depends on the problem.
+> **Input size**: The measure of how big an instance is, typically written $n$.
 
-> **Basic operation**: A repeated core operation used to measure an algorithm's computation cost.
+> **Basic operation**: The operation executed repeatedly at the core of the algorithm; its count is the unit used to measure time.
 
-> **Best case**, **worst case** and **average case**: Respectively the minimum cost, maximum cost, and expected cost over a specified distribution of inputs of the same size.
+> **Order of growth**: How the operation count grows as $n$ grows, ignoring constant factors and lower-order terms.
 
-> **Auxiliary space**: Storage used in addition to the original input, including recursion stacks where applicable.
+> **Time efficiency**: The number of basic operations performed, as a function of $n$.
 
-Count comparisons for searching and sorting, and additions or multiplications for numerical algorithms. State what the input size and counted operation mean before deriving a bound.
+> **Space efficiency**: The number of extra memory units required, as a function of $n$.
 
-For linear search in an array of size $n$:
+To analyse efficiency you need two things: a measure of input size $n$ and a unit of time (the basic operation).
 
-| Case | Key comparisons | Growth |
-|---|---:|---|
-| First element matches | $1$ | $\Theta(1)$ |
-| Last matches, or key is absent | $n$ | $\Theta(n)$ |
-| Successful match uniformly distributed among positions | $(n+1)/2$ | $\Theta(n)$ |
+- We care about **growth order**. The difference between $O(n^2)$ and $O(n^3)$ matters far more than the difference between $1412n^2$ and $4n^3$.
+- We distinguish **best**, **average** and **worst** case performance.
+- Both time and memory efficiency are expressed as functions of $n$.
 
-The average depends on the input distribution and probability of unsuccessful search. A best-case statement is not a lower-bound notation by definition; case analysis and bound notation are separate choices.
+### Best, Worst And Average Case: Linear Search
 
-### Growth Orders And Asymptotic Bounds
+Linear search scans an array of length $n$ for a key.
 
-#### Definitions
-
-> **Big O**: An asymptotic upper bound on a nonnegative cost function.
-
-> **Big Omega**: An asymptotic lower bound on a nonnegative cost function.
-
-> **Big Theta**: Matching asymptotic upper and lower bounds, up to positive constant factors.
-
-$$
-\begin{aligned}
-t(n)\in O(g(n))&\iff \exists c>0,n_0:\ 0\le t(n)\le cg(n)\quad(n\ge n_0),\\
-t(n)\in\Omega(g(n))&\iff \exists c>0,n_0:\ 0\le cg(n)\le t(n)\quad(n\ge n_0),\\
-t(n)\in\Theta(g(n))&\iff \exists c_L,c_U>0,n_0:\ 0\le c_Lg(n)\le t(n)\le c_Ug(n)\quad(n\ge n_0).
-\end{aligned}
-$$
-
-Theta does not mean an exact operation count or a limiting ratio of one. It means that the cost is bounded between constant multiples of the same growth function.
-
-![Theta upper and lower envelopes](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/02_Efficiency_Analysis/theta-bounds.svg)
-
-*After the threshold, the cost stays between positive constant multiples of the reference function.*
-
-For $t(n)=100n+5$, choose $c_U=101$, $n_0=5$ to prove an upper bound, and $c_L=100$ for the lower bound. Thus $t(n)\in\Theta(n)$; it is also in $O(n^2)$, but not $\Theta(n^2)$.
-
-For sufficiently large input, typical classes grow in this order:
-
-$$
-1\prec\log n\prec n\prec n\log n\prec n^2\prec n^3\prec2^n\prec n!.
-$$
-
-| $n$ | $\log_2n$ | $n\log_2n$ | $n^2$ | $n^3$ | $2^n$ | $n!$ |
-|---:|---:|---:|---:|---:|---:|---:|
-| $10$ | $3.3$ | $33.2$ | $10^2$ | $10^3$ | $1024$ | $3.63\times10^6$ |
-| $100$ | $6.6$ | $664.4$ | $10^4$ | $10^6$ | $1.27\times10^{30}$ | $9.33\times10^{157}$ |
-| $1000$ | $10.0$ | $9965.8$ | $10^6$ | $10^9$ | $1.07\times10^{301}$ | Enormous |
-| $10^4$ | $13.3$ | $132877.1$ | $10^8$ | $10^{12}$ | Enormous | Enormous |
-| $10^5$ | $16.6$ | $1660964.0$ | $10^{10}$ | $10^{15}$ | Enormous | Enormous |
-| $10^6$ | $19.9$ | $19931568.6$ | $10^{12}$ | $10^{18}$ | Enormous | Enormous |
-
-Constant factors can matter on small inputs. For large inputs, growth often dominates: at $n=10^8$, quadratic work is about $3.76\times10^6$ times the size of $n\log_2n$. If the latter takes thirty seconds at the same operation rate, the former takes roughly $3.6$ years.
-
-### Combining Costs And Comparing Classes
-
-If consecutive stages cost $t_1(n)\in O(g(n))$ and $t_2(n)\in O(h(n))$, then:
-
-$$
-t_1(n)+t_2(n)\in O(\max\{g(n),h(n)\}).
-$$
-
-The corresponding statement also holds for Theta and Omega bounds on nonnegative costs. Thus a quadratic sort followed by linear search remains quadratic. Nested repetition requires multiplication or summation, not this sequential-stage rule.
-
-Since $n\le n+\log n\le2n$ eventually, $\Theta(n+\log n)=\Theta(n)$. Also:
-
-$$
-\log_a n=\frac{\log_b n}{\log_b a}\qquad(a,b>1).
-$$
-
-Changing a fixed logarithm base only changes a constant. Squaring a logarithm changes its growth.
-
-| Checkpoint | Result | Reason |
+| Case | Elements examined | Efficiency |
 |---|---|---|
-| $\Theta(n+\log n)=\Theta(n)$ | True | Linear term dominates |
-| $O(n+\log n)=O(n)$ | True | Constant-factor equivalence |
-| $\Theta(n\log_2n)=\Theta(n\log_{10}n)$ | True | Base change is constant |
-| $\Theta((\log n)^2)=\Theta(\log n)$ | False | Ratio grows without bound |
-| $O(n\log n)=O(n)$ | False | $O(n)$ is a proper subset |
-| $t\in O(n\log n)\Rightarrow t\in O(n^2)$ | True | Larger upper bound |
-| $t\in\Theta(n\log n)\Rightarrow t\in\Theta(n^2)$ | False | Different tight classes |
-| $t\in O(n\log n)\Rightarrow t\in O(n)$ | False | Counterexample: $t=n\log n$ |
+| Worst | All $n$ | $\Theta(n)$ |
+| Best | 1 (key is first) | $\Theta(1)$ |
+| Average | About $n/2$ | $\Theta(n/2) = \Theta(n)$, since $\tfrac12$ is a constant |
 
-### Counting Iterative Algorithms
+You could also say the worst case is $O(n)$, or even $O(n^2)$, but we want the **tightest bound**.
+
+### Typical Efficiency Classes
+
+Values of common growth functions:
+
+| $n$ | $\log_2 n$ | $n$ | $n\log_2 n$ | $n^2$ | $n^3$ | $2^n$ | $n!$ |
+|---|---|---|---|---|---|---|---|
+| 10 | 3.3 | $10$ | 33.2 | $10^2$ | $10^3$ | $10^3$ | $3.6\times10^6$ |
+| 100 | 6.6 | $10^2$ | 664.4 | $10^4$ | $10^6$ | $1.3\times10^{30}$ | $9.3\times10^{157}$ |
+| 1,000 | 10.0 | $10^3$ | 9,965.8 | $10^6$ | $10^9$ | $1.1\times10^{301}$ | — |
+| 10,000 | 13.3 | $10^4$ | 132,877.1 | $10^8$ | $10^{12}$ | — | — |
+| 100,000 | 16.6 | $10^5$ | 1,660,964.0 | $10^{10}$ | $10^{15}$ | — | — |
+| 1,000,000 | 19.9 | $10^6$ | 19,931,568.6 | $10^{12}$ | $10^{18}$ | — | — |
+
+Exponential and factorial functions become astronomically large even for small $n$.
+
+#### How long to sort 100 million items?
+
+Suppose an $n\log_2 n$ sort of $n = 10^8$ items takes 30 seconds:
+
+$$
+n\log_2 n = 10^8 \log_2 10^8 \approx 2{,}657{,}542{,}476 \text{ operations in } 30\text{ s}
+$$
+
+A quadratic sort needs $n^2 = 10^{16}$ operations:
+
+$$
+\frac{10^{16}}{2{,}657{,}542{,}476} \approx 3{,}762{,}875, \qquad 3{,}762{,}875 \times 30\text{ s} = 112{,}886{,}248\text{ s} \approx 3.6 \text{ years}
+$$
+
+Insertion sort and bubble sort ($\Theta(n^2)$) are therefore impractical for large data sets.
+
+### Big O
 
 #### Definitions
 
-> **Summation**: A compact representation of repeated additions used to count loop work.
+> **Big O**: $t(n) \in O(g(n))$ if and only if there exist a constant $c$ and an $n_0$ such that $t(n) \le c\,g(n)$ for all $n \ge n_0$.
 
-1. Identify the basic operation.
-2. State the case being analysed.
-3. Count executions using the loop limits.
-4. Simplify the sum and give an asymptotic class.
+Intuitively, Big O drops constant factors and lower-order terms:
 
-Useful identities are:
-
-$$
-\sum_{i=j}^{n}1=n-j+1,\qquad
-\sum_{i=1}^{n}i=\frac{n(n+1)}2,
-$$
-$$
-\sum_i ca_i=c\sum_i a_i,\qquad
-\sum_i(a_i\pm b_i)=\sum_i a_i\pm\sum_i b_i.
-$$
-
-Finding an array maximum:
-
-```pseudo
-Maximum(A):
-    maximum = A[0]       // requires nonempty input
-    for i = 1 to length(A) - 1:
-        if A[i] > maximum:
-            maximum = A[i]
-    return maximum
-```
-
-The comparison executes $C(n)=\sum_{i=1}^{n-1}1=n-1\in\Theta(n)$ in every case. Updating the maximum happens a variable number of times; counting only updates would miss the comparisons that always occur.
-
-### Checking Uniqueness: Three Designs
-
-#### Definitions
-
-> **Set**: A collection with no duplicate elements; here the question is whether all array entries are distinct.
-
-The direct method compares each entry with every other entry:
-
-```pseudo
-IsSetOrderedPairs(A):
-    for i = 0 to length(A) - 1:
-        for j = 0 to length(A) - 1:
-            if i != j and A[i] == A[j]: return false
-    return true
-```
-
-For distinct entries, the inner loop executes $n^2$ times and the element-equality comparison executes $n(n-1)$ times under short-circuit evaluation. The PDF's count $(n-1)^2$ is incorrect; the quadratic class is unchanged.
-
-Avoid checking each unordered pair twice:
-
-```pseudo
-IsSetPairs(A):
-    for i = 0 to length(A) - 2:
-        for j = i + 1 to length(A) - 1:
-            if A[i] == A[j]: return false
-    return true
-```
-
-$$
-\begin{aligned}
-C(n)&=\sum_{i=0}^{n-2}\sum_{j=i+1}^{n-1}1
-=\sum_{i=0}^{n-2}(n-1-i)\\
-&=(n-1)^2-\frac{(n-2)(n-1)}2
-=\frac{n(n-1)}2\in\Theta(n^2).
-\end{aligned}
-$$
-
-The recursive version checks one entry against the suffix, then recurses on that suffix:
-
-```pseudo
-IsSetRecursive(A, index):
-    if index >= length(A) - 1: return true
-    for j = index + 1 to length(A) - 1:
-        if A[index] == A[j]: return false
-    return IsSetRecursive(A, index + 1)
-```
-
-Its worst-case recurrence is $C(n)=C(n-1)+(n-1)$ with $C(1)=0$, giving the same pair count. Explicit recursion can add linear stack storage.
-
-A transformation sorts first, then checks neighbours:
-
-```pseudo
-IsSetPresorted(A):
-    EfficientSort(A)
-    for i = 0 to length(A) - 2:
-        if A[i] == A[i + 1]: return false
-    return true
-```
-
-| Method | Worst-case comparisons or time | Qualification |
+| Operation count | Class | Ignored parts |
 |---|---|---|
-| All ordered pairs | $\Theta(n^2)$ | Checks each distinct pair twice |
-| Unique pairs, iterative or recursive | $\Theta(n^2)$ | Half as many element comparisons |
-| Efficient sort then scan | $\Theta(n\log n)$ | Sorting cost included; may reorder input |
+| $2n + 10$ | $O(n)$ | the 2 and the 10 |
+| $3n^2 + 9n + 5$ | $O(n^2)$ | the 3, the $9n$ and the 5 |
 
-Early duplicates can produce a constant-time best case for pair checking. Average-case claims need an input model; quadratic average behaviour is not automatic. Comparing arbitrary strings can also cost more than a constant per comparison.
+**Example 1**: $100n + 5 \in O(n)$. Choose $c = 101$ and $n_0 = 5$. Then $100n + 5 \le 101n$ for all $n \ge 5$.
 
-### Recurrences And Backward Substitution
+**Example 2**: $100n + 5 \in O(n^2)$. Choose $c = 21$, $n_0 = 5$ and check $100n + 5 \le 21n^2$. More formally:
+
+$$
+100n + 5 \le 100n + n = 101n \le 101n^2 \quad (n \ge 5) \;\Rightarrow\; 100n+5 \in O(n^2)
+$$
+
+### Big Omega
 
 #### Definitions
 
-> **Recurrence relation**: An equation expressing a cost at one input size in terms of costs at smaller sizes, together with base cases.
+> **Big Omega**: $t(n) \in \Omega(g(n))$ if and only if there exist a positive constant $c$ and a non-negative integer $n_0$ such that $t(n) \ge c\,g(n)$ for all $n \ge n_0$.
 
-> **Backward substitution**: Repeated expansion of a recurrence until its base case is reached.
+This is the same as Big O with the inequality reversed. It gives a **lower bound** on growth and is not widely used.
 
-Typical forms are $T(n)=aT(n-k)+f(n)$ and $T(n)=aT(n/b)+f(n)$. Include the recursive calls and the work outside them.
+### Big Theta
 
-For recursive factorial, count multiplications:
+#### Definitions
+
+> **Big Theta**: $t(n) \in \Theta(g(n))$ if and only if there exist constants $c_1$, $c_2$ and $n_0$ such that $c_2\,g(n) \le t(n) \le c_1\,g(n)$ for all $n \ge n_0$.
+
+Big O only gives an upper bound. Summing an array is $O(n)$, but by the definition it is also $O(n^2)$, $O(2^n)$ and $O(n\log n)$. (It is not $O(\log n)$.) $O(n^2)$ means "proportional to $n^2$ **or better**".
+
+To say an algorithm's basic operation executes *exactly* in proportion to $n$, use Big Theta. Summing an array is $\Theta(n)$; it is not $\Theta(n^2)$ or $\Theta(n\log n)$.
+
+Functions in a $\Theta$ class cannot also be in a more efficient class:
+
+- $100n + 5 \in \Theta(n)$
+- $100n + 5 \in O(n^2)$
+- $100n + 5 \notin \Theta(n^2)$
+
+$\Theta$ is the notation used most in this course.
+
+![Theta bounds graph](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/02_Efficiency_Analysis/theta-bounds.svg)
+
+*Beyond $n_0$, $t(n)$ is sandwiched between $c_2 g(n)$ and $c_1 g(n)$.*
+
+### Sum Rule For Sequential Parts
+
+> **Theorem**: If $t_1(n) \in O(g(n))$ and $t_2(n) \in O(h(n))$, then $t_1(n) + t_2(n) \in O(\max\{g(n), h(n)\})$. The same holds for $\Theta$ and $\Omega$.
+
+This lets you estimate the complexity of an algorithm made of sequential parts. The slowest-growing part dominates.
+
+Example: bubble sort an array, then search it.
+
+| Part | Complexity |
+|---|---|
+| Bubble sort | $O(n^2)$ |
+| Search | $O(n)$ |
+| Combined | $O(\max\{n^2, n\}) = O(n^2)$ |
+
+### Comparing O, Ω And Θ
+
+| Notation | Meaning as $n$ grows | Bound type |
+|---|---|---|
+| Big O | Running time at most proportional to $g(n)$ | Upper bound |
+| Big Ω | Running time at least proportional to $g(n)$ | Lower bound |
+| Big Θ | Running time exactly proportional to $g(n)$ | Exact (tight) bound |
+
+Bounds can be stated for any case:
+
+| Statement | Meaning | Example |
+|---|---|---|
+| Average case $O(n^2)$ | Grows at most as fast as $n^2$ on average input | Bubble sort |
+| Worst case $O(n^3)$ | Grows at most as fast as $n^3$ in the worst case | Brute-force matrix multiplication (also $\Theta(n^3)$) |
+| Best case $\Theta(n)$ | Grows linearly in the best case | Summing an array |
+| Worst case $\Omega(2^n)$ | Grows at least exponentially in the worst case | Creating the power set |
+
+### Checkpoint: Asymptotic Equalities
+
+| Statement | Answer | Reason |
+|---|---|---|
+| $\Theta(n + \log n) = \Theta(n)$ | True | Discard added terms that grow more slowly |
+| $O(n + \log n) = O(n)$ | True | Same reason |
+| $\Theta(n\log_2 n) = \Theta(n\log_{10} n)$ | True | $\log_2 n / \log_{10} n \approx 3.32$, a constant (change of base) |
+| $\Theta(\log^2 n) = \Theta(\log n)$ | False | $\log^2 n$ grows more than a constant factor faster than $\log n$ |
+| $O(n\log n) = O(n)$ | False | Different sets; $O(n)$ is a subset of $O(n\log n)$ |
+| If $x \in O(n\log n)$ then $x \in O(n^2)$ | True | Mergesort is $O(n\log n)$, so by definition also $O(n^2)$ |
+| If $x \in \Theta(n\log n)$ then $x \in \Theta(n^2)$ | False | Mergesort is strictly $\Theta(n\log n)$ |
+| If $x \in O(n\log n)$ then $x \in O(n)$ | False | $x$ might be in $O(n)$, but might not be (e.g. mergesort) |
+
+#### Proof that $\Theta(n + \log n) = \Theta(n)$
+
+1. Constants do not matter, so $\Theta(2n) = \Theta(n)$.
+2. Since $\log n < n$: $n + \log n < n + n = 2n$.
+3. Also $n + \log n \ge n$.
+4. So $n \le n + \log n < 2n$, which matches the $\Theta$ definition with $c_2 = 1$, $c_1 = 2$.
+5. Therefore $t(n) = n + \log n \in \Theta(n)$, and the two sets are equivalent in asymptotic efficiency.
+
+### Analysing Non-Recursive Algorithms
+
+Steps for calculating efficiency:
+
+1. **Identify the basic operations** — those executed repeatedly at the core of the algorithm.
+   - Sorting: comparisons and swaps.
+   - Matrix multiplication: multiplications and additions.
+2. **Set up an equation** $C(n) = \dots$ that counts the basic operations for an input of size $n$.
+3. **Solve the equation** and state the efficiency class.
+
+### Summation Rules
+
+| Rule | Statement |
+|---|---|
+| R1 (constant factor) | $\displaystyle\sum_{i=l}^{u} c\,a_i = c\sum_{i=l}^{u} a_i$ |
+| R2 (sum/difference) | $\displaystyle\sum_{i=l}^{u} (a_i \pm b_i) = \sum_{i=l}^{u} a_i \pm \sum_{i=l}^{u} b_i$ |
+| S1 (counting ones) | $\displaystyle\sum_{i=l}^{u} 1 = u - l + 1$ |
+| S2 (arithmetic series) | $\displaystyle\sum_{i=0}^{n} i = \sum_{i=1}^{n} i = \frac{n(n+1)}{2} \approx \frac{n^2}{2} \in \Theta(n^2)$ |
+
+S2 is the familiar $1 + 2 + 3 + \dots + n = n(n+1)/2$.
+
+### Example: Maximum Element
+
+```text
+int MysteryFunction( A[0 .. n-1] )
+    MysteryVal = A[0]
+    for i = 1 to n - 1:
+        if A[i] > MysteryVal:
+            MysteryVal = A[i]
+    return MysteryVal
+```
+
+1. **What it does**: finds the largest element in the array (rename it `maxElement`, with `maxVal`).
+2. **Basic operation**: the comparison `A[i] > maxVal`.
+3. **Count**: one comparison per loop iteration:
+
+$$
+C(n) = \sum_{i=1}^{n-1} 1 = n - 1 \in \Theta(n)
+$$
+
+4. **Class**: $\Theta(n)$ (and therefore also $O(n)$). Every case is the same because the loop always runs to completion.
+
+### Example: Is The Array A Set?
+
+You have loaded a file of strings into an array $A$ and want to check for duplicates, i.e. whether each element appears at most once.
+
+#### Brute force
 
 ```java
-Factorial(n):
-    if n == 0: return 1
-    return Factorial(n - 1) * n
+boolean isset(A) {
+  for (i=0; i<A.length; i++)
+    for (j=0; j<A.length; j++)
+      if (i != j and A[i] == A[j])
+         return false;
+  return true;
+}
 ```
 
-$$
-M(0)=0,\quad M(n)=M(n-1)+1=M(n-k)+k.
-$$
+- **Worst case**: no duplicates, so both loops run to completion.
+- **Basic operation**: comparison.
+- **Count**: every ordered pair is examined; about $(n-1)^2$ to $n^2$ comparisons, i.e. $\Theta(n^2)$. Each unordered pair is checked twice.
 
-Set $k=n$: $M(n)=n\in\Theta(n)$.
+#### Decrease and conquer (iterative)
 
-For counting the bits of a positive integer:
+Compare each element only with the elements after it:
 
-```pseudo
-CountBits(n):
-    if n == 1: return 1
-    return 1 + CountBits(floor(n / 2))
+```java
+boolean isset(A) {
+  for (i=0; i<A.length-1; i++)
+    for (j=i+1; j<A.length; j++)
+      if (A[i] == A[j]) return false;
+  return true;
+}
 ```
 
-The return value is $\lfloor\log_2n\rfloor+1$, but the number of additions is $\lfloor\log_2n\rfloor$. If $n=2^k$:
+The inner loop runs $(n-1) + (n-2) + \dots + 1 = n(n-1)/2$ times in the worst case (no early exit). Full derivation:
 
 $$
-A(1)=0,\qquad A(2^k)=A(2^{k-1})+1=A(1)+k=\log_2n.
+\begin{aligned}
+C_{worst}(n) &= \sum_{i=0}^{n-2}\sum_{j=i+1}^{n-1} 1 \\
+&= \sum_{i=0}^{n-2} (n-1-i) && \text{S1 on the inner sum} \\
+&= \sum_{i=0}^{n-2} (n-1) - \sum_{i=0}^{n-2} i && \text{R2} \\
+&= (n-1)\sum_{i=0}^{n-2} 1 - \frac{(n-2)(n-1)}{2} && \text{R1 and S2} \\
+&= (n-1)^2 - \frac{(n-2)(n-1)}{2} && \text{S1} \\
+&= \frac{(n-1)n}{2} \approx \frac12 n^2 \in \Theta(n^2)
+\end{aligned}
 $$
 
-For two recursive half-size calls with one operation outside them:
+Worst case $\Theta(n^2)$; the average case is also $\Theta(n^2)$.
 
-$$
-M(n)=2M(n/2)+1,\quad M(1)=0.
-$$
+#### Decrease and conquer (recursive)
 
-After $i$ expansions:
+```java
+Boolean isset(Array A, int index=0) {
+  if (index >= A.length-1) return true;
+  for (i=index+1; i<A.length; i++) {
+    if (A[index]==A[i]) return false;
+  }
+  return isset(A, index+1);
+}
+```
 
-$$
-M(n)=2^iM(n/2^i)+\sum_{j=0}^{i-1}2^j
-=2^iM(n/2^i)+2^i-1.
-$$
+The recursion should not scare you: this is materially identical to the iterative version. Worst and average case are both $\Theta(n^2)$.
 
-At $i=\log_2n$, $M(n)=n-1\in\Theta(n)$. Powers of two simplify exact algebra; floor and ceiling divisions give the same asymptotic result for ordinary positive sizes.
+#### Transform and conquer
 
-### Fibonacci Recursion Analysis
+Sort the array, then any duplicates are adjacent, so a single linear scan finds them:
 
-The basic operation is addition:
+```java
+boolean isset(A) {
+  sort(A);
+  for (int i=0; i<A.length-1; i++)
+    if (A[i] == A[i+1]) return false;
+  return true;
+}
+```
 
-$$
-A(0)=A(1)=0,\qquad A(n)=A(n-1)+A(n-2)+1.
-$$
+| Step | Efficiency |
+|---|---|
+| Sort (best algorithms) | $\Theta(n\log n)$ |
+| Linear scan (worst case) | $\Theta(n)$ |
+| Sequence of both | $\Theta(\max\{n\log n, n\}) = \Theta(n\log n)$ |
 
-Using the Fibonacci recurrence, $A(n)=F_{n+1}-1$, hence $A(n)\in\Theta(\varphi^n)$ with $\varphi=(1+\sqrt5)/2$. This is exponential despite the very short code.
+| Algorithm | Worst case |
+|---|---|
+| Brute force / decrease and conquer | $\Theta(n^2)$ |
+| Transform and conquer (presort) | $\Theta(n\log n)$ — faster |
 
-The two subproblem sizes differ and are obtained by subtraction. The course's Master Theorem does not apply to this recurrence.
-
-### Master Theorem
+### Analysing Recursive Algorithms
 
 #### Definitions
 
-> **Master Theorem**: A rule giving asymptotic costs for equal-fraction recursive subproblems with a specified nonrecursive cost.
+> **Recurrence relation**: A recursive mathematical function with a recursive case and a base case, used to count operations of a recursive algorithm.
 
-For the course version, let:
+Recursive analysis follows the same pattern as sequential analysis:
+
+1. Determine the core operation.
+2. Create an equation for the number of repetitions — now a **recurrence relation**, not a summation.
+3. Solve it, by **backward substitution** or the **Master Theorem**. (Closed-form recurrence solutions are not covered; see Levitin's appendices.)
+4. Derive the efficiency class.
+
+Example recurrence:
 
 $$
-T(n)=aT(n/b)+f(n),\qquad f(n)\in\Theta(n^d),\quad a\ge1,\ b>1,\ d\ge0,
+M(n) =
+\begin{cases}
+0 & \text{if } n = 0 \\
+M(n-1) + 1 & \text{otherwise}
+\end{cases}
 $$
 
-with constant-size base cost. Identify the number of recursive calls $a$, shrink factor $b$, and polynomial degree $d$.
+The two recurrence shapes in this course are:
 
-| Condition | Cost |
+$$
+T(n) = aT(n-k) + f(n) \qquad\text{(decrease by a constant, like } M(n)\text{)}
+$$
+
+$$
+T(n) = aT(n/b) + f(n) \qquad\text{(divide by a constant factor)}
+$$
+
+### Backward Substitution Examples
+
+#### Factorial
+
+```text
+int F(n) {
+    if n == 0 return 1;
+    return F(n-1) * n;
+}
+```
+
+The basic operation is multiplication, performed once per recursive call. Let $M(n)$ be the number of multiplications:
+
+$$
+M(0) = 0, \qquad M(n) = M(n-1) + 1
+$$
+
+Substitute backwards:
+
+$$
+\begin{aligned}
+M(n) &= M(n-1) + 1 \\
+&= [M(n-2) + 1] + 1 = M(n-2) + 2 \\
+&= [M(n-3) + 1] + 2 = M(n-3) + 3 \\
+&\;\;\vdots \\
+&= M(n-k) + k
+\end{aligned}
+$$
+
+When $k = n$: $M(n) = M(0) + n = n$. So $M(n) \in \Theta(n)$ — exactly $n$ in this case.
+
+#### Counting bits
+
+```text
+int CountBits(int n such that n > 0):
+    if n == 1 return 1
+    else return 1 + CountBits(n / 2)
+```
+
+The basic operation is the addition of 1 on each call. Let $A(n)$ count additions:
+
+$$
+A(1) = 0, \qquad A(n) = A(\lfloor n/2 \rfloor) + 1 \quad (n > 1)
+$$
+
+The floor is needed for an integer argument, which makes substitution awkward. The trick is to assume $n$ is a power of 2: let $n = 2^k$, i.e. $k = \log_2 n$, so $n/2 = 2^{k-1}$.
+
+$$
+\begin{aligned}
+A(2^k) &= A(2^{k-1}) + 1 \\
+&= [A(2^{k-2}) + 1] + 1 = A(2^{k-2}) + 2 \\
+&\;\;\vdots \\
+&= A(2^{k-k}) + k = A(2^0) + k = k
+\end{aligned}
+$$
+
+So $A(n) = \log_2 n \in \Theta(\log n)$. The **smoothness theorem** extends the result to all positive $n$.
+
+#### A more complicated case
+
+Solve $M(n) = 2M(n/2) + 1$ with $M(1) = 0$. Let $n = 2^k$:
+
+$$
+\begin{aligned}
+M(2^k) &= 2M(2^{k-1}) + 1 \\
+&= 2\,[2M(2^{k-2}) + 1] + 1 = 2^2 M(2^{k-2}) + 2 + 1 \\
+&= 2^2\,[2M(2^{k-3}) + 1] + 2 + 1 = 2^3 M(2^{k-3}) + 2^2 + 2 + 1
+\end{aligned}
+$$
+
+After $i$ substitutions:
+
+$$
+M(2^k) = 2^i M(2^{k-i}) + 2^{i-1} + 2^{i-2} + \dots + 2 + 1 = 2^i M(2^{k-i}) + 2^i - 1
+$$
+
+using $1 + 2 + 4 + \dots + 2^{i-1} = 2^i - 1$ (e.g. $1 + 2 + 4 = 7 = 2^3 - 1$). When $i = k$, the base case $M(1) = 0$ gives:
+
+$$
+M(n) = 2^k M(1) + 2^k - 1 = n - 1 \in \Theta(n)
+$$
+
+### Fibonacci Recurrence
+
+```text
+int F(n):
+    if n <= 1 return n
+    else return F(n-1) + F(n-2)
+```
+
+The basic operation is an addition:
+
+$$
+A(n) = A(n-1) + A(n-2) + 1
+$$
+
+This needs a different solution method (the **characteristic equation**), giving:
+
+$$
+A(n) \in \Theta(1.61803^n)
+$$
+
+The brute-force Fibonacci algorithm is exponential, with base equal to the golden ratio.
+
+### The Master Theorem
+
+There is no general solution to every recurrence. The **Master Theorem** gives the asymptotic class of divide-style recurrences directly, as a shortcut that replaces backward substitution. You must know how to apply it; you do not need to prove or derive it (see Levitin, Appendix B).
+
+> **Master Theorem**: If $T(n) = aT(n/b) + f(n)$ with $f(n) \in \Theta(n^d)$ and $T(1) = c$, then
+>
+> $$
+> T(n) \in
+> \begin{cases}
+> \Theta(n^d) & \text{if } a < b^d \\
+> \Theta(n^d \log n) & \text{if } a = b^d \\
+> \Theta(n^{\log_b a}) & \text{if } a > b^d
+> \end{cases}
+> $$
+>
+> Analogous results hold for $O$ and $\Omega$.
+
+| Symbol | Meaning |
 |---|---|
-| $a<b^d$ | $\Theta(n^d)$ |
-| $a=b^d$ | $\Theta(n^d\log n)$ |
-| $a>b^d$ | $\Theta(n^{\log_ba})$ |
+| $a$ | Number of subproblems solved recursively |
+| $b$ | Factor by which the input size shrinks |
+| $f(n) \in \Theta(n^d)$ | Work done outside the recursive calls (divide + combine) |
 
-| Recurrence | Parameters | Case | Result |
-|---|---|---|---|
-| $A(n)=A(n/2)+1$ | $a=1,b=2,d=0$ | Equal | $\Theta(\log n)$ |
-| $A(n)=2A(n/2)+1$ | $a=2,b=2,d=0$ | Greater | $\Theta(n)$ |
-| $T(n)=2T(n/2)+n$ | $a=2,b=2,d=1$ | Equal | $\Theta(n\log n)$ |
-| $T(n)=T(n/2)+n$ | $a=1,b=2,d=1$ | Less | $\Theta(n)$ |
+Steps to apply it:
 
-The base cost changes exact counts but usually not the class. For $A(1)=1$, the second recurrence yields $2n-1$, rather than $n-1$ for a zero base.
+1. Match the recurrence to $T(n) = aT(n/b) + f(n)$ and read off $a$, $b$.
+2. Find $d$ from $f(n) \in \Theta(n^d)$.
+3. Compare $a$ with $b^d$ and pick the case.
 
-Know how to apply this theorem; its proof is outside the course scope. Do not force it onto decrement recurrences, Fibonacci, or unequal quicksort subproblem sizes.
+**Example 1**: $A(n) = A(n/2) + 1$, $A(1) = 0$.
+
+- $a = 1$, $b = 2$, $c = 0$, $f(n) \in \Theta(1) = \Theta(n^0)$, so $d = 0$.
+- $b^d = 2^0 = 1 = a$, so case 2.
+- $T(n) \in \Theta(n^0 \log n) = \Theta(\log n)$.
+
+**Example 2**: $A(n) = 2A(n/2) + 1$, $A(1) = 1$.
+
+- $a = 2$, $b = 2$, $c = 1$, $f(n) \in \Theta(n^0)$, so $d = 0$.
+- $2 > 2^0$, so $a > b^d$, case 3.
+- $A(n) \in \Theta(n^{\log_2 2}) = \Theta(n)$.

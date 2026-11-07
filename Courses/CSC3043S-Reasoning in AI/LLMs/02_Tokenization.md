@@ -145,9 +145,9 @@ function BYTE-PAIR-ENCODING(strings C, number of merges k) returns vocab V
 
 Pre-tokenization allows more efficient data structures for BPE.
 
-![BPE pipeline](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/02_Tokenization/bpe-pipeline.svg)
+![Applying BPE](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/02_Tokenization/bpe-pipeline.svg)
 
-*Raw text is pre-tokenized to mark boundaries, then ordered BPE merges produce subword tokens, which map to vocabulary IDs.*
+*Raw text is pre-tokenized with start-of-word markers, then learned merges split it into subword tokens such as `_new ly` and `_spok en`.*
 
 | Stage | Text |
 |---|---|
@@ -179,6 +179,10 @@ The corpus uses end-of-word `_`. Initial vocabulary: `_, d, e, i, l, n, o, r, s,
 | 8. `low _` → `low_` | | `low_` |
 
 Final vocabulary: `_, d, e, i, l, n, o, r, s, t, w, er, er_, ne, new, lo, low, newer_, low_`.
+
+![BPE merges on the toy corpus](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/02_Tokenization/bpe-merges.svg)
+
+*Each merge joins the most frequent adjacent pair and adds one symbol; after eight merges "newer_" and "low_" are single tokens.*
 
 ### The BPE segmenter
 

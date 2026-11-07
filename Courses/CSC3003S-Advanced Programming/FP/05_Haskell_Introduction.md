@@ -3,14 +3,14 @@ tags:
   - advanced-programming
 ---
 
-# Haskell 1 — Introduction To Haskell
+# Introduction To Haskell
 
-**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)  
-**Source**: [FP 5 - Haskell 1 - Intro.pptx](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP%205%20-%20Haskell%201%20-%20Intro.pptx), Cael Marquard (adapted from Dr Sabre Didi), University of Cape Town, slides 1–28  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)
+**Source**: [FP 5 - Haskell 1 - Intro.pptx](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP%205%20-%20Haskell%201%20-%20Intro.pptx), Cael Marquard (adapted from Dr Sabre Didi), University of Cape Town, slides 1–28
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes: Haskell's four characteristics, the GHC toolchain, basic Prelude functions, and writing your first functions.
+> Haskell's four defining characteristics, installing and using GHC/GHCi, basic syntax and list functions, writing functions as pipelines, naming and layout rules, and a prime-search example.
 
 ---
 
@@ -19,19 +19,19 @@ tags:
 - [[#Core Content|Core Content]]
   - [[#How To Approach The Haskell Section|How To Approach The Haskell Section]]
   - [[#What Is Haskell?|What Is Haskell?]]
-  - [[#1. A Functional Programming Language|1. A Functional Programming Language]]
-  - [[#2. Pure Functions (No Side Effects)|2. Pure Functions (No Side Effects)]]
-  - [[#3. Lazy Evaluation|3. Lazy Evaluation]]
-  - [[#4. Strict, Static, Expressive Type System|4. Strict, Static, Expressive Type System]]
-  - [[#Installation And GHCi|Installation And GHCi]]
-  - [[#Basic Haskell: Prelude Maths And Defining Functions|Basic Haskell: Prelude Maths And Defining Functions]]
-  - [[#Basic Haskell: List Functions|Basic Haskell: List Functions]]
+  - [[#Functional Programming Language|Functional Programming Language]]
+  - [[#Pure Functions And No Mutability|Pure Functions And No Mutability]]
+  - [[#Lazy Evaluation In Practice|Lazy Evaluation In Practice]]
+  - [[#Strict, Static, Expressive Type System|Strict, Static, Expressive Type System]]
+  - [[#Installing And Using GHC And GHCi|Installing And Using GHC And GHCi]]
+  - [[#Basic Haskell: Arithmetic And Defining Functions|Basic Haskell: Arithmetic And Defining Functions]]
+  - [[#Basic List Functions|Basic List Functions]]
   - [[#Calling Functions|Calling Functions]]
-  - [[#Your First Script|Your First Script]]
-  - [[#Writing Functions As Compositions|Writing Functions As Compositions]]
+  - [[#Scripts|Scripts]]
+  - [[#Writing Functions As Pipelines|Writing Functions As Pipelines]]
   - [[#Naming Conventions|Naming Conventions]]
-  - [[#Layout Rule|Layout Rule]]
-  - [[#Worked Example: Prime Number Search|Worked Example: Prime Number Search]]
+  - [[#Layout Rules|Layout Rules]]
+  - [[#Example: Prime Number Search|Example: Prime Number Search]]
 
 ---
 
@@ -39,53 +39,59 @@ tags:
 
 ### How To Approach The Haskell Section
 
-- The **lectures are authoritative and complete** about what is examinable. The textbook gives detail; Google and the Haskell Wiki (`https://wiki.haskell.org`) supplement it.
-- Practice is essential: exercises come at the end of each lecture. No single resource is enough on its own.
-- Write Haskell yourself rather than relying on an LLM: **closed pracs** require writing code unassisted.
-- Advanced reading is marked `[AR: …]` and is **not examinable** (not in assignments, tests, quizzes or the exam).
+- The lectures give an overview, but are **authoritative and complete** about what is examinable.
+- The textbook gives detail; Google and the Haskell Wiki (wiki.haskell.org) supplement it.
+- Practice builds understanding — exercises come with each lecture.
+- Ask questions in class or by email. One resource alone isn't enough.
+- Learn to program Haskell yourself rather than having an LLM generate code: closed practicals require writing code unassisted.
+
+Advanced readings are marked **[AR: …]**. They are **not examinable** and never appear in assignments, tests, quizzes or the exam. If you aren't yet confident in FP, read them after the course.
+
+Lecture aims: know Haskell's major characteristics, have GHC and GHCi installed, and be able to define your own function.
 
 ### What Is Haskell?
 
-Haskell has four major characteristics:
+Haskell is unlike most languages you've used — abandon your preconceptions. It has four major characteristics:
 
-1. A functional programming language.
-2. Pure functions (no side effects).
-3. Lazy evaluation.
-4. A strict, static, expressive type system with **type inference**.
+| Characteristic | Meaning |
+|---|---|
+| Functional | Computation is a series of mathematical functions; functions are first-class |
+| Pure | Functions have no side effects; nothing is mutable |
+| Lazy | Expressions aren't evaluated until used |
+| Strongly typed | Strict, static, expressive type system with **type inference** |
 
-Haskell is unlike most languages you will have used, so set aside imperative preconceptions.
+### Functional Programming Language
 
-### 1. A Functional Programming Language
+Haskell follows the functional paradigm: computations are treated as a series of mathematical functions.
 
-#### Definitions
+Functions are **first-class objects** — you can do anything with a function that you could do with any other value, such as a string:
 
-> **First-class object**: A value you can do anything with that you could do with any other value.
+- treat them as values,
+- pass them to functions,
+- assign them to variables.
 
-Computations are treated as a series of mathematical functions. Because functions are first-class, you can:
-
-- treat them as values
-- pass them to functions
-- assign them to variables
-
-### 2. Pure Functions (No Side Effects)
+### Pure Functions And No Mutability
 
 #### Definitions
 
-> **Side effect**: An effect a function has other than its main effect, which is what it returns.
+> **Side effect**: An effect of a function other than its return value, such as modifying a variable passed to it.
 
-Functions can affect the program **only through what they return**. There is no mutability: every variable is constant.
+In Haskell, functions can affect the program **only through what they return**. There is no mutability: every variable is constant.
 
-This Python mutates the list passed in, so it cannot be translated directly into Haskell:
+This Python can't be translated directly into Haskell, because `add_name` mutates its argument:
 
 ```python
 def add_name(name: str, names: list[str]):
-    names.append(name)      # side effect: modifies the caller's list
+    # Modifying 'names' is a side effect: it isn't the main effect
+    # of the function (= what it returns, here nothing)
+    names.append(name)
 
 our_names = []
 add_name("Alice", our_names)
 add_name("Bob", our_names)
 add_name("Charlie", our_names)
-print("Original list", our_names)   # ['Alice', 'Bob', 'Charlie']
+print("Original list", our_names)
+# Original ['Alice', 'Bob', 'Charlie']
 ```
 
 Instead, create a new copy with the change and pass it forward:
@@ -105,8 +111,8 @@ print("Original our_names", our_names)  # []
 ```haskell
 add_name :: String -> [String] -> [String]
 add_name name names = names ++ [name]
--- Not idiomatic Haskell: written to mirror the Python version
 
+-- Not idiomatic Haskell; written to mirror the Python version
 main :: IO ()
 main = do
     let our_names :: [String] = []
@@ -117,9 +123,11 @@ main = do
     putStrLn ("Original our_names " ++ show our_names)
 ```
 
-### 3. Lazy Evaluation
+The original list is never changed.
 
-Expressions are not evaluated until they are used, so anything unused can be skipped. This is safe because expressions have no side effects: skipping one changes nothing else.
+### Lazy Evaluation In Practice
+
+Expressions are not evaluated until they are used, so anything unused is skipped. This is safe because expressions have no side effects — skipping them changes nothing else.
 
 ```python
 def infinite_loop():
@@ -127,14 +135,14 @@ def infinite_loop():
     infinite_loop()
 
 print("All fine?", (infinite_loop(), ())[1])
-# Prints "Infinite loop" forever: Python evaluates the tuple eagerly
+# Prints "Infinite loop" forever (until stack overflow)
 ```
 
 ```haskell
 infiniteLoop :: IO ()
 infiniteLoop = do
     putStrLn "Infinite loop"
-    infiniteLoop            -- recursive tail call = infinite loop
+    infiniteLoop -- recursive tail call = infinite loop
 
 main :: IO ()
 -- snd is equivalent to my_tuple[1] in Python
@@ -142,33 +150,31 @@ main = putStrLn ("All fine! " ++ show (snd (infiniteLoop, ())))
 -- Prints "All fine! ()"
 ```
 
-Printing looks like a side effect, but in Haskell it is encapsulated in the return type `IO ()`, so it is no longer a side effect. Throwing away the returned value throws away the prints too, and the unused `infiniteLoop` is never run.
+`infiniteLoop` does print, but in Haskell that effect is encapsulated in its return type `IO ()`, so it is no longer a side effect. `snd` throws away the first component, so the prints are never run.
 
-### 4. Strict, Static, Expressive Type System
+### Strict, Static, Expressive Type System
 
 | Property | Meaning | Comparison |
 |---|---|---|
-| **Strict** | No implicit coercion: an `Int` cannot be coerced to a `String` | Like Python; unlike JavaScript |
-| **Static** | Types do not change at run time; a function declared to return `String` can only return `String` | Like Java; unlike Python |
-| **Expressive** | Can capture **and enforce** many more constraints than Python or Java | Revisited in [Making Illegal States Unrepresentable](13_Making_Illegal_States_Unrepresentable.md) |
+| **Strict** | Values are not coerced between types: an `Int` can't become a `String` | Like Python, unlike JavaScript |
+| **Static** | Types don't change at run time; a function declared to return `String` can only return `String` | Like Java, unlike Python |
+| **Expressive** | Types can capture — **and enforce** — many more constraints than Python's or Java's | Revisited in [Making Illegal States Unrepresentable](13_Making_Illegal_States_Unrepresentable.md) |
 
-### Installation And GHCi
+[AR: "Parse, don't validate" by Alexis King] [AR: "Making illegal states unrepresentable"]
 
-#### Definitions
+### Installing And Using GHC And GHCi
 
-> **ghc**: The Glasgow Haskell Compiler.
-
-> **ghci**: The GHC interactive interpreter.
-
-> **Cabal**: The package manager for GHC (like pip/uv for Python, or Maven/Gradle for Java).
-
-> **GHCup**: The installer for the Haskell toolchain (`https://www.haskell.org/ghcup/`). Select both ghc and ghci; Cabal may also be useful.
-
-On Linux or WSL:
+Install through **GHCup** (haskell.org/ghcup), selecting both ghc and ghci; Cabal is also useful. On Linux or WSL, run the installer and follow the wizard:
 
 ```sh
 curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 ```
+
+| Tool | Role | Analogy |
+|---|---|---|
+| `ghc` | Glasgow Haskell Compiler | `javac` |
+| `ghci` | GHC interactive interpreter | Python REPL |
+| Cabal | Package manager for GHC | pip/uv (Python), Maven/Gradle (Java) |
 
 Run `ghci` and type expressions at the `ghci>` prompt. Wrap multi-line input in `:{` and `:}`:
 
@@ -183,22 +189,23 @@ ghci| :}
 ghci> f 2
 1
 ghci> :quit
+Leaving GHCi.
 ```
 
-| Command | Effect |
+| GHCi command | Action |
 |---|---|
 | `:?` | Show all commands |
-| `:quit` | Quit ghci |
+| `:quit` | Quit GHCi |
 | `:load name` | Load the given script |
 | `:reload` | Reload the current script |
 
-### Basic Haskell: Prelude Maths And Defining Functions
+### Basic Haskell: Arithmetic And Defining Functions
 
 #### Definitions
 
 > **Prelude**: The built-in functions available without any import.
 
-> **Type signature**: A declaration of a function's argument and result types, written before its body.
+> **Type signature**: A line `name :: Type` declaring a function's argument and result types.
 
 ```haskell
 1 + 1      -- 2
@@ -209,20 +216,20 @@ sqrt(144)  -- 12.0
 5 ^ 2      -- 25
 ```
 
-Functions are defined much like mathematical functions:
+Functions are written much like in mathematics: a type signature, then the body. Here `f` accepts a `Float` and returns a `Float`:
 
 ```haskell
 f :: Float -> Float
 f x = 2 * x
 ```
 
-![Anatomy of a Haskell function](../../../diagrams/CSC3003S-Advanced%20Programming/FP/05_Haskell_Introduction/function-anatomy.svg)
+![Anatomy of a function definition](../../../diagrams/CSC3003S-Advanced%20Programming/FP/05_Haskell_Introduction/function-anatomy.svg)
 
-*The signature `f :: Float -> Float` says `f` takes a `Float` and returns a `Float`. The equation names the parameter and gives the body.*
+*The signature names the argument and result types; the equation names the parameter and gives the body expression.*
 
-### Basic Haskell: List Functions
+### Basic List Functions
 
-`list` never changes in the examples below, because Haskell is immutable.
+The list never changes — each function returns a new value.
 
 ```haskell
 let list = [1, 2, 3, 4]
@@ -232,30 +239,42 @@ let list = [1, 2, 3, 4]
 |---|---|---|
 | `head list` | First element | `1` |
 | `tail list` | Everything after the first element | `[2, 3, 4]` |
-| `list !! 2` | $n$th element (zero-based) | `3` |
-| `take 3 list` | First $n$ elements | `[1, 2, 3]` |
-| `drop 3 list` | Remove first $n$ elements | `[4]` |
+| `list !! 2` | Element at index 2 | `3` |
+| `take 3 list` | First 3 elements | `[1, 2, 3]` |
+| `drop 3 list` | Remove the first 3 elements | `[4]` |
 | `length list` | Length | `4` |
 | `sum list` | Sum (numeric lists) | `10` |
 | `product list` | Product (numeric lists) | `24` |
 | `list ++ [5, 6]` | Append two lists | `[1, 2, 3, 4, 5, 6]` |
-| `list ++ [5]` | Common way to add one element | `[1, 2, 3, 4, 5]` |
+| `list ++ [5]` | Often used to add one element | `[1, 2, 3, 4, 5]` |
 | `reverse list` | Reverse | `[4, 3, 2, 1]` |
 | `map (* 2) list` | Apply a function to each element | `[2, 4, 6, 8]` |
+
+The lecture exercise "return only the palindromes from a list of strings" combines these:
+
+```haskell
+palindromes :: [String] -> [String]
+palindromes ws = filter (\w -> w == reverse w) ws
+-- palindromes ["aba", "abb", "hello", "racecar"] == ["aba", "racecar"]
+```
 
 ### Calling Functions
 
 Functions are called (applied) with a **space**, not brackets: `head [1, 2, 3, 4]`.
 
-- Function application has **higher priority** than other operators: `f a + b` means $f(a)+b$, not $f(a+b)$.
-- Brackets may still be used for grouping, e.g. `f (a + b)`.
+Function application binds more tightly than any operator:
 
-### Your First Script
+| Haskell | Means |
+|---|---|
+| `f a + b` | $f(a) + b$, not $f(a + b)$ |
+| `f (a + b)` | $f(a + b)$ — brackets group |
 
-Scripts use the `.hs` extension.
+### Scripts
 
-- `runghc myscript.hs` runs a script that has a `main` function.
-- `ghci myscript.hs`, or `:load myscript.hs` inside ghci, loads it as a module.
+Haskell scripts use the `.hs` extension.
+
+- Run with `runghc myscript.hs` (needs a `main` function).
+- Or load into GHCi as a module: `ghci myscript.hs`, or `:load myscript.hs` at the prompt.
 
 ```haskell
 double :: Int -> Int
@@ -277,11 +296,11 @@ ghci> quadruple 4
 16
 ```
 
-### Writing Functions As Compositions
+### Writing Functions As Pipelines
 
-- Write functions as **compositions** of other functions.
-- Instead of an imperative sequence of actions, express the computation as a **pipeline** of functions over an input, similar to map-reduce.
-- A function body is often a single expression, with **`where` clauses** for interim steps.
+Write functions as **compositions of other functions**. Instead of a sequence of imperative actions, express the computation as a pipeline of functions applied to the input (similar to map-reduce).
+
+A function body is often a single expression, with a `where` clause for interim steps:
 
 ```haskell
 -- Quadratic formula: solutions for x in ax^2 + bx + c = 0
@@ -293,99 +312,123 @@ intercepts a b c = (sol1, sol2)
           denom = 2 * a
 ```
 
-This implements:
+This implements
 
 $$
-x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 $$
 
 ### Naming Conventions
 
-| Thing | Convention | Example |
+| Kind | Convention | Example |
 |---|---|---|
 | Functions | Start lowercase, camelCase | `sayHello` |
 | Types | Start uppercase, PascalCase | `MyPet` |
-| List arguments | `s` suffix | `xs`, `pets` |
+| List arguments | End in `s` | `xs`, `pets` |
 
 ```haskell
-data MyPet = Cat | Dog            -- a type (like an enum), so PascalCase
+-- A type, so PascalCase
+data MyPet = Cat | Dog -- like an enum
 
-sayHello :: MyPet -> String       -- a function, so camelCase
+-- A function, so camelCase
+sayHello :: MyPet -> String
 sayHello Cat = "Hello, cat!"
 sayHello Dog = "Hello, dog!"
 
 sayHelloAll :: [MyPet] -> [String]
-sayHelloAll pets = map sayHello pets   -- pets is a list, so ends in s
+-- apply sayHello to each element; pets ends in s because it's a list
+sayHelloAll pets = map sayHello pets
 
 main :: IO ()
 main = putStrLn (show (sayHelloAll [Dog, Cat, Dog]))
 -- Prints ["Hello, dog!","Hello, cat!","Hello, dog!"]
 ```
 
-### Layout Rule
+### Layout Rules
 
-#### Definitions
-
-> **Layout rule**: Whitespace is significant. In a sequence of definitions, each definition must begin in the same column.
+Whitespace is significant, as in Python. In a sequence of definitions, every definition must start in the **same column**. Braces `{}` and semicolons `;` can be used for explicit grouping instead.
 
 | Code | Valid? |
 |---|---|
-| `a = 10` / `b = 20` / `c = 30`, all in column 1 | Yes |
-| `b = 20` indented, `a` and `c` not | No |
-| `a` and `b` indented, `c` not | No |
-| `{a = 10;  b = 20; c = 30}` with explicit braces and semicolons | Yes |
+| `a = 10` / `b = 20` / `c = 30`, all in column 1 | ✅ |
+| `a = 10` / `  b = 20` / `c = 30` (b indented) | ❌ |
+| `  a = 10` / `  b = 20` / `c = 30` (c out of line) | ❌ |
+| `{a = 10;` / `  b = 20;` / `c = 30}` | ✅ (explicit grouping) |
 
-In `intercepts` above, all four `where` definitions start in the same column.
+In the `intercepts` example, the `where` definitions `sol1`, `sol2`, `discrim` and `denom` are all in line.
 
-In the lecture's fix-the-errors exercise, applying the layout rule, the type rules and the syntax rules gives:
+The lecture exercise asks you to fix this code:
 
 ```haskell
--- Broken original:
--- foo :: String
--- foo = a ‘div’ length xs
---     Where a = 10
---   xs = [1, 2, 3, 4, 5]
-
-foo :: Int                      -- div returns an Int, not a String
-foo = a `div` length xs         -- backticks, not curly quotes
-    where a = 10                -- lowercase where
-          xs = [1, 2, 3, 4, 5]  -- aligned with a
+foo :: String
+foo = a ‘div’ length xs
+    Where a = 10
+  xs = [1, 2, 3, 4, 5]
 ```
 
-### Worked Example: Prime Number Search
+Its errors and the fix:
 
-Think declaratively first:
+| Error | Kind | Fix |
+|---|---|---|
+| `foo :: String` but the result is a number | Type | `foo :: Int` |
+| `‘div’` uses curly quotes | Syntax | Backticks: `` `div` `` |
+| `Where` is capitalised | Syntax | `where` |
+| `xs` is not aligned with `a` | Layout | Line up the `where` definitions |
 
-1. We want all numbers from $2$ to `upperBound` that are prime.
-2. $x$ is prime when it has no divisors other than $1$ and $x$.
-3. So for every $y\in[2,x-1]$, dividing $x$ by $y$ leaves a remainder.
+```haskell
+foo :: Int
+foo = a `div` length xs
+    where a = 10
+          xs = [1, 2, 3, 4, 5]
+```
 
-Then implement top-down:
+### Example: Prime Number Search
+
+Return all primes from 2 to `upperBound`. Think declaratively first:
+
+1. We want all numbers from 2 to `upperBound` that are prime…
+2. … $x$ is prime when it has no divisors other than 1 and $x$ …
+3. … which means that for every $y \in [2, x-1]$, dividing $x$ by $y$ leaves a remainder.
+
+Then implement top-down. The main function tests each number for primality and keeps only primes:
 
 ```haskell
 primes :: Int -> [Int]
 primes upperBound = filter isPrime [2..upperBound]
+```
 
+`isPrime` checks that no number in $[2, x-1]$ divides $x$:
+
+```haskell
 isPrime :: Int -> Bool
 -- not $ a b c is syntax sugar for not (a b c)
+-- Haskellers like to avoid brackets where possible!
 isPrime x = not $ any (isDivisor x) [2..(x - 1)]
 
+-- Int -> Int -> Bool = takes two ints, returns a Bool
 isDivisor :: Int -> Int -> Bool
 -- a `mod` b is syntax sugar for mod a b
 isDivisor num divisor = (num `mod` divisor) == 0
 ```
 
-- `$` avoids brackets: Haskellers prefer fewer brackets.
-- `isDivisor x` is a partial application (see [Basic Types And Functions](06_Basic_Types_And_Functions.md)).
-
-![Prime search pipeline](../../../diagrams/CSC3003S-Advanced%20Programming/FP/05_Haskell_Introduction/prime-pipeline.svg)
-
-*`primes` filters a range with `isPrime`, which is itself built from `any` and `isDivisor`.*
+| Syntax | Meaning |
+|---|---|
+| `f $ g x` | `f (g x)` — `$` avoids brackets |
+| `` a `mod` b `` | `mod a b` — backticks make a function infix |
+| `[2..n]` | The list $2, 3, \dots, n$ |
+| `any p xs` | True if `p` holds for some element of `xs` |
 
 ```text
 ghci> :load primeSearch.hs
+Ok, one module loaded.
 ghci> isPrime 10
 False
 ghci> isPrime 13
 True
 ```
+
+![Prime search pipeline](../../../diagrams/CSC3003S-Advanced%20Programming/FP/05_Haskell_Introduction/prime-pipeline.svg)
+
+*The range $[2..n]$ flows through `filter isPrime`, which uses `any (isDivisor x)` to reject composites.*
+
+Assigned reading (Learn You a Haskell): *Introduction* ("So, what's Haskell?", "What you need"), *Starting Out* ("Ready, set, go!", "Baby's first functions", "Tuples"), and *Types and Typeclasses* ("Believe the type").

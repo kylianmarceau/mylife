@@ -10,185 +10,122 @@ qard-topic: "ASD 04 — Scrum"
 
 **Source note:** [Scrum](../../ASD/04_Scrum.md)
 
-Exam recall cards for definitions, distinctions, mechanisms, assumptions and limits. Example-specific arithmetic and explicitly non-examinable reference cards are omitted.
+Exam recall cards: definitions, mechanisms, comparisons and key facts. Source-specific examples are left out.
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Roles And Commitments|Roles And Commitments]]
-  - [[#Events And Feedback|Events And Feedback]]
-  - [[#Tracking Progress|Tracking Progress]]
-  - [[#Late Versus Early Learning|Late Versus Early Learning]]
-  - [[#Pigs And Chickens|Pigs And Chickens]]
-  - [[#Scrum Events|Scrum Events]]
-  - [[#Scrum Rules|Scrum Rules]]
-  - [[#Daily Scrum|Daily Scrum]]
-  - [[#During The Sprint|During The Sprint]]
-  - [[#What Can Go Wrong|What Can Go Wrong]]
-  - [[#Roles And Accountability|Roles And Accountability]]
-  - [[#Goals And Artefacts|Goals And Artefacts]]
-  - [[#Inspection And Adaptation|Inspection And Adaptation]]
+  - [[#Basics|Basics]]
+  - [[#Artefacts|Artefacts]]
+  - [[#Events|Events]]
+  - [[#Pitfalls|Pitfalls]]
 
 ## Core Content
 
-### Roles And Commitments
+### Basics
 
-<!-- qard-id: ap-fae9f07a39477ced20f1 -->
+<!-- qard-id: ap-b24afe252a75a0aa189d -->
 > [!qard]- How does Scrum relate to Agile?
-> Agile supplies values and principles; Scrum supplies a concrete framework of roles, events and artefacts for iterative inspection and adaptation.
+> Agile is a philosophy; Scrum is a concrete implementation of it.
 
-<!-- qard-id: ap-f04308897879fb740296 -->
-> [!qard]- What is the Product Owner responsible for?
-> Product direction and value: communicate the product goal and order the product backlog so the team knows what matters most.
+<!-- qard-id: ap-ab178e026935ed03a8f4 -->
+> [!qard]- Why does Scrum's early learning beat waterfall?
+> Waterfall delays knowledge until final integration; Scrum's continuous integration grows knowledge and reduces risk early.
 
-<!-- qard-id: ap-221b5121dc04c08231ea -->
-> [!qard]- What is the Scrum Master's role?
-> Coach the team, support effective Scrum, remove or help resolve impediments, and protect self-management rather than assign every task.
+<!-- qard-id: ap-e3f7400306e09a8e6780 -->
+> [!qard]- What are the three Scrum roles?
+> Product Owner, Scrum Master and developers.
 
-<!-- qard-id: ap-8d24477f71abd9bb005c -->
-> [!qard]- What are Developers responsible for?
-> Planning and carrying out the sprint's work, adapting their plan and producing an increment that meets agreed quality.
+<!-- qard-id: ap-29c39a2ccee164986294 -->
+> [!qard]- How big is a Scrum team, and what if you need more people?
+> At most 10, no sub-teams or hierarchy; split the product into multiple teams.
 
-<!-- qard-id: ap-f633dc2f21c14c1ae02a -->
-> [!qard]- How do product backlog, sprint backlog and increment differ?
-> The product backlog orders product needs; the sprint backlog is the team's current sprint plan; an increment is usable completed work toward the product goal.
+<!-- qard-id: ap-2691cde98641522042a9 -->
+> [!qard]- What does the Product Owner do?
+> Owns the product goal and prioritised backlog, and communicates with customers.
 
-<!-- qard-id: ap-e18dda1bf9dfd66923d3 -->
-> [!qard]- Which commitment belongs to each Scrum artefact?
-> Product backlog: Product Goal. Sprint backlog: Sprint Goal. Increment: Definition of Done.
+<!-- qard-id: ap-6b639cc1660d59a06f3b -->
+> [!qard]- What does the Scrum Master do?
+> Coaches as a servant (not a leader), removes obstacles, enforces the rules and chairs Scrum events.
 
-### Events And Feedback
+<!-- qard-id: ap-4e36ccaeee3f4b00afa9 -->
+> [!qard]- What are pigs and chickens?
+> Pigs are committed team members; chickens (customers, management) are involved but must stay out of the team's work.
 
-<!-- qard-id: ap-9d4e475b531691805c7e -->
-> [!qard]- Why are sprints time-boxed and kept a consistent length?
-> A regular short cadence makes planning, feedback and progress inspection predictable, limiting how long wrong assumptions persist.
+### Artefacts
 
-<!-- qard-id: ap-4478a5807f877a3b29a8 -->
-> [!qard]- What should sprint planning establish?
-> Why the sprint is valuable (goal), what can be achieved, and how the Developers plan to deliver it.
+<!-- qard-id: ap-b645824f5cd4810d2c48 -->
+> [!qard]- Name the three Scrum artefacts and their commitments.
+> Product backlog → product goal; sprint backlog → sprint goal; increment → definition of done.
 
-<!-- qard-id: ap-8393bd0de0e541204246 -->
-> [!qard]- What is the purpose of the 15-minute Daily Scrum?
-> Developers inspect progress toward the sprint goal, coordinate and adapt their next work; it is not a manager's individual performance report.
+<!-- qard-id: ap-7c2bb8fa8fe7de9803fe -->
+> [!qard]- What is the product backlog?
+> An ordered, emergent list of requirements; the PO can reorder or add items at any time.
 
-<!-- qard-id: ap-f2625ed3542a742b7eb0 -->
-> [!qard]- How does a sprint review differ from a retrospective?
-> The review inspects the product outcome with stakeholders and informs future priorities. The retrospective improves the team's working methods and quality.
+<!-- qard-id: ap-c5c8d9b7102a15810d0d -->
+> [!qard]- What is the sprint backlog?
+> The tasks to complete in the sprint with remaining-hour estimates, updated daily.
 
-<!-- qard-id: ap-0740e187670615092533 -->
-> [!qard]- What can stakeholders inspect at a sprint review?
-> Completed increments meeting the Definition of Done, together with progress and feedback that help adapt the product backlog.
+<!-- qard-id: ap-61b988ec5ac6efefa291 -->
+> [!qard]- What is an increment?
+> A potentially shippable outcome of a sprint meeting the definition of done.
 
-<!-- qard-id: ap-d627d71b59da7ed28e36 -->
-> [!qard]- Why must sprint scope changes be discussed rather than imposed mid-sprint?
-> Uncontrolled additions undermine focus and commitments. The team and Product Owner need to reassess work in relation to the sprint goal.
-
-### Tracking Progress
-
-<!-- qard-id: ap-fe44e407a9694202ae3b -->
+<!-- qard-id: ap-804fe9ad39ddf183f7a6 -->
 > [!qard]- What does a burndown chart show?
-> Estimated work remaining against time. A persistent gap from the expected trend prompts investigation of scope, estimates, impediments or progress.
+> Remaining work (hours) against sprint days; it should trend steadily to zero.
 
-<!-- qard-id: ap-475dbd14984937dd05e4 -->
-> [!qard]- Why can a burndown falling unusually fast still deserve investigation?
-> It can reflect overestimation or under-commitment rather than improved productivity; chart shape needs context.
+<!-- qard-id: ap-0409cc8249c7f3d2fead -->
+> [!qard]- What can a too-slow burndown indicate?
+> Inexperienced developers, roadblocks, distractions or bad planning.
 
-<!-- qard-id: ap-75fad7af6c1ea5843325 -->
-> [!qard]- Why is velocity unsuitable as a universal comparison of teams?
-> Teams estimate and work in different contexts. It is more useful for one team's planning than as an absolute productivity ranking.
+### Events
 
-### Late Versus Early Learning
+<!-- qard-id: ap-1969f2be00dcf1fbb20b -->
+> [!qard]- How long is a sprint?
+> At most one month (typically two weeks), and every sprint should be the same length.
 
-<!-- qard-id: ap-3a5eaddaecb2d2cd0179 -->
-> [!qard]- Why does Scrum emphasise early integration rather than a final “moment of truth”?
-> Working increments expose mismatched assumptions and stakeholder reactions while plans can still change; late big-bang integration postpones that learning.
+<!-- qard-id: ap-2fe48406ba2410e99516 -->
+> [!qard]- What are the time-boxes of sprint planning, review, retrospective and daily scrum (one-month sprint)?
+> Planning ≤ 8 h, review ≤ 4 h, retrospective ≤ 3 h, daily scrum 15 min.
 
-### Pigs And Chickens
+<!-- qard-id: ap-af565cc7acc6274478d5 -->
+> [!qard]- What are the two segments of sprint planning?
+> Select product backlog items (team decides how many, PO chooses which), then break them into the sprint backlog.
 
-<!-- qard-id: ap-8c76621410c643af6583 -->
-> [!qard]- What do “pigs” and “chickens” mean in the lecture's terminology?
-> Pigs are committed team members; chickens are involved external stakeholders. The metaphor protects the team's focus and ownership; it is lecture terminology rather than an extra product artefact.
+<!-- qard-id: ap-c345becd122143c2156e -->
+> [!qard]- What are the three daily scrum questions?
+> What did you do yesterday? What will you do today? What's in your way?
 
-### Scrum Events
+<!-- qard-id: ap-ad890cc93ef34ff7a6a4 -->
+> [!qard]- What rules apply to the daily scrum?
+> 15 minutes, same time and place daily, starts on time, short answers; chickens may watch but not speak.
 
-<!-- qard-id: ap-6c02a15fc080fdf4db3f -->
-> [!qard]- What event time boxes are given for a one-month sprint in the notes?
-> Sprint: at most one month; planning: eight hours; review: four; retrospective: three; Daily Scrum: fifteen minutes. Shorter sprints generally need proportionally shorter longer events.
+<!-- qard-id: ap-5b8ac99139a10896e563 -->
+> [!qard]- What happens in the sprint review?
+> The team demonstrates "done" increments to the PO and stakeholders, who give feedback; the PO updates the backlog.
 
-### Scrum Rules
+<!-- qard-id: ap-df6f998fb0c83ea54407 -->
+> [!qard]- What happens in the sprint retrospective?
+> The team discusses what went well and what to improve, and turns actions into backlog items.
 
-<!-- qard-id: ap-68ea51920240654e72a7 -->
-> [!qard]- Why should changes to team working rules be deliberate and discussed in retrospectives?
-> Arbitrary outside changes undermine shared expectations and learning. Inspect the effects, agree an improvement and preserve an understandable working rhythm.
+<!-- qard-id: ap-b818d6d30093a0c6aeeb -->
+> [!qard]- When can a sprint be terminated?
+> If technology proves unworkable, business conditions change, or outsiders interfere — the Scrum Master decides.
 
-### Daily Scrum
+<!-- qard-id: ap-24dd4c5da0d04f50653f -->
+> [!qard]- Can the sprint backlog change mid-sprint?
+> Scope is frozen, but the team may agree with the PO to remove or add items.
 
-<!-- qard-id: ap-ee3cbca0e094918994c6 -->
-> [!qard]- What three prompts structure the lecture's Daily Scrum example?
-> What was done yesterday, what will be done today, and what is blocking progress. Their purpose is coordination, with follow-up problem-solving kept outside the short meeting.
+### Pitfalls
 
-### During The Sprint
+<!-- qard-id: ap-86ab3af6c569456bc56d -->
+> [!qard]- Name four common ways Scrum goes wrong.
+> Loss of rhythm (varying sprint lengths), talking chickens, missing pigs at daily scrums, specialised job roles.
 
-<!-- qard-id: ap-1cdd7ff4fb695de18f27 -->
-> [!qard]- How does the lecture's sprint process handle an unachievable plan or requests for extra work?
-> Protect committed work from unsolicited interference; discuss removals or additions with the Product Owner. The notes describe terminating a non-viable sprint and replanning when its assumptions fail; these are the course's stated process rules.
+<!-- qard-id: ap-b7a270cf60922fcddadc -->
+> [!qard]- Why shouldn't the daily scrum be a status report to the Scrum Master?
+> It's for team coordination and commitments to peers; the Scrum Master is a servant, not a boss.
 
-### What Can Go Wrong
-
-<!-- qard-id: ap-92de80da7328163c08c2 -->
-> [!qard]- How do irregular sprint lengths, absent members and manager-assigned work undermine Scrum?
-> They break cadence, remove shared coordination and weaken self-management. Keep a predictable rhythm, short useful meetings and team ownership of the plan and task selection.
-
-### Roles And Accountability
-
-<!-- qard-id: ap-2b898ac0b75ea1934605 -->
-> [!qard]- Who decides the relative product priorities, and who plans how to build the increment?
-> The Product Owner orders needs/value; Developers plan implementation and the amount they can feasibly accomplish, collaborating on a meaningful Sprint Goal.
-
-<!-- qard-id: ap-e9f66c27067a7100ae0d -->
-> [!qard]- Why does a cross-functional Scrum team need collective responsibility rather than isolated specialist silos?
-> Delivering a usable increment requires all needed skills to work together; a specialist's local task being done does not finish the whole product outcome.
-
-<!-- qard-id: ap-bd66b435fdbb6c2bac9b -->
-> [!qard]- How does a servant/coach role differ from a task-assigning manager in the lecture's Scrum model?
-> The Scrum Master enables team effectiveness and removes impediments while the Developers own daily planning; assigning every action would undermine self-management.
-
-### Goals And Artefacts
-
-<!-- qard-id: ap-2a53b5bf85b9166654db -->
-> [!qard]- How does a Sprint Goal differ from a list of selected tasks?
-> It states the coherent outcome/purpose of the sprint; tasks are the adaptable work plan intended to achieve it.
-
-<!-- qard-id: ap-54989970a002aed7c884 -->
-> [!qard]- How does a Product Goal differ from a Sprint Goal?
-> The Product Goal describes the longer-term desired product state; a Sprint Goal is one short-term objective contributing toward it.
-
-<!-- qard-id: ap-57c7597fa2ebccc0da4a -->
-> [!qard]- Can an increment contain unfinished work simply because the sprint ended?
-> Unfinished work does not become a usable completed increment by the passage of time; it must satisfy the agreed Definition of Done.
-
-<!-- qard-id: ap-86f6832cd89845c55c1a -->
-> [!qard]- Why is the product backlog described as emergent?
-> New knowledge, changed needs and feedback lead to additions, refinements and reordered priorities throughout development.
-
-<!-- qard-id: ap-4331a7ac6c9160f4c28b -->
-> [!qard]- What should the sprint backlog make visible during the sprint?
-> The selected work, the current plan and updated remaining work/impediments, so Developers can inspect progress and adapt coherently.
-
-### Inspection And Adaptation
-
-<!-- qard-id: ap-8b103b32e1765e6407e0 -->
-> [!qard]- Why keep detailed debugging or design debates outside the Daily Scrum's short time box?
-> The daily event identifies coordination needs; a separate focused discussion involves the people needed without consuming everyone's synchronisation time.
-
-<!-- qard-id: ap-a44575e4bcfcf77c9df7 -->
-> [!qard]- What should a retrospective produce beyond a list of complaints?
-> Prioritised actionable improvements to quality and effectiveness, with a realistic way to apply and inspect them in later work.
-
-<!-- qard-id: ap-b9378e87c2e66abd0ae2 -->
-> [!qard]- Why is a burndown not a direct measurement of customer value?
-> It tracks remaining estimated work, which depends on estimates/scope. Completing many hours of low-value work need not advance the important product outcome.
-
-<!-- qard-id: ap-de70bc123ce1f8d8612a -->
-> [!qard]- Why can changing sprint length repeatedly make velocity and planning less useful?
-> Different time boxes remove a consistent observation interval and disrupt rhythm, making comparisons and forecasts harder to interpret.
+<!-- qard-id: ap-e0e651244bcc9376d897 -->
+> [!qard]- Why must the Scrum Master never assign work?
+> Self-organisation is fundamental; assigning work undermines the team's ownership.

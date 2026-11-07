@@ -5,108 +5,116 @@ tags:
 
 # Comparing Programming Languages
 
-**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)  
-**Source**: [FP-14-Comparing Programming Languages.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP-14-Comparing%20Programming%20Languages.pdf), James Gain, University of Cape Town, PDF pages 1–14  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)
+**Source**: [FP-14-Comparing Programming Languages.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP-14-Comparing%20Programming%20Languages.pdf), James Gain, University of Cape Town, pages 1–14
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes placing FP among the other paradigms: procedural, object-oriented (class- and prototype-based), logic programming with Prolog, and multi-paradigm languages.
+> Places functional programming in context: the language hierarchy, procedural and object-oriented (class-based versus prototype-based) programming, JavaScript's flaws, logic programming in Prolog, and languages that cross paradigm boundaries.
 
 ---
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Purpose|Purpose]]
-  - [[#Language Hierarchy|Language Hierarchy]]
-  - [[#Imperative: Procedural And Object-Oriented|Imperative: Procedural And Object-Oriented]]
-  - [[#Class-Based Versus Prototype-Based OO|Class-Based Versus Prototype-Based OO]]
+  - [[#Why Compare Paradigms?|Why Compare Paradigms?]]
+  - [[#The Language Hierarchy|The Language Hierarchy]]
+  - [[#Imperative Programming: Procedural And Object-Oriented|Imperative Programming: Procedural And Object-Oriented]]
+  - [[#Class-Based Versus Prototype-Based OOP|Class-Based Versus Prototype-Based OOP]]
   - [[#JavaScript: Prototypes And Flaws|JavaScript: Prototypes And Flaws]]
   - [[#Logic Programming|Logic Programming]]
-  - [[#Prolog Syntax: Penguins Example|Prolog Syntax: Penguins Example]]
+  - [[#Prolog Syntax: The Penguin Example|Prolog Syntax: The Penguin Example]]
   - [[#Prolog Example: Lineage|Prolog Example: Lineage]]
-  - [[#Prolog Solution Mechanism|Prolog Solution Mechanism]]
+  - [[#How Prolog Solves Queries|How Prolog Solves Queries]]
   - [[#Languages Cross Boundaries|Languages Cross Boundaries]]
 
 ---
 
 ## Core Content
 
-### Purpose
+### Why Compare Paradigms?
 
-This lecture steps back to place FP in context:
+This lecture steps back to place functional programming in context:
 
-- Compare programming paradigms: their fundamental concepts, the style that embodies each philosophy (e.g. "Pythonic" code), and their benefits.
-- Introduce **domain-specific languages**: Inform7 for interactive fiction ([Interactive Fiction](15_Interactive_Fiction.md)) and Qiskit for quantum programming.
+- comparing programming paradigms — their fundamental concepts, and the coding style that embodies each philosophy (e.g. "Pythonic" code);
+- their benefits;
+- **domain-specific languages**, such as Inform 7 for interactive fiction and Qiskit for quantum programming.
 
-### Language Hierarchy
+### The Language Hierarchy
 
-![Language hierarchy](../../../diagrams/CSC3003S-Advanced%20Programming/FP/14_Comparing_Programming_Languages/language-hierarchy.svg)
+![Programming language hierarchy](../../../diagrams/CSC3003S-Advanced%20Programming/FP/14_Comparing_Programming_Languages/language-hierarchy.svg)
 
-*Programming languages split into imperative, declarative and other (domain-specific) branches. Haskell is declarative, functional, statically typed, lazy and pure.*
+*Languages split into imperative and declarative families, each with sub-paradigms; typing discipline cuts across them.*
 
-| Branch | Sub-branch | Examples |
-|---|---|---|
-| Imperative | Procedural | C, Pascal, Fortran |
-| Imperative | OO, class-based | Java, Python, C++ |
-| Imperative | OO, prototype-based | JavaScript |
-| Declarative | Logic | Prolog |
-| Declarative | Functional, dynamically typed | Lisp, Scheme |
-| Declarative | Functional, statically typed, lazy/pure | Haskell |
-| Declarative | Functional, statically typed, eager/impure | SML |
-| Other | Domain-specific | Inform7, Qiskit (and "vibe coding") |
+| Family | Paradigm | Sub-type | Examples |
+|---|---|---|---|
+| Imperative | Procedural | — | C, Pascal, Fortran |
+| Imperative | Object-oriented | Class-based | Java, Python, C++ |
+| Imperative | Object-oriented | Prototype-based | JavaScript |
+| Declarative | Logic | — | Prolog |
+| Declarative | Functional | Lazy / pure | Haskell |
+| Declarative | Functional | Eager / impure | SML |
+| Declarative | Functional (dynamically typed) | — | Lisp, Scheme |
+| Other | Domain-specific | — | Inform 7, Qiskit |
+| Other | "Vibe coding" (LLM-generated code) | — | — |
 
-### Imperative: Procedural And Object-Oriented
+Languages are also divided into dynamically and statically typed.
+
+### Imperative Programming: Procedural And Object-Oriented
 
 #### Definitions
 
 > **Procedural programming**: An early approach that organises code sequentially around procedures (functions).
 
-> **Object-oriented programming (OOP)**: Data and functionality encapsulated together in objects.
+> **Object-oriented programming (OOP)**: Encapsulates data and functionality together in objects.
 
 | | Procedural | Object-oriented |
 |---|---|---|
 | Organisation | Sequential procedures | Objects bundling data and behaviour |
 | Benefits | Abstraction, simplicity, performance | Code reuse (inheritance, polymorphism), modularity, security (encapsulation), abstraction |
-| Versus FP | Allows mutability, explicit looping, tracks state change | Mutable object state |
+| Versus FP | Allows mutability, explicit loops and tracked state change | Same, plus encapsulated mutable state |
 
-### Class-Based Versus Prototype-Based OO
+### Class-Based Versus Prototype-Based OOP
 
 #### Definitions
 
-> **Class-based OO**: A class is a static blueprint specified at compile time and instantiated as objects with specific data. Subclasses inherit from a superclass.
+> **Class-based OOP**: A class is a static blueprint, specified at compile time, that is instantiated as objects with specific data. Subclasses inherit from a superclass.
 
-> **Prototype-based OO**: Objects are cloned and extended dynamically, potentially at run time, from template objects, with no concept of a class. Objects link to a **prototype chain** through **delegation**. This is not the same as C++ templates.
+> **Prototype-based OOP**: Objects are cloned and extended dynamically (possibly at run time) from template objects, with no concept of a class. Objects link to a **prototype chain** through **delegation**. (Not the same as C++ templates.)
 
 | | Class-based | Prototype-based |
 |---|---|---|
-| Template | Static class, fixed at compile time | Another object, changeable at run time |
-| Reuse mechanism | Inheritance from a superclass | Delegation along the prototype chain |
+| Template | Class (static blueprint) | Another object (prototype) |
+| When fixed | Compile time | Can change at run time |
+| Reuse mechanism | Subclass inheritance | Delegation along a prototype chain |
 | Examples | Java, Python, C++ | JavaScript |
 
 ### JavaScript: Prototypes And Flaws
 
-- **Prototype**: objects point to a chain of other objects that define behaviour. Calling a property or method walks up the chain to find its definition.
-- **Mutable**: objects in the chain can be altered at run time, e.g. `Object.setPrototypeOf(obj, newProto)`, and a new object can be added to the front of the chain.
+In JavaScript, objects point to a chain of other objects that define behaviour.
+
+- Accessing a property or method walks **up the chain** until the definition is found.
+- The chain is **mutable**: objects in it can be changed at run time (e.g. `Object.setPrototypeOf(obj, newProto)`), and a new object can be added to the front.
 
 ![JavaScript prototype chain](../../../diagrams/CSC3003S-Advanced%20Programming/FP/14_Comparing_Programming_Languages/prototype-chain.svg)
 
-*`myCat` has `name`; `makeSound()` is found on the Animal prototype and `toString()` on the Object prototype.*
+*`myCat` has `name`; `makeSound()` is found on `Animal.prototype` and `toString()` on `Object.prototype`.*
 
-The lecture calls JavaScript "the world's worst programming language":
+**"The world's worst programming language"**:
 
-| Problem | Detail |
+| Cause | Detail |
 |---|---|
-| Rushed early development | Created for Netscape Navigator in 10 days, for client-side form validation and basic animation by non-coders |
-| Flaws baked in | Kept backwards compatible so legacy scripts still work |
+| Rushed early development | Created for Netscape Navigator in 10 days, for client-side form validation and simple animations by non-coders |
+| Flaws baked in | Kept backwards compatible so legacy web scripts keep working |
 | Web monopoly | Browsers natively executed only HTML, CSS and JavaScript |
-| Example | `sort` treats numbers as strings by default, so `10` comes before `2` |
+
+Example flaw: `sort` treats numbers as strings by default, so `10` sorts before `2` lexicographically.
 
 ### Logic Programming
 
 #### Definitions
 
-> **Logic programming**: Declarative programming built on formal logic.
+> **Logic programming**: A form of declarative programming built on formal logic.
 
 > **Fact**: An unconditional statement.
 
@@ -116,12 +124,12 @@ The lecture calls JavaScript "the world's worst programming language":
 
 | Benefit | Meaning |
 |---|---|
-| Separation of logic and control | You state what is true; the engine decides how to search |
-| Reversibility | A definition can often be run "both ways" (e.g. find parents or children) |
+| Separation of logic and control | You state what is true; the system decides how to search |
+| Reversibility | A definition can often be run both ways (e.g. find children of X, or parents of Y) |
 
-Use cases include expert systems, automated theorem proving and natural language processing.
+Use cases: expert systems, automated theorem proving, natural language processing.
 
-### Prolog Syntax: Penguins Example
+### Prolog Syntax: The Penguin Example
 
 ```prolog
 % --- FACTS ---
@@ -149,63 +157,85 @@ can_fly(X) :-
 |---|---|
 | `:-` | Read as "if" |
 | `.` | Terminates every clause |
-| `X`, `_Y` | Variables start with a capital letter or underscore |
-| `tweety`, `'Tweety'` | Atoms start with a lowercase letter or are in single quotes |
-| `,` / `;` | AND / OR |
-| `\+` | NOT (negation as failure) |
+| Capital letter or `_` first | Variable (`X`) |
+| Lowercase first, or in single quotes | Atom (`tweety`) |
+| `,` | AND |
+| `;` | OR |
+| `\+` | NOT |
+| `%` | Comment |
 
 ### Prolog Example: Lineage
+
+Facts about the Simpsons family:
 
 ```prolog
 % --- FACTS ---
 male(bart). male(homer). male(herb). male(abraham). male(clancy).
 female(lisa). female(maggie). female(marge). female(mona). female(jackie).
 
-% parent(Parent, Child)
+% Parent relationships: parent(Parent, Child)
 parent(marge, bart).
 parent(marge, lisa).
 % ... etc.
+```
 
-% --- RULES ---
+Rules:
+
+```prolog
+% X is the father of Y if X is the parent of Y and X is male.
 father(X, Y) :- parent(X, Y), male(X).
+
+% X is the mother of Y if X is the parent of Y and X is female.
 mother(X, Y) :- parent(X, Y), female(X).
 
-% siblings share a parent and are not the same person
+% X and Y are siblings if they share a parent and X is not Y.
 sibling(X, Y) :- parent(Z, X), parent(Z, Y), X \= Y.
 
-% X is grandmother of Y if X is parent of Z, Z is parent of Y, X female
+% X is the grandmother of Y if X is a parent of Z, Z is a parent of Y, and X is female.
 grandmother(X, Y) :- parent(X, Z), parent(Z, Y), female(X).
 ```
 
-The facts follow the Simpsons family tree: Abraham and Mona are Homer and Herb's parents; Clancy and Jackie are Marge, Patty and Selma's parents; Bart, Lisa and Maggie are children of Homer and Marge; Ling is Selma's child. The query `?- sibling(bart, Who).` would return `lisa` (and `maggie`).
+`\=` means "does not unify with". Without `X \= Y`, everyone would be their own sibling.
 
-### Prolog Solution Mechanism
+### How Prolog Solves Queries
 
 #### Definitions
 
-> **Unification**: Attempting to instantiate variables so that two terms match.
+> **Unification**: Attempting to make two terms equal by instantiating variables.
 
-> **Resolution**: Using a unified clause to either complete a proof or produce new subgoals.
+> **Resolution**: Replacing a goal with the body of a matching rule — either proving it or generating more subgoals.
 
 > **Backtracking**: On failure, returning to the most recent choice point and trying the next alternative.
 
-Prolog searches the query state space **depth-first**. For each subgoal:
+Prolog searches the query's state space **depth-first**, using unification, resolution and backtracking. For each subgoal:
 
 1. Look for the first matching clause.
-2. **Unify**, instantiating variables.
-3. **Resolve**: reach a proof or generate more subgoals.
-4. Explore that subgoal as deeply as possible; on failure, **backtrack** to the previous choice.
+2. **Unify** to instantiate variables.
+3. **Resolve**: this proves the subgoal or produces new subgoals.
+4. Explore each subgoal as deeply as possible; on failure, **backtrack** to the previous choice.
 
-![Prolog search for is_penguin(X)](../../../diagrams/CSC3003S-Advanced%20Programming/FP/14_Comparing_Programming_Languages/prolog-search.svg)
+Trace for `is_penguin(X)`:
 
-*`is_penguin(X)` reduces to `has_feathers(X), can_swim(X)`. Trying `X = tweety` fails at `can_swim`, so Prolog backtracks and succeeds with `X = kowalski`.*
+| Step | Goal(s) | Outcome |
+|---|---|---|
+| 1 | `is_penguin(X)` | Resolve with the rule |
+| 2 | `is_bird(X), can_swim(X)` | Resolve `is_bird` |
+| 3 | `has_feathers(X), can_swim(X)` | First fact: $X = $ `tweety` |
+| 4 | `can_swim(tweety)` | **Fail** — backtrack |
+| 5 | `has_feathers(X)` | Next fact: $X = $ `kowalski` |
+| 6 | `can_swim(kowalski)` | **Succeed** |
+| 7 | — | Answer: `is_penguin(kowalski)` |
+
+![Prolog depth-first search](../../../diagrams/CSC3003S-Advanced%20Programming/FP/14_Comparing_Programming_Languages/prolog-search.svg)
+
+*The search first tries `tweety`, fails on `can_swim`, backtracks to the next `has_feathers` fact and succeeds with `kowalski`.*
 
 ### Languages Cross Boundaries
 
-Many languages pick elements from several paradigms and do not fit one category. **Python** is class-based object-oriented, procedural, and functional (lambda functions).
+Many languages pick and choose elements from several paradigms and don't fit one category. Python, for example, is:
 
-| Summary point | |
-|---|---|
-| Broad divide | Imperative versus declarative |
-| Spanning the divide | Python, C++ |
-| Logic programming | Declarative, built on formal logic; answers queries from facts and rules |
+- class-based object-oriented,
+- procedural, and
+- functional in parts (lambda functions, `map`).
+
+**Summary**: there is a broad divide between imperative and declarative programming, but some languages (e.g. Python, C++) span it. Logic programming is declarative, built on formal logic, and answers queries using facts and rules.

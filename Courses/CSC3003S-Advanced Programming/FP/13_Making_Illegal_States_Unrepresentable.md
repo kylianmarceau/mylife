@@ -3,14 +3,14 @@ tags:
   - advanced-programming
 ---
 
-# Haskell 9 — Making Illegal States Unrepresentable
+# Making Illegal States Unrepresentable
 
-**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)  
-**Source**: [FP 13-Haskell 9-Making illegal states unrepresentable.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP%2013-Haskell%209-Making%20illegal%20states%20unrepresentable.pdf), Cael Marquard (adapted from Dr Sabre Didi), University of Cape Town, PDF pages 1–12  
-**Generated**: 2026-10-24
+**Subject**: CSC3003S Advanced Programming — Functional Programming (FP)
+**Source**: [FP 13-Haskell 9-Making illegal states unrepresentable.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/FP/FP%2013-Haskell%209-Making%20illegal%20states%20unrepresentable.pdf), Cael Marquard (adapted from Dr Sabre Didi), University of Cape Town, pages 1–12
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes: wrapper types, modelling state with sum types, non-empty lists, "parse, don't validate", and when to stop.
+> "Parse, don't validate": wrapper types for units, sum types for message states, a non-empty list, when to stop, and why Haskell's type system suits this.
 
 ---
 
@@ -19,11 +19,11 @@ tags:
 - [[#Core Content|Core Content]]
   - [[#The Idea|The Idea]]
   - [[#Wrapper Types: The Mars Climate Orbiter|Wrapper Types: The Mars Climate Orbiter]]
-  - [[#Modelling Message State With Sum Types|Modelling Message State With Sum Types]]
-  - [[#Non-Empty Lists|Non-Empty Lists]]
-  - [[#Applications: Parse, Don't Validate|Applications: Parse, Don't Validate]]
+  - [[#Modelling Message State With A Sum Type|Modelling Message State With A Sum Type]]
+  - [[#A Non-Empty List|A Non-Empty List]]
   - [[#Don't Go Overboard|Don't Go Overboard]]
-  - [[#Why Haskell Here|Why Haskell Here]]
+  - [[#Applications: Parse, Don't Validate|Applications: Parse, Don't Validate]]
+  - [[#Why Haskell Suits This|Why Haskell Suits This]]
 
 ---
 
@@ -33,27 +33,37 @@ tags:
 
 #### Definitions
 
-> **Making illegal states unrepresentable**: Designing types so that invalid combinations of data cannot be constructed at all, letting the type checker catch errors before the program runs.
+> **Illegal state**: A combination of values a type allows but that makes no sense in the domain (e.g. a message read before it was sent).
 
-> **Wrapper type**: A new type that wraps an existing type to give it a distinct meaning, e.g. `Inches` wrapping `Int`.
+> **Making illegal states unrepresentable**: Designing types so that such combinations cannot be constructed at all, so the compiler rejects them.
+
+> **Wrapper type**: A new type that wraps an existing one (e.g. an `Int`) to give it a distinct meaning the type checker can enforce.
+
+Goals of the lecture: know why we define types that wrap other types, and use the type system to catch errors **before** they happen.
 
 ### Wrapper Types: The Mars Climate Orbiter
 
-In 1999 NASA lost the **Mars Climate Orbiter** because of a units mix-up. One part of the codebase used inches and another used centimetres. Both were plain `Int`s, so nothing stopped the code from treating 2 inches + 4 cm as 6 inches.
+In 1999 NASA lost the Mars Climate Orbiter because of a units mix-up: one part of the code used inches and another centimetres. Both were plain `Int`s, so nothing stopped the code from treating $2\text{ in} + 4\text{ cm}$ as $6\text{ in}$.
+
+Wrapper types fix this:
 
 ```haskell
 data Inches      = In Int
 data Centimetres = Cm Int
 
-instance Num Inches      where …
-instance Num Centimetres where …
+instance Num Inches where ...
+instance Num Centimetres where ...
 ```
 
-`(In 1) + (Cm 2)` is now a **type error**, because `(+) :: Num a => a -> a -> a` needs both operands to have the same type.
+Now `(In 1) + (Cm 2)` is a **type error**. The type of `+` requires both operands to be the same type:
 
-### Modelling Message State With Sum Types
+```haskell
+(+) :: Num a => a -> a -> a
+```
 
-A naive WhatsApp message:
+### Modelling Message State With A Sum Type
+
+A first attempt at modelling WhatsApp messages:
 
 ```haskell
 data WhatsappMessage = Msg {
@@ -65,7 +75,9 @@ data WhatsappMessage = Msg {
 }
 ```
 
-This allows a message with a read time but no sent time, which is meaningless. Moving the state into a sum type fixes it:
+This allows nonsense, such as a message with a `read` time but no `sent` time. What would that even mean?
+
+Replace the independent `Maybe` fields with a sum type of the legal states:
 
 ```haskell
 data WhatsappMessage = Msg {
@@ -80,55 +92,66 @@ data MsgState = Draft
   | Read      { sent :: Time, delivered :: Time, read :: Time }
 ```
 
-![Message states](../../../diagrams/CSC3003S-Advanced%20Programming/FP/13_Making_Illegal_States_Unrepresentable/message-states.svg)
+![Message states as a sum type](../../../diagrams/CSC3003S-Advanced%20Programming/FP/13_Making_Illegal_States_Unrepresentable/message-states.svg)
 
-*Each constructor carries exactly the timestamps valid in that state, so "read but never sent" cannot be constructed.*
+*Each state carries exactly the timestamps that must exist by then; later states include all earlier ones.*
 
-| Design | Can represent "read but not sent"? |
+Can you now build a message with a read time but no send time? **No** — the only constructor with a `read` field also requires `sent` and `delivered`.
+
+| Design | Read-but-never-sent message |
 |---|---|
-| Three independent `Maybe Time` fields | Yes: $2^3=8$ combinations, most invalid |
-| `MsgState` sum type | No: only the 4 valid states exist |
+| Three `Maybe Time` fields | Representable — a bug waiting to happen |
+| `MsgState` sum type | Unrepresentable — won't compile |
 
-### Non-Empty Lists
+### A Non-Empty List
 
 ```haskell
-data NonEmptyList a = NonEmptyList a [a]   -- an obligatory first element
+data NonEmptyList a = NonEmptyList a [a]
 ```
 
-A `NonEmptyList` with no elements cannot be built, so `head` can never fail:
+This is just a list with an obligatory first element. It is impossible to construct a `NonEmptyList` with no elements.
+
+So `head` becomes **total** — it can never crash:
 
 ```haskell
 head :: NonEmptyList a -> a
 head (NonEmptyList x _) = x
 ```
 
-The slide writes `data NonEmptyList = NonEmptyList a [a]`; the type parameter `a` must appear on the left as `NonEmptyList a`.
+Compare the ordinary `head :: [a] -> a`, which is partial and crashes on `[]` (see [Basic Types And Functions](06_Basic_Types_And_Functions.md#Pattern%20Matching)).
 
-The lecture exercise: a type holding one or two values, never zero (unlike `(Maybe a, Maybe a)`):
+The same trick handles "one or two values, never zero" (a lecture exercise), which `(Maybe a, Maybe a)` gets wrong because it allows `(Nothing, Nothing)`:
 
 ```haskell
 data AtLeastOne a = One a | Two a a
 ```
 
+### Don't Go Overboard
+
+Don't let perfect be the enemy of good. Go as far as is useful in making illegal states unrepresentable, but going overboard can also hurt.
+
+- It can harm **interoperability**: typeclasses implemented for `Int` may not be implemented for your custom `PrimeInt` type.
+
+[AR: "Fast and Loose Reasoning is Morally Correct", Danielsson et al.]
+
 ### Applications: Parse, Don't Validate
 
 #### Definitions
 
-> **Parse, don't validate**: Convert raw input once into a type that enforces the constraints, then work only with that type, rather than repeatedly checking raw data.
+> **Parse, don't validate**: Convert raw input once, at the boundary, into a type that enforces the constraints; afterwards, work only with the constrained type.
 
-> **Shotgun parsing**: Scattering validation checks throughout a program instead of doing it once at the boundary.
+> **Shotgun parsing**: Scattering validation checks throughout the code, mixed in with processing logic.
 
-1. **Validate once, at parse time.** Afterwards the constrained type guarantees validity, which prevents shotgun parsing.
-2. **Eliminate classes of logic errors** before they happen: `Inches + Centimetres` is a type error.
-3. **Move checks from run time to compile time**: with `NonEmptyList`, `head` can never crash at run time.
+| Benefit | Example |
+|---|---|
+| **Validate once**, at parse time, then rely on the type — prevents shotgun parsing | Parse input into `NonEmptyList` once; later code never checks for emptiness |
+| **Eliminate whole classes of logic errors** before they happen | `Inches + Centimetres` is now a type error |
+| **Move checks from run time to compile time** | With `NonEmptyList`, `head` can never crash at run time |
 
-This also closes the `Just ""` loophole from [Advanced Typing And Functions](08_Advanced_Typing_And_Functions.md). Parse emails into an `Email` type that cannot hold an empty string.
+This also closes the loophole left in [Advanced Typing And Functions](08_Advanced_Typing_And_Functions.md#The%20Maybe%20Type), where `Just ""` was still a possible "email".
 
-### Don't Go Overboard
+### Why Haskell Suits This
 
-> [!warning] <span style="color:#ffc778">Don't let perfect be the enemy of good</span>
-> Make illegal states unrepresentable as far as is reasonable, but overdoing it is also harmful. It can hurt interoperability: typeclasses implemented for `Int` may not exist for your custom `PrimeInt` type.
+Haskell's type system is more expressive than most, letting you enforce far more constraints. For example, `MsgState` is awkward to define in Java. Sum types alone are a game changer.
 
-### Why Haskell Here
-
-Haskell's type system is more expressive than most, so it can enforce far more constraints. For example, `MsgState` is awkward to define in Java. Sum types alone are a game changer.
+Reading: "Parse, don't validate" (Alexis King, lexi-lambda.github.io) and "Make illegal states unrepresentable" (functional-architecture.org).

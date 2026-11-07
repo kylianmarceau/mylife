@@ -52,6 +52,10 @@ $$
 \mathcal{L} = -\sum_i \log P(w_i \mid w_{1:i-1})
 $$
 
+![Language modelling head](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/04_Pretraining/lm-head.svg)
+
+*The final hidden state $h_N$ is multiplied by the unembedding $E^\top$ to give logits over the vocabulary; a softmax gives next-word probabilities. With weight tying, $E^\top$ reuses the input embedding matrix.*
+
 ### Pretraining data
 
 #### Definitions
@@ -94,7 +98,7 @@ Data preparation removes boilerplate, filters for quality, removes unsafe/adult 
 
 ![Data cleaning pipeline](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/04_Pretraining/data-cleaning.svg)
 
-*Raw web text goes through text extraction and language filtering, quality checks and correction, exact and near-duplicate removal, then semantic, topic, and safety filtering.*
+*Collect and language-filter web data, apply heuristic filters, deduplicate, then apply semantic, topic, and safety filters. About 90% of the data is discarded.*
 
 A representative pipeline (Yi):
 
@@ -174,6 +178,10 @@ Perplexity can be read as a **weighted branching factor**:
 | Early Markov (fixed-window) neural networks | ~140 |
 | Early non-Markov (recurrent) neural networks | 100 |
 
+![WSJ perplexity](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/04_Pretraining/wsj-perplexity.svg)
+
+*On a log scale: from 10,000 (uniform) to 600 (bigram), 200 (trigram), about 140 (5-gram and early fixed-window neural nets), and 100 (early recurrent nets).*
+
 Perplexity was first found to correlate strongly with translation quality, and later with essentially every downstream capability.
 
 ### LLM training efficiency
@@ -204,6 +212,10 @@ The floating-point representation affects both speed and memory.
 | fp32 (single) | 1 / 8 / 23 | Full | High | Default, but more precision than needed |
 | fp16 (half) | 1 / 5 / 10 | Limited | Medium | Halves memory but limited dynamic range |
 | bf16 (brain float) | 1 / 8 / 7 | Same as fp32 | Lower | Same memory as fp16; less instability than fp16, though some risk remains |
+
+![Floating-point formats](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/04_Pretraining/float-formats.svg)
+
+*fp32 has 8 exponent and 23 fraction bits; fp16 has 5 and 10; bf16 keeps fp32's 8 exponent bits (same range) with only 7 fraction bits.*
 
 **Mixed precision in practice:**
 
@@ -248,6 +260,10 @@ Dividing $s$ elementwise by $\sqrt{r}$ adapts the effective step size of each pa
 
 For single-GPU training, GPU memory (VRAM) limits $M$ and $B$.
 
+![Batching](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/04_Pretraining/batching.svg)
+
+*Documents are concatenated with `<eod>` separators and cut into length-$M$ chunks; each target sequence is its input shifted by one token.*
+
 **Memory estimate** for $L$ layers, model dimension $D$, and $a$ attention heads:
 
 | Component | Memory |
@@ -283,7 +299,7 @@ This simulates an update on $B \times A$ samples.
 
 ![Gradient accumulation](../../../diagrams/CSC3043S-Reasoning%20in%20AI/LLMs/04_Pretraining/gradient-accumulation.svg)
 
-*Four microbatches each contribute gradients to one accumulated average before a single optimizer step.*
+*Four microbatches add their gradients to a running total; one optimizer step then uses the average.*
 
 ### Multi-GPU training
 

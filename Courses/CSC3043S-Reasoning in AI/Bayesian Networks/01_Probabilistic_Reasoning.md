@@ -83,7 +83,7 @@ The motivating example is web-service fault diagnosis. Possible faults (database
 
 ![Web-service fault diagnosis network](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/01_Probabilistic_Reasoning/web-service-faults.svg)
 
-*Faults influence symptoms, and symptoms influence service availability. Observing that the service is down lets us reason backwards about which fault is most likely.*
+*Faults (database failure, network outage, traffic spike) cause symptoms (query errors, server overload), which determine whether the service is up. Observing that the service is down lets us reason backwards to the most likely fault.*
 
 | Week | Topics |
 |---|---|
@@ -236,9 +236,9 @@ $$
 
 The intuition is: what does observing $b$ tell us about $a$? Conditioning restricts attention to the region where $b$ holds and rescales it to total probability one.
 
-![Conditioning restricts the probability space to B](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/01_Probabilistic_Reasoning/conditional-events.svg)
+![Conditioning restricts to the evidence](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/01_Probabilistic_Reasoning/conditional-events.svg)
 
-*Observing $B$ discards everything outside $B$; $P(A \mid B)$ is the share of $B$'s mass that also lies in $A$.*
+*Observing $b$ discards everything outside $b$ and treats $b$ as the new universe; $P(a \mid b)$ is the share of $b$'s mass that also lies in $a$.*
 
 Example from the $P(T, W)$ table:
 
@@ -265,6 +265,10 @@ A more efficient way to compute a conditional distribution avoids computing $P(\
    2. Divide every entry by $Z$.
 
 The sum $Z$ is exactly the probability of the evidence.
+
+![Normalization trick](../../../diagrams/CSC3043S-Reasoning%20in%20AI/Bayesian%20Networks/01_Probabilistic_Reasoning/normalization-trick.svg)
+
+*Select the joint rows matching $T = \text{cold}$ ($0.2$, $0.3$), sum them to get $Z = 0.5 = P(\text{cold})$, then divide each by $Z$ to get $P(W \mid \text{cold}) = (0.4, 0.6)$.*
 
 $$
 P(w \mid c) = \frac{P(w, c)}{P(c)} = \frac{P(w, c)}{\sum_{w'} P(w', c)}

@@ -10,25 +10,51 @@ qard-topic: "FP 04A — Lambda Calculus Exercises"
 
 **Source note:** [Lambda Calculus Exercises](../../FP/04A_Lambda_Calculus_Exercises.md)
 
-Exam recall cards for definitions, distinctions, mechanisms, assumptions and limits. Example-specific arithmetic and explicitly non-examinable reference cards are omitted.
+Exam recall cards: definitions, mechanisms, comparisons and key facts. Source-specific examples are left out.
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Applying Reduction Rules|Applying Reduction Rules]]
+  - [[#Reduction Techniques|Reduction Techniques]]
+  - [[#Church AND|Church AND]]
+  - [[#I M Versus M I|I M Versus M I]]
 
 ## Core Content
 
-### Applying Reduction Rules
+### Reduction Techniques
 
-<!-- qard-id: ap-b19639feeca115dfbb6b -->
-> [!qard]- How does Church AND implement conjunction?
-> $\mathrm{AND}=\lambda a.\lambda b.a\ b\ \mathrm{FALSE}$. If $a$ is TRUE it returns $b$; otherwise it returns FALSE.
+<!-- qard-id: ap-78529bf29555d1e66299 -->
+> [!qard]- How does application associate in the lambda calculus?
+> To the left: $f\,a\,b=(f\,a)\,b$.
 
-<!-- qard-id: ap-52d3299055c3d5a61f4c -->
-> [!qard]- Why is lambda application not commutative?
-> $I\,M\to M$, but $M\,I\to I\,I\to I$. Swapping function and argument changes the result.
+<!-- qard-id: ap-ce38ddcba6f4a8715ebf -->
+> [!qard]- Why is the second argument dropped when reducing $(\lambda y.\ \lambda x.\,x)\,N$?
+> $y$ doesn't occur in the body, so substitution removes $N$.
 
-<!-- qard-id: ap-2e55ec9e231493c24037 -->
-> [!qard]- How should you approach a lambda-reduction exercise?
-> Make application grouping explicit, identify the selected redex, alpha-rename if needed, substitute without capture, and repeat until normal form or evident divergence.
+<!-- qard-id: ap-150ca188bb7081a2d5d1 -->
+> [!qard]- What does the identity function do when applied?
+> Returns its argument unchanged: $(\lambda x.\,x)\,N\to_\beta N$.
+
+### Church AND
+
+<!-- qard-id: ap-b7f0851a0b930d931287 -->
+> [!qard]- Define AND with Church Booleans.
+> $\text{AND}=\lambda a.\lambda b.\ a\,b\ \text{FALSE}$.
+
+<!-- qard-id: ap-a2d0ffe6633561ea1f17 -->
+> [!qard]- Why does $\text{AND}=\lambda a.\lambda b.\,a\,b\,\text{FALSE}$ work?
+> If $a$ is TRUE it returns $b$; if FALSE it returns FALSE.
+
+<!-- qard-id: ap-a67722a3e2d7ccaaf46c -->
+> [!qard]- How many cases must be checked to prove AND correct?
+> Four: TT, TF, FT, FF.
+
+### I M Versus M I
+
+<!-- qard-id: ap-2df4a76e214b42ac2140 -->
+> [!qard]- What do $I\,M$ and $M\,I$ reduce to?
+> $I\,M\to M=\lambda z.\,z\,z$; $M\,I\to I\,I\to I=\lambda x.\,x$. Different, so $I\,M\ne M\,I$.
+
+<!-- qard-id: ap-d09ff81d20a53ca76f93 -->
+> [!qard]- Why do strict and lazy evaluation agree on $I\,M$?
+> With a single application and no nested redexes there is only one possible reduction order.

@@ -3,288 +3,279 @@ tags:
   - advanced-programming
 ---
 
-# Dynamic Programming A: Fibonacci, Coins And Transitive Closure
+# Dynamic Programming I
 
-**Subject**: CSC3003S Advanced Programming — Theory of Algorithms (TOA)  
-**Source**: [8 - TOA Dynamic Programming-A.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/TOA/8%20-%20TOA%20Dynamic%20Programming-A.pdf), Patrick Marais, University of Cape Town, PDF pages 1–22  
-**Generated**: 2026-10-02
+**Subject**: CSC3003S Advanced Programming — Theory of Algorithms (TOA)
+**Source**: [8 - TOA Dynamic Programming-A.pdf](../../../Sources/CSC3003S%20-%20Advanced%20Programming/TOA/8%20-%20TOA%20Dynamic%20Programming-A.pdf), Patrick Marais, University of Cape Town, pages 1–22
+**Generated**: 2026-11-06
 
 > [!info] <span style="color:#66b3ff">Lecture reference</span>
-> Complete source-based study notes. Examples and corrections appear beside the relevant concept.
+> The dynamic programming principle, then Fibonacci, coin-row, change-making, robot coin collection, and Warshall's transitive closure.
 
 ---
 
 ## Contents
 
 - [[#Core Content|Core Content]]
-  - [[#Dynamic Programming And Optimal Substructure|Dynamic Programming And Optimal Substructure]]
-  - [[#Fibonacci With Stored Results|Fibonacci With Stored Results]]
-  - [[#Coin-Row Optimisation|Coin-Row Optimisation]]
-  - [[#Minimum-Coin Change Making|Minimum-Coin Change Making]]
-  - [[#Robot Coin Collection On A Grid|Robot Coin Collection On A Grid]]
-  - [[#Transitive Closure And Warshall's Algorithm|Transitive Closure And Warshall's Algorithm]]
-  - [[#Warshall Source Matrix Trace|Warshall Source Matrix Trace]]
+  - [[#What Dynamic Programming Is|What Dynamic Programming Is]]
+  - [[#Fibonacci With Dynamic Programming|Fibonacci With Dynamic Programming]]
+  - [[#Coin-Row Problem|Coin-Row Problem]]
+  - [[#Change-Making Problem|Change-Making Problem]]
+  - [[#Coin-Collecting Robot|Coin-Collecting Robot]]
+  - [[#Transitive Closure|Transitive Closure]]
+  - [[#Warshall's Algorithm|Warshall's Algorithm]]
+  - [[#Warshall Worked Example|Warshall Worked Example]]
 
 ---
 
 ## Core Content
 
-### Dynamic Programming And Optimal Substructure
+### What Dynamic Programming Is
 
 #### Definitions
 
-> **Dynamic programming (DP)**: Solve overlapping subproblems once and store their answers for reuse, normally organised by a recurrence.
+> **Dynamic programming (DP)**: A general algorithm design technique, invented by the American mathematician Richard Bellman in the 1950s to solve optimisation problems. "Programming" here means "planning".
 
-> **Principle of optimality**: An optimal overall solution can be obtained from optimal solutions to the relevant subinstances.
+> **Overlapping subproblems**: Smaller instances that recur many times when the problem is broken down recursively.
 
-> **Tabulation**: Fill a table bottom up, calculating each state after its dependencies.
+> **Principle of optimality**: An optimal solution to the overall problem can be derived from optimal solutions to its sub-instances.
 
-Richard Bellman developed dynamic programming for optimisation in the nineteen-fifties. Programming here means planning. It is also useful for non-optimisation tasks, such as Fibonacci values and Boolean reachability.
+DP solves problems by storing optimal solutions to overlapping subproblems:
 
-1. Define precisely what each stored state means.
-2. Identify the alternatives leading to that state.
-3. Derive a recurrence and its base cases.
-4. Choose an order in which every dependency is already available.
-5. Fill the table and read the final state.
-6. Store choices or backtrack through values to recover the actual solution.
+- Each subproblem is solved only once and stored for lookup, so DP is a **space–time trade-off**.
+- The solution is derived from a **recurrence relation** that specifies how a solution builds on smaller ones.
+- The problem must obey the **principle of optimality**.
 
-DP trades memory for reduced repeated work. Optimal substructure must be established for optimisation tasks; arbitrary local solutions do not automatically combine into a global optimum.
+Algorithms in this course:
 
-### Fibonacci With Stored Results
-
-#### Definitions
-
-> **Overlapping subproblems**: Subproblems appearing repeatedly in the recursive decomposition.
-
-$$
-F_0=0,\qquad F_1=1,\qquad F_i=F_{i-1}+F_{i-2}\quad(i\ge2).
-$$
-
-```java
-FibonacciDP(n):
-    if n == 0: return 0
-    F[0] = 0; F[1] = 1
-    for i = 2 to n:
-        F[i] = F[i - 1] + F[i - 2]
-    return F[n]
-```
-
-| Index | $0$ | $1$ | $2$ | $3$ | $4$ | $5$ |
-|---|---:|---:|---:|---:|---:|---:|
-| Value | $0$ | $1$ | $1$ | $2$ | $3$ | $5$ |
-
-![Repeated Fibonacci subproblems replaced by stored dependencies](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/08A_Dynamic_Programming/fibonacci-dp.svg)
-
-*The recursive fifth-value tree repeats smaller values; the dependency chain computes each stored value once.*
-
-Naive recursion uses $\Theta(\varphi^n)$ arithmetic operations. Tabulation uses $\Theta(n)$ operations and $\Theta(n)$ stored integers. Keeping only the last two values reduces storage to a constant number of integers; growing integer bit costs must still be counted in a bit-level analysis.
-
-### Coin-Row Optimisation
-
-#### Definitions
-
-> **Coin-row problem**: Choose coins from a fixed row to maximise value without choosing coins adjacent in the original row.
-
-> **State $F(i)$**: Maximum obtainable value from the first $i$ coins.
-
-For positive coin values $c_1,\ldots,c_n$:
-
-$$
-F(0)=0,\quad F(1)=c_1,\qquad
-F(i)=\max\{F(i-1),F(i-2)+c_i\}\quad(i\ge2).
-$$
-
-| Choice | Compatible earlier problem |
+| Group | Algorithms |
 |---|---|
-| Exclude coin $i$ | First $i-1$ coins |
-| Include coin $i$ | First $i-2$ coins, because the adjacent coin is forbidden |
+| Introductory | Fibonacci; change-making; coin collecting (coin-row and robot) |
+| Graphs | Transitive closure (Warshall); all-pairs shortest paths (Floyd) |
+| Optimisation | Knapsack problem |
 
-```java
-CoinRow(C):
-    if length(C) == 0: return 0
-    F[0] = 0
-    F[1] = C[1]
-    for i = 2 to length(C):
-        F[i] = max(F[i - 1], F[i - 2] + C[i])
-    return F[length(C)]
-```
+### Fibonacci With Dynamic Programming
 
-The source values and final table are:
+$$
+F(n) = F(n-1) + F(n-2)
+$$
 
-| $i$ | $0$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Coin $c_i$ | — | $5$ | $1$ | $2$ | $10$ | $6$ | $2$ |
-| Best value $F(i)$ | $0$ | $5$ | $5$ | $7$ | $15$ | $15$ | $17$ |
+| Brute force | Dynamic programming |
+|---|---|
+| `fibo(n):` | `fibo(n):` |
+| `  if (n == 0) return 0` | `  F[0] = 0` |
+| `  if (n == 1) return 1` | `  F[1] = 1` |
+| `  return fibo(n-1) + fibo(n-2)` | `  for i = 2 to n do:` |
+| | `    F[i] = F[i-1] + F[i-2]` |
+| | `  return F[n]` |
 
-For example, $F(4)=\max(7,5+10)=15$ and $F(6)=\max(15,15+2)=17$.
+The brute-force call tree recomputes the same values; the DP version fills the table $F[0], F[1], \dots, F[n]$ once, left to right.
 
-Recover coins by walking backwards:
+![Fibonacci recursion and stored answers](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/08A_Dynamic_Programming/fibonacci-dp.svg)
 
-1. If $F(i)=F(i-1)$, an optimal solution excludes coin $i$; move to $i-1$.
-2. Otherwise include coin $i$ and move to $i-2$.
-3. At index one, include it if its value is needed; stop at zero.
-4. On ties, either optimal branch can be selected consistently.
+*Repeated subtrees in the recursion become single table lookups in the DP version.*
 
-The source backtrack is $6\to4\to2\to1$, selecting coins $1,4,6$ with value $5+10+2=17$. Time and full-table space are $\Theta(n)$; value-only rolling storage is constant, while reconstruction needs retained decisions or recomputation.
-
-### Minimum-Coin Change Making
+### Coin-Row Problem
 
 #### Definitions
 
-> **Change-making problem**: Make an exact amount using the fewest coins, with unlimited copies of each allowed denomination.
+> **Coin-row problem**: Given a row of $n$ coins with values $c_1, \dots, c_n$, pick up coins with the largest total value, subject to never picking two coins that are adjacent in the original row. (Select first, then pick up simultaneously.)
 
-> **State $F(a)$**: Minimum number of coins needed for amount $a$.
+Let $F(n)$ be the maximum amount that can be picked up from the first $n$ coins. Split the allowed selections into two groups and take the better:
 
-For ascending positive denominations $d_1,\ldots,d_m$, with $d_1=1$ in the source:
-
-$$
-F(0)=0,\qquad F(a)=1+\min_{j:d_j\le a}F(a-d_j).
-$$
-
-Every possible final coin leaves a smaller exact-change problem. Minimise over all feasible final denominations, not just the largest one.
-
-```java
-MinimumCoins(D, n):
-    F[0] = 0
-    for amount = 1 to n:
-        F[amount] = infinity
-        choice[amount] = none
-        for each denomination d in D with d <= amount:
-            if F[amount - d] + 1 < F[amount]:
-                F[amount] = F[amount - d] + 1
-                choice[amount] = d
-    return F[n], choice
-```
-
-For $D=\{1,3,4\}$ and $n=6$:
-
-| Amount | $0$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Minimum coins | $0$ | $1$ | $2$ | $1$ | $1$ | $2$ | $2$ |
+- Selections that include the last coin: $F(n-2) + c_n$ (coin $n-1$ is then excluded).
+- Selections without the last coin: $F(n-1)$.
 
 $$
-F(6)=1+\min\{F(5),F(3),F(2)\}=1+\min\{2,1,2\}=2.
+F(0) = 0, \qquad F(1) = c_1, \qquad F(n) = \max\{F(n-2) + c_n,\ F(n-1)\} \quad (n > 1)
 $$
 
-The stored choice takes a three-value coin, leaving amount three, then another three. Greedy chooses four, one, one, using three coins; DP finds the optimal pair.
+Fill $F$ from left to right. Example with $C = [5, 1, 2, 10, 6, 2]$:
 
-Time is $O(nm)$ and space is $\Theta(n)$ for results and choices. If denomination one is absent, unreachable states remain infinity and reconstruction must detect them. Complexity depends on the numeric amount, rather than merely the number of bits encoding it.
+| Index | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|---|
+| $C$ | — | 5 | 1 | 2 | 10 | 6 | 2 |
+| $F$ | 0 | 5 | 5 | 7 | 15 | 15 | **17** |
 
-### Robot Coin Collection On A Grid
+| Step | Calculation |
+|---|---|
+| $F(2)$ | $\max(1 + 0, 5) = 5$ |
+| $F(3)$ | $\max(2 + 5, 5) = 7$ |
+| $F(4)$ | $\max(10 + 5, 7) = 15$ |
+| $F(5)$ | $\max(6 + 7, 15) = 15$ |
+| $F(6)$ | $\max(2 + 15, 15) = 17$ |
+
+**Backtracking** to find which coins were chosen:
+
+1. Start at $F(6) = 17$. It came from the option that adds a coin, $c_6$, which used $F(4)$.
+2. $F(4) = 15$ also came from adding a coin, $c_4$, which used $F(2)$.
+3. $F(2) = 5$ came from the option without a coin, $F(1)$.
+4. $F(1) = c_1$ gives the last coin; stop.
+
+The solution set is $\{c_1, c_4, c_6\}$, worth $5 + 10 + 2 = 17$. To make backtracking easy, store the choice made at each step.
+
+### Change-Making Problem
 
 #### Definitions
 
-> **Robot coin-collection problem**: Move from top-left to bottom-right on a grid, taking only right or down moves, and maximise collected coins.
+> **Change-making problem**: Given coin denominations $d_1 < d_2 < \dots < d_m$ with $d_1 = 1$ and an unlimited supply of each, find exact change for amount $n$ using the minimum number of coins.
 
-> **State $F(i,j)$**: Maximum coins collectable on a path ending at cell $(i,j)$.
+For typical denomination sets an efficient greedy algorithm works; DP handles the general case.
 
-Let $c_{ij}\in\{0,1\}$ indicate a coin. Each interior cell has only two possible predecessor cells:
-
-$$
-F(i,j)=\max\{F(i-1,j),F(i,j-1)\}+c_{ij}.
-$$
-
-Initialise the starting cell and cumulative first row and first column:
+Let $F(n)$ be the minimum number of coins adding up to $n$. The last coin added can be any denomination $d_j \le n$:
 
 $$
-F(1,1)=c_{11},\quad F(1,j)=F(1,j-1)+c_{1j},\quad
-F(i,1)=F(i-1,1)+c_{i1}.
+F(0) = 0, \qquad F(n) = \min_{j:\ n \ge d_j} \{F(n - d_j)\} + 1 \quad (n > 0)
 $$
 
-The source's zero-valued virtual row and column also work for this nonnegative coin model. Explicit boundary initialisation makes the allowed moves clearer.
-
-```java
-RobotCoins(C, n, m):
-    F[1, 1] = C[1, 1]
-    for j = 2 to m: F[1, j] = F[1, j - 1] + C[1, j]
-    for i = 2 to n:
-        F[i, 1] = F[i - 1, 1] + C[i, 1]
-        for j = 2 to m:
-            F[i, j] = max(F[i - 1, j], F[i, j - 1]) + C[i, j]
-    return F[n, m]
+```text
+F[0] ← 0
+for i ← 1 to n do
+    temp ← ∞; j ← 1
+    while j ≤ m and i ≥ D[j] do
+        temp ← min(F[i − D[j]], temp)
+        j ← j + 1
+    F[i] ← temp + 1
+return F[n]
 ```
 
-![Source coin board and an optimal route](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/08A_Dynamic_Programming/robot-grid.svg)
+Example: $n = 6$, $D = [1, 3, 4]$.
 
-*The five-by-six source board has an optimal right/down route collecting five coins.*
+| $i$ | Calculation | $F[i]$ |
+|---|---|---|
+| 0 | — | 0 |
+| 1 | $\min\{F[0]\} + 1$ | 1 |
+| 2 | $\min\{F[1]\} + 1$ | 2 |
+| 3 | $\min\{F[2], F[0]\} + 1$ | 1 |
+| 4 | $\min\{F[3], F[1], F[0]\} + 1$ | 1 |
+| 5 | $\min\{F[4], F[2], F[1]\} + 1$ | 2 |
+| 6 | $\min\{F[5], F[3], F[2]\} + 1$ | 2 |
 
-The board has coins at $(1,5),(2,2),(2,4),(3,4),(3,6),(4,3),(4,6),(5,1),(5,5)$. The completed value table is:
+Backtracking from $F[6]$: the minimum came from $F[6-3] = F[3]$, and $F[3]$ from $F[0]$, so the change is two 3-coins. Greedy would choose $4 + 1 + 1$ (three coins), which is worse.
 
-| Row / column | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ |
-|---|---:|---:|---:|---:|---:|---:|
-| $1$ | $0$ | $0$ | $0$ | $0$ | $1$ | $1$ |
-| $2$ | $0$ | $1$ | $1$ | $2$ | $2$ | $2$ |
-| $3$ | $0$ | $1$ | $1$ | $3$ | $3$ | $4$ |
-| $4$ | $0$ | $1$ | $2$ | $3$ | $3$ | $5$ |
-| $5$ | $1$ | $1$ | $2$ | $3$ | $4$ | $5$ |
-
-To reconstruct, start at $(n,m)$ and move to the predecessor with the larger table value, choosing either on ties. Boundary cells have only one legal predecessor.
-
-One optimal path is:
-
-$$
-(1,1)\to(1,2)\to(2,2)\to(2,3)\to(2,4)\to(3,4)
-\to(3,5)\to(3,6)\to(4,6)\to(5,6).
-$$
-
-Time and full-table space are $\Theta(nm)$; backtracking takes $\Theta(n+m)$. Rolling-row storage suffices for the value but discards information needed for direct path reconstruction.
-
-### Transitive Closure And Warshall's Algorithm
+### Coin-Collecting Robot
 
 #### Definitions
 
-> **Transitive closure**: A Boolean matrix indicating whether a directed path exists from each vertex to each other vertex.
+> **Robot coin-collecting problem**: An $n \times m$ board has at most one coin per cell. A robot starts at the top-left cell and must reach the bottom-right cell, moving only one cell right or one cell down at each step, and picks up the coin in every cell it visits. Find the maximum number of coins it can collect and its path.
 
-> **Adjacency matrix**: A Boolean matrix whose entry is one exactly when the corresponding directed edge exists.
-
-> **State $R^{(k)}[i,j]$**: Whether a path from $i$ to $j$ exists using only vertices in $\{1,\ldots,k\}$ as intermediates.
-
-The recurrence either retains an already known path, or joins a path to the new intermediate with a path from it:
+Let $F(i, j)$ be the largest number of coins the robot can bring to cell $(i, j)$. Cell $(i, j)$ can only be reached from the cell above, $(i-1, j)$, or the cell to the left, $(i, j-1)$. The best route to $(i, j)$ is the better of those two, plus any coin at $(i, j)$:
 
 $$
-R^{(k)}[i,j]=R^{(k-1)}[i,j]\lor
-\left(R^{(k-1)}[i,k]\land R^{(k-1)}[k,j]\right).
+F(i, j) = \max\{F(i-1, j),\ F(i, j-1)\} + c_{ij}, \qquad 1 \le i \le n,\ 1 \le j \le m
 $$
 
-Start with $R^{(0)}=A$, the adjacency matrix; finish with $R^{(n)}=T$. The source uses positive-length path reachability: a diagonal becomes one only when a directed cycle returns to that vertex. For reflexive reachability, initialise the diagonal to one as well.
+where $c_{ij} = 1$ if there is a coin at $(i, j)$ and 0 otherwise, and $F(0, j) = F(i, 0) = 0$.
 
-![Warshall source graph and intermediate-path relation](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/08A_Dynamic_Programming/warshall-graph.svg)
-
-*Paths through a newly allowed intermediate extend the reachability relation; vertex three is a sink.*
-
-```java
-Warshall(A):
-    R = copy of A
-    for k = 1 to n:
-        for i = 1 to n:
-            for j = 1 to n:
-                R[i, j] = R[i, j] or (R[i, k] and R[k, j])
-    return R
+```text
+RobotCoinCollection(C[1..n, 1..m])
+// In: coin matrix C (0 or 1); Out: largest number of coins brought to (n, m)
+F[1, 1] ← C[1, 1]
+for j ← 2 to m do F[1, j] ← F[1, j−1] + C[1, j]
+for i ← 2 to n do
+    F[i, 1] ← F[i−1, 1] + C[i, 1]
+    for j ← 2 to m do
+        F[i, j] ← max(F[i−1, j], F[i, j−1]) + C[i, j]
+return F[n, m]
 ```
 
-Keep the intermediate loop outermost. With Boolean reachability, in-place updates preserve the recurrence because permitting a cycle through the current intermediate does not introduce invalid reachability.
+Example on a $5 \times 6$ board with coins at $(1,5)$, $(2,2)$, $(2,4)$, $(3,4)$, $(3,6)$, $(4,3)$, $(4,6)$, $(5,1)$, $(5,5)$:
 
-### Warshall Source Matrix Trace
+| $F$ | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|
+| 1 | 0 | 0 | 0 | 0 | 1 | 1 |
+| 2 | 0 | 1 | 1 | 2 | 2 | 2 |
+| 3 | 0 | 1 | 1 | 3 | 3 | 4 |
+| 4 | 0 | 1 | 2 | 3 | 3 | 5 |
+| 5 | 1 | 1 | 2 | 3 | 4 | **5** |
 
-The edges are $1\to3$, $2\to1$, $2\to4$, $4\to2$. Matrices use rows as origins and columns as destinations:
+![Robot coin collection](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/08A_Dynamic_Programming/robot-grid.svg)
+
+*An optimal route collects 5 coins; it is found by tracing back from $F(5, 6)$.*
+
+**Backtracing** the path from $F(n, m)$:
+
+- If $F(i-1, j) > F(i, j-1)$, the robot came from above.
+- If $F(i, j-1) > F(i-1, j)$, it came from the left.
+- If they are equal, choose either (several optimal paths exist).
+
+| Phase | Efficiency |
+|---|---|
+| Filling the table | $\Theta(nm)$ time and space |
+| Backtracing | $\Theta(n + m)$ |
+
+### Transitive Closure
+
+#### Definitions
+
+> **Adjacency matrix**: The $n \times n$ Boolean matrix with a 1 in row $i$, column $j$ when there is a directed edge from vertex $i$ to vertex $j$.
+
+> **Transitive closure**: For a directed graph with $n$ vertices, the $n \times n$ Boolean matrix $T = \{t_{ij}\}$ with $t_{ij} = 1$ if there is a directed path (of any length) from vertex $i$ to vertex $j$, and 0 otherwise.
+
+Rows are "from" vertices and columns are "to" vertices.
+
+### Warshall's Algorithm
+
+Idea: if you can get from A to B, and from B to C, then you can get from A to C.
+
+A path exists from $i$ to $j$ if and only if there is:
+
+- an edge from $i$ to $j$; or
+- a path from $i$ to $j$ through vertex 1; or
+- a path through vertices 1 and/or 2; or
+- a path through vertices 1, 2 and/or 3; or
+- … a path through any of the other vertices.
+
+Warshall's algorithm builds a sequence of matrices $R^{(0)}, R^{(1)}, \dots, R^{(n)} = T$. $R^{(k)}[i, j] = 1$ when there is a path from $i$ to $j$ whose intermediate vertices are all among $1, \dots, k$.
+
+At stage $k$, either a path already existed using only vertices $1, \dots, k-1$, or a new path goes from $i$ to $k$ and from $k$ to $j$:
 
 $$
-R^{(0)}=\begin{bmatrix}0&0&1&0\\1&0&0&1\\0&0&0&0\\0&1&0&0\end{bmatrix},\qquad
-R^{(1)}=\begin{bmatrix}0&0&1&0\\1&0&1&1\\0&0&0&0\\0&1&0&0\end{bmatrix}.
+R^{(k)}[i, j] = R^{(k-1)}[i, j] \ \lor\ \big(R^{(k-1)}[i, k] \land R^{(k-1)}[k, j]\big)
 $$
 
-Allowing vertex one adds $2\to3$. Allowing vertex two next adds paths from four to one, three and four:
+```text
+R(0) ← adjacency matrix
+for k ← 1 to n do
+    for i ← 1 to n do
+        for j ← 1 to n do
+            R(k)[i,j] ← R(k-1)[i,j] or (R(k-1)[i,k] and R(k-1)[k,j])
+return R(n)
+```
+
+Rule of thumb for hand calculation: at stage $k$, change a 0 to a 1 at $(i, j)$ when row $k$ has a 1 in column $j$ and column $k$ has a 1 in row $i$.
+
+| Measure | Efficiency |
+|---|---|
+| Time | $\Theta(n^3)$ |
+| Space | $\Theta(n^3)$ if all matrices are kept; reducible to $\Theta(n^2)$ by overwriting one matrix |
+
+### Warshall Worked Example
+
+Graph with edges $1 \to 3$, $2 \to 1$, $2 \to 4$, $4 \to 2$:
+
+![Warshall example graph](../../../diagrams/CSC3003S-Advanced%20Programming/TOA/08A_Dynamic_Programming/warshall-graph.svg)
+
+*Four vertices; vertex 3 is a sink, and vertices 2 and 4 form a cycle.*
 
 $$
-R^{(2)}=\begin{bmatrix}0&0&1&0\\1&0&1&1\\0&0&0&0\\1&1&1&1\end{bmatrix},\qquad R^{(3)}=R^{(2)}.
+R^{(0)} = \begin{pmatrix} 0&0&1&0 \\ 1&0&0&1 \\ 0&0&0&0 \\ 0&1&0&0 \end{pmatrix}
+\quad
+R^{(1)} = \begin{pmatrix} 0&0&1&0 \\ 1&0&\mathbf{1}&1 \\ 0&0&0&0 \\ 0&1&0&0 \end{pmatrix}
 $$
 
-Vertex three is a sink, so it creates no new joined paths. Allowing vertex four adds $2\to2$:
-
 $$
-T=R^{(4)}=\begin{bmatrix}0&0&1&0\\1&1&1&1\\0&0&0&0\\1&1&1&1\end{bmatrix}.
+R^{(2)} = \begin{pmatrix} 0&0&1&0 \\ 1&0&1&1 \\ 0&0&0&0 \\ \mathbf{1}&1&\mathbf{1}&\mathbf{1} \end{pmatrix}
+\quad
+R^{(3)} = R^{(2)}
+\quad
+T = R^{(4)} = \begin{pmatrix} 0&0&1&0 \\ 1&\mathbf{1}&1&1 \\ 0&0&0&0 \\ 1&1&1&1 \end{pmatrix}
 $$
 
-The cycle between vertices two and four explains their diagonal ones. Vertex one can reach three but cannot return to itself; vertex three reaches no vertex under the positive-length convention.
-
-Time is $\Theta(n^3)$. Storing every stage uses $\Theta(n^3)$ space; the in-place implementation uses $\Theta(n^2)$ matrix space.
+| Stage | New paths | Reason |
+|---|---|---|
+| $R^{(0)}$ | — | Adjacency matrix |
+| $R^{(1)}$ (via 1) | $2 \to 3$ | $2 \to 1 \to 3$ |
+| $R^{(2)}$ (via 2) | $4 \to 1$, $4 \to 3$, $4 \to 4$ | $4 \to 2$ then anywhere 2 reaches |
+| $R^{(3)}$ (via 3) | none | Vertex 3 is a sink (no outgoing edges) |
+| $R^{(4)}$ (via 4) | $2 \to 2$ | $2 \to 4 \to 2$ |
