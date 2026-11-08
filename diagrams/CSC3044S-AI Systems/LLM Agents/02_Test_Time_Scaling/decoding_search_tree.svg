@@ -1,0 +1,63 @@
+<svg width="100%" viewBox="0 0 900 440" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Decoding as search</title>
+<desc>Each generation is a root-to-leaf path in a token tree; edge weights are next-token log-probabilities and a path score is their sum.</desc>
+<defs><marker id="m-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff939b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<line x1="300" y1="80" x2="170" y2="176" stroke="#ff939b" stroke-width="2.4" marker-end="url(#m-coral)" vector-effect="non-scaling-stroke"/>
+<text x="221.0" y="132.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="end">−2.1</text>
+<line x1="300" y1="80" x2="320" y2="176" stroke="#f8fafc" stroke-width="1.6" marker-end="url(#m-white)" vector-effect="non-scaling-stroke"/>
+<text x="324.0" y="132.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="start">−2.12</text>
+<line x1="300" y1="80" x2="470" y2="176" stroke="#f8fafc" stroke-width="1.6" marker-end="url(#m-white)" vector-effect="non-scaling-stroke"/>
+<text x="399.0" y="132.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="start">−2.4</text>
+<line x1="170" y1="220" x2="70" y2="316" stroke="#ff939b" stroke-width="2.4" marker-end="url(#m-coral)" vector-effect="non-scaling-stroke"/>
+<text x="106.0" y="272.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="end">−1.8</text>
+<line x1="170" y1="220" x2="190" y2="316" stroke="#f8fafc" stroke-width="1.6" marker-end="url(#m-white)" vector-effect="non-scaling-stroke"/>
+<text x="194.0" y="272.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="start">−1.2</text>
+<line x1="170" y1="220" x2="310" y2="316" stroke="#f8fafc" stroke-width="1.6" marker-end="url(#m-white)" vector-effect="non-scaling-stroke"/>
+<text x="254.0" y="272.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="start">−2.2</text>
+<rect x="255" y="40" width="90" height="40" rx="8" fill="#272f3b" stroke="#f8fafc" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="300.0" y="65.25" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="middle" font-weight="600">The</text>
+<rect x="125" y="180" width="90" height="40" rx="8" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="170.0" y="205.25" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="middle" font-weight="600">end</text>
+<rect x="275" y="180" width="90" height="40" rx="8" fill="#20344c" stroke="#66b3ff" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="320.0" y="205.25" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="middle" font-weight="600">house</text>
+<rect x="425" y="180" width="90" height="40" rx="8" fill="#302b46" stroke="#b89aff" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="470.0" y="205.25" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="middle" font-weight="600">car</text>
+<rect x="25" y="320" width="90" height="40" rx="8" fill="#272f3b" stroke="#adb9cb" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="70.0" y="345.25" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="middle" font-weight="600">&lt;eos&gt;</text>
+<rect x="145" y="320" width="90" height="40" rx="8" fill="#20344c" stroke="#66b3ff" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="190.0" y="345.25" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="middle" font-weight="600">is</text>
+<rect x="265" y="320" width="90" height="40" rx="8" fill="#302b46" stroke="#b89aff" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="310.0" y="345.25" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="middle" font-weight="600">game</text>
+<text x="320" y="240" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#adb9cb" text-anchor="middle">…</text>
+<text x="470" y="240" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#adb9cb" text-anchor="middle">…</text>
+<text x="190" y="380" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#adb9cb" text-anchor="middle">…</text>
+<text x="310" y="380" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#adb9cb" text-anchor="middle">…</text>
+<text x="70" y="380" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="600">score = −3.9</text>
+<text x="70" y="397" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#ff939b" text-anchor="middle">(−2.1 + −1.8)</text>
+<text x="30" y="428" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="start">edge weight = log P(token | prefix)</text>
+<text x="760" y="50" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="600">P(next token | "The")</text>
+<line x1="650" y1="180" x2="870" y2="180" stroke="#f8fafc" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<line x1="650" y1="180" x2="650" y2="64" stroke="#f8fafc" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<rect x="668" y="136.07999999999998" width="34" height="43.92" rx="2" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="685" y="198" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle">end</text>
+<rect x="718" y="136.8" width="34" height="43.199999999999996" rx="2" fill="#20344c" stroke="#66b3ff" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="735" y="198" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle">house</text>
+<rect x="768" y="147.6" width="34" height="32.4" rx="2" fill="#302b46" stroke="#b89aff" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="785" y="198" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle">car</text>
+<rect x="818" y="169.2" width="34" height="10.799999999999999" rx="2" fill="#272f3b" stroke="#adb9cb" stroke-width="1.6" stroke-dasharray="4 3" vector-effect="non-scaling-stroke"/>
+<text x="835" y="198" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle">other</text>
+<text x="760" y="260" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="600">P(next token | "The end")</text>
+<line x1="650" y1="390" x2="870" y2="390" stroke="#f8fafc" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<line x1="650" y1="390" x2="650" y2="274" stroke="#f8fafc" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<rect x="668" y="330.6" width="34" height="59.400000000000006" rx="2" fill="#272f3b" stroke="#adb9cb" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="685" y="408" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle">&lt;eos&gt;</text>
+<rect x="718" y="282.0" width="34" height="108.0" rx="2" fill="#20344c" stroke="#66b3ff" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="735" y="408" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle">is</text>
+<rect x="768" y="350.4" width="34" height="39.6" rx="2" fill="#302b46" stroke="#b89aff" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="785" y="408" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle">game</text>
+<rect x="818" y="379.2" width="34" height="10.799999999999999" rx="2" fill="#272f3b" stroke="#adb9cb" stroke-width="1.6" stroke-dasharray="4 3" vector-effect="non-scaling-stroke"/>
+<text x="835" y="408" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle">other</text>
+<line x1="640" y1="130" x2="525" y2="190" stroke="#adb9cb" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#m-muted)" vector-effect="non-scaling-stroke"/>
+<line x1="640" y1="340" x2="365" y2="340" stroke="#adb9cb" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#m-muted)" vector-effect="non-scaling-stroke"/>
+<text x="500" y="300" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle">distribution = edge weights</text>
+</svg>

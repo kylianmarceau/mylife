@@ -1,0 +1,40 @@
+<svg width="100%" viewBox="0 0 900 370" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>LLM training pipeline</title>
+<desc>Pretraining produces a pretrained LLM; post-training applies instruction tuning then preference alignment.</desc>
+<defs><marker id="m-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff939b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text x="600" y="34" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#66b3ff" text-anchor="middle" font-weight="600">Post-training phase</text>
+<path d="M330,74 V62 H870 V74" fill="none" stroke="#66b3ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<line x1="600" y1="44" x2="600" y2="62" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<rect x="35" y="90" width="230" height="84" rx="8" fill="#272f3b" stroke="#adb9cb" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="150" y="114" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="600">Pretraining data</text>
+<text x="150" y="138.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12.5" fill="#adb9cb" text-anchor="middle">large raw-text corpus</text>
+<text x="150" y="154.875" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12.5" fill="#adb9cb" text-anchor="middle">(web-scraped)</text>
+<line x1="150" y1="176" x2="150" y2="210" stroke="#f8fafc" stroke-width="1.8" marker-end="url(#m-white)" vector-effect="non-scaling-stroke"/>
+<rect x="45" y="214" width="210" height="54" rx="8" fill="#3f2a33" stroke="#ff939b" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="150.0" y="246.25" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="middle" font-weight="600">1. Pretraining</text>
+<line x1="150" y1="270" x2="150" y2="304" stroke="#f8fafc" stroke-width="1.8" marker-end="url(#m-white)" vector-effect="non-scaling-stroke"/>
+<rect x="55" y="308" width="190" height="44" rx="8" fill="#3f2a33" stroke="#ff939b" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="150.0" y="334.725" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13.5" fill="#f8fafc" text-anchor="middle">Pretrained LLM</text>
+<rect x="335" y="90" width="230" height="84" rx="8" fill="#272f3b" stroke="#adb9cb" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="450" y="114" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="600">Instruction data</text>
+<text x="450" y="138.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12.5" fill="#adb9cb" text-anchor="middle">label sentiment · summarise</text>
+<text x="450" y="154.875" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12.5" fill="#adb9cb" text-anchor="middle">· translate · answer</text>
+<line x1="450" y1="176" x2="450" y2="210" stroke="#f8fafc" stroke-width="1.8" marker-end="url(#m-white)" vector-effect="non-scaling-stroke"/>
+<rect x="345" y="214" width="210" height="54" rx="8" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="450.0" y="246.25" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="middle" font-weight="600">2. Instruction tuning</text>
+<line x1="450" y1="270" x2="450" y2="304" stroke="#f8fafc" stroke-width="1.8" marker-end="url(#m-white)" vector-effect="non-scaling-stroke"/>
+<rect x="355" y="308" width="190" height="44" rx="8" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="450.0" y="334.725" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13.5" fill="#f8fafc" text-anchor="middle">Instruction-tuned LLM</text>
+<rect x="635" y="90" width="230" height="84" rx="8" fill="#272f3b" stroke="#adb9cb" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="750" y="114" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="600">Preference data</text>
+<text x="750" y="138.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12.5" fill="#adb9cb" text-anchor="middle">preferred vs rejected</text>
+<text x="750" y="154.875" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12.5" fill="#adb9cb" text-anchor="middle">assistant responses</text>
+<line x1="750" y1="176" x2="750" y2="210" stroke="#f8fafc" stroke-width="1.8" marker-end="url(#m-white)" vector-effect="non-scaling-stroke"/>
+<rect x="645" y="214" width="210" height="54" rx="8" fill="#302b46" stroke="#b89aff" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="750.0" y="246.25" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="middle" font-weight="600">3. Preference alignment</text>
+<line x1="750" y1="270" x2="750" y2="304" stroke="#f8fafc" stroke-width="1.8" marker-end="url(#m-white)" vector-effect="non-scaling-stroke"/>
+<rect x="655" y="308" width="190" height="44" rx="8" fill="#302b46" stroke="#b89aff" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="750.0" y="334.725" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13.5" fill="#f8fafc" text-anchor="middle">Aligned LLM</text>
+<line x1="247" y1="318" x2="340" y2="262" stroke="#f8fafc" stroke-width="1.8" marker-end="url(#m-white)" vector-effect="non-scaling-stroke"/>
+<line x1="547" y1="318" x2="640" y2="262" stroke="#f8fafc" stroke-width="1.8" marker-end="url(#m-white)" vector-effect="non-scaling-stroke"/>
+</svg>

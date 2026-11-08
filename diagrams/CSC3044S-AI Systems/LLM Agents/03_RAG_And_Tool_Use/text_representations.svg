@@ -1,0 +1,60 @@
+<svg width="100%" viewBox="0 0 900 400" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Text representation pathways</title>
+<desc>An input document can be turned into a sparse bag-of-words count vector, a sparse TF-IDF vector, or a dense embedding vector from a pretrained model.</desc>
+<defs>
+<marker id="aw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="av" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="at" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="aa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ac" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff939b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" text-anchor="middle">
+<rect x="26" y="160" width="64" height="80" rx="4" fill="#272f3b" stroke="#adb9cb" stroke-width="1.6"/>
+<line x1="38" y1="180" x2="78" y2="180" stroke="#adb9cb" stroke-width="1.4"/>
+<line x1="38" y1="194" x2="78" y2="194" stroke="#adb9cb" stroke-width="1.4"/>
+<line x1="38" y1="208" x2="78" y2="208" stroke="#adb9cb" stroke-width="1.4"/>
+<line x1="38" y1="222" x2="66" y2="222" stroke="#adb9cb" stroke-width="1.4"/>
+<text x="58" y="262" font-size="13" fill="#f8fafc">Input text</text>
+<line x1="90" y1="200" x2="132" y2="200" stroke="#f8fafc" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#aw)"/>
+<circle cx="158" cy="200" r="22" fill="#272f3b" stroke="#adb9cb" stroke-width="2"/>
+<path d="M180 194 C200 120 200 80 226 80" fill="none" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab)"/>
+<line x1="180" y1="200" x2="226" y2="200" stroke="#ffc778" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#aa)"/>
+<path d="M180 206 C200 280 200 320 226 320" fill="none" stroke="#5ad4b5" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#at)"/>
+<rect x="232" y="50" width="180" height="60" rx="10" fill="#20344c" stroke="#66b3ff" stroke-width="2"/>
+<text x="322" y="78" font-size="15" font-weight="600" fill="#f8fafc">Bag-of-words</text>
+<text x="322" y="98" font-size="12" fill="#adb9cb">word counts</text>
+<rect x="232" y="170" width="180" height="60" rx="10" fill="#3d3326" stroke="#ffc778" stroke-width="2"/>
+<text x="322" y="198" font-size="15" font-weight="600" fill="#f8fafc">TF-IDF</text>
+<text x="322" y="218" font-size="12" fill="#adb9cb">reweighted counts</text>
+<rect x="232" y="290" width="180" height="60" rx="10" fill="#1b3835" stroke="#5ad4b5" stroke-width="2"/>
+<text x="322" y="318" font-size="15" font-weight="600" fill="#f8fafc">LLM embeddings</text>
+<text x="322" y="338" font-size="12" fill="#adb9cb">pretrained encoder</text>
+<line x1="412" y1="80" x2="456" y2="80" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab)"/>
+<line x1="412" y1="200" x2="456" y2="200" stroke="#ffc778" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#aa)"/>
+<line x1="412" y1="320" x2="456" y2="320" stroke="#5ad4b5" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#at)"/>
+<g font-size="13" font-family="ui-monospace, Menlo, monospace">
+<rect x="464" y="62" width="216" height="36" fill="none" stroke="#66b3ff" stroke-width="1.6"/>
+<line x1="500" y1="62" x2="500" y2="98" stroke="#66b3ff" stroke-width="1"/><line x1="536" y1="62" x2="536" y2="98" stroke="#66b3ff" stroke-width="1"/><line x1="572" y1="62" x2="572" y2="98" stroke="#66b3ff" stroke-width="1"/><line x1="608" y1="62" x2="608" y2="98" stroke="#66b3ff" stroke-width="1"/><line x1="644" y1="62" x2="644" y2="98" stroke="#66b3ff" stroke-width="1"/>
+<text x="482" y="85" fill="#f8fafc">1</text><text x="518" y="85" fill="#6b7686">0</text><text x="554" y="85" fill="#6b7686">0</text><text x="590" y="85" fill="#f8fafc">2</text><text x="626" y="85" fill="#6b7686">0</text><text x="662" y="85" fill="#f8fafc">1</text>
+<rect x="464" y="182" width="216" height="36" fill="none" stroke="#ffc778" stroke-width="1.6"/>
+<line x1="500" y1="182" x2="500" y2="218" stroke="#ffc778" stroke-width="1"/><line x1="536" y1="182" x2="536" y2="218" stroke="#ffc778" stroke-width="1"/><line x1="572" y1="182" x2="572" y2="218" stroke="#ffc778" stroke-width="1"/><line x1="608" y1="182" x2="608" y2="218" stroke="#ffc778" stroke-width="1"/><line x1="644" y1="182" x2="644" y2="218" stroke="#ffc778" stroke-width="1"/>
+<text x="482" y="205" fill="#f8fafc">.2</text><text x="518" y="205" fill="#6b7686">0</text><text x="554" y="205" fill="#6b7686">0</text><text x="590" y="205" fill="#f8fafc">.7</text><text x="626" y="205" fill="#6b7686">0</text><text x="662" y="205" fill="#f8fafc">.4</text>
+<rect x="464" y="302" width="216" height="36" fill="none" stroke="#5ad4b5" stroke-width="1.6"/>
+<line x1="500" y1="302" x2="500" y2="338" stroke="#5ad4b5" stroke-width="1"/><line x1="536" y1="302" x2="536" y2="338" stroke="#5ad4b5" stroke-width="1"/><line x1="572" y1="302" x2="572" y2="338" stroke="#5ad4b5" stroke-width="1"/><line x1="608" y1="302" x2="608" y2="338" stroke="#5ad4b5" stroke-width="1"/><line x1="644" y1="302" x2="644" y2="338" stroke="#5ad4b5" stroke-width="1"/>
+<text x="482" y="325" fill="#f8fafc">.7</text><text x="518" y="325" fill="#f8fafc">-.3</text><text x="554" y="325" fill="#f8fafc">.2</text><text x="590" y="325" fill="#f8fafc">.5</text><text x="626" y="325" fill="#f8fafc">-.4</text><text x="662" y="325" fill="#f8fafc">.9</text>
+</g>
+<text x="572" y="122" font-size="13" fill="#66b3ff">Sparse count vector</text>
+<text x="572" y="242" font-size="13" fill="#ffc778">Sparse TF-IDF vector</text>
+<text x="572" y="362" font-size="13" fill="#5ad4b5">Dense embedding vector</text>
+<g text-anchor="start" font-size="13">
+<text x="706" y="76" fill="#f8fafc">Mostly zeros;</text>
+<text x="706" y="94" fill="#adb9cb">which words occur</text>
+<text x="706" y="196" fill="#f8fafc">Mostly zeros;</text>
+<text x="706" y="214" fill="#adb9cb">rare words weighted up</text>
+<text x="706" y="316" fill="#f8fafc">Every entry real-valued;</text>
+<text x="706" y="334" fill="#adb9cb">better semantics</text>
+</g>
+</g>
+</svg>

@@ -1,0 +1,25 @@
+<svg width="100%" viewBox="0 0 900 380" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Sugarcane grower simulation setup</title>
+<desc>The environment contains the weather, the mill, the sugarcane grower and the actions. The grower agent senses the environment and acts on it.</desc>
+<defs>
+<marker id="sg-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="sg-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<rect x="30" y="30" width="390" height="320" rx="28" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-dasharray="8 6" vector-effect="non-scaling-stroke"/>
+<text x="225" y="64" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="17" font-weight="700" text-anchor="middle">Environment</text>
+<rect x="60" y="90" width="150" height="56" rx="8" fill="#20344c" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="135" y="123" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" text-anchor="middle">Weather</text>
+<rect x="240" y="90" width="150" height="56" rx="8" fill="#272f3b" stroke="#adb9cb" stroke-width="1.8"/>
+<text x="315" y="123" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" text-anchor="middle">Mill</text>
+<rect x="60" y="170" width="150" height="56" rx="8" fill="#272f3b" stroke="#adb9cb" stroke-width="1.8"/>
+<text x="135" y="203" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" text-anchor="middle">Sugarcane grower</text>
+<rect x="240" y="260" width="150" height="56" rx="8" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8"/>
+<text x="315" y="293" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" text-anchor="middle">Actions</text>
+<circle cx="690" cy="190" r="115" fill="#302b46" stroke="#b89aff" stroke-width="2.2" vector-effect="non-scaling-stroke"/>
+<text x="690" y="185" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="22" font-weight="700" text-anchor="middle">Grower</text>
+<text x="690" y="213" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="22" font-weight="700" text-anchor="middle">Agent</text>
+<path d="M 420 130 C 480 120, 530 125, 582 148" fill="none" stroke="#66b3ff" stroke-width="2" marker-end="url(#sg-blue)" vector-effect="non-scaling-stroke"/>
+<text x="500" y="112" fill="#66b3ff" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" font-weight="600" text-anchor="middle">sense</text>
+<path d="M 588 245 C 520 285, 460 290, 394 288" fill="none" stroke="#5ad4b5" stroke-width="2" marker-end="url(#sg-teal)" vector-effect="non-scaling-stroke"/>
+<text x="500" y="310" fill="#5ad4b5" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" font-weight="600" text-anchor="middle">act</text>
+</svg>

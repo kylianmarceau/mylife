@@ -1,0 +1,35 @@
+<svg width="100%" viewBox="0 0 560 440" role="img" xmlns="http://www.w3.org/2000/svg" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+<title>Vacuum world grid</title>
+<desc>A 3 by 3 grid with x and y coordinates 0 to 2. The robot starts at (0,0) facing north; dirt is at (0,2) and (1,2).</desc>
+  <defs>
+    <marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>
+  <g fill="none" stroke="#adb9cb" stroke-width="1.6">
+    <rect x="100" y="30" width="330" height="330"/>
+    <line x1="210" y1="30" x2="210" y2="360"/>
+    <line x1="320" y1="30" x2="320" y2="360"/>
+    <line x1="100" y1="140" x2="430" y2="140"/>
+    <line x1="100" y1="250" x2="430" y2="250"/>
+  </g>
+  <g fill="#f8fafc" font-size="18" text-anchor="middle">
+    <text x="78" y="91">2</text>
+    <text x="78" y="201">1</text>
+    <text x="78" y="311">0</text>
+    <text x="155" y="390">0</text>
+    <text x="265" y="390">1</text>
+    <text x="375" y="390">2</text>
+  </g>
+  <text x="265" y="425" text-anchor="middle" fill="#adb9cb" font-size="15" font-style="italic">x</text>
+  <text x="40" y="201" text-anchor="middle" fill="#adb9cb" font-size="15" font-style="italic">y</text>
+  <g fill="#ff939b">
+    <circle cx="140" cy="75" r="9"/><circle cx="162" cy="70" r="7"/><circle cx="155" cy="92" r="8"/><circle cx="172" cy="86" r="5"/>
+    <circle cx="250" cy="75" r="9"/><circle cx="272" cy="70" r="7"/><circle cx="265" cy="92" r="8"/><circle cx="282" cy="86" r="5"/>
+  </g>
+  <text x="155" y="125" text-anchor="middle" fill="#ff939b" font-size="14">Dirt(0,2)</text>
+  <text x="265" y="125" text-anchor="middle" fill="#ff939b" font-size="14">Dirt(1,2)</text>
+  <circle cx="155" cy="310" r="34" fill="#20344c" stroke="#66b3ff" stroke-width="2.2"/>
+  <line x1="155" y1="322" x2="155" y2="288" stroke="#66b3ff" stroke-width="2.4" marker-end="url(#ab)"/>
+  <text x="155" y="270" text-anchor="middle" fill="#66b3ff" font-size="13">robot</text>
+  <text x="440" y="320" fill="#adb9cb" font-size="13">start: In(0,0),</text>
+  <text x="440" y="338" fill="#adb9cb" font-size="13">Facing(north)</text>
+</svg>

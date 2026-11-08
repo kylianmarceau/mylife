@@ -1,0 +1,74 @@
+<svg width="100%" viewBox="0 0 900 520" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Compute-optimal scaling frontier with real models</title>
+<desc>Log-log plot of parameters against tokens; the compute-optimal line has about 20 tokens per parameter, with Chinchilla on it and GPT-3, Gopher and Megatron-Turing NLG above it.</desc>
+<defs>
+<marker id="arrow-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff939b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<line x1="110.0" y1="440.0" x2="790.0" y2="440.0" stroke="#f8fafc" stroke-width="1.6" marker-end="url(#arrow-white)" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="110.0" y1="440.0" x2="110.0" y2="30.0" stroke="#f8fafc" stroke-width="1.6" marker-end="url(#arrow-white)" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="445.0" y="484.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="normal">Training tokens D (log)</text>
+<text x="44.0" y="240.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="normal" transform="rotate(-90 44.0 240.0)">Parameters N (log)</text>
+<line x1="110.0" y1="440.0" x2="110.0" y2="445.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="110.0" y="461.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">10B</text>
+<line x1="313.0" y1="440.0" x2="313.0" y2="445.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="313.0" y1="40.0" x2="313.0" y2="440.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="313.0" y="461.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">100B</text>
+<line x1="515.9" y1="440.0" x2="515.9" y2="445.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="515.9" y1="40.0" x2="515.9" y2="440.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="515.9" y="461.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">1T</text>
+<line x1="718.9" y1="440.0" x2="718.9" y2="445.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="718.9" y1="40.0" x2="718.9" y2="440.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="718.9" y="461.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">10T</text>
+<line x1="105.0" y1="440.0" x2="110.0" y2="440.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="101.0" y="444.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">100M</text>
+<line x1="105.0" y1="341.9" x2="110.0" y2="341.9" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="110.0" y1="341.9" x2="780.0" y2="341.9" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="101.0" y="345.9" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">1B</text>
+<line x1="105.0" y1="243.9" x2="110.0" y2="243.9" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="110.0" y1="243.9" x2="780.0" y2="243.9" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="101.0" y="247.9" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">10B</text>
+<line x1="105.0" y1="145.8" x2="110.0" y2="145.8" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="110.0" y1="145.8" x2="780.0" y2="145.8" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="101.0" y="149.8" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">100B</text>
+<line x1="105.0" y1="47.8" x2="110.0" y2="47.8" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="110.0" y1="47.8" x2="780.0" y2="47.8" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="101.0" y="51.8" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">1T</text>
+<path d="M110.0 371.5 L780.0 47.8" fill="none" stroke="#f8fafc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="163.1" cy="345.8" r="5" fill="#adb9cb" stroke="#f8fafc" stroke-width="1"/>
+<text x="175.1" y="350.8" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="start" font-weight="normal"></text>
+<text x="175.1" y="350.8" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb">10<tspan dy="-6" font-size="10">20</tspan> FLOPs</text>
+<circle cx="264.5" cy="296.8" r="5" fill="#adb9cb" stroke="#f8fafc" stroke-width="1"/>
+<text x="276.5" y="301.8" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="start" font-weight="normal"></text>
+<text x="276.5" y="301.8" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb">10<tspan dy="-6" font-size="10">21</tspan> FLOPs</text>
+<circle cx="366.0" cy="247.8" r="5" fill="#adb9cb" stroke="#f8fafc" stroke-width="1"/>
+<text x="378.0" y="252.8" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="start" font-weight="normal"></text>
+<text x="378.0" y="252.8" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb">10<tspan dy="-6" font-size="10">22</tspan> FLOPs</text>
+<circle cx="467.5" cy="198.7" r="5" fill="#adb9cb" stroke="#f8fafc" stroke-width="1"/>
+<text x="479.5" y="203.7" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="start" font-weight="normal"></text>
+<text x="479.5" y="203.7" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb">10<tspan dy="-6" font-size="10">23</tspan> FLOPs</text>
+<circle cx="569.0" cy="149.7" r="5" fill="#adb9cb" stroke="#f8fafc" stroke-width="1"/>
+<text x="581.0" y="154.7" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="start" font-weight="normal"></text>
+<text x="581.0" y="154.7" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb">10<tspan dy="-6" font-size="10">24</tspan> FLOPs</text>
+<circle cx="670.5" cy="100.7" r="5" fill="#adb9cb" stroke="#f8fafc" stroke-width="1"/>
+<text x="682.5" y="105.7" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="start" font-weight="normal"></text>
+<text x="682.5" y="105.7" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb">10<tspan dy="-6" font-size="10">25</tspan> FLOPs</text>
+<polygon points="400.5,63.8 403.4,70.8 411.0,71.4 405.2,76.3 407.0,83.7 400.5,79.8 394.1,83.7 395.8,76.3 390.1,71.4 397.6,70.8" fill="#b89aff" stroke="#f8fafc" stroke-width="1"/>
+<polygon points="409.8,91.0 412.7,98.0 420.3,98.6 414.5,103.5 416.3,110.9 409.8,106.9 403.3,110.9 405.1,103.5 399.3,98.6 406.9,98.0" fill="#ffc778" stroke="#f8fafc" stroke-width="1"/>
+<polygon points="409.8,111.0 412.7,118.0 420.3,118.6 414.5,123.5 416.3,130.9 409.8,126.9 403.3,130.9 405.1,123.5 399.3,118.6 406.9,118.0" fill="#ff939b" stroke="#f8fafc" stroke-width="1"/>
+<polygon points="545.6,150.0 548.5,157.0 556.1,157.6 550.3,162.5 552.1,169.9 545.6,166.0 539.1,169.9 540.9,162.5 535.1,157.6 542.7,157.0" fill="#5ad4b5" stroke="#f8fafc" stroke-width="1"/>
+<text x="384.5" y="79.8" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#b89aff" text-anchor="end" font-weight="bold">Megatron-Turing NLG (530B)</text>
+<text x="425.8" y="102.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ffc778" text-anchor="start" font-weight="bold">Gopher (280B)</text>
+<text x="393.8" y="130.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="end" font-weight="bold">GPT-3 (175B)</text>
+<text x="529.6" y="149.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#5ad4b5" text-anchor="end" font-weight="bold">Chinchilla (70B)</text>
+<line x1="560.0" y1="412.0" x2="600.0" y2="412.0" stroke="#f8fafc" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="610.0" y="417.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="start" font-weight="normal">Compute-optimal scaling (D ≈ 20N)</text>
+<text x="130.0" y="190.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="start" font-weight="normal">Models above the line are</text>
+<text x="130.0" y="206.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="start" font-weight="normal">too big for their token count</text>
+<text x="130.0" y="222.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="start" font-weight="normal">(undertrained)</text>
+</svg>

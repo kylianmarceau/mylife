@@ -1,0 +1,71 @@
+<svg width="100%" viewBox="0 0 900 520" role="img" xmlns="http://www.w3.org/2000/svg" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+<title>Hybrid agent architecture</title>
+<desc>Sensors feed both a deliberative component (world model, planner, plan executor) and a reactive component (state-action rules). The reactive component sends observations up; the deliberative component sends modifications down. Both drive the effectors.</desc>
+  <defs>
+    <marker id="aw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <marker id="av" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <marker id="aa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>
+  <rect x="100" y="15" width="700" height="490" rx="30" fill="none" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+  <text x="130" y="44" fill="#adb9cb" font-size="16" font-weight="700">Agent</text>
+  <line x1="15" y1="270" x2="133" y2="270" stroke="#f8fafc" stroke-width="3" marker-end="url(#aw)"/>
+  <rect x="135" y="60" width="45" height="420" rx="6" fill="#20344c" stroke="#66b3ff" stroke-width="2"/>
+  <text x="157" y="275" text-anchor="middle" fill="#f8fafc" font-size="15" font-weight="700" transform="rotate(-90 157 275)">Sensors</text>
+  <rect x="720" y="60" width="45" height="420" rx="6" fill="#1b3835" stroke="#5ad4b5" stroke-width="2"/>
+  <text x="742" y="275" text-anchor="middle" fill="#f8fafc" font-size="15" font-weight="700" transform="rotate(-90 742 275)">Effectors</text>
+  <line x1="765" y1="270" x2="885" y2="270" stroke="#f8fafc" stroke-width="3" marker-end="url(#aw)"/>
+  <rect x="230" y="55" width="440" height="125" rx="8" fill="none" stroke="#b89aff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+  <text x="250" y="80" fill="#b89aff" font-size="15" font-weight="700">Deliberative component</text>
+  <g text-anchor="middle" fill="#f8fafc" font-size="14">
+    <rect x="255" y="95" width="110" height="64" rx="7" fill="#302b46" stroke="#b89aff" stroke-width="1.6"/>
+    <text x="310" y="123">World</text>
+    <text x="310" y="141">Model</text>
+    <rect x="395" y="95" width="110" height="64" rx="7" fill="#302b46" stroke="#b89aff" stroke-width="1.6"/>
+    <text x="450" y="132">Planner</text>
+    <rect x="535" y="95" width="110" height="64" rx="7" fill="#302b46" stroke="#b89aff" stroke-width="1.6"/>
+    <text x="590" y="123">Plan</text>
+    <text x="590" y="141">executor</text>
+  </g>
+  <line x1="365" y1="127" x2="393" y2="127" stroke="#b89aff" stroke-width="1.6" marker-end="url(#av)"/>
+  <line x1="505" y1="127" x2="533" y2="127" stroke="#b89aff" stroke-width="1.6" marker-end="url(#av)"/>
+  <rect x="230" y="265" width="440" height="215" rx="8" fill="none" stroke="#5ad4b5" stroke-width="2.4" vector-effect="non-scaling-stroke"/>
+  <text x="250" y="290" fill="#5ad4b5" font-size="15" font-weight="700">Reactive component</text>
+  <g text-anchor="middle" fill="#f8fafc" font-size="14">
+    <rect x="255" y="305" width="100" height="36" rx="5" fill="#20344c" stroke="#66b3ff" stroke-width="1.5"/>
+    <text x="305" y="328">State₁</text>
+    <rect x="545" y="305" width="100" height="36" rx="5" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.5"/>
+    <text x="595" y="328">Action₁</text>
+    <rect x="255" y="353" width="100" height="36" rx="5" fill="#20344c" stroke="#66b3ff" stroke-width="1.5"/>
+    <text x="305" y="376">State₂</text>
+    <rect x="545" y="353" width="100" height="36" rx="5" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.5"/>
+    <text x="595" y="376">Action₂</text>
+    <text x="305" y="412" font-size="18">⋮</text>
+    <rect x="255" y="425" width="100" height="36" rx="5" fill="#20344c" stroke="#66b3ff" stroke-width="1.5"/>
+    <text x="305" y="448">Stateₙ</text>
+    <rect x="545" y="425" width="100" height="36" rx="5" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.5"/>
+    <text x="595" y="448">Actionₙ</text>
+  </g>
+  <g stroke="#f8fafc" stroke-width="1.5" fill="none">
+    <line x1="355" y1="323" x2="543" y2="323" marker-end="url(#aw)"/>
+    <line x1="355" y1="371" x2="543" y2="371" marker-end="url(#aw)"/>
+    <line x1="355" y1="443" x2="543" y2="443" marker-end="url(#aw)"/>
+  </g>
+  <g stroke="#66b3ff" stroke-width="1.6" fill="none">
+    <line x1="180" y1="270" x2="228" y2="140" stroke-dasharray="5 4" marker-end="url(#ab)"/>
+    <line x1="180" y1="300" x2="253" y2="323" marker-end="url(#ab)"/>
+    <line x1="180" y1="300" x2="253" y2="371" marker-end="url(#ab)"/>
+    <line x1="180" y1="300" x2="253" y2="443" marker-end="url(#ab)"/>
+  </g>
+  <g stroke="#5ad4b5" stroke-width="1.6" fill="none">
+    <line x1="672" y1="140" x2="718" y2="250" stroke-dasharray="5 4" marker-end="url(#at)"/>
+    <line x1="645" y1="323" x2="718" y2="290" marker-end="url(#at)"/>
+    <line x1="645" y1="371" x2="718" y2="290" marker-end="url(#at)"/>
+    <line x1="645" y1="443" x2="718" y2="290" marker-end="url(#at)"/>
+  </g>
+  <line x1="340" y1="263" x2="340" y2="183" stroke="#ffc778" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#aa)"/>
+  <text x="330" y="228" text-anchor="end" fill="#ffc778" font-size="14">observations</text>
+  <line x1="560" y1="183" x2="560" y2="263" stroke="#ffc778" stroke-width="1.8" marker-end="url(#aa)"/>
+  <text x="570" y="228" fill="#ffc778" font-size="14">modifications</text>
+</svg>

@@ -1,24 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 480" role="img">
-<title>Relationship between P, NP, NP-complete and NP-hard (assuming P ≠ NP)</title>
-<desc>P sits inside NP. NP-hard is the upper region; where it overlaps NP is NP-complete. Part of NP-hard lies outside NP. Complexity increases upward.</desc>
-<defs><marker id="mw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.6" stroke-linecap="round"/></marker></defs>
-<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
-<ellipse cx="380" cy="320" rx="200" ry="120" fill="#20344c" stroke="#66b3ff" stroke-width="2"/>
-<path d="M150 262 Q380 242 610 262 L610 52 Q610 32 590 32 L170 32 Q150 32 150 52 Z" fill="#3f2a33" fill-opacity="0.7" stroke="#ff939b" stroke-width="2"/>
-<text x="380" y="110" text-anchor="middle" font-size="18" font-weight="600" fill="#ff939b">NP-hard</text>
-<text x="380" y="134" text-anchor="middle" font-size="13" fill="#adb9cb">(the part outside NP is not even verifiable quickly)</text>
-<text x="380" y="232" text-anchor="middle" font-size="15" font-weight="600" fill="#ffc778">NP-complete</text>
-<text x="230" y="320" font-size="18" font-weight="600" fill="#66b3ff">NP</text>
-<ellipse cx="400" cy="350" rx="70" ry="45" fill="#1b3835" stroke="#5ad4b5" stroke-width="2"/>
-<text x="400" y="356" text-anchor="middle" font-size="18" font-weight="600" fill="#5ad4b5">P</text>
-<line x1="80" y1="420" x2="80" y2="50" stroke="#f8fafc" stroke-width="1.6" marker-end="url(#mw)"/>
-<text x="62" y="235" text-anchor="middle" font-size="14" fill="#adb9cb" transform="rotate(-90 62 235)">complexity</text>
-<g font-size="13" fill="#f8fafc">
-<text x="640" y="100">NP-hard: at least as hard as</text><text x="640" y="118">NP-complete; may not be in NP</text><text x="640" y="136" fill="#adb9cb">e.g. Vehicle Routing Problem</text>
-<text x="640" y="220">NP-complete = NP ∩ NP-hard</text><text x="640" y="238" fill="#adb9cb">e.g. Boolean satisfiability</text>
-<text x="640" y="300">NP: solutions verifiable</text><text x="640" y="318">in polynomial time</text>
-<text x="640" y="360">P: solvable in</text><text x="640" y="378">polynomial time</text>
-</g>
-<text x="380" y="472" text-anchor="middle" font-size="13" fill="#adb9cb">Drawn assuming P ≠ NP (still unproven)</text>
-</g>
+<svg width="100%" viewBox="0 0 700 550" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Complexity classes P, NP, NP-Complete, NP-Hard</title>
+<desc>P sits inside NP; NP-Hard extends from above and overlaps NP in the NP-Complete region, assuming P is not equal to NP.</desc>
+<defs>
+<marker id="a-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="a-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="a-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="a-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="a-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff939b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="a-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="a-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<path d="M150 40 C150 380, 510 380, 510 40" fill="#3f2a33" stroke="#ff939b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="330" cy="350" r="140" fill="#20344c" fill-opacity="0.75" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<path d="M150 40 C150 380, 510 380, 510 40" fill="none" stroke="#ff939b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<ellipse cx="330" cy="420" rx="88" ry="50" fill="#1b3835" stroke="#5ad4b5" stroke-width="2" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/>
+<text x="330" y="120" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" fill="#ff939b" text-anchor="middle" font-weight="700">NP-Hard</text>
+<text x="330" y="145" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="middle" font-weight="normal">no known efficient solution</text>
+<text x="330" y="262" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="18" fill="#f8fafc" text-anchor="middle" font-weight="700">NP-Complete</text>
+<text x="240" y="345" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" fill="#66b3ff" text-anchor="middle" font-weight="700">NP</text>
+<text x="330" y="427" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" fill="#5ad4b5" text-anchor="middle" font-weight="700">P</text>
+<line x1="130.0" y1="500.0" x2="610.0" y2="500.0" stroke="#adb9cb" stroke-width="1.4" stroke-linecap="round" vector-effect="non-scaling-stroke" stroke-dasharray="3 5"/>
+<line x1="650.0" y1="510.0" x2="650.0" y2="40.0" stroke="#f8fafc" stroke-width="1.8" stroke-linecap="round" vector-effect="non-scaling-stroke" marker-end="url(#a-white)"/>
+<text x="672" y="280" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#adb9cb" text-anchor="middle" font-weight="normal" transform="rotate(-90 672 280)">increasing complexity</text>
+<text x="330" y="530" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="middle" font-weight="normal">assuming P ≠ NP (an open question)</text>
 </svg>

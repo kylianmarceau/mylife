@@ -1,0 +1,28 @@
+<svg width="100%" viewBox="0 0 900 580" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Pass-or-shoot input geometry</title>
+<desc>Agent A measures the angle and distance to teammate B and to the goalie; these four values plus a goal/no-goal label form a training example.</desc>
+<defs></defs>
+<line x1="60" y1="470" x2="60" y2="40" stroke="#adb9cb" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<line x1="60" y1="470" x2="820" y2="470" stroke="#adb9cb" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<rect x="54" y="170" width="12" height="90" fill="#adb9cb"/>
+<text x="40" y="215" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="middle" font-weight="400" font-style="normal" transform="rotate(-90 40 215)">Goal</text>
+<line x1="640" y1="360" x2="560" y2="110" stroke="#5ad4b5" stroke-width="2.2" vector-effect="non-scaling-stroke"/>
+<line x1="640" y1="360" x2="150" y2="220" stroke="#ff939b" stroke-width="2.2" vector-effect="non-scaling-stroke"/>
+<line x1="640" y1="360" x2="640" y2="90" stroke="#adb9cb" stroke-width="1.4" stroke-dasharray="4 5" vector-effect="non-scaling-stroke"/>
+<text x="652" y="100" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="start" font-weight="400" font-style="italic">reference</text>
+<path d="M640 290 A70 70 0 0 0 618 293" fill="none" stroke="#5ad4b5" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<path d="M640 250 A110 110 0 0 0 534 330" fill="none" stroke="#ff939b" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="660" y="250" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#5ad4b5" text-anchor="start" font-weight="600" font-style="normal">angle to B</text>
+<text x="520" y="272" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#ff939b" text-anchor="end" font-weight="600" font-style="normal">angle to goalie</text>
+<text x="560" y="225" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#5ad4b5" text-anchor="end" font-weight="400" font-style="normal" transform="rotate(72 560 225)">distance to B</text>
+<text x="350" y="310" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#ff939b" text-anchor="middle" font-weight="400" font-style="normal" transform="rotate(19 350 310)">distance to goalie</text>
+<circle cx="640" cy="360" r="16" fill="#20344c" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="664" y="366" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#f8fafc" text-anchor="start" font-weight="600" font-style="normal">Agent A</text>
+<circle cx="560" cy="110" r="16" fill="#20344c" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="584" y="116" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#f8fafc" text-anchor="start" font-weight="600" font-style="normal">Agent B</text>
+<circle cx="150" cy="220" r="16" fill="#3f2a33" stroke="#ff939b" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="150" y="194" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#f8fafc" text-anchor="middle" font-weight="600" font-style="normal">Goalie</text>
+<rect x="80" y="500" width="740" height="60" rx="8" fill="#272f3b" stroke="#adb9cb" stroke-width="1.4" vector-effect="non-scaling-stroke"/>
+<text x="450" y="525" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="middle" font-weight="400" font-style="normal">Training example: { angle to B, distance to B, angle to goalie, distance to goalie, label }</text>
+<text x="450" y="549" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#adb9cb" text-anchor="middle" font-weight="400" font-style="normal">e.g. { 110, 0.39, 10, 0.38, 0 }   distances normalised, label 1 = goal, 0 = no goal</text>
+</svg>

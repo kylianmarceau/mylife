@@ -1,0 +1,52 @@
+<svg width="100%" viewBox="0 0 860 380" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Tools extend and facilitate</title>
+<desc>Extend: the LLM calls get_time() to reach the real world and gets 3 pm. Facilitate: for (35.223 x 1.6)^2 / 7, basic text generation needs four error-prone steps, while a calculator tool returns 453.7 in one call.</desc>
+<defs>
+<marker id="aw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="av" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="at" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="aa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ac" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff939b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" text-anchor="middle">
+<rect x="20" y="16" width="820" height="128" rx="14" fill="none" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="44" y="46" font-size="18" font-weight="700" font-style="italic" fill="#66b3ff" text-anchor="start">Extend</text>
+<text x="44" y="68" font-size="12" fill="#adb9cb" text-anchor="start">reach info / actions</text>
+<text x="44" y="84" font-size="12" fill="#adb9cb" text-anchor="start">not in parameters</text>
+<rect x="190" y="56" width="90" height="50" rx="12" fill="#302b46" stroke="#b89aff" stroke-width="2"/>
+<text x="235" y="87" font-size="15" font-weight="600" fill="#f8fafc">LLM</text>
+<rect x="340" y="60" width="130" height="42" rx="6" fill="#20344c" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="405" y="87" font-size="15" fill="#f8fafc" font-family="ui-monospace, Menlo, monospace">get_time()</text>
+<rect x="530" y="56" width="130" height="50" rx="12" fill="#272f3b" stroke="#adb9cb" stroke-width="1.8"/>
+<text x="595" y="80" font-size="14" fill="#f8fafc">Real world</text>
+<text x="595" y="97" font-size="12" fill="#adb9cb">clock</text>
+<rect x="720" y="60" width="90" height="42" rx="8" fill="#1b3835" stroke="#5ad4b5" stroke-width="2"/>
+<text x="765" y="87" font-size="15" font-weight="600" fill="#f8fafc">3 pm</text>
+<line x1="280" y1="81" x2="332" y2="81" stroke="#f8fafc" stroke-width="1.8" vector-effect="non-scaling-stroke" marker-end="url(#aw)"/>
+<line x1="470" y1="81" x2="522" y2="81" stroke="#f8fafc" stroke-width="1.8" vector-effect="non-scaling-stroke" marker-end="url(#aw)"/>
+<line x1="660" y1="81" x2="712" y2="81" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke" marker-end="url(#at)"/>
+<rect x="20" y="160" width="820" height="206" rx="14" fill="none" stroke="#5ad4b5" stroke-width="1.6"/>
+<text x="44" y="190" font-size="18" font-weight="700" font-style="italic" fill="#5ad4b5" text-anchor="start">Facilitate</text>
+<text x="450" y="190" font-size="16" font-weight="600" fill="#ffc778">(35.223 × 1.6)² / 7 = ?</text>
+<text x="250" y="222" font-size="13" fill="#ff939b">Basic text generation: many error-prone steps</text>
+<g font-size="12">
+<rect x="50" y="234" width="190" height="40" rx="6" fill="#3f2a33" stroke="#ff939b" stroke-width="1.4"/><text x="145" y="258" fill="#f8fafc">① multiply 1.6 by 35.223 ...</text>
+<rect x="270" y="234" width="190" height="40" rx="6" fill="#3f2a33" stroke="#ff939b" stroke-width="1.4"/><text x="365" y="258" fill="#f8fafc">② square the number</text>
+<rect x="50" y="300" width="190" height="40" rx="6" fill="#3f2a33" stroke="#ff939b" stroke-width="1.4"/><text x="145" y="324" fill="#f8fafc">③ divide the number by 7 ...</text>
+<rect x="270" y="300" width="190" height="40" rx="6" fill="#3f2a33" stroke="#ff939b" stroke-width="1.4"/><text x="365" y="324" fill="#f8fafc">④ result is 453.7</text>
+</g>
+<line x1="240" y1="254" x2="264" y2="254" stroke="#ff939b" stroke-width="1.6" vector-effect="non-scaling-stroke" marker-end="url(#ac)"/>
+<path d="M365 274 V287 H145 V294" fill="none" stroke="#ff939b" stroke-width="1.6" vector-effect="non-scaling-stroke" marker-end="url(#ac)"/>
+<line x1="240" y1="320" x2="264" y2="320" stroke="#ff939b" stroke-width="1.6" vector-effect="non-scaling-stroke" marker-end="url(#ac)"/>
+<line x1="500" y1="214" x2="500" y2="350" stroke="#adb9cb" stroke-width="1" stroke-dasharray="3 4"/>
+<text x="680" y="222" font-size="13" fill="#5ad4b5">Delegate to a calculator tool</text>
+<rect x="550" y="250" width="150" height="44" rx="8" fill="#20344c" stroke="#66b3ff" stroke-width="1.8"/>
+<text x="625" y="277" font-size="14" fill="#f8fafc" font-family="ui-monospace, Menlo, monospace">calculator</text>
+<rect x="740" y="250" width="80" height="44" rx="8" fill="#1b3835" stroke="#5ad4b5" stroke-width="2"/>
+<text x="780" y="277" font-size="15" font-weight="600" fill="#f8fafc">453.7</text>
+<line x1="700" y1="272" x2="732" y2="272" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke" marker-end="url(#at)"/>
+<text x="685" y="326" font-size="13" fill="#adb9cb">① one reliable step</text>
+</g>
+</svg>

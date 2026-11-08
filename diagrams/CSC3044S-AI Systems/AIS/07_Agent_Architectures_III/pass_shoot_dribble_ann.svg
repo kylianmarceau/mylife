@@ -1,0 +1,71 @@
+<svg width="100%" viewBox="0 0 1010 405" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Adding a dribble output</title>
+<desc>The 4-2-2 pass-or-shoot network is extended to a 4-2-3 network with Pass, Dribble and Shoot outputs; inputs are unchanged.</desc>
+<defs><marker id="aa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<line x1="200" y1="60" x2="300" y2="60" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="200" y1="60" x2="300" y2="300" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="200" y1="140" x2="300" y2="60" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="200" y1="140" x2="300" y2="300" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="200" y1="220" x2="300" y2="60" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="200" y1="220" x2="300" y2="300" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="200" y1="300" x2="300" y2="60" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="200" y1="300" x2="300" y2="300" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="300" y1="60" x2="390" y2="60" stroke="#b89aff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="300" y1="60" x2="390" y2="300" stroke="#b89aff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="300" y1="300" x2="390" y2="60" stroke="#b89aff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="300" y1="300" x2="390" y2="300" stroke="#b89aff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<circle cx="200" cy="60" r="9" fill="#20344c" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="180" y="65" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="end" font-weight="400" font-style="normal">Angle to agent B</text>
+<circle cx="200" cy="140" r="9" fill="#20344c" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="180" y="145" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="end" font-weight="400" font-style="normal">Distance to agent B</text>
+<circle cx="200" cy="220" r="9" fill="#20344c" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="180" y="225" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="end" font-weight="400" font-style="normal">Angle to goalie</text>
+<circle cx="200" cy="300" r="9" fill="#20344c" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="180" y="305" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="end" font-weight="400" font-style="normal">Distance to goalie</text>
+<circle cx="300" cy="60" r="9" fill="#302b46" stroke="#b89aff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<circle cx="300" cy="300" r="9" fill="#302b46" stroke="#b89aff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<circle cx="390" cy="60" r="9" fill="#1b3835" stroke="#5ad4b5" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="410" y="65" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#5ad4b5" text-anchor="start" font-weight="600" font-style="normal">Pass</text>
+<circle cx="390" cy="300" r="9" fill="#1b3835" stroke="#5ad4b5" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="410" y="305" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#5ad4b5" text-anchor="start" font-weight="600" font-style="normal">Shoot</text>
+<line x1="720" y1="60" x2="820" y2="60" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="720" y1="60" x2="820" y2="300" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="720" y1="140" x2="820" y2="60" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="720" y1="140" x2="820" y2="300" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="720" y1="220" x2="820" y2="60" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="720" y1="220" x2="820" y2="300" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="720" y1="300" x2="820" y2="60" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="720" y1="300" x2="820" y2="300" stroke="#66b3ff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="820" y1="60" x2="910" y2="60" stroke="#b89aff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="820" y1="60" x2="910" y2="180" stroke="#b89aff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="820" y1="60" x2="910" y2="300" stroke="#b89aff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="820" y1="300" x2="910" y2="60" stroke="#b89aff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="820" y1="300" x2="910" y2="180" stroke="#b89aff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="820" y1="300" x2="910" y2="300" stroke="#b89aff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<circle cx="720" cy="60" r="9" fill="#20344c" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="700" y="65" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="end" font-weight="400" font-style="normal">Angle to agent B</text>
+<circle cx="720" cy="140" r="9" fill="#20344c" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="700" y="145" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="end" font-weight="400" font-style="normal">Distance to agent B</text>
+<circle cx="720" cy="220" r="9" fill="#20344c" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="700" y="225" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="end" font-weight="400" font-style="normal">Angle to goalie</text>
+<circle cx="720" cy="300" r="9" fill="#20344c" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="700" y="305" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#f8fafc" text-anchor="end" font-weight="400" font-style="normal">Distance to goalie</text>
+<circle cx="820" cy="60" r="9" fill="#302b46" stroke="#b89aff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<circle cx="820" cy="300" r="9" fill="#302b46" stroke="#b89aff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<circle cx="910" cy="60" r="9" fill="#1b3835" stroke="#5ad4b5" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="930" y="65" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#5ad4b5" text-anchor="start" font-weight="600" font-style="normal">Pass</text>
+<circle cx="910" cy="180" r="9" fill="#1b3835" stroke="#5ad4b5" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="930" y="185" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#5ad4b5" text-anchor="start" font-weight="600" font-style="normal">Dribble</text>
+<circle cx="910" cy="300" r="9" fill="#1b3835" stroke="#5ad4b5" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="930" y="305" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#5ad4b5" text-anchor="start" font-weight="600" font-style="normal">Shoot</text>
+<line x1="470" y1="180" x2="520" y2="180" stroke="#ffc778" stroke-width="3" marker-end="url(#aa)" vector-effect="non-scaling-stroke"/>
+<text x="495" y="160" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#ffc778" text-anchor="middle" font-weight="400" font-style="normal">add</text>
+<text x="200" y="345" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="middle" font-weight="400" font-style="italic">4</text>
+<text x="300" y="345" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="middle" font-weight="400" font-style="italic">2</text>
+<text x="390" y="345" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="middle" font-weight="400" font-style="italic">2</text>
+<text x="720" y="345" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="middle" font-weight="400" font-style="italic">4</text>
+<text x="820" y="345" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="middle" font-weight="400" font-style="italic">2</text>
+<text x="910" y="345" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="middle" font-weight="400" font-style="italic">3</text>
+<text x="260" y="385" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#f8fafc" text-anchor="middle" font-weight="600" font-style="normal">Pass-or-shoot</text>
+<text x="780" y="385" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#f8fafc" text-anchor="middle" font-weight="600" font-style="normal">Pass-shoot-dribble</text>
+</svg>

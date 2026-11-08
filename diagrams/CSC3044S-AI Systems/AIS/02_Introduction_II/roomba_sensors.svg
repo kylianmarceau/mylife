@@ -1,0 +1,50 @@
+<svg width="100%" viewBox="0 0 900 400" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Roomba sensors and parts</title>
+<desc>Top view: infrared sensor, handle, power button, bin release. Bottom view: side brush, cliff sensors, smart bumper.</desc>
+<defs>
+<marker id="ar-w" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#f8fafc" stroke="#f8fafc" stroke-width="1" stroke-linejoin="round"/></marker>
+<marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#66b3ff" stroke="#66b3ff" stroke-width="1" stroke-linejoin="round"/></marker>
+<marker id="ar-v" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#b89aff" stroke="#b89aff" stroke-width="1" stroke-linejoin="round"/></marker>
+<marker id="ar-t" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#5ad4b5" stroke="#5ad4b5" stroke-width="1" stroke-linejoin="round"/></marker>
+<marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#ffc778" stroke="#ffc778" stroke-width="1" stroke-linejoin="round"/></marker>
+<marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" stroke-linejoin="round"/></marker>
+<marker id="ar-c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#ff939b" stroke="#ff939b" stroke-width="1" stroke-linejoin="round"/></marker>
+</defs>
+<circle cx="220" cy="210" r="130" fill="#272f3b" stroke="#adb9cb" stroke-width="1.8"/>
+<path d="M 90 210 A 130 130 0 0 1 350 210" fill="none" stroke="#66b3ff" stroke-width="10" opacity="0.9"/>
+<circle cx="650" cy="210" r="130" fill="#272f3b" stroke="#adb9cb" stroke-width="1.8"/>
+<path d="M 520 210 A 130 130 0 0 1 780 210" fill="none" stroke="#66b3ff" stroke-width="10" opacity="0.9"/>
+<text x="220" y="390" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#adb9cb" text-anchor="middle">Top view</text>
+<text x="650" y="390" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#adb9cb" text-anchor="middle">Bottom view</text>
+<circle cx="220" cy="210" r="34" fill="none" stroke="#adb9cb" stroke-width="1.6"/>
+<circle cx="220" cy="210" r="10" fill="#5ad4b5"/>
+<path d="M 160 150 A 80 80 0 0 1 280 150" fill="none" stroke="#b89aff" stroke-width="6" stroke-linecap="round"/>
+<circle cx="220" cy="82" r="8" fill="#ffc778"/>
+<circle cx="220" cy="338" r="7" fill="#adb9cb"/>
+<path d="M228 80 L380 40" fill="none" stroke="#ffc778" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="385" y="44" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#ffc778" text-anchor="start">Infrared sensor</text>
+<path d="M280 150 L380 110" fill="none" stroke="#b89aff" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="385" y="114" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#b89aff" text-anchor="start">Handle</text>
+<path d="M230 210 L380 200" fill="none" stroke="#5ad4b5" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="385" y="204" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#5ad4b5" text-anchor="start">Power button</text>
+<path d="M227 338 L380 345" fill="none" stroke="#adb9cb" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="385" y="349" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#adb9cb" text-anchor="start">Bin release</text>
+<path d="M110 140 L60 60" fill="none" stroke="#66b3ff" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="30" y="52" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#66b3ff" text-anchor="start">Bumper</text>
+<rect x="585" y="170" width="20" height="60" rx="3" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.6"/>
+<rect x="695" y="170" width="20" height="60" rx="3" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.6"/>
+<rect x="620" y="180" width="60" height="22" rx="3" fill="none" stroke="#adb9cb" stroke-width="1.6"/>
+<circle cx="560" cy="120" r="12" fill="none" stroke="#ffc778" stroke-width="2"/>
+<line x1="560" y1="120" x2="579.3" y2="109.5" stroke="#ffc778" stroke-width="2"/>
+<line x1="560" y1="120" x2="559.5" y2="142.0" stroke="#ffc778" stroke-width="2"/>
+<line x1="560" y1="120" x2="541.2" y2="108.6" stroke="#ffc778" stroke-width="2"/>
+<circle cx="650" cy="96" r="7" fill="#ff939b"/>
+<circle cx="560" cy="290" r="6" fill="#ff939b"/>
+<circle cx="740" cy="290" r="6" fill="#ff939b"/>
+<path d="M548 125 L480 160" fill="none" stroke="#ffc778" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="475" y="168" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#ffc778" text-anchor="end">Side brush</text>
+<path d="M657 92 L720 40" fill="none" stroke="#ff939b" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="725" y="44" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#ff939b" text-anchor="start">Cliff sensors</text>
+<path d="M770 160 L820 120" fill="none" stroke="#66b3ff" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="800" y="112" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" font-weight="400" fill="#66b3ff" text-anchor="start">Smart bumper</text>
+</svg>

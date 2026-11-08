@@ -1,0 +1,60 @@
+<svg width="100%" viewBox="0 0 900 490" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Vacuum world example run</title>
+<desc>State-transition graph from In(0,0) Facing(north): forward, forward, suck removes Dirt(0,2); the turn branch leads east, where suck on a clean cell changes nothing.</desc>
+<defs><marker id="arrow-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<ellipse cx="100" cy="230" rx="88" ry="52" fill="#20344c" stroke="#66b3ff" stroke-width="2"/>
+<text x="100" y="211" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >In(0,0)</text>
+<text x="100" y="227" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >Facing(north)</text>
+<text x="100" y="243" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(0,2)</text>
+<text x="100" y="259" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(1,2)</text>
+<ellipse cx="310" cy="90" rx="88" ry="52" fill="#272f3b" stroke="#adb9cb" stroke-width="2"/>
+<text x="310" y="71" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >In(0,1)</text>
+<text x="310" y="87" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >Facing(north)</text>
+<text x="310" y="103" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(0,2)</text>
+<text x="310" y="119" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(1,2)</text>
+<ellipse cx="530" cy="90" rx="88" ry="52" fill="#272f3b" stroke="#adb9cb" stroke-width="2"/>
+<text x="530" y="71" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >In(0,2)</text>
+<text x="530" y="87" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >Facing(north)</text>
+<text x="530" y="103" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(0,2)</text>
+<text x="530" y="119" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(1,2)</text>
+<ellipse cx="790" cy="90" rx="88" ry="52" fill="#1b3835" stroke="#5ad4b5" stroke-width="2"/>
+<text x="790" y="79" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >In(0,2)</text>
+<text x="790" y="95" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >Facing(north)</text>
+<text x="790" y="111" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(1,2)</text>
+<ellipse cx="310" cy="340" rx="88" ry="52" fill="#272f3b" stroke="#adb9cb" stroke-width="2"/>
+<text x="310" y="321" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >In(0,0)</text>
+<text x="310" y="337" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >Facing(east)</text>
+<text x="310" y="353" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(0,2)</text>
+<text x="310" y="369" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(1,2)</text>
+<ellipse cx="530" cy="340" rx="88" ry="52" fill="#272f3b" stroke="#adb9cb" stroke-width="2"/>
+<text x="530" y="321" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >In(1,0)</text>
+<text x="530" y="337" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >Facing(east)</text>
+<text x="530" y="353" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(0,2)</text>
+<text x="530" y="369" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(1,2)</text>
+<ellipse cx="790" cy="260" rx="88" ry="52" fill="#272f3b" stroke="#adb9cb" stroke-width="2"/>
+<text x="790" y="241" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >In(2,0)</text>
+<text x="790" y="257" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >Facing(east)</text>
+<text x="790" y="273" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(0,2)</text>
+<text x="790" y="289" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(1,2)</text>
+<ellipse cx="790" cy="420" rx="88" ry="52" fill="#272f3b" stroke="#adb9cb" stroke-width="2"/>
+<text x="790" y="401" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >In(1,0)</text>
+<text x="790" y="417" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal" >Facing(south)</text>
+<text x="790" y="433" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(0,2)</text>
+<text x="790" y="449" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ff939b" text-anchor="middle" font-weight="normal" >Dirt(1,2)</text>
+<line x1="175" y1="200" x2="225" y2="125" stroke="#f8fafc" stroke-width="1.8" vector-effect="non-scaling-stroke" marker-end="url(#arrow-white)"/>
+<text x="185" y="150" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ffc778" text-anchor="middle" font-weight="bold" >forward</text>
+<line x1="398" y1="90" x2="440" y2="90" stroke="#f8fafc" stroke-width="1.8" vector-effect="non-scaling-stroke" marker-end="url(#arrow-white)"/>
+<text x="419" y="80" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ffc778" text-anchor="middle" font-weight="bold" >forward</text>
+<line x1="618" y1="90" x2="700" y2="90" stroke="#f8fafc" stroke-width="1.8" vector-effect="non-scaling-stroke" marker-end="url(#arrow-white)"/>
+<text x="659" y="80" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ffc778" text-anchor="middle" font-weight="bold" >suck</text>
+<line x1="175" y1="262" x2="225" y2="315" stroke="#f8fafc" stroke-width="1.8" vector-effect="non-scaling-stroke" marker-end="url(#arrow-white)"/>
+<text x="185" y="305" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ffc778" text-anchor="middle" font-weight="bold" >turn</text>
+<line x1="398" y1="340" x2="440" y2="340" stroke="#f8fafc" stroke-width="1.8" vector-effect="non-scaling-stroke" marker-end="url(#arrow-white)"/>
+<text x="419" y="330" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ffc778" text-anchor="middle" font-weight="bold" >forward</text>
+<line x1="610" y1="318" x2="704" y2="280" stroke="#f8fafc" stroke-width="1.8" vector-effect="non-scaling-stroke" marker-end="url(#arrow-white)"/>
+<text x="652" y="287" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ffc778" text-anchor="middle" font-weight="bold" >forward</text>
+<line x1="610" y1="365" x2="704" y2="400" stroke="#f8fafc" stroke-width="1.8" vector-effect="non-scaling-stroke" marker-end="url(#arrow-white)"/>
+<text x="648" y="400" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ffc778" text-anchor="middle" font-weight="bold" >turn</text>
+<path d="M505 290 C480 230, 580 230, 555 290" fill="none" stroke="#f8fafc" stroke-width="1.8" vector-effect="non-scaling-stroke" marker-end="url(#arrow-white)"/>
+<text x="530" y="228" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ffc778" text-anchor="middle" font-weight="bold" >suck</text>
+</svg>

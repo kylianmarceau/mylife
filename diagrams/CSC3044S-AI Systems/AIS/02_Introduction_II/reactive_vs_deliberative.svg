@@ -1,29 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 900 430" role="img">
+<svg width="100%" viewBox="0 0 900 480" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>Reactive versus deliberative paradigms</title>
-<desc>Deliberative paradigm: top-down problem solving, requires a closed world; features internal models, look ahead and a functional pipeline. Reactive paradigm: bottom-up problem solving, works in an open world; features model-free, react to inputs, concurrent modules.</desc>
-<defs><marker id="mw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.6" stroke-linecap="round"/></marker><marker id="mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round"/></marker><marker id="mt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.6" stroke-linecap="round"/></marker><marker id="mv" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.6" stroke-linecap="round"/></marker><marker id="ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.6" stroke-linecap="round"/></marker><marker id="mc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff939b" stroke-width="1.6" stroke-linecap="round"/></marker></defs>
-<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
-<rect x="340" y="25" width="220" height="50" rx="10" fill="#3f2a33" stroke="#ff939b" stroke-width="2"/>
-<text x="450" y="56" text-anchor="middle" font-size="17" font-weight="600" fill="#f8fafc">Deliberative paradigm</text>
-<g fill="#3f2a33" stroke="#ff939b" stroke-width="1.8"><circle cx="330" cy="150" r="50"/><circle cx="450" cy="150" r="50"/><circle cx="570" cy="150" r="50"/></g>
-<g font-size="14" fill="#f8fafc" text-anchor="middle">
-<text x="330" y="146">Internal</text><text x="330" y="164">models</text>
-<text x="450" y="146">Look</text><text x="450" y="164">ahead</text>
-<text x="570" y="146">Functional</text><text x="570" y="164">pipeline</text>
-</g>
-<g fill="#20344c" stroke="#66b3ff" stroke-width="1.8"><circle cx="330" cy="280" r="50"/><circle cx="450" cy="280" r="50"/><circle cx="570" cy="280" r="50"/></g>
-<g font-size="14" fill="#f8fafc" text-anchor="middle">
-<text x="330" y="276">Model</text><text x="330" y="294">free</text>
-<text x="450" y="276">React to</text><text x="450" y="294">inputs</text>
-<text x="570" y="276">Concurrent</text><text x="570" y="294">modules</text>
-</g>
-<rect x="340" y="355" width="220" height="50" rx="10" fill="#20344c" stroke="#66b3ff" stroke-width="2"/>
-<text x="450" y="386" text-anchor="middle" font-size="17" font-weight="600" fill="#f8fafc">Reactive paradigm</text>
-<line x1="90" y1="40" x2="90" y2="140" stroke="#ff939b" stroke-width="2" marker-end="url(#mc)"/>
-<text x="110" y="80" font-size="14" fill="#ff939b">Top-down</text><text x="110" y="98" font-size="14" fill="#ff939b">problem solving</text>
-<text x="110" y="150" font-size="14" fill="#ff939b">Requires a</text><text x="110" y="168" font-size="14" fill="#ff939b">closed world</text>
-<text x="660" y="276" font-size="14" fill="#66b3ff">Works in an</text><text x="660" y="294" font-size="14" fill="#66b3ff">open world</text>
-<line x1="830" y1="400" x2="830" y2="320" stroke="#66b3ff" stroke-width="2" marker-end="url(#mb)"/>
-<text x="660" y="365" font-size="14" fill="#66b3ff">Bottom-up</text><text x="660" y="383" font-size="14" fill="#66b3ff">problem solving</text>
-</g>
+<desc>Deliberative: top-down, closed world, internal models, look ahead, functional pipeline. Reactive: bottom-up, open world, model free, react to inputs, concurrent modules.</desc>
+<defs>
+<marker id="ar-w" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#f8fafc" stroke="#f8fafc" stroke-width="1" stroke-linejoin="round"/></marker>
+<marker id="ar-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#66b3ff" stroke="#66b3ff" stroke-width="1" stroke-linejoin="round"/></marker>
+<marker id="ar-v" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#b89aff" stroke="#b89aff" stroke-width="1" stroke-linejoin="round"/></marker>
+<marker id="ar-t" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#5ad4b5" stroke="#5ad4b5" stroke-width="1" stroke-linejoin="round"/></marker>
+<marker id="ar-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#ffc778" stroke="#ffc778" stroke-width="1" stroke-linejoin="round"/></marker>
+<marker id="ar-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" stroke-linejoin="round"/></marker>
+<marker id="ar-c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" fill="#ff939b" stroke="#ff939b" stroke-width="1" stroke-linejoin="round"/></marker>
+</defs>
+<rect x="350" y="20" width="200" height="56" rx="12" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/><text x="450.0" y="54.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="17" font-weight="700" fill="#f8fafc" text-anchor="middle">Deliberative paradigm</text>
+<circle cx="330" cy="155" r="54" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="330" y="150.9" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#f8fafc" text-anchor="middle">Internal</text><text x="330" y="169.6" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#f8fafc" text-anchor="middle">models</text>
+<circle cx="450" cy="155" r="54" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="150.9" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#f8fafc" text-anchor="middle">Look</text><text x="450" y="169.6" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#f8fafc" text-anchor="middle">ahead</text>
+<circle cx="570" cy="155" r="54" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="570" y="150.9" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#f8fafc" text-anchor="middle">Functional</text><text x="570" y="169.6" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#f8fafc" text-anchor="middle">pipeline</text>
+<circle cx="330" cy="320" r="54" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="330" y="315.9" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#f8fafc" text-anchor="middle">Model</text><text x="330" y="334.6" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#f8fafc" text-anchor="middle">free</text>
+<circle cx="450" cy="320" r="54" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="315.9" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#f8fafc" text-anchor="middle">React</text><text x="450" y="334.6" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#f8fafc" text-anchor="middle">to inputs</text>
+<circle cx="570" cy="320" r="54" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="570" y="315.9" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#f8fafc" text-anchor="middle">Concurrent</text><text x="570" y="334.6" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#f8fafc" text-anchor="middle">modules</text>
+<rect x="350" y="404" width="200" height="56" rx="12" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/><text x="450.0" y="437.9" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="17" font-weight="700" fill="#f8fafc" text-anchor="middle">Reactive paradigm</text>
+<path d="M60 40 L60 140" fill="none" stroke="#b89aff" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" marker-end="url(#ar-v)"/>
+<text x="160" y="70.9" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#b89aff" text-anchor="middle">Top-down</text><text x="160" y="89.6" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#b89aff" text-anchor="middle">problem solving</text>
+<text x="160" y="160.9" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#b89aff" text-anchor="middle">Requires a</text><text x="160" y="179.6" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#b89aff" text-anchor="middle">closed world</text>
+<path d="M840 440 L840 340" fill="none" stroke="#66b3ff" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" marker-end="url(#ar-b)"/>
+<text x="740" y="400.9" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#66b3ff" text-anchor="middle">Bottom-up</text><text x="740" y="419.6" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#66b3ff" text-anchor="middle">problem solving</text>
+<text x="740" y="310.9" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#66b3ff" text-anchor="middle">Works in an</text><text x="740" y="329.6" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#66b3ff" text-anchor="middle">open world</text>
+<line x1="250" y1="237" x2="650" y2="237" stroke="#adb9cb" stroke-width="1.2" stroke-dasharray="4 6" vector-effect="non-scaling-stroke"/>
 </svg>
