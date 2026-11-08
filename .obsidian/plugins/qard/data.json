@@ -27069,10 +27069,13 @@
     },
     "2026-11-07": {
       "cards|Advanced Programming": 448,
-      "browsing|": 6.4,
-      "browsing|Advanced Programming": 31.7,
+      "browsing|": 58.5,
+      "browsing|Advanced Programming": 42.2,
       "cards|": 1.5,
-      "planning|": 17.2
+      "planning|": 20.6
+    },
+    "2026-11-08": {
+      "browsing|Advanced Programming": 12.5
     }
   },
   "statistics": {
@@ -31615,10 +31618,13 @@
         },
         "2026-11-07": {
           "cards|Advanced Programming": 448,
-          "browsing|": 6.4,
-          "browsing|Advanced Programming": 31.7,
+          "browsing|": 58.5,
+          "browsing|Advanced Programming": 42.2,
           "cards|": 1.5,
-          "planning|": 17.2
+          "planning|": 20.6
+        },
+        "2026-11-08": {
+          "browsing|Advanced Programming": 12.5
         }
       },
       "usage": {}
