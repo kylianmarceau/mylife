@@ -27075,7 +27075,8 @@
       "planning|": 20.6
     },
     "2026-11-08": {
-      "browsing|Advanced Programming": 12.5
+      "browsing|Advanced Programming": 12.5,
+      "browsing|": 2
     }
   },
   "statistics": {
@@ -31624,7 +31625,8 @@
           "planning|": 20.6
         },
         "2026-11-08": {
-          "browsing|Advanced Programming": 12.5
+          "browsing|Advanced Programming": 12.5,
+          "browsing|": 2
         }
       },
       "usage": {}

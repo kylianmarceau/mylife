@@ -11,10 +11,14 @@
             "id": "608a59cc1a3ab7f5",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Courses/CSC3003S-Advanced Programming/CSC3003S.md",
+                "mode": "preview",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "CSC3003S"
             }
           }
         ]
@@ -208,8 +212,17 @@
       "qard:Open study workspace": false
     }
   },
-  "active": "608a59cc1a3ab7f5",
+  "active": "e532754919b7cd5e",
   "lastOpenFiles": [
+    "Sources/CSC3044S - AI Systems/LLM Agents/LLM Agents 1_ LLM Scaling Laws.pdf",
+    "Sources/CSC3044S - AI Systems/LLM Agents/LLM Agents 3_ RAG and Tool Use.pdf",
+    "Sources/CSC3044S - AI Systems/LLM Agents/LLM Agents 2_ Test-Time Scaling.pdf",
+    "Sources/CSC3044S - AI Systems/LLM Agents/LLM Agents 4_ Agent Workflow.pdf",
+    "Sources/CSC3044S - AI Systems/TEST",
+    "Sources/CSC3044S - AI Systems/untitled folder",
+    "Courses/CSC3003S-Advanced Programming/FP/13_Making_Illegal_States_Unrepresentable.md",
+    "Courses/CSC3003S-Advanced Programming/FP/12_Monads.md",
+    "Courses/CSC3003S-Advanced Programming/CSC3003S.md",
     "Courses/CSC3003S-Advanced Programming/ASD/17_Clean_Code_And_Visitor.md",
     "Courses/CSC3003S-Advanced Programming/ASD/14_15_Design_Patterns_I.md",
     "Courses/CSC3044S-AI Systems/AIS/01_Introduction_I.md",
@@ -228,13 +241,7 @@
     "diagrams/CSC3044S-AI Systems/AIS/01_Introduction_I/complexity_classes.svg",
     "diagrams/CSC3044S-AI Systems/AIS/01_Introduction_I",
     "diagrams/CSC3044S-AI Systems/AIS",
-    "diagrams/CSC3044S-AI Systems",
-    "Sources/CSC3044S - AI Systems/untitled folder",
-    "Sources/CSC3044S - AI Systems/CSC3044S-Lecture 9-Agent Architectures V(LLMs).pdf",
-    "Sources/CSC3044S - AI Systems/AIS/CSC3044S-Lecture 9-Agent Architectures V(LLMs).pdf",
-    "Sources/CSC3044S - AI Systems/AIS/CSC3044S-Lecture 8-Agent Architectures IV(BDI) - Copy.pdf",
     "Courses/CSC3003S-Advanced Programming/ASD/11_Architecture.md",
-    "Courses/CSC3003S-Advanced Programming/CSC3003S.md",
     "Courses/CSC3003S-Advanced Programming/ASD/18_Aspect_Oriented_Programming.md",
     "Courses/CSC3003S-Advanced Programming/ASD/08_Software_Testing.md",
     "Courses/CSC3003S-Advanced Programming/ASD/05B_Data_Oriented_Design.md",
@@ -244,7 +251,6 @@
     "Courses/CSC3003S-Advanced Programming/ASD/13_SOLID.md",
     "Courses/CSC3003S-Advanced Programming/FP/04A_Lambda_Calculus_Exercises.md",
     "Courses/CSC3003S-Advanced Programming/FP/04_Lambda_Calculus.md",
-    "Courses/CSC3003S-Advanced Programming/FP/12_Monads.md",
     "Courses/CSC3003S-Advanced Programming/FP/11_Point_Free_Programming.md",
     "Courses/CSC3003S-Advanced Programming/FP/10_Prac_Prep_Tree_Traversal.md",
     "Courses/CSC3003S-Advanced Programming/FP/09_Recursion_And_Lazy_Evaluation.md",
@@ -253,7 +259,6 @@
     "Courses/CSC3003S-Advanced Programming/Flashcards/TOA/08B_Dynamic_Programming.md",
     "Courses/CSC3003S-Advanced Programming/Flashcards/TOA/08A_Dynamic_Programming.md",
     "Courses/CSC3003S-Advanced Programming/Flashcards/TOA/07_Space_Time_Tradeoffs.md",
-    "Courses/CSC3003S-Advanced Programming/Flashcards/TOA/06_Transform_And_Conquer.md",
-    "Courses/CSC3003S-Advanced Programming/Flashcards/TOA/05_Divide_And_Conquer.md"
+    "Courses/CSC3003S-Advanced Programming/Flashcards/TOA/06_Transform_And_Conquer.md"
   ]
 }
