@@ -1,0 +1,35 @@
+<svg width="100%" viewBox="0 0 900 450" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Capital expenditure by AI hyperscalers, 2022 to 2027</title>
+<desc>Combined capex of Amazon, Alphabet, Microsoft, Meta and Oracle in billions of US dollars: 155, 150, 226, 381 actual; 755 forecast for 2026; 1090 estimated for 2027.</desc>
+<defs><marker id="ax" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+<text x="90" y="30" fill="#f8fafc" font-size="17" font-weight="600">AI hyperscaler capex could pass $1 trillion</text>
+<text x="90" y="50" fill="#adb9cb" font-size="13">Amazon, Alphabet, Microsoft, Meta, Oracle combined (US$ billions)</text>
+<g stroke="#adb9cb" stroke-width="1" stroke-opacity="0.3">
+<line x1="100" y1="326.7" x2="870" y2="326.7"/><line x1="100" y1="273.3" x2="870" y2="273.3"/><line x1="100" y1="220" x2="870" y2="220"/><line x1="100" y1="166.7" x2="870" y2="166.7"/><line x1="100" y1="113.3" x2="870" y2="113.3"/>
+</g>
+<g fill="#adb9cb" font-size="12" text-anchor="end">
+<text x="92" y="384">0</text><text x="92" y="331">200</text><text x="92" y="277">400</text><text x="92" y="224">600</text><text x="92" y="171">800</text><text x="92" y="117">1000</text>
+</g>
+<line x1="100" y1="380" x2="100" y2="80" stroke="#f8fafc" stroke-width="1.5" marker-end="url(#ax)" vector-effect="non-scaling-stroke"/>
+<line x1="100" y1="380" x2="880" y2="380" stroke="#f8fafc" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+<text x="40" y="230" fill="#f8fafc" font-size="13" text-anchor="middle" transform="rotate(-90 40 230)">US$ billions</text>
+<g stroke="#66b3ff" stroke-width="1.8" fill="#20344c">
+<rect x="130" y="338.7" width="80" height="41.3"/><rect x="260" y="340" width="80" height="40"/><rect x="390" y="319.7" width="80" height="60.3"/><rect x="520" y="278.4" width="80" height="101.6"/>
+</g>
+<g stroke="#ffc778" stroke-width="1.8" fill="#3d3326" stroke-dasharray="6 4">
+<rect x="650" y="178.6" width="80" height="201.4"/><rect x="780" y="89.3" width="80" height="290.7"/>
+</g>
+<g fill="#f8fafc" font-size="14" font-weight="600" text-anchor="middle">
+<text x="170" y="330">155</text><text x="300" y="331">150</text><text x="430" y="311">226</text><text x="560" y="270">381</text><text x="690" y="170">755</text><text x="820" y="81">1090</text>
+</g>
+<g fill="#f8fafc" font-size="13" text-anchor="middle">
+<text x="170" y="400">2022</text><text x="300" y="400">2023</text><text x="430" y="400">2024</text><text x="560" y="400">2025</text><text x="690" y="400">2026</text><text x="820" y="400">2027</text>
+</g>
+<g fill="#ffc778" font-size="12" text-anchor="middle"><text x="690" y="417">forecast</text><text x="820" y="417">estimate</text></g>
+<rect x="130" y="428" width="16" height="12" fill="#20344c" stroke="#66b3ff" stroke-width="1.5"/>
+<text x="154" y="439" fill="#adb9cb" font-size="12">Actual</text>
+<rect x="220" y="428" width="16" height="12" fill="#3d3326" stroke="#ffc778" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="244" y="439" fill="#adb9cb" font-size="12">Forecast / estimate</text>
+</g>
+</svg>

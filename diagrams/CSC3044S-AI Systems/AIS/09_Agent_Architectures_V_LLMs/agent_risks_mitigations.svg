@@ -1,0 +1,34 @@
+<svg width="100%" viewBox="0 0 900 430" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Risks of unconstrained agents and industry mitigations</title>
+<desc>Four reported incidents on the left; zero trust and strict compliance as the industry-standard mitigations on the right; key risk categories along the bottom.</desc>
+<defs><marker id="mw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="mt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+<text x="30" y="30" fill="#ff939b" font-size="15" font-weight="600">Sandbox reality: incidents</text>
+<text x="560" y="30" fill="#5ad4b5" font-size="15" font-weight="600">Industry standard: mitigation</text>
+<g fill="#3f2a33" stroke="#ff939b" stroke-width="1.6">
+<rect x="30" y="45" width="440" height="66" rx="10"/><rect x="30" y="119" width="440" height="66" rx="10"/><rect x="30" y="193" width="440" height="66" rx="10"/><rect x="30" y="267" width="440" height="66" rx="10"/>
+</g>
+<g font-size="14">
+<text x="48" y="72" fill="#f8fafc" font-weight="600">Hallucinated policy</text><text x="48" y="94" fill="#adb9cb" font-size="13">SA government AI policy with entirely hallucinated references</text>
+<text x="48" y="146" fill="#f8fafc" font-weight="600">Runaway deletion</text><text x="48" y="168" fill="#adb9cb" font-size="13">autonomous agents erased an entire production database</text>
+<text x="48" y="220" fill="#f8fafc" font-weight="600">Communication wipe</text><text x="48" y="242" fill="#adb9cb" font-size="13">unconstrained agent loops erased an entire email inbox</text>
+<text x="48" y="294" fill="#f8fafc" font-weight="600">Sandbox breach</text><text x="48" y="316" fill="#adb9cb" font-size="13">agent escaped isolation and hacked Hugging Face</text>
+</g>
+<text x="460" y="146" fill="#ff939b" font-size="11" text-anchor="end">no kill-switch</text>
+<text x="460" y="220" fill="#ff939b" font-size="11" text-anchor="end">no kill-switch</text>
+<line x1="478" y1="189" x2="550" y2="189" stroke="#5ad4b5" stroke-width="2" marker-end="url(#mt)"/>
+<g fill="#1b3835" stroke="#5ad4b5" stroke-width="1.6">
+<rect x="560" y="45" width="310" height="120" rx="10"/><rect x="560" y="173" width="310" height="160" rx="10"/>
+</g>
+<g font-size="14">
+<text x="578" y="74" fill="#f8fafc" font-weight="600">Zero trust</text>
+<text x="578" y="98" fill="#adb9cb" font-size="13">Never use personal LLM</text><text x="578" y="118" fill="#adb9cb" font-size="13">accounts for any PII or IP</text>
+<text x="578" y="202" fill="#f8fafc" font-weight="600">Strict compliance</text>
+<text x="578" y="226" fill="#adb9cb" font-size="13">Baseline requirements,</text><text x="578" y="246" fill="#adb9cb" font-size="13">not afterthoughts:</text>
+<text x="578" y="272" fill="#f8fafc" font-size="13">• data privacy</text><text x="578" y="294" fill="#f8fafc" font-size="13">• prompt-injection prevention</text><text x="578" y="316" fill="#f8fafc" font-size="13">• unexpected-loop termination</text>
+</g>
+<rect x="30" y="355" width="840" height="56" rx="10" fill="#3d3326" stroke="#ffc778" stroke-width="1.6"/>
+<text x="48" y="379" fill="#ffc778" font-size="13" font-weight="600" letter-spacing="1">KEY RISKS</text>
+<text x="48" y="400" fill="#f8fafc" font-size="14">Prompt injection  ·  data privacy violations  ·  unexpected runaway looping</text>
+</g>
+</svg>

@@ -1,0 +1,53 @@
+<svg width="100%" viewBox="0 0 820 420" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Dense retrieval bi-encoder</title>
+<desc>A query encoder BERT_Q and a document encoder BERT_D each produce a CLS vector; the relevance score s(q,d) is their dot product.</desc>
+<defs>
+<marker id="aw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="av" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="at" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="aa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ac" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff939b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" text-anchor="middle">
+<path d="M410 30 L436 56 L410 82 L384 56 Z" fill="#1b3835" stroke="#5ad4b5" stroke-width="2"/>
+<circle cx="410" cy="56" r="4" fill="#f8fafc"/>
+<text x="410" y="20" font-size="15" font-weight="600" fill="#5ad4b5">s(q, d)</text>
+<text x="500" y="44" font-size="12" fill="#adb9cb" text-anchor="start">dot product</text>
+<line x1="196" y1="124" x2="380" y2="62" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab)"/>
+<line x1="516" y1="124" x2="440" y2="62" stroke="#b89aff" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#av)"/>
+<text x="250" y="80" font-size="15" font-weight="600" fill="#66b3ff">z<tspan font-size="11" dy="4">q</tspan></text>
+<text x="548" y="92" font-size="15" font-weight="600" fill="#b89aff">z<tspan font-size="11" dy="4">d</tspan></text>
+<rect x="140" y="130" width="230" height="230" rx="14" fill="#20344c" stroke="#66b3ff" stroke-width="2"/>
+<text x="255" y="160" font-size="15" font-weight="600" fill="#f8fafc">BERT<tspan font-size="11" dy="4">Q</tspan></text>
+<g fill="#66b3ff" fill-opacity="0.55">
+<rect x="166" y="178" width="56" height="12" rx="2"/><rect x="232" y="178" width="56" height="12" rx="2"/><rect x="298" y="178" width="56" height="12" rx="2"/>
+<rect x="166" y="210" width="56" height="12" rx="2"/><rect x="232" y="210" width="56" height="12" rx="2"/><rect x="298" y="210" width="56" height="12" rx="2"/>
+<rect x="166" y="242" width="56" height="12" rx="2"/><rect x="232" y="242" width="56" height="12" rx="2"/><rect x="298" y="242" width="56" height="12" rx="2"/>
+<rect x="166" y="274" width="56" height="12" rx="2"/><rect x="232" y="274" width="56" height="12" rx="2"/><rect x="298" y="274" width="56" height="12" rx="2"/>
+<rect x="166" y="306" width="56" height="12" rx="2"/><rect x="232" y="306" width="56" height="12" rx="2"/><rect x="298" y="306" width="56" height="12" rx="2"/>
+</g>
+<rect x="164" y="176" width="60" height="16" rx="3" fill="none" stroke="#f8fafc" stroke-width="1.6"/>
+<text x="194" y="342" font-size="12" fill="#adb9cb">[CLS]</text>
+<text x="260" y="342" font-size="12" fill="#adb9cb">tok</text>
+<text x="326" y="342" font-size="12" fill="#adb9cb">tok</text>
+<rect x="450" y="130" width="230" height="230" rx="14" fill="#302b46" stroke="#b89aff" stroke-width="2"/>
+<text x="565" y="160" font-size="15" font-weight="600" fill="#f8fafc">BERT<tspan font-size="11" dy="4">D</tspan></text>
+<g fill="#b89aff" fill-opacity="0.55">
+<rect x="476" y="178" width="56" height="12" rx="2"/><rect x="542" y="178" width="56" height="12" rx="2"/><rect x="608" y="178" width="56" height="12" rx="2"/>
+<rect x="476" y="210" width="56" height="12" rx="2"/><rect x="542" y="210" width="56" height="12" rx="2"/><rect x="608" y="210" width="56" height="12" rx="2"/>
+<rect x="476" y="242" width="56" height="12" rx="2"/><rect x="542" y="242" width="56" height="12" rx="2"/><rect x="608" y="242" width="56" height="12" rx="2"/>
+<rect x="476" y="274" width="56" height="12" rx="2"/><rect x="542" y="274" width="56" height="12" rx="2"/><rect x="608" y="274" width="56" height="12" rx="2"/>
+<rect x="476" y="306" width="56" height="12" rx="2"/><rect x="542" y="306" width="56" height="12" rx="2"/><rect x="608" y="306" width="56" height="12" rx="2"/>
+</g>
+<rect x="474" y="176" width="60" height="16" rx="3" fill="none" stroke="#f8fafc" stroke-width="1.6"/>
+<text x="504" y="342" font-size="12" fill="#adb9cb">[CLS]</text>
+<text x="570" y="342" font-size="12" fill="#adb9cb">tok</text>
+<text x="636" y="342" font-size="12" fill="#adb9cb">tok ...</text>
+<line x1="255" y1="402" x2="255" y2="366" stroke="#66b3ff" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#ab)"/>
+<line x1="565" y1="402" x2="565" y2="366" stroke="#b89aff" stroke-width="2" vector-effect="non-scaling-stroke" marker-end="url(#av)"/>
+<text x="300" y="400" font-size="15" font-weight="600" fill="#f8fafc">Query q</text>
+<text x="625" y="400" font-size="15" font-weight="600" fill="#f8fafc">Document d</text>
+</g>
+</svg>

@@ -1,0 +1,182 @@
+<svg width="100%" viewBox="0 0 900 520" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Emergent arithmetic ability in GPT-3 few-shot evaluation</title>
+<desc>Accuracy on arithmetic tasks stays near zero for small models and jumps sharply at 13B and 175B parameters.</desc>
+<defs>
+<marker id="arrow-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff939b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<line x1="90.0" y1="440.0" x2="610.0" y2="440.0" stroke="#f8fafc" stroke-width="1.6" marker-end="url(#arrow-white)" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="90.0" y1="440.0" x2="90.0" y2="30.0" stroke="#f8fafc" stroke-width="1.6" marker-end="url(#arrow-white)" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="345.0" y="484.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="normal">Parameters in LM (billions)</text>
+<text x="40.0" y="240.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="normal" transform="rotate(-90 40.0 240.0)">Accuracy (%)</text>
+<line x1="90.0" y1="440.0" x2="90.0" y2="445.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="90.0" y="461.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">0.1B</text>
+<line x1="150.0" y1="440.0" x2="150.0" y2="445.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="150.0" y1="40.0" x2="150.0" y2="440.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="150.0" y="461.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">0.4B</text>
+<line x1="210.0" y1="440.0" x2="210.0" y2="445.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="210.0" y1="40.0" x2="210.0" y2="440.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="210.0" y="461.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">0.8B</text>
+<line x1="270.0" y1="440.0" x2="270.0" y2="445.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="270.0" y1="40.0" x2="270.0" y2="440.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="270.0" y="461.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">1.3B</text>
+<line x1="330.0" y1="440.0" x2="330.0" y2="445.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="330.0" y1="40.0" x2="330.0" y2="440.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="330.0" y="461.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">2.6B</text>
+<line x1="390.0" y1="440.0" x2="390.0" y2="445.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="390.0" y1="40.0" x2="390.0" y2="440.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="390.0" y="461.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">6.7B</text>
+<line x1="450.0" y1="440.0" x2="450.0" y2="445.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="450.0" y1="40.0" x2="450.0" y2="440.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="450.0" y="461.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">13B</text>
+<line x1="600.0" y1="440.0" x2="600.0" y2="445.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="600.0" y1="40.0" x2="600.0" y2="440.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="600.0" y="461.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">175B</text>
+<line x1="85.0" y1="440.0" x2="90.0" y2="440.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="81.0" y="444.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">0</text>
+<line x1="85.0" y1="360.0" x2="90.0" y2="360.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="90.0" y1="360.0" x2="600.0" y2="360.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="81.0" y="364.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">20</text>
+<line x1="85.0" y1="280.0" x2="90.0" y2="280.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="90.0" y1="280.0" x2="600.0" y2="280.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="81.0" y="284.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">40</text>
+<line x1="85.0" y1="200.0" x2="90.0" y2="200.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="90.0" y1="200.0" x2="600.0" y2="200.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="81.0" y="204.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">60</text>
+<line x1="85.0" y1="120.0" x2="90.0" y2="120.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="90.0" y1="120.0" x2="600.0" y2="120.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="81.0" y="124.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">80</text>
+<line x1="85.0" y1="40.0" x2="90.0" y2="40.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="90.0" y1="40.0" x2="600.0" y2="40.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="81.0" y="44.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">100</text>
+<path d="M90.0 432.0 L150.0 424.0 L210.0 424.0 L270.0 420.0 L330.0 404.0 L390.0 392.0 L450.0 216.0 L600.0 40.0" fill="none" stroke="#66b3ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="90.0" cy="432.0" r="3.5" fill="#66b3ff" stroke="none" stroke-width="1.4"/>
+<circle cx="150.0" cy="424.0" r="3.5" fill="#66b3ff" stroke="none" stroke-width="1.4"/>
+<circle cx="210.0" cy="424.0" r="3.5" fill="#66b3ff" stroke="none" stroke-width="1.4"/>
+<circle cx="270.0" cy="420.0" r="3.5" fill="#66b3ff" stroke="none" stroke-width="1.4"/>
+<circle cx="330.0" cy="404.0" r="3.5" fill="#66b3ff" stroke="none" stroke-width="1.4"/>
+<circle cx="390.0" cy="392.0" r="3.5" fill="#66b3ff" stroke="none" stroke-width="1.4"/>
+<circle cx="450.0" cy="216.0" r="3.5" fill="#66b3ff" stroke="none" stroke-width="1.4"/>
+<circle cx="600.0" cy="40.0" r="3.5" fill="#66b3ff" stroke="none" stroke-width="1.4"/>
+<path d="M90.0 436.0 L150.0 432.0 L210.0 428.0 L270.0 424.0 L330.0 412.0 L390.0 388.0 L450.0 228.0 L600.0 48.0" fill="none" stroke="#ffc778" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="90.0" cy="436.0" r="3.5" fill="#ffc778" stroke="none" stroke-width="1.4"/>
+<circle cx="150.0" cy="432.0" r="3.5" fill="#ffc778" stroke="none" stroke-width="1.4"/>
+<circle cx="210.0" cy="428.0" r="3.5" fill="#ffc778" stroke="none" stroke-width="1.4"/>
+<circle cx="270.0" cy="424.0" r="3.5" fill="#ffc778" stroke="none" stroke-width="1.4"/>
+<circle cx="330.0" cy="412.0" r="3.5" fill="#ffc778" stroke="none" stroke-width="1.4"/>
+<circle cx="390.0" cy="388.0" r="3.5" fill="#ffc778" stroke="none" stroke-width="1.4"/>
+<circle cx="450.0" cy="228.0" r="3.5" fill="#ffc778" stroke="none" stroke-width="1.4"/>
+<circle cx="600.0" cy="48.0" r="3.5" fill="#ffc778" stroke="none" stroke-width="1.4"/>
+<path d="M90.0 436.0 L150.0 436.0 L210.0 436.0 L270.0 436.0 L330.0 436.0 L390.0 436.0 L450.0 408.0 L600.0 120.0" fill="none" stroke="#5ad4b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="90.0" cy="436.0" r="3.5" fill="#5ad4b5" stroke="none" stroke-width="1.4"/>
+<circle cx="150.0" cy="436.0" r="3.5" fill="#5ad4b5" stroke="none" stroke-width="1.4"/>
+<circle cx="210.0" cy="436.0" r="3.5" fill="#5ad4b5" stroke="none" stroke-width="1.4"/>
+<circle cx="270.0" cy="436.0" r="3.5" fill="#5ad4b5" stroke="none" stroke-width="1.4"/>
+<circle cx="330.0" cy="436.0" r="3.5" fill="#5ad4b5" stroke="none" stroke-width="1.4"/>
+<circle cx="390.0" cy="436.0" r="3.5" fill="#5ad4b5" stroke="none" stroke-width="1.4"/>
+<circle cx="450.0" cy="408.0" r="3.5" fill="#5ad4b5" stroke="none" stroke-width="1.4"/>
+<circle cx="600.0" cy="120.0" r="3.5" fill="#5ad4b5" stroke="none" stroke-width="1.4"/>
+<path d="M90.0 440.0 L150.0 440.0 L210.0 436.0 L270.0 436.0 L330.0 436.0 L390.0 436.0 L450.0 404.0 L600.0 64.0" fill="none" stroke="#ff939b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="90.0" cy="440.0" r="3.5" fill="#ff939b" stroke="none" stroke-width="1.4"/>
+<circle cx="150.0" cy="440.0" r="3.5" fill="#ff939b" stroke="none" stroke-width="1.4"/>
+<circle cx="210.0" cy="436.0" r="3.5" fill="#ff939b" stroke="none" stroke-width="1.4"/>
+<circle cx="270.0" cy="436.0" r="3.5" fill="#ff939b" stroke="none" stroke-width="1.4"/>
+<circle cx="330.0" cy="436.0" r="3.5" fill="#ff939b" stroke="none" stroke-width="1.4"/>
+<circle cx="390.0" cy="436.0" r="3.5" fill="#ff939b" stroke="none" stroke-width="1.4"/>
+<circle cx="450.0" cy="404.0" r="3.5" fill="#ff939b" stroke="none" stroke-width="1.4"/>
+<circle cx="600.0" cy="64.0" r="3.5" fill="#ff939b" stroke="none" stroke-width="1.4"/>
+<path d="M90.0 440.0 L150.0 440.0 L210.0 440.0 L270.0 440.0 L330.0 440.0 L390.0 440.0 L450.0 440.0 L600.0 340.0" fill="none" stroke="#b89aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="90.0" cy="440.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="150.0" cy="440.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="210.0" cy="440.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="270.0" cy="440.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="330.0" cy="440.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="390.0" cy="440.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="450.0" cy="440.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="600.0" cy="340.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<path d="M90.0 440.0 L150.0 440.0 L210.0 440.0 L270.0 440.0 L330.0 440.0 L390.0 436.0 L450.0 436.0 L600.0 332.0" fill="none" stroke="#b89aff" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="90.0" cy="440.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="150.0" cy="440.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="210.0" cy="440.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="270.0" cy="440.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="330.0" cy="440.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="390.0" cy="436.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="450.0" cy="436.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<circle cx="600.0" cy="332.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<path d="M90.0 440.0 L150.0 440.0 L210.0 440.0 L270.0 440.0 L330.0 440.0 L390.0 440.0 L450.0 440.0 L600.0 400.0" fill="none" stroke="#adb9cb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="90.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="150.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="210.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="270.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="330.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="390.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="450.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="600.0" cy="400.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<path d="M90.0 440.0 L150.0 440.0 L210.0 440.0 L270.0 440.0 L330.0 440.0 L390.0 440.0 L450.0 440.0 L600.0 402.0" fill="none" stroke="#adb9cb" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="90.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="150.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="210.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="270.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="330.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="390.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="450.0" cy="440.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<circle cx="600.0" cy="402.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<path d="M90.0 436.0 L150.0 436.0 L210.0 432.0 L270.0 428.0 L330.0 420.0 L390.0 416.0 L450.0 408.0 L600.0 324.0" fill="none" stroke="#e6e36b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="90.0" cy="436.0" r="3.5" fill="#e6e36b" stroke="none" stroke-width="1.4"/>
+<circle cx="150.0" cy="436.0" r="3.5" fill="#e6e36b" stroke="none" stroke-width="1.4"/>
+<circle cx="210.0" cy="432.0" r="3.5" fill="#e6e36b" stroke="none" stroke-width="1.4"/>
+<circle cx="270.0" cy="428.0" r="3.5" fill="#e6e36b" stroke="none" stroke-width="1.4"/>
+<circle cx="330.0" cy="420.0" r="3.5" fill="#e6e36b" stroke="none" stroke-width="1.4"/>
+<circle cx="390.0" cy="416.0" r="3.5" fill="#e6e36b" stroke="none" stroke-width="1.4"/>
+<circle cx="450.0" cy="408.0" r="3.5" fill="#e6e36b" stroke="none" stroke-width="1.4"/>
+<circle cx="600.0" cy="324.0" r="3.5" fill="#e6e36b" stroke="none" stroke-width="1.4"/>
+<path d="M90.0 432.0 L150.0 428.0 L210.0 424.0 L270.0 416.0 L330.0 416.0 L390.0 408.0 L450.0 400.0 L600.0 356.0" fill="none" stroke="#7fd8f0" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="90.0" cy="432.0" r="3.5" fill="#7fd8f0" stroke="none" stroke-width="1.4"/>
+<circle cx="150.0" cy="428.0" r="3.5" fill="#7fd8f0" stroke="none" stroke-width="1.4"/>
+<circle cx="210.0" cy="424.0" r="3.5" fill="#7fd8f0" stroke="none" stroke-width="1.4"/>
+<circle cx="270.0" cy="416.0" r="3.5" fill="#7fd8f0" stroke="none" stroke-width="1.4"/>
+<circle cx="330.0" cy="416.0" r="3.5" fill="#7fd8f0" stroke="none" stroke-width="1.4"/>
+<circle cx="390.0" cy="408.0" r="3.5" fill="#7fd8f0" stroke="none" stroke-width="1.4"/>
+<circle cx="450.0" cy="400.0" r="3.5" fill="#7fd8f0" stroke="none" stroke-width="1.4"/>
+<circle cx="600.0" cy="356.0" r="3.5" fill="#7fd8f0" stroke="none" stroke-width="1.4"/>
+<rect x="625.0" y="60.0" width="265.0" height="330.0" rx="10" fill="#272f3b" stroke="#adb9cb" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<text x="640.0" y="86.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="start" font-weight="bold">Arithmetic (few-shot)</text>
+<line x1="640.0" y1="110.0" x2="668.0" y2="110.0" stroke="#66b3ff" stroke-width="2.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<circle cx="654.0" cy="110.0" r="3.5" fill="#66b3ff" stroke="none" stroke-width="1.4"/>
+<text x="678.0" y="115.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="start" font-weight="normal">Two-digit addition</text>
+<line x1="640.0" y1="137.0" x2="668.0" y2="137.0" stroke="#ffc778" stroke-width="2.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<circle cx="654.0" cy="137.0" r="3.5" fill="#ffc778" stroke="none" stroke-width="1.4"/>
+<text x="678.0" y="142.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="start" font-weight="normal">Two-digit subtraction</text>
+<line x1="640.0" y1="164.0" x2="668.0" y2="164.0" stroke="#5ad4b5" stroke-width="2.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<circle cx="654.0" cy="164.0" r="3.5" fill="#5ad4b5" stroke="none" stroke-width="1.4"/>
+<text x="678.0" y="169.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="start" font-weight="normal">Three-digit addition</text>
+<line x1="640.0" y1="191.0" x2="668.0" y2="191.0" stroke="#ff939b" stroke-width="2.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<circle cx="654.0" cy="191.0" r="3.5" fill="#ff939b" stroke="none" stroke-width="1.4"/>
+<text x="678.0" y="196.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="start" font-weight="normal">Three-digit subtraction</text>
+<line x1="640.0" y1="218.0" x2="668.0" y2="218.0" stroke="#b89aff" stroke-width="2.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<circle cx="654.0" cy="218.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<text x="678.0" y="223.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="start" font-weight="normal">Four-digit addition</text>
+<line x1="640.0" y1="245.0" x2="668.0" y2="245.0" stroke="#b89aff" stroke-width="2.2" stroke-dasharray="5 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<circle cx="654.0" cy="245.0" r="3.5" fill="#b89aff" stroke="none" stroke-width="1.4"/>
+<text x="678.0" y="250.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="start" font-weight="normal">Four-digit subtraction</text>
+<line x1="640.0" y1="272.0" x2="668.0" y2="272.0" stroke="#adb9cb" stroke-width="2.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<circle cx="654.0" cy="272.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<text x="678.0" y="277.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="start" font-weight="normal">Five-digit addition</text>
+<line x1="640.0" y1="299.0" x2="668.0" y2="299.0" stroke="#adb9cb" stroke-width="2.2" stroke-dasharray="5 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<circle cx="654.0" cy="299.0" r="3.5" fill="#adb9cb" stroke="none" stroke-width="1.4"/>
+<text x="678.0" y="304.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="start" font-weight="normal">Five-digit subtraction</text>
+<line x1="640.0" y1="326.0" x2="668.0" y2="326.0" stroke="#e6e36b" stroke-width="2.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<circle cx="654.0" cy="326.0" r="3.5" fill="#e6e36b" stroke="none" stroke-width="1.4"/>
+<text x="678.0" y="331.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="start" font-weight="normal">Two-digit multiplication</text>
+<line x1="640.0" y1="353.0" x2="668.0" y2="353.0" stroke="#7fd8f0" stroke-width="2.2" stroke-dasharray="5 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<circle cx="654.0" cy="353.0" r="3.5" fill="#7fd8f0" stroke="none" stroke-width="1.4"/>
+<text x="678.0" y="358.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="start" font-weight="normal">Single-digit three ops</text>
+<line x1="420.0" y1="50.0" x2="420.0" y2="440.0" stroke="#ffc778" stroke-width="1.2" stroke-dasharray="3 5" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="412.0" y="64.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#ffc778" text-anchor="end" font-weight="normal">near-zero below</text>
+<text x="412.0" y="80.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#ffc778" text-anchor="end" font-weight="normal">≈ 10B parameters</text>
+</svg>

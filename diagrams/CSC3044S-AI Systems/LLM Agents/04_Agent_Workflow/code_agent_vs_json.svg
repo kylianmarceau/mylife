@@ -1,0 +1,91 @@
+<svg width="100%" viewBox="0 0 1000 600" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>JSON tool-call agent versus code agent (CodeAct)</title>
+<desc>For the same task, a JSON or text action agent needs one action per API call per country, while a CodeAct agent writes one Python block that loops over countries and reuses min().</desc>
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+    <rect x="20" y="14" width="430" height="100" rx="8" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+    <text x="34" y="40" font-size="13" font-weight="700" fill="#66b3ff">Instruction</text>
+    <text x="34" y="62" font-size="12.5" fill="#f8fafc">Find the most cost-effective country to buy the</text>
+    <text x="34" y="80" font-size="12.5" fill="#f8fafc">smartphone model "CodeAct 1".</text>
+    <text x="34" y="98" font-size="12.5" fill="#f8fafc">Countries: USA, Japan, Germany, India.</text>
+    <rect x="470" y="14" width="510" height="100" rx="8" fill="#3d3326" stroke="#ffc778" stroke-width="1.6"/>
+    <text x="484" y="34" font-size="13" font-weight="700" fill="#ffc778">Available APIs</text>
+    <g font-family="Menlo, Consolas, monospace" font-size="10.5" fill="#f8fafc">
+      <text x="484" y="49">lookup_rates(country) -&gt; (float, float)</text>
+      <text x="484" y="63">lookup_phone_price(model, country) -&gt; float</text>
+      <text x="484" y="77">convert_and_tax(price, exchange_rate, tax_rate) -&gt; float</text>
+      <text x="484" y="91">estimate_shipping_cost(destination_country) -&gt; float</text>
+      <text x="484" y="105">estimate_final_price(converted_price, shipping_cost) -&gt; float</text>
+    </g>
+    <text x="235" y="144" font-size="15" font-weight="700" fill="#ff939b" text-anchor="middle">Agent using Text / JSON as Action</text>
+    <text x="750" y="144" font-size="15" font-weight="700" fill="#5ad4b5" text-anchor="middle">CodeAct: Agent using Code as Action</text>
+    <g font-size="12">
+      <rect x="20" y="156" width="430" height="30" rx="5" fill="#302b46" stroke="#b89aff" stroke-width="1.2"/>
+      <text x="30" y="176" font-weight="700" fill="#b89aff">Think</text>
+      <text x="110" y="176" fill="#f8fafc">Calculate phone price in USD per country, pick cheapest</text>
+      <rect x="20" y="192" width="430" height="30" rx="5" fill="#20344c" stroke="#66b3ff" stroke-width="1.2"/>
+      <text x="30" y="212" font-weight="700" fill="#66b3ff">Action</text>
+      <text x="110" y="212" font-family="Menlo, Consolas, monospace" font-size="11" fill="#f8fafc">lookup_rates, Germany</text>
+      <rect x="20" y="228" width="430" height="30" rx="5" fill="#272f3b" stroke="#adb9cb" stroke-width="1.2"/>
+      <text x="30" y="248" font-weight="700" fill="#adb9cb">Env</text>
+      <text x="110" y="248" font-family="Menlo, Consolas, monospace" font-size="11" fill="#f8fafc">1.1, 0.19</text>
+      <rect x="20" y="264" width="430" height="30" rx="5" fill="#20344c" stroke="#66b3ff" stroke-width="1.2"/>
+      <text x="30" y="284" font-weight="700" fill="#66b3ff">Action</text>
+      <text x="110" y="284" font-family="Menlo, Consolas, monospace" font-size="11" fill="#f8fafc">lookup_phone_price, CodeAct 1, Germany</text>
+      <rect x="20" y="300" width="430" height="30" rx="5" fill="#272f3b" stroke="#adb9cb" stroke-width="1.2"/>
+      <text x="30" y="320" font-weight="700" fill="#adb9cb">Env</text>
+      <text x="110" y="320" font-family="Menlo, Consolas, monospace" font-size="11" fill="#f8fafc">700</text>
+      <rect x="20" y="336" width="430" height="30" rx="5" fill="#20344c" stroke="#66b3ff" stroke-width="1.2"/>
+      <text x="30" y="356" font-weight="700" fill="#66b3ff">Action</text>
+      <text x="110" y="356" font-family="Menlo, Consolas, monospace" font-size="11" fill="#f8fafc">convert_and_tax, 700, 1.1, 0.19</text>
+      <rect x="20" y="372" width="430" height="30" rx="5" fill="#272f3b" stroke="#adb9cb" stroke-width="1.2"/>
+      <text x="30" y="392" font-weight="700" fill="#adb9cb">Env</text>
+      <text x="110" y="392" font-family="Menlo, Consolas, monospace" font-size="11" fill="#f8fafc">916.3</text>
+      <text x="235" y="426" fill="#adb9cb" font-style="italic" text-anchor="middle">[ ... look up shipping cost, calculate final price ... ]</text>
+      <rect x="20" y="444" width="430" height="30" rx="5" fill="#20344c" stroke="#66b3ff" stroke-width="1.2"/>
+      <text x="30" y="464" font-weight="700" fill="#66b3ff">Action</text>
+      <text x="110" y="464" font-family="Menlo, Consolas, monospace" font-size="11" fill="#f8fafc">lookup_rates, Japan</text>
+      <text x="235" y="498" fill="#adb9cb" font-style="italic" text-anchor="middle">[ ... repeat for all other countries ... ]</text>
+      <rect x="20" y="516" width="430" height="46" rx="5" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.2"/>
+      <text x="30" y="536" font-weight="700" fill="#5ad4b5">Response</text>
+      <text x="110" y="536" fill="#f8fafc">Most cost-effective country is Japan,</text>
+      <text x="110" y="553" fill="#f8fafc">price 904.00 USD.</text>
+    </g>
+    <text x="485" y="350" font-size="44" font-weight="700" fill="#5ad4b5" text-anchor="middle">&gt;</text>
+    <text x="485" y="378" font-size="11" fill="#5ad4b5" text-anchor="middle">fewer</text>
+    <text x="485" y="392" font-size="11" fill="#5ad4b5" text-anchor="middle">actions</text>
+    <g font-size="12">
+      <rect x="520" y="156" width="460" height="30" rx="5" fill="#302b46" stroke="#b89aff" stroke-width="1.2"/>
+      <text x="530" y="176" font-weight="700" fill="#b89aff">Think</text>
+      <text x="610" y="176" fill="#f8fafc">Calculate phone price in USD per country, pick cheapest</text>
+      <rect x="520" y="192" width="460" height="244" rx="5" fill="#20344c" stroke="#66b3ff" stroke-width="1.2"/>
+      <text x="530" y="210" font-weight="700" fill="#66b3ff">Action (one code block)</text>
+      <rect x="526" y="245" width="448" height="15" fill="#1b3835"/>
+      <rect x="526" y="381" width="448" height="15" fill="#1b3835"/>
+      <g font-family="Menlo, Consolas, monospace" font-size="10" fill="#f8fafc">
+        <text x="532" y="228">countries = ['USA', 'Japan', 'Germany', 'India']</text>
+        <text x="532" y="243">final_prices = {}</text>
+        <text x="532" y="257" fill="#5ad4b5">for country in countries:</text>
+        <text x="556" y="272">exchange_rate, tax_rate = lookup_rates(country)</text>
+        <text x="556" y="287">local_price = lookup_phone_price("CodeAct 1", country)</text>
+        <text x="556" y="302">converted_price = convert_and_tax(</text>
+        <text x="580" y="317">local_price, exchange_rate, tax_rate)</text>
+        <text x="556" y="332">shipping_cost = estimate_shipping_cost(country)</text>
+        <text x="556" y="347">final_price = estimate_final_price(</text>
+        <text x="580" y="362">converted_price, shipping_cost)</text>
+        <text x="556" y="377">final_prices[country] = final_price</text>
+        <text x="532" y="392" fill="#5ad4b5">most_cost_effective_country = min(final_prices, key=final_prices.get)</text>
+        <text x="532" y="407">most_cost_effective_price = final_prices[most_cost_effective_country]</text>
+        <text x="532" y="422">print(most_cost_effective_country, most_cost_effective_price)</text>
+      </g>
+      <rect x="520" y="456" width="460" height="30" rx="5" fill="#272f3b" stroke="#adb9cb" stroke-width="1.2"/>
+      <text x="530" y="476" font-weight="700" fill="#adb9cb">Env</text>
+      <text x="610" y="476" fill="#f8fafc">harness executes the code, returns output</text>
+      <rect x="520" y="492" width="460" height="46" rx="5" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.2"/>
+      <text x="530" y="512" font-weight="700" fill="#5ad4b5">Response</text>
+      <text x="610" y="512" fill="#f8fafc">Most cost-effective country is Japan,</text>
+      <text x="610" y="529" fill="#f8fafc">price 904.00 USD.</text>
+      <text x="520" y="560" font-size="11.5" fill="#5ad4b5">Loop: control and data flow of code simplify complex operations</text>
+      <text x="520" y="578" font-size="11.5" fill="#5ad4b5">min(): reuses functions from existing software (Python library)</text>
+    </g>
+  </g>
+</svg>

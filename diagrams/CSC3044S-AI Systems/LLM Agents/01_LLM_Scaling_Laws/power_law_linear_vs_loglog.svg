@@ -1,0 +1,77 @@
+<svg width="100%" viewBox="0 0 900 460" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>A power law on linear and log-log axes</title>
+<desc>L(x)=100x^-0.5 drops steeply then flattens on linear axes, but is a straight line of slope -0.5 on log-log axes.</desc>
+<defs>
+<marker id="arrow-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff939b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<text x="225.0" y="34.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#66b3ff" text-anchor="middle" font-weight="bold">Linear axes</text>
+<text x="675.0" y="34.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#5ad4b5" text-anchor="middle" font-weight="bold">Log-log axes (slope = b = −0.5)</text>
+<line x1="80.0" y1="350.0" x2="410.0" y2="350.0" stroke="#f8fafc" stroke-width="1.6" marker-end="url(#arrow-white)" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="80.0" y1="350.0" x2="80.0" y2="50.0" stroke="#f8fafc" stroke-width="1.6" marker-end="url(#arrow-white)" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="240.0" y="394.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="normal">x</text>
+<text x="32.0" y="205.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="normal" transform="rotate(-90 32.0 205.0)">L(x)</text>
+<line x1="80.0" y1="350.0" x2="80.0" y2="355.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="80.0" y="371.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">0</text>
+<line x1="144.0" y1="350.0" x2="144.0" y2="355.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="144.0" y1="60.0" x2="144.0" y2="350.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="144.0" y="371.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">200</text>
+<line x1="208.0" y1="350.0" x2="208.0" y2="355.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="208.0" y1="60.0" x2="208.0" y2="350.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="208.0" y="371.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">400</text>
+<line x1="272.0" y1="350.0" x2="272.0" y2="355.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="272.0" y1="60.0" x2="272.0" y2="350.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="272.0" y="371.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">600</text>
+<line x1="336.0" y1="350.0" x2="336.0" y2="355.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="336.0" y1="60.0" x2="336.0" y2="350.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="336.0" y="371.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">800</text>
+<line x1="400.0" y1="350.0" x2="400.0" y2="355.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="400.0" y1="60.0" x2="400.0" y2="350.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="400.0" y="371.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">1000</text>
+<line x1="75.0" y1="350.0" x2="80.0" y2="350.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="71.0" y="354.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">0</text>
+<line x1="75.0" y1="294.8" x2="80.0" y2="294.8" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="80.0" y1="294.8" x2="400.0" y2="294.8" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="71.0" y="298.8" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">20</text>
+<line x1="75.0" y1="239.5" x2="80.0" y2="239.5" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="80.0" y1="239.5" x2="400.0" y2="239.5" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="71.0" y="243.5" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">40</text>
+<line x1="75.0" y1="184.3" x2="80.0" y2="184.3" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="80.0" y1="184.3" x2="400.0" y2="184.3" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="71.0" y="188.3" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">60</text>
+<line x1="75.0" y1="129.0" x2="80.0" y2="129.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="80.0" y1="129.0" x2="400.0" y2="129.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="71.0" y="133.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">80</text>
+<line x1="75.0" y1="73.8" x2="80.0" y2="73.8" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="80.0" y1="73.8" x2="400.0" y2="73.8" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="71.0" y="77.8" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">100</text>
+<path d="M80.3 73.8 L80.4 97.9 L80.5 124.5 L80.6 154.7 L81.0 190.5 L81.3 211.9 L81.9 237.2 L82.9 257.9 L84.5 276.2 L86.4 288.2 L89.6 299.6 L96.0 310.9 L105.6 319.1 L118.4 324.8 L144.0 330.5 L176.0 334.1 L224.0 337.0 L288.0 339.2 L400.0 341.3" fill="none" stroke="#66b3ff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<line x1="530.0" y1="350.0" x2="860.0" y2="350.0" stroke="#f8fafc" stroke-width="1.6" marker-end="url(#arrow-white)" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="530.0" y1="350.0" x2="530.0" y2="50.0" stroke="#f8fafc" stroke-width="1.6" marker-end="url(#arrow-white)" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="690.0" y="394.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="normal">x (log scale)</text>
+<text x="482.0" y="205.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="normal" transform="rotate(-90 482.0 205.0)">L(x) (log scale)</text>
+<line x1="530.0" y1="350.0" x2="530.0" y2="355.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="530.0" y="371.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">1</text>
+<line x1="636.7" y1="350.0" x2="636.7" y2="355.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="636.7" y1="60.0" x2="636.7" y2="350.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="636.7" y="371.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">10</text>
+<line x1="743.3" y1="350.0" x2="743.3" y2="355.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="743.3" y1="60.0" x2="743.3" y2="350.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="743.3" y="371.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">100</text>
+<line x1="850.0" y1="350.0" x2="850.0" y2="355.0" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="850.0" y1="60.0" x2="850.0" y2="350.0" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="850.0" y="371.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="middle" font-weight="normal">1000</text>
+<line x1="525.0" y1="253.1" x2="530.0" y2="253.1" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="530.0" y1="253.1" x2="850.0" y2="253.1" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="521.0" y="257.1" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">10</text>
+<line x1="525.0" y1="67.7" x2="530.0" y2="67.7" stroke="#adb9cb" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<line x1="530.0" y1="67.7" x2="850.0" y2="67.7" stroke="#3a4454" stroke-width="1" stroke-dasharray="3 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+<text x="521.0" y="71.7" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" fill="#adb9cb" text-anchor="end" font-weight="normal">100</text>
+<path d="M530.0 67.7 L850.0 345.8" fill="none" stroke="#5ad4b5" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<text x="450.0" y="440.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="normal">Same function L(x) = 100·x<tspan dy="-6" font-size="11">−0.5</tspan><tspan dy="6">. Each ×10 in x multiplies L by 10</tspan><tspan dy="-6" font-size="11">b</tspan><tspan dy="6"> ≈ 0.32.</tspan></text>
+</svg>

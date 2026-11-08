@@ -1,0 +1,22 @@
+<svg width="100%" viewBox="0 0 900 466" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Opportunity discovery funnel</title>
+<desc>Client inputs are narrowed through AI-assisted analysis and expert effort down to four golden opportunities.</desc>
+<g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+<polygon points="40.0,20 860.0,20 821.3,86 78.7,86" fill="#20344c" stroke="#66b3ff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="49" fill="#f8fafc" font-size="16" font-weight="600" text-anchor="middle">Data &amp; connection metrics</text>
+<text x="450" y="70" fill="#adb9cb" font-size="13" text-anchor="middle">2 workshops · 8 deep dives · 63 files</text>
+<polygon points="82.3,92 817.7,92 779.0,158 121.0,158" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="121" fill="#f8fafc" font-size="16" font-weight="600" text-anchor="middle">Technical &amp; expert effort</text>
+<text x="450" y="142" fill="#adb9cb" font-size="13" text-anchor="middle">AI-assisted corpus analysis · 200+ expert hours</text>
+<polygon points="124.5,164 775.5,164 736.8,230 163.2,230" fill="#302b46" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="193" fill="#f8fafc" font-size="16" font-weight="600" text-anchor="middle">Analysis breadth</text>
+<text x="450" y="214" fill="#adb9cb" font-size="13" text-anchor="middle">18 metrics mapped · 75 pain points identified</text>
+<polygon points="166.8,236 733.2,236 694.5,302 205.5,302" fill="#272f3b" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="265" fill="#f8fafc" font-size="16" font-weight="600" text-anchor="middle">100+ initial ideas</text>
+<text x="450" y="286" fill="#adb9cb" font-size="13" text-anchor="middle">considered</text>
+<polygon points="209.0,308 691.0,308 652.3,374 247.7,374" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="337" fill="#f8fafc" font-size="16" font-weight="600" text-anchor="middle">17 opportunities</text>
+<text x="450" y="358" fill="#adb9cb" font-size="13" text-anchor="middle">discovered</text>
+<polygon points="251.3,380 648.7,380 610.0,446 290.0,446" fill="#3d3326" stroke="#ffc778" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="450" y="419" fill="#f8fafc" font-size="17" font-weight="700" text-anchor="middle">4 golden opportunities</text>
+</g></svg>

@@ -1,0 +1,30 @@
+<svg width="100%" viewBox="0 0 760 500" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>AI and its contributing disciplines</title>
+<desc>Five overlapping disciplines (psychology, statistics, neuroscience, philosophy, computer science) surround artificial intelligence, with machine learning at its core.</desc>
+<defs>
+<marker id="a-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="a-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="a-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="a-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="a-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff939b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="a-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="a-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<circle cx="380" cy="150" r="115" fill="#3f2a33" fill-opacity="0.55" stroke="#ff939b" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="494" cy="233" r="115" fill="#302b46" fill-opacity="0.55" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="451" cy="367" r="115" fill="#3d3326" fill-opacity="0.55" stroke="#ffc778" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="309" cy="367" r="115" fill="#1b3835" fill-opacity="0.55" stroke="#5ad4b5" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="266" cy="233" r="115" fill="#272f3b" fill-opacity="0.55" stroke="#adb9cb" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="380" y="98" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#ff939b" text-anchor="middle" font-weight="600">Psychology</text>
+<text x="549" y="221" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#b89aff" text-anchor="middle" font-weight="600">Statistics</text>
+<text x="485" y="420" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#ffc778" text-anchor="middle" font-weight="600">Neuroscience</text>
+<text x="275" y="420" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#5ad4b5" text-anchor="middle" font-weight="600">Philosophy</text>
+<text x="211" y="211" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#adb9cb" text-anchor="middle" font-weight="600">Computer</text>
+<text x="211" y="230" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#adb9cb" text-anchor="middle" font-weight="600">Science</text>
+<circle cx="380" cy="270" r="88" fill="#20344c" fill-opacity="0.92" stroke="#66b3ff" stroke-width="2.2" vector-effect="non-scaling-stroke"/>
+<circle cx="380" cy="288" r="46" fill="#1b3835" stroke="#5ad4b5" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="380" y="207" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="600">Artificial</text>
+<text x="380" y="225" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="600">Intelligence</text>
+<text x="380" y="285" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal">Machine</text>
+<text x="380" y="302" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle" font-weight="normal">Learning</text>
+</svg>

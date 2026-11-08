@@ -1,0 +1,36 @@
+<svg width="100%" viewBox="0 0 760 410" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Agent harness around an LLM</title>
+<desc>The LLM sits outside a dashed harness boundary that contains third-party tools, skills, loop control, sub-agents, system prompts, code sandbox, RAG and context loading.</desc>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" text-anchor="middle">
+    <rect x="200" y="32" width="530" height="350" rx="6" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-dasharray="8 6"/>
+    <text x="262" y="25" font-size="16" font-weight="700" fill="#f8fafc">Harness</text>
+    <rect x="30" y="150" width="130" height="86" rx="10" fill="#302b46" stroke="#b89aff" stroke-width="2.2"/>
+    <text x="95" y="199" font-size="20" font-weight="700" fill="#f8fafc">LLM</text>
+    <rect x="220" y="56" width="250" height="72" rx="8" fill="#3d3326" stroke="#ffc778" stroke-width="1.8"/>
+    <text x="345" y="97" font-size="14" fill="#f8fafc">3rd-Party Tools</text>
+    <rect x="478" y="56" width="70" height="94" rx="8" fill="#3d3326" stroke="#ffc778" stroke-width="1.8"/>
+    <text x="513" y="108" font-size="13" fill="#f8fafc">Skills</text>
+    <rect x="556" y="56" width="156" height="174" rx="8" fill="#3f2a33" stroke="#ff939b" stroke-width="1.8"/>
+    <text x="634" y="139" font-size="14" fill="#f8fafc">Loop</text>
+    <text x="634" y="157" font-size="14" fill="#f8fafc">Control</text>
+    <rect x="478" y="158" width="70" height="72" rx="8" fill="#272f3b" stroke="#adb9cb" stroke-width="1.8"/>
+    <text x="513" y="190" font-size="13" fill="#f8fafc">Sub-</text>
+    <text x="513" y="207" font-size="13" fill="#f8fafc">agents</text>
+    <rect x="220" y="136" width="110" height="152" rx="8" fill="#20344c" stroke="#66b3ff" stroke-width="1.8"/>
+    <text x="275" y="207" font-size="14" fill="#f8fafc">System</text>
+    <text x="275" y="225" font-size="14" fill="#f8fafc">Prompts</text>
+    <rect x="220" y="296" width="110" height="68" rx="8" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8"/>
+    <text x="275" y="335" font-size="13" fill="#f8fafc">Code Sandbox</text>
+    <rect x="338" y="238" width="210" height="126" rx="8" fill="#302b46" stroke="#b89aff" stroke-width="1.8"/>
+    <text x="443" y="306" font-size="14" fill="#f8fafc">RAG</text>
+    <rect x="556" y="238" width="156" height="126" rx="8" fill="#20344c" stroke="#66b3ff" stroke-width="1.8"/>
+    <text x="634" y="298" font-size="14" fill="#f8fafc">Context</text>
+    <text x="634" y="316" font-size="14" fill="#f8fafc">Loading</text>
+    <path d="M160 172 L455 178" fill="none" stroke="#b89aff" stroke-width="2" marker-end="url(#ah)" vector-effect="non-scaling-stroke"/>
+  </g>
+</svg>

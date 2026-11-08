@@ -1,0 +1,150 @@
+<svg width="100%" viewBox="0 0 1000 700" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Dynamic Bayesian decision network for the sugarcane grower</title>
+<desc>Two time slices, previous day (t) and current day (t+1). Observed weather and previous cane dryness determine cane dryness; cane dryness and current-day forecasts determine burning conditions; four-day forecasts determine advance burning requirements; the intention selection node chooses the amount of cane to burn, scored by the value of burning utility node together with grower size and current day burning requirements.</desc>
+<defs>
+<marker id="db-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="db-w" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<line x1="500" y1="20" x2="500" y2="600" stroke="#ff939b" stroke-width="1.6" stroke-dasharray="8 6"/>
+<rect x="8" y="22" width="640" height="140" rx="14" fill="none" stroke="#ff939b" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="16" y="40" fill="#ff939b" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" font-weight="700" text-anchor="start">“Cane dryness” nodes</text>
+<rect x="585" y="206" width="345" height="68" rx="14" fill="none" stroke="#ff939b" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="590" y="198" fill="#ff939b" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" font-weight="700" text-anchor="start">“Current day’s weather” nodes</text>
+<rect x="762" y="282" width="234" height="128" rx="14" fill="none" stroke="#ff939b" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="990" y="424" fill="#ff939b" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" font-weight="700" text-anchor="end">“Advance burning requirements”</text>
+<rect x="515" y="512" width="190" height="62" rx="14" fill="none" stroke="#ff939b" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="515" y="592" fill="#ff939b" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" font-weight="700" text-anchor="start">“Current day’s burning requirements”</text>
+<ellipse cx="200" cy="60" rx="48" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="200" y="57" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Observed</text>
+<text x="200" y="71" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">rain type</text>
+<ellipse cx="310" cy="60" rx="48" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="310" y="57" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Observed</text>
+<text x="310" y="71" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">wind</text>
+<ellipse cx="420" cy="60" rx="48" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="420" y="57" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Observed</text>
+<text x="420" y="71" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">max temp</text>
+<ellipse cx="75" cy="130" rx="62" ry="20" fill="#302b46" stroke="#b89aff" stroke-width="1.6"/>
+<text x="75" y="134" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Cane dryness</text>
+<ellipse cx="150" cy="240" rx="50" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="150" y="237" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Rain type</text>
+<text x="150" y="251" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">forecast</text>
+<ellipse cx="260" cy="240" rx="50" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="260" y="237" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Wind</text>
+<text x="260" y="251" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">forecast</text>
+<ellipse cx="370" cy="240" rx="50" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="370" y="237" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Max temp</text>
+<text x="370" y="251" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">forecast</text>
+<ellipse cx="325" cy="310" rx="52" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="325" y="307" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Rain forecast</text>
+<text x="325" y="321" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">next 4 days</text>
+<ellipse cx="440" cy="310" rx="52" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="440" y="307" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Wind forecast</text>
+<text x="440" y="321" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">next 4 days</text>
+<ellipse cx="130" cy="375" rx="78" ry="22" fill="#302b46" stroke="#b89aff" stroke-width="1.6" stroke-dasharray="5 3"/>
+<text x="130" y="379" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle" font-style="italic">Burning conditions</text>
+<ellipse cx="370" cy="378" rx="82" ry="24" fill="#302b46" stroke="#b89aff" stroke-width="1.6" stroke-dasharray="5 3"/>
+<text x="370" y="375" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle" font-style="italic">Advance burning</text>
+<text x="370" y="389" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle" font-style="italic">requirements</text>
+<rect x="22" y="432" width="170" height="46" rx="4" fill="#3d3326" stroke="#ffc778" stroke-width="1.8"/>
+<text x="107" y="451" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Intention selection:</text>
+<text x="107" y="467" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">amount of cane to burn</text>
+<polygon points="258,455 340,429 422,455 340,481" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8"/>
+<text x="340" y="459" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Value of burning</text>
+<ellipse cx="105" cy="543" rx="85" ry="24" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="105" y="540" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle" font-style="italic">Current day’s burning</text>
+<text x="105" y="554" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle" font-style="italic">requirements</text>
+<ellipse cx="330" cy="543" rx="42" ry="22" fill="#272f3b" stroke="#adb9cb" stroke-width="1.6"/>
+<text x="330" y="540" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Grower</text>
+<text x="330" y="554" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">size</text>
+<line x1="85" y1="150" x2="120" y2="350" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="147.6" y1="262" x2="135.0" y2="352" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="244.4" y1="262" x2="162.5" y2="352" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="341.2" y1="262" x2="190.0" y2="352" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="325" y1="332" x2="356.5" y2="353" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="440" y1="332" x2="391.0" y2="353" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="190" y1="392" x2="282" y2="445" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="360" y1="402" x2="344" y2="428" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="193" y1="455" x2="256" y2="455" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="330" y1="520" x2="338" y2="483" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="105" y1="518" x2="105" y2="481" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="180" y1="530" x2="300" y2="466" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<text x="250" y="628" fill="#ff939b" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="700" text-anchor="middle">Previous day</text>
+<text x="250" y="648" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" font-weight="500" text-anchor="middle">Time step: t</text>
+<ellipse cx="730" cy="60" rx="48" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="730" y="57" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Observed</text>
+<text x="730" y="71" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">rain type</text>
+<ellipse cx="840" cy="60" rx="48" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="840" y="57" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Observed</text>
+<text x="840" y="71" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">wind</text>
+<ellipse cx="950" cy="60" rx="48" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="950" y="57" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Observed</text>
+<text x="950" y="71" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">max temp</text>
+<ellipse cx="575" cy="130" rx="62" ry="20" fill="#302b46" stroke="#b89aff" stroke-width="1.6"/>
+<text x="575" y="134" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Cane dryness</text>
+<ellipse cx="650" cy="240" rx="50" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="650" y="237" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Rain type</text>
+<text x="650" y="251" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">forecast</text>
+<ellipse cx="760" cy="240" rx="50" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="760" y="237" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Wind</text>
+<text x="760" y="251" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">forecast</text>
+<ellipse cx="870" cy="240" rx="50" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="870" y="237" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Max temp</text>
+<text x="870" y="251" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">forecast</text>
+<ellipse cx="825" cy="310" rx="52" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="825" y="307" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Rain forecast</text>
+<text x="825" y="321" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">next 4 days</text>
+<ellipse cx="940" cy="310" rx="52" ry="22" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="940" y="307" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Wind forecast</text>
+<text x="940" y="321" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">next 4 days</text>
+<ellipse cx="630" cy="375" rx="78" ry="22" fill="#302b46" stroke="#b89aff" stroke-width="1.6" stroke-dasharray="5 3"/>
+<text x="630" y="379" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle" font-style="italic">Burning conditions</text>
+<ellipse cx="870" cy="378" rx="82" ry="24" fill="#302b46" stroke="#b89aff" stroke-width="1.6" stroke-dasharray="5 3"/>
+<text x="870" y="375" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle" font-style="italic">Advance burning</text>
+<text x="870" y="389" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle" font-style="italic">requirements</text>
+<rect x="522" y="432" width="170" height="46" rx="4" fill="#3d3326" stroke="#ffc778" stroke-width="1.8"/>
+<text x="607" y="451" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Intention selection:</text>
+<text x="607" y="467" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">amount of cane to burn</text>
+<polygon points="758,455 840,429 922,455 840,481" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.8"/>
+<text x="840" y="459" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Value of burning</text>
+<ellipse cx="605" cy="543" rx="85" ry="24" fill="#20344c" stroke="#66b3ff" stroke-width="1.6"/>
+<text x="605" y="540" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle" font-style="italic">Current day’s burning</text>
+<text x="605" y="554" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle" font-style="italic">requirements</text>
+<ellipse cx="830" cy="543" rx="42" ry="22" fill="#272f3b" stroke="#adb9cb" stroke-width="1.6"/>
+<text x="830" y="540" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">Grower</text>
+<text x="830" y="554" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" font-weight="600" text-anchor="middle">size</text>
+<line x1="585" y1="150" x2="620" y2="350" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="647.6" y1="262" x2="635.0" y2="352" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="744.4" y1="262" x2="662.5" y2="352" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="841.2" y1="262" x2="690.0" y2="352" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="825" y1="332" x2="856.5" y2="353" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="940" y1="332" x2="891.0" y2="353" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="690" y1="392" x2="782" y2="445" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="860" y1="402" x2="844" y2="428" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="693" y1="455" x2="756" y2="455" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="830" y1="520" x2="838" y2="483" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="605" y1="518" x2="605" y2="481" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<line x1="680" y1="530" x2="800" y2="466" stroke="#adb9cb" stroke-width="1.4" marker-end="url(#db-g)"/>
+<text x="750" y="628" fill="#ff939b" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" font-weight="700" text-anchor="middle">Current day</text>
+<text x="750" y="648" fill="#f8fafc" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" font-weight="500" text-anchor="middle">Time step: t+1</text>
+<line x1="137" y1="130" x2="511" y2="130" stroke="#f8fafc" stroke-width="1.4" marker-end="url(#db-w)"/>
+<line x1="210" y1="82" x2="497.6" y2="120" stroke="#f8fafc" stroke-width="1.4" marker-end="url(#db-w)"/>
+<line x1="320" y1="82" x2="505.3" y2="120" stroke="#f8fafc" stroke-width="1.4" marker-end="url(#db-w)"/>
+<line x1="430" y1="82" x2="513.0" y2="120" stroke="#f8fafc" stroke-width="1.4" marker-end="url(#db-w)"/>
+<line x1="637" y1="130" x2="990" y2="130" stroke="#f8fafc" stroke-width="1.4" marker-end="url(#db-w)"/>
+<line x1="742" y1="82" x2="770" y2="118" stroke="#f8fafc" stroke-width="1.4" marker-end="url(#db-w)"/>
+<line x1="852" y1="82" x2="880" y2="118" stroke="#f8fafc" stroke-width="1.4" marker-end="url(#db-w)"/>
+<line x1="962" y1="82" x2="988" y2="118" stroke="#f8fafc" stroke-width="1.4" marker-end="url(#db-w)"/>
+<text x="985" y="150" fill="#adb9cb" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" font-weight="500" text-anchor="end">to t+2</text>
+<rect x="60" y="660" width="22" height="14" rx="3" fill="#20344c" stroke="#66b3ff" stroke-width="1.4"/>
+<text x="90" y="672" fill="#adb9cb" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" font-weight="500" text-anchor="start">Percepts</text>
+<rect x="210" y="660" width="22" height="14" rx="3" fill="#302b46" stroke="#b89aff" stroke-width="1.4"/>
+<text x="240" y="672" fill="#adb9cb" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" font-weight="500" text-anchor="start">Inferred beliefs</text>
+<rect x="360" y="660" width="22" height="14" rx="3" fill="#302b46" stroke="#b89aff" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="390" y="672" fill="#adb9cb" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" font-weight="500" text-anchor="start">Outcome node</text>
+<rect x="510" y="660" width="22" height="14" rx="3" fill="#3d3326" stroke="#ffc778" stroke-width="1.4"/>
+<text x="540" y="672" fill="#adb9cb" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" font-weight="500" text-anchor="start">Intention selection</text>
+<rect x="660" y="660" width="22" height="14" rx="3" fill="#1b3835" stroke="#5ad4b5" stroke-width="1.4"/>
+<text x="690" y="672" fill="#adb9cb" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" font-weight="500" text-anchor="start">Utility</text>
+<rect x="810" y="660" width="22" height="14" rx="3" fill="#272f3b" stroke="#adb9cb" stroke-width="1.4"/>
+<text x="840" y="672" fill="#adb9cb" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" font-weight="500" text-anchor="start">Constant</text>
+</svg>

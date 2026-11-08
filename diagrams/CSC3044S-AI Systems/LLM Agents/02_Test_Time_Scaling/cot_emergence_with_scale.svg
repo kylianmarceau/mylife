@@ -1,0 +1,163 @@
+<svg width="100%" viewBox="0 0 900 655" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Chain-of-thought prompting emerges with scale</title>
+<desc>Solve rate versus model size on GSM8K, SVAMP and MAWPS for LaMDA, GPT and PaLM; CoT only helps at the largest scales.</desc>
+<defs><marker id="m-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#66b3ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#b89aff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5ad4b5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffc778" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff939b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="m-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#f8fafc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<line x1="170" y1="28" x2="200" y2="28" stroke="#adb9cb" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<circle cx="185" cy="28" r="3" fill="#adb9cb" stroke="#adb9cb" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+<text x="208" y="32" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#adb9cb" text-anchor="start">Standard prompting</text>
+<line x1="380" y1="28" x2="410" y2="28" stroke="#b89aff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<circle cx="395" cy="28" r="5" fill="none" stroke="#b89aff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<text x="418" y="32" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#b89aff" text-anchor="start">Chain-of-thought prompting</text>
+<line x1="630" y1="28" x2="660" y2="28" stroke="#ffc778" stroke-width="2" stroke-dasharray="6 4" vector-effect="non-scaling-stroke"/>
+<text x="668" y="32" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#ffc778" text-anchor="start">Prior supervised best</text>
+<text x="40" y="150.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="600" transform="rotate(-90 40 150.0)">GSM8K</text>
+<text x="62" y="150.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="middle" transform="rotate(-90 62 150.0)">solve rate (%)</text>
+<text x="230.0" y="66" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="600">LaMDA</text>
+<line x1="120" y1="220" x2="340" y2="220" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="120" y1="80" x2="120" y2="220" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<text x="114" y="224.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">0</text>
+<text x="114" y="177.33333333333334" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">20</text>
+<text x="114" y="130.66666666666669" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">40</text>
+<text x="114" y="84.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">60</text>
+<line x1="120" y1="91.66666666666666" x2="340" y2="91.66666666666666" stroke="#ffc778" stroke-width="1.8" stroke-dasharray="6 4" vector-effect="non-scaling-stroke"/>
+<polyline points="136.0,217.7 183.0,217.7 230.0,215.3 277.0,208.3 324.0,203.7" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="136.0" cy="217.66666666666666" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="183.0" cy="217.66666666666666" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="230.0" cy="215.33333333333334" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="277.0" cy="208.33333333333334" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="324.0" cy="203.66666666666666" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<polyline points="136.0,217.7 183.0,215.3 230.0,215.3 277.0,201.3 324.0,187.3" fill="none" stroke="#b89aff" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="136.0" cy="217.66666666666666" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="183.0" cy="215.33333333333334" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="230.0" cy="215.33333333333334" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="277.0" cy="201.33333333333334" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="324.0" cy="187.33333333333334" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="490.0" y="66" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="600">GPT</text>
+<line x1="380" y1="220" x2="600" y2="220" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="380" y1="80" x2="380" y2="220" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="380" y1="91.66666666666666" x2="600" y2="91.66666666666666" stroke="#ffc778" stroke-width="1.8" stroke-dasharray="6 4" vector-effect="non-scaling-stroke"/>
+<polyline points="396.0,217.7 458.7,217.7 521.3,215.3 584.0,185.0" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="396.0" cy="217.66666666666666" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="458.6666666666667" cy="217.66666666666666" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="521.3333333333334" cy="215.33333333333334" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="584.0" cy="185.0" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<polyline points="396.0,217.7 458.7,217.7 521.3,213.0 584.0,112.7" fill="none" stroke="#b89aff" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="396.0" cy="217.66666666666666" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="458.6666666666667" cy="217.66666666666666" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="521.3333333333334" cy="213.0" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="584.0" cy="112.66666666666667" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="750.0" y="66" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="600">PaLM</text>
+<line x1="640" y1="220" x2="860" y2="220" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="640" y1="80" x2="640" y2="220" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="640" y1="91.66666666666666" x2="860" y2="91.66666666666666" stroke="#ffc778" stroke-width="1.8" stroke-dasharray="6 4" vector-effect="non-scaling-stroke"/>
+<polyline points="656.0,208.3 750.0,196.7 844.0,180.3" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="656.0" cy="208.33333333333334" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="750.0" cy="196.66666666666666" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="844.0" cy="180.33333333333334" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<polyline points="656.0,210.7 750.0,150.0 844.0,87.0" fill="none" stroke="#b89aff" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="656.0" cy="210.66666666666666" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="750.0" cy="150.0" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="844.0" cy="87.0" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="40" y="325.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="600" transform="rotate(-90 40 325.0)">SVAMP</text>
+<text x="62" y="325.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="middle" transform="rotate(-90 62 325.0)">solve rate (%)</text>
+<line x1="120" y1="395" x2="340" y2="395" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="120" y1="255" x2="120" y2="395" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<text x="114" y="399.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">0</text>
+<text x="114" y="364.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">20</text>
+<text x="114" y="329.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">40</text>
+<text x="114" y="294.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">60</text>
+<text x="114" y="259.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">80</text>
+<line x1="120" y1="312.75" x2="340" y2="312.75" stroke="#ffc778" stroke-width="1.8" stroke-dasharray="6 4" vector-effect="non-scaling-stroke"/>
+<polyline points="136.0,391.5 183.0,389.8 230.0,388.0 277.0,368.8 324.0,342.5" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="136.0" cy="391.5" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="183.0" cy="389.75" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="230.0" cy="388.0" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="277.0" cy="368.75" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="324.0" cy="342.5" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<polyline points="136.0,391.5 183.0,389.8 230.0,388.0 277.0,360.0 324.0,330.2" fill="none" stroke="#b89aff" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="136.0" cy="391.5" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="183.0" cy="389.75" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="230.0" cy="388.0" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="277.0" cy="360.0" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="324.0" cy="330.25" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="380" y1="395" x2="600" y2="395" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="380" y1="255" x2="380" y2="395" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="380" y1="312.75" x2="600" y2="312.75" stroke="#ffc778" stroke-width="1.8" stroke-dasharray="6 4" vector-effect="non-scaling-stroke"/>
+<polyline points="396.0,393.2 458.7,391.5 521.3,388.0 584.0,276.0" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="396.0" cy="393.25" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="458.6666666666667" cy="391.5" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="521.3333333333334" cy="388.0" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="584.0" cy="276.0" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<polyline points="396.0,393.2 458.7,391.5 521.3,386.2 584.0,274.2" fill="none" stroke="#b89aff" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="396.0" cy="393.25" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="458.6666666666667" cy="391.5" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="521.3333333333334" cy="386.25" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="584.0" cy="274.25" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<line x1="640" y1="395" x2="860" y2="395" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="640" y1="255" x2="640" y2="395" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="640" y1="312.75" x2="860" y2="312.75" stroke="#ffc778" stroke-width="1.8" stroke-dasharray="6 4" vector-effect="non-scaling-stroke"/>
+<polyline points="656.0,353.0 750.0,293.5 844.0,274.2" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="656.0" cy="353.0" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="750.0" cy="293.5" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="844.0" cy="274.25" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<polyline points="656.0,351.2 750.0,286.5 844.0,265.5" fill="none" stroke="#b89aff" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="656.0" cy="351.25" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="750.0" cy="286.5" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="844.0" cy="265.5" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="40" y="500.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#f8fafc" text-anchor="middle" font-weight="600" transform="rotate(-90 40 500.0)">MAWPS</text>
+<text x="62" y="500.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="middle" transform="rotate(-90 62 500.0)">solve rate (%)</text>
+<line x1="120" y1="570" x2="340" y2="570" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="120" y1="430" x2="120" y2="570" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<text x="114" y="574.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">0</text>
+<text x="114" y="539.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">25</text>
+<text x="114" y="504.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">50</text>
+<text x="114" y="469.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">75</text>
+<text x="114" y="434.0" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11" fill="#adb9cb" text-anchor="end">100</text>
+<line x1="120" y1="446.8" x2="340" y2="446.8" stroke="#ffc778" stroke-width="1.8" stroke-dasharray="6 4" vector-effect="non-scaling-stroke"/>
+<polyline points="136.0,567.2 183.0,565.8 230.0,563.0 277.0,542.0 324.0,509.8" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="136.0" cy="567.2" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="183.0" cy="565.8" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="230.0" cy="563.0" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="277.0" cy="542.0" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="324.0" cy="509.8" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<polyline points="136.0,567.2 183.0,564.4 230.0,563.0 277.0,528.0 324.0,490.2" fill="none" stroke="#b89aff" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="136.0" cy="567.2" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="183.0" cy="564.4" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="230.0" cy="563.0" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="277.0" cy="528.0" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="324.0" cy="490.2" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="136.0" y="588" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" fill="#adb9cb" text-anchor="middle">0.4</text>
+<text x="230.0" y="588" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" fill="#adb9cb" text-anchor="middle">8</text>
+<text x="324.0" y="588" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" fill="#adb9cb" text-anchor="middle">137</text>
+<line x1="380" y1="570" x2="600" y2="570" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="380" y1="430" x2="380" y2="570" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="380" y1="446.8" x2="600" y2="446.8" stroke="#ffc778" stroke-width="1.8" stroke-dasharray="6 4" vector-effect="non-scaling-stroke"/>
+<polyline points="396.0,568.6 458.7,567.2 521.3,563.0 584.0,469.2" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="396.0" cy="568.6" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="458.6666666666667" cy="567.2" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="521.3333333333334" cy="563.0" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="584.0" cy="469.2" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<polyline points="396.0,568.6 458.7,567.2 521.3,563.0 584.0,446.8" fill="none" stroke="#b89aff" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="396.0" cy="568.6" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="458.6666666666667" cy="567.2" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="521.3333333333334" cy="563.0" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="584.0" cy="446.8" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="396.0" y="588" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" fill="#adb9cb" text-anchor="middle">0.4</text>
+<text x="521.3333333333334" y="588" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" fill="#adb9cb" text-anchor="middle">7</text>
+<text x="584.0" y="588" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" fill="#adb9cb" text-anchor="middle">175</text>
+<line x1="640" y1="570" x2="860" y2="570" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="640" y1="430" x2="640" y2="570" stroke="#f8fafc" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+<line x1="640" y1="446.8" x2="860" y2="446.8" stroke="#ffc778" stroke-width="1.8" stroke-dasharray="6 4" vector-effect="non-scaling-stroke"/>
+<polyline points="656.0,535.0 750.0,483.2 844.0,458.0" fill="none" stroke="#adb9cb" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="656.0" cy="535.0" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="750.0" cy="483.2" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<circle cx="844.0" cy="458.0" r="2.5" fill="#adb9cb" stroke="#adb9cb" stroke-width="1" vector-effect="non-scaling-stroke"/>
+<polyline points="656.0,528.0 750.0,458.0 844.0,439.8" fill="none" stroke="#b89aff" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+<circle cx="656.0" cy="528.0" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="750.0" cy="458.0" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<circle cx="844.0" cy="439.8" r="5" fill="none" stroke="#b89aff" stroke-width="1.8" vector-effect="non-scaling-stroke"/>
+<text x="656.0" y="588" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" fill="#adb9cb" text-anchor="middle">8</text>
+<text x="750.0" y="588" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" fill="#adb9cb" text-anchor="middle">62</text>
+<text x="844.0" y="588" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="11.5" fill="#adb9cb" text-anchor="middle">540</text>
+<text x="470" y="640" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle">Model scale (# parameters in billions)</text>
+</svg>
